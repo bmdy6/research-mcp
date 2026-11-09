@@ -1,31 +1,25 @@
-# Preview and execution evidence
+# Usage notes
 
-Check out `feat/v0.1` before running the three README commands; if the repository is inaccessible, an authorized GitHub identity is required. Anonymous installation is not promised.
+## Installation and identity
 
-`git clone --branch feat/v0.1 https://github.com/bmdy6/research-mcp.git`
+Quick start installs from the GitHub default branch, main, without cloning. It requires Python >=3.10, uv and network access. While the repository is private, Git needs an authorized local credential; reading GitHub content additionally needs gh and `gh auth login`. Provider keys are optional; see the README environment table.
 
-The default branch currently contains only seed files, so the requested `uvx --from git+https://github.com/bmdy6/research-mcp research-mcp mcp` cannot install yet. Even after integration, the base package does not install `[mcp]` automatically; the three snippets are not verified client integrations.
+## MCP
 
-Inside the synced checkout, launch with `uv run research-mcp mcp`. Alternatively keep `command = uvx` and replace each configuration args array with:
+Use the corresponding README configuration for Claude Code `.mcp.json`, Codex `.codex/config.toml`, or Cursor `.cursor/mcp.json`. Each runs `uvx --from git+https://github.com/bmdy6/research-mcp --with "mcp>=1.0,<3" research-mcp mcp`; `--with` installs the optional MCP SDK. The stdio server exposes one tool, `research_search`, accepting either keywords for search or an http(s) URL for reading.
 
-```json
-["--with", "mcp", "--from", "git+https://github.com/bmdy6/research-mcp@feat/v0.1", "research-mcp", "mcp"]
-```
+Each configuration's exact argv passed real SDK `list_tools` and a tool call independently. Local client configurations were not changed, and GUI operation in the three clients was not tested.
 
-This preview requires an authorized GitHub identity. Stdio protocol behavior was tested separately; no client configuration files were changed.
+## Results and boundaries
 
-## Output provenance
+The hero comes from a real read of [cli/cli PR 14976](https://github.com/cli/cli/pull/14976): 3 reviews, 2 review_comments, and an original inline comment path and excerpt. This proves that read succeeded, not that every page or discussion page is complete; inspect coverage, truncated and continuation links.
 
-[output-excerpts.json](output-excerpts.json) stores commands, real field excerpts and raw capture hashes. Full originals stay in the task archive; installer logs containing temporary paths are excluded from Git. The hero capture, input script and field projection script are bundled; from an installed README skill, regenerate with `node scripts/run.mjs art --repo REPO --spec REPO/docs/readme/art.json --out REPO/docs/readme`.
+The capability table uses recorded search, webpage and Bilibili excerpts. The chart row runs the real extractor on an original JSON-LD Dataset fixture; it does not guarantee arbitrary online chart reading. Without a transcription key, Bilibili only attempts webpage fallback, which is not an audio transcript.
 
-The hero ran with a separate home, no provider keys and no gh credentials, so GitHub failed. This does not predict failure for users with configured gh. Its four-line field projection shows real results; the capability table retains JSON fields. Webpage and Bilibili reads used Python 3.12; python.org Python 3.13 failed without certificates, and system certificates/validation were not changed.
+## Troubleshooting
 
-Chart evidence uses the real `extract_chart_datasets` / `render_chart_datasets` functions on an original JSON-LD fixture. A live raw-JSON URL was rejected for unsupported content type, so arbitrary chart/API reading is not claimed. No paid audio transcription or relevance filtering was invoked.
+The README lists the impact of missing gh, bili and curl. Free Exa requests may be rate-limited; python.org Python on macOS requires `Install Certificates.command`. Enable fake-IP only after confirming a trusted proxy; keep TLS verification and private-address restrictions enabled.
 
-## Configuration sources
+## Configuration documentation
 
 [Claude Code MCP](https://code.claude.com/docs/en/mcp) · [Codex MCP](https://developers.openai.com/codex/mcp) · [Cursor MCP](https://cursor.com/docs/mcp) · [Python macOS certificates](https://docs.python.org/3/using/mac.html).
-
-## Verifier compatibility
-
-The skill only recognizes English `README.md` and Chinese `README.zh-CN.md`. Delivery keeps the requested Chinese primary README and `README.en.md`; V1–V11 run in a temporary filename-mapped mirror with byte-identical content, plus an actual Chinese first-screen inspection. Both baseline and candidate use offline local Markdown rendering, not live GitHub screenshots.
