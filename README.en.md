@@ -6,52 +6,43 @@ Give AI agents search results and source text through a CLI and MCP.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/readme/hero-dark.png">
-  <img src="docs/readme/hero-light.png" alt="A keyword search returns source URLs, partial status and a skipped rerank marker." width="640">
+  <img src="docs/readme/hero-light.png" alt="A successful GitHub PR read returns 3 reviews, 2 inline comments, a file path and comment excerpt." width="600">
 </picture>
 
-Recorded no-key search excerpt; partial means some channels failed, so coverage is incomplete.
+A real PR read: review counts, an inline comment path and its original excerpt.
 
 ## Quick start
 
-Run inside a `feat/v0.1` checkout with [uv](https://docs.astral.sh/uv/getting-started/installation/) and network access.
-
 ```sh
-uv sync --python 3.12 --extra mcp && uv run research-mcp --help
-uv run research-mcp search "mcp server" --limit 5 --format json
-uv run research-mcp fetch https://example.com --format json
+uvx --from git+https://github.com/bmdy6/research-mcp research-mcp --help
+uvx --from git+https://github.com/bmdy6/research-mcp research-mcp search "mcp server" --limit 5
+uvx --from git+https://github.com/bmdy6/research-mcp research-mcp fetch \
+  https://github.com/cli/cli/pull/14976
 ```
 
-
-Default-branch MCP examples are not ready yet; use the [preview configuration](docs/readme/reference.en.md) for now.
+MCP includes its SDK via `--with "mcp>=1.0,<3"`; see [usage notes](docs/readme/reference.en.md).
 
 <details><summary>Claude Code / Codex / Cursor · MCP configuration</summary>
 
 **Claude Code · .mcp.json**
 
 ```json
-{"mcpServers":{"research":{"command":"uvx","args":["--from","git+https://github.com/bmdy6/research-mcp","research-mcp","mcp"]}}}
+{"mcpServers":{"research":{"command":"uvx","args":["--from","git+https://github.com/bmdy6/research-mcp","--with","mcp>=1.0,<3","research-mcp","mcp"]}}}
 ```
-
-
 
 **Codex · .codex/config.toml**
 
 ```toml
 [mcp_servers.research]
 command = "uvx"
-args = ["--from", "git+https://github.com/bmdy6/research-mcp", "research-mcp", "mcp"]
+args = ["--from", "git+https://github.com/bmdy6/research-mcp", "--with", "mcp>=1.0,<3", "research-mcp", "mcp"]
 ```
-
-
 
 **Cursor · .cursor/mcp.json**
 
 ```json
-{"mcpServers":{"research":{"command":"uvx","args":["--from","git+https://github.com/bmdy6/research-mcp","research-mcp","mcp"]}}}
+{"mcpServers":{"research":{"command":"uvx","args":["--from","git+https://github.com/bmdy6/research-mcp","--with","mcp>=1.0,<3","research-mcp","mcp"]}}}
 ```
-
-
-
 
 </details>
 
@@ -63,7 +54,7 @@ args = ["--from", "git+https://github.com/bmdy6/research-mcp", "research-mcp", "
 
 ## Capabilities and recorded output
 
-These are real excerpts recorded on 2026-11-09 with original field names; see [execution evidence](docs/readme/reference.en.md) for provenance and reproduction. Network results vary; arXiv requires explicit selection.
+These are real excerpts recorded on 2026-11-09 with original field names; see [usage notes](docs/readme/reference.en.md) for provenance and reproduction. Network results vary; arXiv requires explicit selection.
 
 | Capability | Input | Recorded excerpt |
 |---|---|---|
@@ -83,7 +74,7 @@ The chart row is a local fixture run, not evidence of an online page read; extra
 
 ## Options
 
-Requires Python >=3.10; Quick start selects verified Python 3.12. The CLI has no required Python runtime dependencies; stdio MCP needs the optional `[mcp]` SDK.
+Requires Python >=3.10; Quick start installs from main without cloning; it needs [uv](https://docs.astral.sh/uv/getting-started/installation/) and network access. The CLI has no required Python runtime dependencies; stdio MCP needs the optional `[mcp]` SDK.
 
 | Option | Purpose |
 |---|---|
@@ -129,7 +120,7 @@ Sources: [CLI](research_mcp/cli.py), [search/read core](research_mcp/research.py
 
 **Why are results or transcripts missing?** Free Exa requests can be rate-limited; failure does not prove absence. Bilibili transcription needs `bili`, `GROQ_API_KEY` and downloadable audio; downloads may additionally need login/audio dependencies, and no-key webpage fallback can also fail.
 
-**Why does HTTPS fail on a Mac?** With python.org Python, run `Install Certificates.command` in its installation directory as the [official Python instructions](https://docs.python.org/3/using/mac.html) require; keep certificate validation enabled. The default-branch MCP examples above also lack the optional SDK; use the linked preview configuration for now, and note that GUI integration with the three clients has not been tested.
+**Why does HTTPS fail on a Mac?** With python.org Python, run `Install Certificates.command` in its installation directory as the [official Python instructions](https://docs.python.org/3/using/mac.html) require; keep certificate validation enabled. Each client configuration passed stdio tool discovery and a tool call with its exact argv; GUI integration has not been tested.
 
 ## Contributing
 
