@@ -6,52 +6,43 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/readme/hero-dark.zh-CN.png">
-  <img src="docs/readme/hero-light.zh-CN.png" alt="输入 mcp server，返回来源链接、partial 状态和未启用重排的标记。" width="640">
+  <img src="docs/readme/hero-light.zh-CN.png" alt="成功读取 GitHub PR：3 条审查、2 条行内评论，以及真实文件路径和评论节选。" width="600">
 </picture>
 
-无 key 实跑的搜索结果节选；partial 表示有渠道失败，不代表已搜全。
+真实 PR 读取：审查数、行内评论数、文件路径和原评论节选。
 
 ## 快速开始
 
-在 `feat/v0.1` 检出目录运行；需 [uv](https://docs.astral.sh/uv/getting-started/installation/) 和网络。
-
 ```sh
-uv sync --python 3.12 --extra mcp && uv run research-mcp --help
-uv run research-mcp search "mcp server" --limit 5 --format json
-uv run research-mcp fetch https://example.com --format json
+uvx --from git+https://github.com/bmdy6/research-mcp research-mcp --help
+uvx --from git+https://github.com/bmdy6/research-mcp research-mcp search "mcp server" --limit 5
+uvx --from git+https://github.com/bmdy6/research-mcp research-mcp fetch \
+  https://github.com/cli/cli/pull/14976
 ```
 
-
-MCP 默认分支示例尚未就绪；当前请用[试用配置](docs/readme/reference.zh-CN.md)。
+MCP 通过 `--with "mcp>=1.0,<3"` 安装 SDK；详见[使用说明](docs/readme/reference.zh-CN.md)。
 
 <details><summary>Claude Code / Codex / Cursor · MCP 配置</summary>
 
 **Claude Code · .mcp.json**
 
 ```json
-{"mcpServers":{"research":{"command":"uvx","args":["--from","git+https://github.com/bmdy6/research-mcp","research-mcp","mcp"]}}}
+{"mcpServers":{"research":{"command":"uvx","args":["--from","git+https://github.com/bmdy6/research-mcp","--with","mcp>=1.0,<3","research-mcp","mcp"]}}}
 ```
-
-
 
 **Codex · .codex/config.toml**
 
 ```toml
 [mcp_servers.research]
 command = "uvx"
-args = ["--from", "git+https://github.com/bmdy6/research-mcp", "research-mcp", "mcp"]
+args = ["--from", "git+https://github.com/bmdy6/research-mcp", "--with", "mcp>=1.0,<3", "research-mcp", "mcp"]
 ```
-
-
 
 **Cursor · .cursor/mcp.json**
 
 ```json
-{"mcpServers":{"research":{"command":"uvx","args":["--from","git+https://github.com/bmdy6/research-mcp","research-mcp","mcp"]}}}
+{"mcpServers":{"research":{"command":"uvx","args":["--from","git+https://github.com/bmdy6/research-mcp","--with","mcp>=1.0,<3","research-mcp","mcp"]}}}
 ```
-
-
-
 
 </details>
 
@@ -63,7 +54,7 @@ args = ["--from", "git+https://github.com/bmdy6/research-mcp", "research-mcp", "
 
 ## 能力与真实输出
 
-以下是 2026-11-09 的真实运行节选，保留原字段名；来源和复现方式见[运行证据](docs/readme/reference.zh-CN.md)。网络结果会变化，arXiv 仅在显式指定时启用。
+以下是 2026-11-09 的真实运行节选，保留原字段名；来源和使用方式见[使用说明](docs/readme/reference.zh-CN.md)。网络结果会变化，arXiv 仅在显式指定时启用。
 
 | 能力 | 输入 | 真实输出节选 |
 |---|---|---|
@@ -83,7 +74,7 @@ args = ["--from", "git+https://github.com/bmdy6/research-mcp", "research-mcp", "
 
 ## 选项
 
-需要 Python >=3.10；上述上手命令选择已实测的 Python 3.12。CLI 无必装 Python 运行依赖，stdio MCP 需可选 `[mcp]` SDK。
+需要 Python >=3.10；上手命令直接从 main 安装，无需克隆；需 [uv](https://docs.astral.sh/uv/getting-started/installation/) 和网络。CLI 无必装 Python 运行依赖，stdio MCP 需可选 `[mcp]` SDK。
 
 | 参数 | 作用 |
 |---|---|
@@ -129,7 +120,7 @@ args = ["--from", "git+https://github.com/bmdy6/research-mcp", "research-mcp", "
 
 **为什么搜不到或没有文字稿？** Exa 免费通道会限流，失败不等于不存在；B站转写需要 `bili`、`GROQ_API_KEY` 和可下载音频，下载链还可能需要登录/音频依赖。没有 key 时网页回退不保证成功，也不等于视频已读完。
 
-**Mac 上 HTTPS 失败怎么办？** python.org 版 Python 先运行安装目录中的 `Install Certificates.command`；这是 [Python 官方安装步骤](https://docs.python.org/3/using/mac.html)，不要关闭证书校验。上方默认分支 MCP 片段还缺可选 SDK，当前可运行的替代配置见试用说明；未做三个客户端的 GUI 接入验收。
+**Mac 上 HTTPS 失败怎么办？** python.org 版 Python 先运行安装目录中的 `Install Certificates.command`；这是 [Python 官方安装步骤](https://docs.python.org/3/using/mac.html)，不要关闭证书校验。三款客户端的配置均已按原 argv 通过 stdio 工具发现和调用；这不等于 GUI 界面操作已验收。
 
 ## 参与贡献
 
