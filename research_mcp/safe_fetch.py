@@ -17,8 +17,8 @@ from typing import Callable, Protocol, Sequence
 from urllib.parse import urljoin, urlsplit, urlunsplit
 
 
-_MESSAGES = {
-    "UNSAFE_URL": "URL 不符合公开 HTTPS 读取策略",
+SAFE_FETCH_MESSAGES = {
+    "UNSAFE_URL": "只支持公开的 https 链接；这个链接不符合读取规则",
     "UNSAFE_ADDRESS": "目标地址不是公网地址，已拦截",
     "DNS_FAILED": "无法安全解析目标地址",
     "DEADLINE_EXCEEDED": "公开读取超过总时间预算",
@@ -49,9 +49,17 @@ class SafeFetchError(Exception):
     """Only fixed categories can leave this boundary; never raw URL/IP/errors."""
 
     def __init__(self, code: str, *, fake_ip: bool = False) -> None:
-        self.code = code if code in _MESSAGES else "TRANSPORT_FAILED"
-        message = FAKE_IP_MESSAGE if self.code == "UNSAFE_ADDRESS" and fake_ip is True else _MESSAGES[self.code]
+        self.code = code if isinstance(code, str) and code in SAFE_FETCH_MESSAGES else "TRANSPORT_FAILED"
+        message = FAKE_IP_MESSAGE if self.code == "UNSAFE_ADDRESS" and fake_ip is True else SAFE_FETCH_MESSAGES[self.code]
         super().__init__(message)
+
+
+def safe_error_code(code: object, message: object) -> str | None:
+    """Recognize only a registered code paired with its exact fixed message."""
+    if isinstance(code, str) and code in SAFE_FETCH_MESSAGES and isinstance(message, str):
+        if message == SAFE_FETCH_MESSAGES[code] or (code == "UNSAFE_ADDRESS" and message == FAKE_IP_MESSAGE):
+            return code
+    return None
 
 
 @dataclass(frozen=True)

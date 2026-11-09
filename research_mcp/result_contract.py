@@ -11,10 +11,10 @@ import math
 from collections import Counter
 from dataclasses import dataclass
 
-from research_mcp.safe_fetch import FAKE_IP_MESSAGE, SafeFetchError
+from research_mcp.safe_fetch import safe_error_code
 
 LIST_FIELDS = ("source", "title", "url", "author", "play", "views", "published_at", "summary", "jev_relevance", "jev_keep")
-FETCH_FIELDS = ("hint", "object_type", "file", "discussion", "coverage", "coverage_note", "kind", "url", "ok", "repo", "content", "text", "title", "via", "language", "duration", "duration_seconds", "truncated", "transcript_error", "error", "retryable", "transcript", "source", "bvid", "char_count", "duration_used", "partial", "failed_segments")
+FETCH_FIELDS = ("hint", "upgraded_to_https", "object_type", "file", "discussion", "coverage", "coverage_note", "kind", "url", "ok", "repo", "content", "text", "title", "via", "language", "duration", "duration_seconds", "truncated", "transcript_error", "error", "retryable", "transcript", "source", "bvid", "char_count", "duration_used", "partial", "failed_segments")
 EXA_X_EMPTY_NOTE = (
     "本次包含 X/Twitter site: 限定的 Exa 查询成功，但没有返回结果；"
     "这只说明此检索路径未命中，不能据此断言 X 上没有相关讨论。"
@@ -117,7 +117,7 @@ def search_result(payload: object) -> dict:
 def fetch_result(payload: object) -> dict:
     if not isinstance(payload, dict):
         return error_result("fetch", "INVALID_RESULT", "读取结果格式无效")
-    if any(key in payload and type(payload[key]) is not bool for key in ("ok", "partial", "retryable")):
+    if any(key in payload and type(payload[key]) is not bool for key in ("ok", "partial", "retryable", "upgraded_to_https")):
         return error_result("fetch", "INVALID_RESULT", "读取成功标记格式无效")
     failed = payload.get("ok") is False
     empty_file = payload.get("object_type") == "file" and isinstance(payload.get("content"), str)
@@ -132,11 +132,8 @@ def fetch_result(payload: object) -> dict:
               "data": {key: payload[key] for key in FETCH_FIELDS if key in payload},
               "errors": [], "display_notes": []}
     if failed:
-        # Preserve only a recognized safety code paired with fixed core text.
-        unsafe_address = payload.get("error_code") == "UNSAFE_ADDRESS" and payload.get("error") in (
-            str(SafeFetchError("UNSAFE_ADDRESS")), FAKE_IP_MESSAGE,
-        )
-        result["errors"].append({"code": "UNSAFE_ADDRESS" if unsafe_address else "READ_FAILED", "message": payload.get("error") or "读取失败", "retryable": bool(payload.get("retryable"))})
+        code = safe_error_code(payload.get("error_code"), payload.get("error"))
+        result["errors"].append({"code": code or "READ_FAILED", "message": payload.get("error") or "读取失败", "retryable": bool(payload.get("retryable"))})
     elif transcript_unavailable:
         result["errors"].append({"code": "TRANSCRIPT_UNAVAILABLE", "message": "转写不可用，当前仅保留回退读取的网页内容"})
         result["display_notes"].append("网页正文或简介不等于视频文字稿；视频内容仍未完整读取。")
