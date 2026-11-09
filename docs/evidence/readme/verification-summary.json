@@ -1,0 +1,75 @@
+{
+  "score": 100,
+  "summary": {
+    "pass": 11,
+    "fail": 0,
+    "skip": 0
+  },
+  "ok": true,
+  "checks": [
+    {
+      "id": "V1",
+      "status": "pass",
+      "issues": []
+    },
+    {
+      "id": "V2",
+      "status": "pass",
+      "issues": []
+    },
+    {
+      "id": "V3",
+      "status": "pass",
+      "issues": []
+    },
+    {
+      "id": "V4",
+      "status": "pass",
+      "issues": []
+    },
+    {
+      "id": "V5",
+      "status": "pass",
+      "issues": []
+    },
+    {
+      "id": "V6",
+      "status": "pass",
+      "issues": []
+    },
+    {
+      "id": "V7",
+      "status": "pass",
+      "issues": []
+    },
+    {
+      "id": "V8",
+      "status": "pass",
+      "issues": []
+    },
+    {
+      "id": "V9",
+      "status": "pass",
+      "issues": []
+    },
+    {
+      "id": "V10",
+      "status": "pass",
+      "issues": []
+    },
+    {
+      "id": "V11",
+      "status": "pass",
+      "issues": []
+    }
+  ],
+  "beforeAuditScore": 60,
+  "renderer": "local-marked",
+  "remoteImages": "neutral-placeholder",
+  "onlineLinksChecked": true,
+  "filenameMapping": {
+    "README.en.md": "README.md",
+    "README.md": "README.zh-CN.md"
+  },
+  "note": "Mirror README content is byte-identical; a separate verify-brief uses the full three-command fenced block only for screen matching. Canonical stranger brief retains its first command."
+}
