@@ -1,0 +1,33 @@
+{
+  "id": "hero-compact",
+  "kind": "command-run",
+  "role": "core",
+  "command": "uv run --quiet --no-project --python 3.12 --with . sh docs/readme/inputs/search.sh | python3 docs/readme/inputs/summary.py",
+  "stdout": "partial · 2 URLs\nhacker_news + bilibili\nrerank: skipped_no_key\nfailed: github_search\n",
+  "stderr": "",
+  "exitCode": 0,
+  "signal": null,
+  "durationMs": 4257,
+  "timedOut": false,
+  "requiresTTY": false,
+  "environment": {
+    "node": "v20.19.2",
+    "platform": "darwin",
+    "arch": "arm64",
+    "ci": true,
+    "sharedGitHubAuth": false,
+    "stdin": "closed",
+    "isolation": "disposable copy; not an OS sandbox"
+  },
+  "input": "research-mcp search \\\n  \"mcp server\" --limit 2 \\\n  --format json\n",
+  "inputFile": {
+    "file": "capture-inputs/hero-compact/search.sh",
+    "sha256": "88d856514a8524e1bbaa4de8d284cb72e0f53cdcb498924a74a5a2e2d1335951"
+  },
+  "usedFiles": [
+    {
+      "file": "capture-inputs/hero-compact/search.sh",
+      "sha256": "88d856514a8524e1bbaa4de8d284cb72e0f53cdcb498924a74a5a2e2d1335951"
+    }
+  ]
+}

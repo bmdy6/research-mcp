@@ -1,0 +1,27 @@
+{
+  "readmes": [
+    {
+      "file": "README.md",
+      "headings": []
+    }
+  ],
+  "integrations": [
+    {
+      "id": "integration-en-python",
+      "claim": "Tool, platform or runtime mentioned in the README",
+      "value": "Python",
+      "source": "README.md:6",
+      "kind": "integration",
+      "readme": "README.md"
+    },
+    {
+      "id": "integration-en-json",
+      "claim": "Tool, platform or runtime mentioned in the README",
+      "value": "JSON",
+      "source": "README.md:7",
+      "kind": "integration",
+      "readme": "README.md"
+    }
+  ],
+  "badges": []
+}

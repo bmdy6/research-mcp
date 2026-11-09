@@ -1,0 +1,44 @@
+[
+  {
+    "claim": "GitHub、HN、B站、掘金和 Exa 并发检索，返回来源链接。",
+    "factIds": [
+      "search-concurrent",
+      "search-channels"
+    ]
+  },
+  {
+    "claim": "网页返回 Markdown，GitHub PR 保留审查、行内评论和分页 coverage。",
+    "factIds": [
+      "read-markdown",
+      "github-comments"
+    ]
+  },
+  {
+    "claim": "结果标明 partial、失败渠道和截断；B站网页不冒充视频文字稿。",
+    "factIds": [
+      "result-status",
+      "bili-fallback"
+    ]
+  },
+  {
+    "claim": "GitHub, HN, Bilibili, Juejin and Exa run concurrently and return source links.",
+    "factIds": [
+      "search-concurrent",
+      "search-channels"
+    ]
+  },
+  {
+    "claim": "Webpages return Markdown; GitHub PRs retain reviews, inline comments and pagination coverage.",
+    "factIds": [
+      "read-markdown",
+      "github-comments"
+    ]
+  },
+  {
+    "claim": "Results expose partial status, failed channels and truncation; Bilibili webpages never stand in for transcripts.",
+    "factIds": [
+      "result-status",
+      "bili-fallback"
+    ]
+  }
+]
