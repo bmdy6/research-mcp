@@ -10,6 +10,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import ipaddress
 import math
+import os
 import re
 import time
 from typing import Callable, Protocol, Sequence
@@ -18,7 +19,7 @@ from urllib.parse import urljoin, urlsplit, urlunsplit
 
 _MESSAGES = {
     "UNSAFE_URL": "URL 不符合公开 HTTPS 读取策略",
-    "UNSAFE_ADDRESS": "目标地址不在允许的公网范围",
+    "UNSAFE_ADDRESS": "目标地址不是公网地址，已拦截",
     "DNS_FAILED": "无法安全解析目标地址",
     "DEADLINE_EXCEEDED": "公开读取超过总时间预算",
     "TRANSPORT_FAILED": "公开读取传输失败",
@@ -28,6 +29,11 @@ _MESSAGES = {
     "UPSTREAM_HTTP_ERROR": "上游未返回成功正文",
     "UNSUPPORTED_CONTENT": "上游内容类型或编码不受支持",
 }
+FAKE_IP_MESSAGE = (
+    "目标域名解析到 198.18.0.0/15，常见于代理软件的 fake-ip 模式；"
+    "确认是代理造成的，可以设置 RESEARCH_MCP_ALLOW_FAKE_IP=1"
+)
+_FAKE_IP_NETWORK = ipaddress.ip_network("198.18.0.0/15")
 _REDIRECTS = frozenset({301, 302, 303, 307, 308})
 _TEXT_TYPES = frozenset({"text/plain", "text/markdown", "text/x-markdown", "text/html"})
 _LABEL = re.compile(r"[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\Z")
@@ -42,9 +48,10 @@ _REQUEST_HEADERS = (
 class SafeFetchError(Exception):
     """Only fixed categories can leave this boundary; never raw URL/IP/errors."""
 
-    def __init__(self, code: str) -> None:
+    def __init__(self, code: str, *, fake_ip: bool = False) -> None:
         self.code = code if code in _MESSAGES else "TRANSPORT_FAILED"
-        super().__init__(_MESSAGES[self.code])
+        message = FAKE_IP_MESSAGE if self.code == "UNSAFE_ADDRESS" and fake_ip is True else _MESSAGES[self.code]
+        super().__init__(message)
 
 
 @dataclass(frozen=True)
@@ -146,6 +153,12 @@ def _public_ip(value: object) -> str:
         address = ipaddress.ip_address(value)
     except ValueError:
         raise SafeFetchError("UNSAFE_ADDRESS") from None
+    # One explicit exception only; all callers (including redirect/peer checks)
+    # share this policy. Never relax validation for any other private range.
+    if address.version == 4 and address in _FAKE_IP_NETWORK:
+        if os.environ.get("RESEARCH_MCP_ALLOW_FAKE_IP") == "1":
+            return str(address)
+        raise SafeFetchError("UNSAFE_ADDRESS", fake_ip=True)
     if (not address.is_global or address.is_multicast or address.is_reserved
             or address.is_loopback or address.is_link_local or address.is_unspecified):
         raise SafeFetchError("UNSAFE_ADDRESS")

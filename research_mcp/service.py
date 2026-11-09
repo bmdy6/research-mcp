@@ -13,7 +13,7 @@ import uuid
 from research_mcp.commands import HINTS
 from research_mcp import research as R  # noqa: E402
 from research_mcp.result_contract import error_result, fetch_result, search_result  # noqa: E402
-from research_mcp.safe_fetch import SafeFetcher, SafeFetchError  # noqa: E402
+from research_mcp.safe_fetch import FAKE_IP_MESSAGE, SafeFetcher, SafeFetchError  # noqa: E402
 
 
 MAX_SEARCH_LIMIT = 40
@@ -36,6 +36,7 @@ def _safe_failure_reason(value: object) -> str:
                 return hint
     # Exact core-owned messages are safe and retain the HTTP diagnosis for MCP.
     if isinstance(value, str) and value in (
+        str(SafeFetchError("UNSAFE_ADDRESS")), FAKE_IP_MESSAGE,
         "GitHub 资源不存在或当前身份不可见（404）",
         "GitHub 文件或 ref 不存在或当前身份不可见（404）",
         "GitHub 认证不可用（401）", "GitHub 权限不足（403）",
