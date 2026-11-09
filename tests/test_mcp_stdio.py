@@ -57,9 +57,46 @@ safe_dns.SubprocessResolver.__call__ = lambda self, host, **kwargs: [sys.argv[2]
 mcp_server.mcp.run()
 """
 
+SAFE_ERROR_SERVER = r"""
+import sys
+sys.path.insert(0, sys.argv[1])
+from research_mcp import research, safe_fetch, mcp_server
+research._validate_fetch_url = lambda url: None
+def fetch(self, url):
+    code = url.rsplit('/', 1)[-1]
+    if code == 'success':
+        return safe_fetch.FetchDocument(url, 'text/markdown', b'Synthetic body.')
+    raise safe_fetch.SafeFetchError(code)
+safe_fetch.SafeFetcher.fetch = fetch
+mcp_server.mcp.run()
+"""
+
 
 @unittest.skipUnless(HAS_MCP, "optional mcp SDK missing; run the documented uv command")
 class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
+    async def test_all_safe_errors_and_http_upgrade_survive_real_stdio(self):
+        from mcp import ClientSession, StdioServerParameters
+        from mcp.client.stdio import stdio_client
+        from research_mcp.safe_fetch import SAFE_FETCH_MESSAGES
+
+        params = StdioServerParameters(command=sys.executable, args=["-c", SAFE_ERROR_SERVER, str(ROOT)])
+        async with asyncio.timeout(20), stdio_client(params) as (read, write):
+            async with ClientSession(read, write) as session:
+                await session.initialize()
+                for code, message in SAFE_FETCH_MESSAGES.items():
+                    with self.subTest(code=code):
+                        result = self.envelope(await session.call_tool(
+                            "research_search", {"query": "https://fixture.invalid/" + code}))
+                        self.assertEqual(result["errors"][0]["code"], code)
+                        self.assertEqual(result["errors"][0]["message"], message)
+                result = self.envelope(await session.call_tool(
+                    "research_search", {"query": "http://fixture.invalid/success"}))
+                self.assertTrue(result["data"]["upgraded_to_https"])
+                result = self.envelope(await session.call_tool(
+                    "research_search", {"query": "http://fixture.invalid/TRANSPORT_FAILED"}))
+                self.assertEqual(result["errors"][0]["code"], "UNSAFE_URL")
+                self.assertEqual(result["errors"][0]["message"], SAFE_FETCH_MESSAGES["UNSAFE_URL"])
+
     async def test_safety_diagnostics_survive_real_stdio(self):
         from mcp import ClientSession, StdioServerParameters
         from mcp.client.stdio import stdio_client

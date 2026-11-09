@@ -17,6 +17,7 @@ from typing import Callable
 
 from research_mcp.channels import CHANNELS  # noqa: E402  渠道层；键名即 search.json 里的 provider 名
 from research_mcp.result_contract import EXA_X_EMPTY_NOTE  # noqa: E402  与入口共用固定安全提示
+from research_mcp.safe_fetch import SafeFetchError, safe_error_code
 from research_mcp.tools.ldjson import (  # noqa: E402  图表页的内嵌数据兑底
     extract_chart_datasets,
     looks_like_chart_page,
@@ -75,7 +76,7 @@ class FetchError(RuntimeError):
     def __init__(self, reason: str, *, code: str | None = None):
         super().__init__(reason)
         self.reason = reason
-        self.code = code if code == "UNSAFE_ADDRESS" else None
+        self.code = safe_error_code(code, reason)
 
 
 _CURL_ERROR = re.compile(r"curl: \((\d+)\)\s*(.*)", re.S)
@@ -487,6 +488,30 @@ def _github_readme(full_name: str) -> str:
 
 
 def fetch_url(url: str) -> dict:
+    """Upgrade HTTP to HTTPS, retaining the full URL and all safety checks."""
+    url = url.strip()
+    upgraded = url.startswith("http://")
+    if upgraded:
+        url = "https://" + url[len("http://"):]
+    try:
+        if upgraded:
+            _validate_fetch_url(url)
+        result = _fetch_url(url, preserve_url=upgraded)
+    except FetchError as error:
+        result = _failed_fetch("article", url, error)
+    except ValueError:
+        error = SafeFetchError("UNSAFE_URL")
+        result = _failed_fetch("article", url, FetchError(str(error), code=error.code))
+    if upgraded:
+        if result.get("ok") is not False:
+            result["upgraded_to_https"] = True
+        elif result.get("error_code") != "UNSAFE_ADDRESS":
+            error = SafeFetchError("UNSAFE_URL")
+            result = _failed_fetch(result.get("kind", "article"), url, FetchError(str(error), code=error.code))
+    return result
+
+
+def _fetch_url(url: str, *, preserve_url: bool = False) -> dict:
     """读一条链接的内容。
 
     失败返回 `{"kind": "article", "ok": False, "error": 一句原因, "retryable": 是否值得重试}`
@@ -511,7 +536,7 @@ def fetch_url(url: str) -> dict:
             _validate_fetch_url(url.strip())
     except FetchError as error:
         return _failed_fetch("article", url, error)
-    normalized = normalize_url(url)
+    normalized = url if preserve_url else normalize_url(url)
     parsed = urllib.parse.urlsplit(normalized)
     parts = [p for p in parsed.path.split("/") if p]
     if parsed.hostname == "github.com" and len(parts) >= 2:
