@@ -151,6 +151,9 @@ class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(schema["required"], ["query"])
             self.assertEqual(set(schema["properties"]), {"query", "limit", "providers"})
             self.assertEqual(schema["properties"]["limit"]["default"], 12)
+            annotations = tools[0].get("annotations") or {}
+            self.assertIs(annotations.get("readOnlyHint"), True)
+            self.assertIs(annotations.get("destructiveHint"), False)
             result = self.envelope(await session.call_tool("research_search", {"query": ""}))
             self.assertEqual(result["status"], "error")
             self.assertEqual(result["errors"][0]["code"], "INVALID_INPUT")
