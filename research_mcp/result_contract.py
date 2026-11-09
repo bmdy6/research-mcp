@@ -11,6 +11,8 @@ import math
 from collections import Counter
 from dataclasses import dataclass
 
+from research_mcp.safe_fetch import FAKE_IP_MESSAGE, SafeFetchError
+
 LIST_FIELDS = ("source", "title", "url", "author", "play", "views", "published_at", "summary", "jev_relevance", "jev_keep")
 FETCH_FIELDS = ("hint", "object_type", "file", "discussion", "coverage", "coverage_note", "kind", "url", "ok", "repo", "content", "text", "title", "via", "language", "duration", "duration_seconds", "truncated", "transcript_error", "error", "retryable", "transcript", "source", "bvid", "char_count", "duration_used", "partial", "failed_segments")
 EXA_X_EMPTY_NOTE = (
@@ -130,7 +132,11 @@ def fetch_result(payload: object) -> dict:
               "data": {key: payload[key] for key in FETCH_FIELDS if key in payload},
               "errors": [], "display_notes": []}
     if failed:
-        result["errors"].append({"code": "READ_FAILED", "message": payload.get("error") or "读取失败", "retryable": bool(payload.get("retryable"))})
+        # Preserve only a recognized safety code paired with fixed core text.
+        unsafe_address = payload.get("error_code") == "UNSAFE_ADDRESS" and payload.get("error") in (
+            str(SafeFetchError("UNSAFE_ADDRESS")), FAKE_IP_MESSAGE,
+        )
+        result["errors"].append({"code": "UNSAFE_ADDRESS" if unsafe_address else "READ_FAILED", "message": payload.get("error") or "读取失败", "retryable": bool(payload.get("retryable"))})
     elif transcript_unavailable:
         result["errors"].append({"code": "TRANSCRIPT_UNAVAILABLE", "message": "转写不可用，当前仅保留回退读取的网页内容"})
         result["display_notes"].append("网页正文或简介不等于视频文字稿；视频内容仍未完整读取。")

@@ -72,9 +72,10 @@ def _parse_time(value: str | None) -> datetime | None:
 class FetchError(RuntimeError):
     """抓取失败。带上可直接展示给调用方的原因，不要让它再看到调用栈。"""
 
-    def __init__(self, reason: str):
+    def __init__(self, reason: str, *, code: str | None = None):
         super().__init__(reason)
         self.reason = reason
+        self.code = code if code == "UNSAFE_ADDRESS" else None
 
 
 _CURL_ERROR = re.compile(r"curl: \((\d+)\)\s*(.*)", re.S)
@@ -137,7 +138,7 @@ def _safe_http_text(url: str) -> str:
                                limits=FetchLimits(max_bytes=1_048_576, total_seconds=30)).fetch(url)
         return document.body.decode("utf-8", errors="replace")
     except SafeFetchError as error:
-        raise FetchError(str(error)) from None
+        raise FetchError(str(error), code=error.code) from None
 
 
 def _validate_fetch_url(url: str) -> None:
@@ -151,7 +152,7 @@ def _validate_fetch_url(url: str) -> None:
             for address in SubprocessResolver()(host, deadline=Deadline(10, time.monotonic)):
                 _public_ip(address)
     except SafeFetchError as error:
-        raise FetchError(str(error)) from None
+        raise FetchError(str(error), code=error.code) from None
 
 
 JINA_PREFIX = "https://r.jina.ai/"
@@ -379,7 +380,7 @@ def _readable_content(url: str) -> tuple[str, str]:
     try:
         raw = _safe_http_text(url)
     except FetchError as error:
-        raise FetchError(error.reason) from error
+        raise FetchError(error.reason, code=error.code) from error
     # Jina 报错时仍回落原始内容（via=raw 会标注来源），只有连它都只剩占位词才算失败
     if _is_placeholder_only(raw):
         raise FetchError(f"{jina_failed}；直接抓取也没拿到内容")
@@ -544,6 +545,8 @@ def fetch_url(url: str) -> dict:
 def _failed_fetch(kind: str, url: str, error: FetchError, **extra) -> dict:
     # 超时/限流重试可能有用；404 这类重试没意义，让调用方自己决定
     retryable = any(word in error.reason for word in ("超时", "限流", "429", "频率"))
+    if error.code:
+        extra["error_code"] = error.code
     return {"kind": kind, "url": url, "ok": False, "error": error.reason, "retryable": retryable, **extra}
 
 

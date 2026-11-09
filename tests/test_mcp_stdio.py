@@ -7,6 +7,7 @@ import asyncio
 from contextlib import asynccontextmanager
 import importlib.util
 import json
+import os
 from pathlib import Path
 import sys
 import unittest
@@ -48,9 +49,40 @@ server.S.R.fetch_url = fetch_url
 server.mcp.run()
 """
 
+SAFE_DNS_SERVER = r"""
+import sys
+sys.path.insert(0, sys.argv[1])
+from research_mcp import safe_dns, mcp_server
+safe_dns.SubprocessResolver.__call__ = lambda self, host, **kwargs: [sys.argv[2]]
+mcp_server.mcp.run()
+"""
+
 
 @unittest.skipUnless(HAS_MCP, "optional mcp SDK missing; run the documented uv command")
 class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
+    async def test_safety_diagnostics_survive_real_stdio(self):
+        from mcp import ClientSession, StdioServerParameters
+        from mcp.client.stdio import stdio_client
+
+        cases = (
+            ("10.0.0.1", "目标地址不是公网地址，已拦截"),
+            ("198.18.0.1", "目标域名解析到 198.18.0.0/15，常见于代理软件的 fake-ip 模式；确认是代理造成的，可以设置 RESEARCH_MCP_ALLOW_FAKE_IP=1"),
+        )
+        for address, message in cases:
+            with self.subTest(address=address):
+                params = StdioServerParameters(
+                    command=sys.executable, args=["-c", SAFE_DNS_SERVER, str(ROOT), address],
+                    env={**os.environ, "RESEARCH_MCP_ALLOW_FAKE_IP": ""},
+                )
+                async with asyncio.timeout(20), stdio_client(params) as (read, write):
+                    async with ClientSession(read, write) as session:
+                        await session.initialize()
+                        result = self.envelope(await session.call_tool(
+                            "research_search", {"query": "https://fixture.invalid/"}))
+                        self.assertEqual(result["errors"][0]["code"], "UNSAFE_ADDRESS")
+                        self.assertEqual(result["errors"][0]["message"], message)
+                        self.assertEqual(result["data"]["error"], message)
+
     @asynccontextmanager
     async def session(self, *, fixtures):
         from mcp import ClientSession, StdioServerParameters
