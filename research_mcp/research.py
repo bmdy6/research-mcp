@@ -715,7 +715,7 @@ def search(query: str, *, limit: int = 10, providers: list[str] | None = None, r
         result, downgrade = pool[:limit], None
 
     # 截断要分清是哪种：
-    # - `limit`：渠道给的多，但按 limit 只截了前几条进筛选池（调大 limit 能拿更多）
+    # - `limit`：候选池或最终返回被数量上限截断（调大 limit 能拿更多）
     # - `relevance`：进了池子但被 Jev 相关性过滤淘汰（调大 limit 找不回来）
     # 混成一个“截断”会让调用方误以为调大 limit 就行。
     #
@@ -723,7 +723,7 @@ def search(query: str, *, limit: int = 10, providers: list[str] | None = None, r
     # 所以 len(result) == limit 时，“被相关性筛掉”和“恰好被 limit 截掉”区分不开。
     # 宁可不提，也不能把能靠调大 limit 拿回来的说成拿不回来。
     truncated_by: list[str] = []
-    if pooled < total_candidates:
+    if pooled < total_candidates or (not rerank_ran and len(result) < pooled):
         truncated_by.append("limit")
     if rerank_ran and len(result) < pooled and len(result) < limit:
         truncated_by.append("relevance")

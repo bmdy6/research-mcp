@@ -49,6 +49,17 @@ server.S.R.fetch_url = fetch_url
 server.mcp.run()
 """
 
+CORE_LIMIT_SERVER = r"""
+import sys
+sys.path.insert(0, sys.argv[1])
+from research_mcp import research, mcp_server
+research._default_providers = lambda: {"hacker_news": lambda config: [
+    {"title": f"Synthetic {index}", "source": "hacker_news",
+     "url": f"https://fixture.invalid/{index}"} for index in range(12)
+]}
+mcp_server.mcp.run()
+"""
+
 SAFE_DNS_SERVER = r"""
 import sys
 sys.path.insert(0, sys.argv[1])
@@ -74,6 +85,25 @@ mcp_server.mcp.run()
 
 @unittest.skipUnless(HAS_MCP, "optional mcp SDK missing; run the documented uv command")
 class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
+    async def test_final_search_limit_survives_real_stdio(self):
+        from mcp import ClientSession, StdioServerParameters
+        from mcp.client.stdio import stdio_client
+
+        params = StdioServerParameters(
+            command=sys.executable, args=["-c", CORE_LIMIT_SERVER, str(ROOT)], env={})
+        async with asyncio.timeout(20), stdio_client(params) as (read, write):
+            async with ClientSession(read, write) as session:
+                await session.initialize()
+                result = self.envelope(await session.call_tool(
+                    "research_search", {"query": "synthetic", "limit": 5,
+                                        "providers": ["hacker_news"]}))
+                self.assertEqual((result["total"], result["pooled"], result["returned"]), (12, 12, 5))
+                self.assertEqual(result["delivered"], 5)
+                self.assertEqual(result["rerank"], "skipped_no_key")
+                self.assertTrue(result["truncated"])
+                self.assertEqual(result["truncated_by"], ["limit"])
+                self.assertFalse(result["output_truncation"]["truncated"])
+
     async def test_all_safe_errors_and_http_upgrade_survive_real_stdio(self):
         from mcp import ClientSession, StdioServerParameters
         from mcp.client.stdio import stdio_client
