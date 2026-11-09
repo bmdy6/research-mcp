@@ -1,0 +1,80 @@
+{
+  "projectType": "cli",
+  "audience": "AI agent developers",
+  "oneLiner": {
+    "en": "Give AI agents search results and source text through a CLI and MCP.",
+    "zh-CN": "给 AI agent 返回搜索结果与原文，支持 CLI 和 MCP。"
+  },
+  "keyTerms": {
+    "what": [
+      "research-mcp",
+      "search",
+      "搜索",
+      "搜索结果",
+      "CLI",
+      "MCP"
+    ],
+    "audience": [
+      "developers",
+      "engineers",
+      "programmers",
+      "AI agents",
+      "agents",
+      "开发者",
+      "程序员",
+      "AI agent",
+      "AI 智能体"
+    ]
+  },
+  "coreAction": {
+    "what": "Search multiple keyword channels and return source URLs",
+    "input": "mcp server",
+    "command": "research-mcp search \"mcp server\" --limit 2 --format json",
+    "output": {
+      "description": "JSON search results with source URLs and explicit partial status",
+      "keywords": [
+        "JSON",
+        "search results",
+        "搜索结果",
+        "结果",
+        "URL",
+        "链接"
+      ]
+    },
+    "factIds": [
+      "cli-entry",
+      "search-concurrent",
+      "result-status"
+    ]
+  },
+  "install": {
+    "command": "uv sync --python 3.12 --extra mcp && uv run research-mcp --help"
+  },
+  "firstUse": "research-mcp search \"mcp server\" --limit 5 --format json",
+  "languages": [
+    "en",
+    "zh-CN"
+  ],
+  "accent": "#2f6f4e",
+  "wordBudget": 1400,
+  "allowNamedAlternatives": true,
+  "decidedBy": "agent",
+  "gates": {
+    "G1": {
+      "decidedBy": "agent",
+      "original": "给 AI agent 的关键词搜索与原文读取工具。",
+      "candidates": [
+        "给 AI agent 返回搜索结果与原文，支持 CLI 和 MCP。",
+        "把多渠道候选、PR 审查评论和网页正文交给 AI agent。",
+        "搜索保留失败渠道，让开发者知道哪些结果还没读全。"
+      ],
+      "choice": "给 AI agent 返回搜索结果与原文，支持 CLI 和 MCP。",
+      "reason": "User delegated noninteractive decisions; adapts the original concrete promise and names results/source text. Higher word budget preserves mandatory R2–R4 tables and limits."
+    },
+    "G2": {
+      "decidedBy": "agent",
+      "choice": "Approve compact, collapsible MCP first screen",
+      "reason": "Inspected desktop light/dark, mobile and bilingual artwork. Reduced a sparse overlong first artwork after density/installation-fold failure. Entire install/search/read block is visible; one first-screen disclosure contains all three config snippets. Full expanded snippets cannot all fit an 800px fold; this limitation is disclosed. Same offline local renderer before and after."
+    }
+  }
+}

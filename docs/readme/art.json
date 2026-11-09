@@ -1,0 +1,23 @@
+{
+  "accent": "#2f6f4e",
+  "images": [
+    {
+      "id": "hero",
+      "template": "hero-code",
+      "compact": true,
+      "title": {
+        "en": "Keywords to source URLs",
+        "zh-CN": "从关键词到来源链接"
+      },
+      "subtitle": {
+        "en": "A real no-key search; selected fields, not a complete response.",
+        "zh-CN": "无 key 的真实搜索，仅展示选定字段。"
+      },
+      "captureId": "hero-compact",
+      "resultLabel": {
+        "en": "Search results (excerpt)",
+        "zh-CN": "搜索结果节选"
+      }
+    }
+  ]
+}
