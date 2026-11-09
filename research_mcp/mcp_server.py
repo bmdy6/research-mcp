@@ -22,7 +22,26 @@ except ImportError:  # pragma: no cover
 mcp = FastMCP("research")
 
 MAX_CHARS = 200_000
-@mcp.tool()
+
+# 只读工具：不写文件、不改状态，只访问外部公开来源。声明出来，
+# 客户端（如 Codex）才会在非交互模式下自动放行，不必逐次审批。
+try:
+    from mcp.types import ToolAnnotations
+
+    _TOOL_KWARGS = {"annotations": ToolAnnotations(
+        title="Search or read sources",
+        readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=True,
+    )}
+except ImportError:  # pragma: no cover  旧版 SDK 没有工具注解
+    _TOOL_KWARGS = {}
+
+try:
+    _tool = mcp.tool(**_TOOL_KWARGS)
+except TypeError:  # pragma: no cover  旧版 FastMCP.tool() 不接受 annotations
+    _tool = mcp.tool()
+
+
+@_tool
 def research_search(query: str, limit: int = 12, providers: list[str] | None = None) -> str:
     """一个入口两种用法。
 
