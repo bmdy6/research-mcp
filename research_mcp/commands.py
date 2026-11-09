@@ -4,9 +4,9 @@ from __future__ import annotations
 import subprocess
 
 HINTS = {
-    "gh": "gh 不可用或认证失效；安装：brew install gh；登录：gh auth login",
+    "gh": "gh 不可用或认证失效；安装：https://cli.github.com；登录：gh auth login",
     "bili": "bili 不可用；安装：uv tool install 'bilibili-cli[audio]'；登录：bili login",
-    "curl": "curl 不可用；安装：brew install curl",
+    "curl": "curl 不可用；用系统包管理器安装 curl",
 }
 
 
