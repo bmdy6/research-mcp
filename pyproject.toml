@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "research-mcp"
+version = "0.1.0"
+description = "Keyword search and source reading for agents"
+requires-python = ">=3.10"
+license = "MIT"
+dependencies = []
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.0,<3"]
+
+[project.scripts]
+research-mcp = "research_mcp.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["research_mcp*"]
