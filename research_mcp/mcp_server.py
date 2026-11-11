@@ -1,6 +1,7 @@
 """Single-tool read-only stdio MCP adapter. Run with research-mcp mcp."""
 from __future__ import annotations
 
+import asyncio
 import sys
 
 
@@ -42,7 +43,7 @@ except TypeError:  # pragma: no cover  旧版 FastMCP.tool() 不接受 annotatio
 
 
 @_tool
-def research_search(query: str, limit: int = 12, providers: list[str] | None = None) -> str:
+async def research_search(query: str, limit: int = 12, providers: list[str] | None = None) -> str:
     """一个入口两种用法。
 
     传关键词：在定向渠道里搜（GitHub 仓库、Hacker News、B站视频、掘金文章、全网网页 Exa），
@@ -62,7 +63,12 @@ def research_search(query: str, limit: int = 12, providers: list[str] | None = N
         normalized_limit = max(1, min(int(limit), 40))
     except (TypeError, ValueError, OverflowError):
         normalized_limit = limit
-    result = S.query(query, limit=normalized_limit, providers=providers)
+    # Keep blocking provider/subprocess work off the stdio event loop. A
+    # cancelled await discards the result; an already-running thread finishes
+    # under the core's existing timeouts and retains its normal cleanup. The
+    # event loop owns the shared executor and bounds its active worker count.
+    result = await asyncio.to_thread(
+        S.query, query, limit=normalized_limit, providers=providers)
     return serialize_result(result, ResultBudget(max_chars=MAX_CHARS))
 
 

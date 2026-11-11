@@ -1,4 +1,5 @@
 """Pure synthetic/offline contract tests, including the existing MCP entrypoint."""
+import asyncio
 import copy
 import importlib.util
 import json
@@ -251,18 +252,18 @@ class MCPContractTest(unittest.TestCase):
 
     def test_entrypoint_keeps_name_input_and_returns_only_json(self):
         with patch.object(research, 'search', return_value=payload()) as search:
-            value = self.module.research_search('fixture', 100, ['a'])
+            value = asyncio.run(self.module.research_search('fixture', 100, ['a']))
         self.assertEqual(json.loads(value)['status'], 'empty')
         search.assert_called_once_with('fixture', limit=40, providers=['a'], rerank=True)
         with patch.object(research, 'search') as search:
-            invalid = json.loads(self.module.research_search('fixture', 'not-an-integer'))
+            invalid = json.loads(asyncio.run(self.module.research_search('fixture', 'not-an-integer')))
         self.assertEqual(invalid['errors'][0]['code'], 'INVALID_INPUT')
         search.assert_not_called()
 
     def test_mcp_preserves_conditional_coverage_note_as_valid_json(self):
         with patch.object(research, '_default_providers', return_value={'exa': lambda _: []}), \
              patch('research_mcp.rerank.filter_candidates', return_value=([], 'synthetic-disabled')):
-            text = self.module.research_search('site:twitter.com agents', 3, ['exa'])
+            text = asyncio.run(self.module.research_search('site:twitter.com agents', 3, ['exa']))
         result = json.loads(text)
         self.assertEqual(result['status'], 'empty')
         self.assertEqual(result['errors'], [])
@@ -271,8 +272,8 @@ class MCPContractTest(unittest.TestCase):
 
     def test_failed_fetch_and_exception_are_structured_without_raw_secrets(self):
         with patch.object(research, 'fetch_url', return_value={'ok': False, 'error': 'not found', 'retryable': False}):
-            self.assertEqual(json.loads(self.module.research_search('https://fixture.invalid'))['errors'][0]['code'], 'READ_FAILED')
+            self.assertEqual(json.loads(asyncio.run(self.module.research_search('https://fixture.invalid')))['errors'][0]['code'], 'READ_FAILED')
         with patch.object(research, 'search', side_effect=RuntimeError('SECRET-fixture')):
-            text = self.module.research_search('fixture')
+            text = asyncio.run(self.module.research_search('fixture'))
         self.assertNotIn('SECRET-fixture', text)
         self.assertEqual(json.loads(text)['status'], 'error')
