@@ -1,37 +1,34 @@
 <!doctype html><meta charset="utf-8"><style>
 *{box-sizing:border-box;margin:0}
 body{width:838px;font-family:Inter,"Noto Sans CJK SC",sans-serif;background:transparent}
-.b{position:relative;width:838px;height:500px;border-radius:20px;overflow:hidden;color:#eef2ff;
- background:radial-gradient(520px 320px at 88% 8%,rgba(56,189,248,.30),transparent 70%),radial-gradient(520px 380px at 4% 100%,rgba(139,92,246,.38),transparent 70%),linear-gradient(135deg,#0b1020 0%,#0f1535 55%,#0a0f24 100%)}
-.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:32px 32px;mask-image:linear-gradient(180deg,#000 0%,transparent 85%)}
-.l{position:absolute;left:40px;top:40px;width:380px}
-.eyebrow{display:inline-flex;gap:8px;align-items:center;font:600 12px "Geist Mono",monospace;letter-spacing:.08em;color:#a5b4fc;border:1px solid rgba(165,180,252,.35);border-radius:999px;padding:6px 12px;background:rgba(99,102,241,.12)}
-.dot{width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 10px #34d399}
-h1{margin-top:20px;font:800 50px/1.02 Inter;letter-spacing:-.035em;background:linear-gradient(92deg,#fff 20%,#a5b4fc 60%,#67e8f9);-webkit-background-clip:text;color:transparent}
-.tag{margin-top:16px;font:700 23px/1.4 "Noto Sans CJK SC";color:#f8fafc}
-.tag em{font-style:normal;color:#67e8f9}
-.sub{margin-top:10px;font:400 14.5px/1.65 "Noto Sans CJK SC";color:#aab4d4}
-.chips{margin-top:18px;display:flex;flex-wrap:wrap;gap:6px}
-.chip{font:600 12px "Geist Mono","Noto Sans CJK SC";padding:5px 8px;border-radius:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);color:#dbe4ff}
-.term{position:absolute;right:32px;top:40px;width:380px;border-radius:14px;background:rgba(6,9,22,.82);border:1px solid rgba(148,163,255,.28);box-shadow:0 30px 70px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.03) inset}
-.bar{height:34px;display:flex;align-items:center;gap:7px;padding:0 13px;border-bottom:1px solid rgba(255,255,255,.08)}
-.bar i{width:10px;height:10px;border-radius:50%}.bar span{margin-left:8px;font:500 11.5px "Geist Mono";color:#7f8bb3}
-pre{padding:13px 15px 15px;font:500 12px/1.72 "Geist Mono","Noto Sans CJK SC",monospace;color:#cbd5f5;white-space:pre-wrap}
-.p{color:#34d399}.c{color:#fff}.k{color:#7dd3fc}.s{color:#fcd34d}.m{color:#7f8bb3}.g{color:#34d399}.src{color:#c4b5fd}
-.stats{position:absolute;left:40px;right:32px;bottom:30px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.st{border-radius:14px;padding:13px 16px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.11)}
-.n{font:800 30px/1 Inter;letter-spacing:-.03em;color:#fff}.n small{font:700 15px Inter;color:#67e8f9;margin-left:2px}
-.d{margin-top:7px;font:500 12.5px "Noto Sans CJK SC";color:#aab4d4}
+.b{position:relative;width:838px;height:480px;border-radius:14px;overflow:hidden;color:#16130f;background:#f4f0e6;border:1px solid #d9d2c1}
+.l{position:absolute;left:40px;top:38px;width:372px}
+.eyebrow{font:600 11.5px "Geist Mono","Noto Sans CJK SC",monospace;letter-spacing:.1em;color:#6b6456;display:flex;align-items:center;gap:9px}
+.eyebrow i{width:9px;height:9px;background:#e4572e;display:block}
+h1{margin-top:20px;font:800 52px/1 Inter;letter-spacing:-.045em;color:#16130f}
+.tag{margin-top:18px;font:700 23px/1.45 "Noto Sans CJK SC";color:#16130f}
+.tag em{font-style:normal;background:linear-gradient(transparent 62%,#ffc9b5 62%)}
+.sub{margin-top:11px;font:400 14.5px/1.7 "Noto Sans CJK SC";color:#5a5347}
+.chips{margin-top:18px;font:500 12.5px "Geist Mono","Noto Sans CJK SC";color:#16130f;display:flex;flex-wrap:wrap;gap:0}
+.chips span{padding:0 9px;border-left:1px solid #b9b19e}.chips span:first-child{padding-left:0;border:0}
+.term{position:absolute;right:36px;top:38px;width:372px;border-radius:8px;background:#191714;box-shadow:6px 6px 0 #16130f22}
+.bar{height:32px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid #322e28;font:500 11.5px "Geist Mono","Noto Sans CJK SC";color:#8c8474;justify-content:space-between}
+pre{padding:13px 15px 15px;font:500 12px/1.74 "Geist Mono","Noto Sans CJK SC",monospace;color:#d8d2c4;white-space:pre-wrap}
+.p{color:#e4572e}.c{color:#fff}.k{color:#a8a08f}.s{color:#f2b25c}.m{color:#7d7566}.g{color:#9bc27a}.src{color:#8fb4c9}
+.stats{position:absolute;left:40px;right:36px;bottom:30px;display:grid;grid-template-columns:repeat(4,1fr);border-top:2px solid #16130f}
+.st{padding:14px 16px 0 0}.st+.st{padding-left:16px;border-left:1px solid #cfc7b4}
+.n{font:800 32px/1 Inter;letter-spacing:-.04em}.n small{font:700 15px Inter;color:#e4572e;margin-left:2px}
+.d{margin-top:7px;font:500 12.5px "Noto Sans CJK SC";color:#5a5347}
 </style>
-<div class="b"><div class="grid"></div>
+<div class="b">
 <div class="l">
- <div class="eyebrow"><span class="dot"></span>CLI + MCP · 给 AI AGENT 用</div>
+ <div class="eyebrow"><i></i>CLI + MCP · 给 AI AGENT 用</div>
  <h1>research-mcp</h1>
  <div class="tag">一次提问，<em>5 个渠道</em>同时搜，<br>再把原文读回来。</div>
  <div class="sub">不止给链接：PR 审查、行内评论、网页正文、B 站文字稿，连同“哪里没读到”一起交给 agent。</div>
- <div class="chips"><span class="chip">GitHub</span><span class="chip">HN</span><span class="chip">B站</span><span class="chip">掘金</span><span class="chip">Exa</span><span class="chip">+ arXiv</span></div>
+ <div class="chips"><span>GitHub</span><span>HN</span><span>B站</span><span>掘金</span><span>Exa</span><span>+arXiv</span></div>
 </div>
-<div class="term"><div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><span>research-mcp · 真实运行 2026-11-11</span></div>
+<div class="term"><div class="bar"><span>research-mcp</span><span>真实运行 2026-11-11</span></div>
 <pre><span class="p">$</span> <span class="c">research-mcp search "mcp server" --limit 5</span>
 <span class="k">"status"</span>: <span class="g">"ok"</span>   <span class="k">"total"</span>: <span class="s">119</span>   <span class="k">"returned"</span>: <span class="s">5</span>
 <span class="k">"succeeded_channels_count"</span>: <span class="s">5</span>
