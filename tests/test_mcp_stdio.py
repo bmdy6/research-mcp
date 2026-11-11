@@ -12,6 +12,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 HAS_MCP = importlib.util.find_spec("mcp") is not None
@@ -85,7 +86,7 @@ mcp_server.mcp.run()
 
 
 BLOCKING_SERVER = r"""
-import sys, tempfile, time
+import inspect, sys, tempfile, time
 from pathlib import Path
 sys.path.insert(0, sys.argv[1])
 from research_mcp import mcp_server as server
@@ -110,17 +111,28 @@ def query(text, **kwargs):
             "ok": True, "candidates": [], "total": 0, "returned": 0, "errors": []}
 
 server.S.query = query
+# Observe the real adapter's lifetime using the SDK's public registration API.
+# Keep the synchronous pre-fix adapter callable so these tests also prove RED.
+original = server.research_search
+async def tracked_search(query: str, limit: int = 12, providers: list[str] | None = None) -> str:
+    try:
+        result = original(query, limit, providers)
+        return await result if inspect.isawaitable(result) else result
+    finally:
+        (root / "request-finished").touch()
+server.mcp.remove_tool("research_search")
+server.mcp.add_tool(tracked_search, name="research_search")
 server.mcp.run()
 """
 
 
 @unittest.skipUnless(HAS_MCP, "optional mcp SDK missing; run the documented uv command")
 class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
-    async def wait_for_file(self, path):
+    async def wait_for_file(self, path, timeout=3):
         async def wait():
             while not path.exists():
                 await asyncio.sleep(.01)
-        await asyncio.wait_for(wait(), timeout=3)
+        await asyncio.wait_for(wait(), timeout=timeout)
 
     @asynccontextmanager
     async def blocked_call(self, query="blocked"):
@@ -133,23 +145,32 @@ class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
                 command=sys.executable,
                 args=["-c", BLOCKING_SERVER, str(ROOT), str(root)], env={})
             async with stdio_client(params) as (read, write):
-                async with ClientSession(read, write) as session:
-                    await session.initialize()
-                    # The SDK exposes no public request ID on call_tool(). Capture
-                    # the next ID before scheduling, as in the issue's fixture.
-                    request_id = session._request_id
-                    call = asyncio.create_task(session.call_tool(
-                        "research_search", {"query": query}))
-                    try:
-                        await self.wait_for_file(root / "started")
-                        yield session, call, request_id, root
-                    finally:
-                        # Always release blocking work, including on a pre-fix
-                        # assertion failure, and retrieve any tool exception.
-                        (root / "release").touch()
-                        await asyncio.wait_for(
-                            asyncio.gather(call, return_exceptions=True), timeout=5)
-                        await self.wait_for_file(root / "finished")
+                request_ids = []
+                send = write.send
+
+                async def record_request(message):
+                    # Observe the real wire ID rather than SDK-private counters,
+                    # which differ between the supported SDK major versions.
+                    wire = message.message.model_dump(by_alias=True)
+                    if wire.get("method") == "tools/call":
+                        request_ids.append(wire["id"])
+                    await send(message)
+
+                with patch.object(write, "send", record_request):
+                    async with ClientSession(read, write) as session:
+                        await session.initialize()
+                        call = asyncio.create_task(session.call_tool(
+                            "research_search", {"query": query}))
+                        try:
+                            await self.wait_for_file(root / "started")
+                            yield session, call, request_ids[-1], root
+                        finally:
+                            # Always release blocking work, including on a pre-fix
+                            # assertion failure, and retrieve any tool exception.
+                            (root / "release").touch()
+                            await asyncio.wait_for(
+                                asyncio.gather(call, return_exceptions=True), timeout=5)
+                            await self.wait_for_file(root / "finished")
 
     async def test_tools_list_responds_while_query_is_blocked(self):
         async with self.blocked_call() as (session, call, _, root):
@@ -161,21 +182,24 @@ class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(self.envelope(await call)["status"], "empty")
 
     async def test_cancellation_discards_result_and_worker_finishes_cleanup(self):
-        from mcp.shared.exceptions import McpError
-        from mcp.types import ClientNotification, CancelledNotification, CancelledNotificationParams
+        try:
+            from mcp.shared.exceptions import MCPError
+        except ImportError:  # SDK 1.x
+            from mcp.shared.exceptions import McpError as MCPError
+        from mcp.types import ClientNotification
+        from pydantic import TypeAdapter
 
         for query in ("blocked", "blocked-error"):
             with self.subTest(query=query):
                 async with self.blocked_call(query) as (session, call, request_id, root):
-                    await session.send_notification(ClientNotification(
-                        CancelledNotification(method="notifications/cancelled",
-                            params=CancelledNotificationParams(requestId=request_id,
-                                                               reason="synthetic cancellation"))))
-                    # Cancellation must finish the protocol request before the
-                    # synchronous worker is released, never return tool success.
-                    with self.assertRaises(McpError) as cancelled:
-                        await asyncio.wait_for(asyncio.shield(call), timeout=1)
-                    self.assertIn("cancel", str(cancelled.exception).lower())
+                    await session.send_notification(TypeAdapter(ClientNotification).validate_python({
+                        "method": "notifications/cancelled",
+                        "params": {"requestId": request_id, "reason": "synthetic cancellation"},
+                    }))
+                    # Prove the adapter exits before the worker is released.
+                    # SDK 1.x replies with a cancellation error; SDK 2.x drops
+                    # the cancelled response, so awaiting that reply would hang.
+                    await self.wait_for_file(root / "request-finished", timeout=1)
                     listing = await asyncio.wait_for(session.list_tools(), timeout=1)
                     self.assertEqual([tool.name for tool in listing.tools], ["research_search"])
                     self.assertFalse((root / "finished").exists())
@@ -189,6 +213,14 @@ class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
                     result = self.envelope(await asyncio.wait_for(session.call_tool(
                         "research_search", {"query": "after-cancel"}), timeout=1))
                     self.assertEqual(result["status"], "empty")
+                    if call.done():
+                        with self.assertRaises(MCPError) as cancelled:
+                            await call
+                        self.assertIn("cancel", str(cancelled.exception).lower())
+                    else:
+                        # A notification-only cancellation requires the caller
+                        # to stop waiting locally; there must be no tool success.
+                        call.cancel()
 
     async def test_final_search_limit_survives_real_stdio(self):
         from mcp import ClientSession, StdioServerParameters

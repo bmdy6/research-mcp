@@ -12,7 +12,7 @@ Each configuration's exact argv passed real SDK `list_tools` and a tool call ind
 
 ### Cancellation and blocking work
 
-Blocking searches and reads run in the asyncio event loop's shared, bounded worker pool, keeping stdio requests such as `tools/list` responsive. A cancellation notification cancels the tool's await through the MCP SDK; no successful tool result is delivered for that cancelled request.
+Blocking searches and reads run in the asyncio event loop's shared, bounded worker pool, keeping stdio requests such as `tools/list` responsive. A cancellation notification cancels the tool's await through the MCP SDK; no successful tool result is delivered for that cancelled request. SDK 1.x returns a cancellation error; SDK 2.x suppresses the response, so clients must also stop waiting locally.
 
 Cancellation does not forcibly stop a running Python thread, subprocess or network call. Work already started continues under the core's existing timeouts and performs its normal cleanup; its eventual result or exception is discarded. Work cancelled before its executor job starts does not run. Server shutdown may wait for running workers. The CLI remains synchronous.
 
