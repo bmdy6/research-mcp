@@ -1,0 +1,47 @@
+<!doctype html><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0}
+body{width:838px;font-family:Inter,"Noto Sans CJK SC",sans-serif;background:transparent}
+.b{position:relative;width:838px;height:480px;border-radius:14px;overflow:hidden;color:#16130f;background:#f4f0e6;border:1px solid #d9d2c1}
+.l{position:absolute;left:40px;top:38px;width:372px}
+.eyebrow{font:600 11.5px "Geist Mono","Noto Sans CJK SC",monospace;letter-spacing:.1em;color:#6b6456;display:flex;align-items:center;gap:9px}
+.eyebrow i{width:9px;height:9px;background:#e4572e;display:block}
+h1{margin-top:20px;font:800 52px/1 Inter;letter-spacing:-.045em;color:#16130f}
+.tag{margin-top:18px;font:700 22px/1.45 "Noto Sans CJK SC";color:#16130f}
+.tag em{font-style:normal;background:linear-gradient(transparent 62%,#ffc9b5 62%)}
+.sub{margin-top:11px;font:400 14.5px/1.7 "Noto Sans CJK SC";color:#5a5347}
+.chips{margin-top:18px;font:500 12.5px "Geist Mono","Noto Sans CJK SC";color:#16130f;display:flex;flex-wrap:wrap;gap:0}
+.chips span{padding:0 9px;border-left:1px solid #b9b19e}.chips span:first-child{padding-left:0;border:0}
+.term{position:absolute;right:36px;top:38px;width:372px;border-radius:8px;background:#191714;box-shadow:6px 6px 0 #16130f22}
+.bar{height:32px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid #322e28;font:500 11.5px "Geist Mono","Noto Sans CJK SC";color:#8c8474;justify-content:space-between}
+pre{padding:13px 15px 15px;font:500 12px/1.74 "Geist Mono","Noto Sans CJK SC",monospace;color:#d8d2c4;white-space:pre-wrap}
+.p{color:#e4572e}.c{color:#fff}.k{color:#a8a08f}.s{color:#f2b25c}.m{color:#7d7566}.g{color:#9bc27a}.src{color:#8fb4c9}
+.stats{position:absolute;left:40px;right:36px;bottom:30px;display:grid;grid-template-columns:repeat(4,1fr);border-top:2px solid #16130f}
+.st{padding:14px 16px 0 0}.st+.st{padding-left:16px;border-left:1px solid #cfc7b4}
+.n{font:800 32px/1 Inter;letter-spacing:-.04em}.n small{font:700 15px Inter;color:#e4572e;margin-left:2px}
+.d{margin-top:7px;font:500 12.5px "Noto Sans CJK SC";color:#5a5347}
+</style>
+<div class="b">
+<div class="l">
+ <div class="eyebrow"><i></i>CLI + MCP · FOR AI AGENTS</div>
+ <h1>research-mcp</h1>
+ <div class="tag">Search <em>5 channels</em> at once.<br>Then read the sources.</div>
+ <div class="sub">PR reviews, inline comments, webpages and Bilibili transcripts — with gaps reported to your agent.</div>
+ <div class="chips"><span>GitHub</span><span>HN</span><span>Bilibili</span><span>Juejin</span><span>Exa</span><span>+arXiv</span></div>
+</div>
+<div class="term"><div class="bar"><span>research-mcp</span><span>Real run · 2026-11-11</span></div>
+<pre><span class="p">$</span> <span class="c">research-mcp search "mcp server" --limit 5</span>
+<span class="k">"status"</span>: <span class="g">"ok"</span>   <span class="k">"total"</span>: <span class="s">119</span>   <span class="k">"returned"</span>: <span class="s">5</span>
+<span class="k">"succeeded_channels_count"</span>: <span class="s">5</span>
+<span class="k">"failed_channels_count"</span>: <span class="s">0</span>
+<span class="src">github_search</span>  easysoft/zentao-cli
+<span class="src">hacker_news  </span>  MCP server that reduces Claude…
+<span class="src">bilibili     </span>  具身探索-CodeX控制ROS2机器人
+<span class="src">exa          </span>  I counted every server in the…
+<span class="src">juejin       </span>  Cursor不得不配置的 9 款MCP Server…
+<span class="m">real 0m3.4s</span></pre></div>
+<div class="stats">
+ <div class="st"><div class="n">5<small>+1</small></div><div class="d">concurrent channels</div></div>
+ <div class="st"><div class="n">3.4<small>s</small></div><div class="d">all 5 channels in this run</div></div>
+ <div class="st"><div class="n">0</div><div class="d">required CLI dependencies</div></div>
+ <div class="st"><div class="n">248</div><div class="d">test cases</div></div>
+</div></div>
