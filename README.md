@@ -1,15 +1,35 @@
-# research-mcp
+<div align="center">
 
-给 AI agent 返回搜索结果与原文，支持 CLI 和 MCP。
+<h1><img src="docs/readme/showcase/banner.zh-CN.webp" alt="research-mcp：一次提问，5 个渠道同时搜，再把原文读回来。右侧是 2026-11-11 的真实搜索输出：5 个渠道全部成功，共 119 条候选，用时 3.4 秒。" width="838"></h1>
 
-[English](README.en.md)
+[![CI](https://github.com/bmdy6/research-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/bmdy6/research-mcp/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/python-3.10%2B-3776ab?logo=python&logoColor=white)
+![依赖](https://img.shields.io/badge/CLI%20运行依赖-0-34d399)
+![MCP](https://img.shields.io/badge/MCP-stdio-8b5cf6)
+[![License](https://img.shields.io/badge/license-MIT-64748b)](LICENSE)
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/readme/hero-dark.zh-CN.png">
-  <img src="docs/readme/hero-light.zh-CN.png" alt="成功读取 GitHub PR：3 条审查、2 条行内评论，以及真实文件路径和评论节选。" width="600">
-</picture>
+[快速开始](#快速开始) · [功能](#-功能) · [真实输出](#能力与真实输出) · [常见问题](#常见问题与限制) · [English](README.en.md)
 
-真实 PR 读取：审查数、行内评论数、文件路径和原评论节选。
+</div>
+
+横幅里的终端是 2026-11-11 的真实运行：`search "mcp server" --limit 5`，5 个渠道全部返回，汇集 119 条候选，用时 3.4 秒；结果随网络变化。
+
+## 为什么需要它
+
+AI agent 自带的搜索只给一页摘要：看不到 PR 里的审查意见，读不了 B 站视频，哪个来源失败了也不会说。research-mcp 把“搜”和“读原文”合成一个工具，并且把没读到的部分写进结果。
+
+| | 以前 | 用 research-mcp |
+|---|---|---|
+| 查一个话题 | GitHub、HN、B站、掘金各开一个标签页 | 一条命令，5 个渠道并发，结果带来源 |
+| 读一个 PR | 只拿到标题和描述 | 审查、行内评论、文件路径，`coverage` 写明读了几条 |
+| 来源失败 | 悄悄少一块，agent 照样下结论 | `partial`、失败渠道、截断原因都在结果里 |
+| 接入 agent | 每个平台装一个工具 | 1 个 MCP 工具，关键词和链接都收 |
+
+## ✨ 功能
+
+<div align="center">
+<img src="docs/readme/showcase/features.zh-CN.webp" alt="六项功能：一条命令搜 5 个渠道；把 PR 审查读完整；网页直接变 Markdown；没读到就明说；默认挡住内网地址；零依赖，uvx 即用。" width="838">
+</div>
 
 ## 快速开始
 
@@ -46,13 +66,14 @@ args = ["--from", "git+https://github.com/bmdy6/research-mcp", "--with", "mcp>=1
 
 </details>
 
-## 你会得到什么
-
-- **一次搜索多个渠道。** GitHub、HN、B站、掘金和 Exa 并发检索，返回来源链接。
-- **读取来源而非只看摘要。** 网页返回 Markdown，GitHub PR 保留审查、行内评论和分页 coverage。
-- **看清读取的边界。** 结果标明 partial、失败渠道和截断；B站网页不冒充视频文字稿。
-
 ## 能力与真实输出
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/readme/hero-dark.zh-CN.png">
+  <img src="docs/readme/hero-light.zh-CN.png" alt="成功读取 GitHub PR：3 条审查、2 条行内评论，以及真实文件路径和评论节选。" width="600">
+</picture>
+
+真实 PR 读取：审查数、行内评论数、文件路径和原评论节选。
 
 以下是 2026-11-09 的真实运行节选，保留原字段名；来源和使用方式见[使用说明](docs/readme/reference.zh-CN.md)。网络结果会变化，arXiv 仅在显式指定时启用。
 
@@ -68,9 +89,26 @@ args = ["--from", "git+https://github.com/bmdy6/research-mcp", "--with", "mcp>=1
 
 ## 工作流程
 
+```mermaid
+flowchart LR
+  Q[关键词或链接] --> S{research_search}
+  S -->|关键词| C[5 个渠道并发<br>GitHub · HN · B站 · 掘金 · Exa]
+  S -->|链接| F[读原文<br>网页 · PR · B站]
+  C --> R[v1 JSON<br>status · errors · coverage]
+  F --> R
+  R --> A[agent 决定补搜或翻页]
+```
+
+
 1. 用关键词搜索；`--providers` 可选 `github_search,hacker_news,bilibili,exa,juejin,arxiv`。
 2. 把候选链接传给 `fetch`；MCP 的单工具 `research_search` 同时接受关键词或链接。
 3. 检查 `status`、`errors`、`truncated` 和 `coverage`，再决定是否补搜或翻页。
+
+## 🛡️ 靠得住的地方
+
+- **210 个测试用例。** CI 在 Ubuntu / macOS × Python 3.10 / 3.13 上跑离线测试，另单跑一次 MCP stdio。
+- **默认只读公开 HTTPS。** 内网、回环和链路本地地址一律拦截，重定向逐跳复查。
+- **密钥只走环境变量。** 三个 key 全部可选；不设置就跳过对应能力，并在结果里说明。
 
 ## 选项
 
@@ -129,3 +167,9 @@ args = ["--from", "git+https://github.com/bmdy6/research-mcp", "--with", "mcp>=1
 ## 许可证
 
 [MIT](LICENSE)。网页及转写内容的权利归原权利人；请遵守上游条款。
+
+<div align="center">
+
+觉得有用就点个 ⭐，下一个渠道加什么，欢迎提 Issue。
+
+</div>
