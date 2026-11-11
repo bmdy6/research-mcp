@@ -10,6 +10,12 @@ Claude Code 的 `.mcp.json`、Codex 的 `.codex/config.toml` 与 Cursor 的 `.cu
 
 三个配置已按原 argv 分别通过真实 SDK 的 `list_tools` 与一次工具调用；未修改本机客户端配置，未进行三个客户端的 GUI 操作验收。
 
+### 取消与阻塞任务
+
+阻塞的搜索和读取放入 asyncio 事件循环共用、线程数有界的工作池，stdio 的 `tools/list` 等请求保持可响应。取消通知由 MCP SDK 取消工具的等待；该取消请求不会收到成功的工具结果。
+
+取消不会强制终止已运行的 Python 线程、子进程或网络调用。已经开始的工作仍按核心原有超时执行并正常清理，最终结果或异常被丢弃；执行器中尚未开始的任务若已被取消，则不会运行。服务器退出时可能等待运行中的线程。CLI 仍然同步执行。
+
 ## 读取结果与边界
 
 首图来自真实读取 [cli/cli PR 14976](https://github.com/cli/cli/pull/14976)：3 条 reviews、2 条 review_comments，并节选原始行内评论的 path 和正文。它证明该次 PR 读取成功，不代表所有页面和所有分页内容都能完整取得；请检查 coverage、truncated 和续读链接。

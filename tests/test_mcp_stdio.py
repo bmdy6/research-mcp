@@ -10,6 +10,7 @@ import json
 import os
 from pathlib import Path
 import sys
+import tempfile
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -83,8 +84,112 @@ mcp_server.mcp.run()
 """
 
 
+BLOCKING_SERVER = r"""
+import sys, tempfile, time
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+from research_mcp import mcp_server as server
+
+root = Path(sys.argv[2])
+def query(text, **kwargs):
+    if text.startswith("blocked"):
+        try:
+            with tempfile.TemporaryDirectory(dir=root, prefix="worker-") as workspace:
+                (root / "workspace").write_text(workspace)
+                (root / "started").touch()
+                deadline = time.monotonic() + 5
+                while not (root / "release").exists():
+                    if time.monotonic() >= deadline:
+                        raise TimeoutError("fixture release not received")
+                    time.sleep(.01)
+                if text == "blocked-error":
+                    raise RuntimeError("synthetic late failure")
+        finally:
+            (root / "finished").touch()
+    return {"api_version": "1", "operation": "search", "status": "empty",
+            "ok": True, "candidates": [], "total": 0, "returned": 0, "errors": []}
+
+server.S.query = query
+server.mcp.run()
+"""
+
+
 @unittest.skipUnless(HAS_MCP, "optional mcp SDK missing; run the documented uv command")
 class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
+    async def wait_for_file(self, path):
+        async def wait():
+            while not path.exists():
+                await asyncio.sleep(.01)
+        await asyncio.wait_for(wait(), timeout=3)
+
+    @asynccontextmanager
+    async def blocked_call(self, query="blocked"):
+        from mcp import ClientSession, StdioServerParameters
+        from mcp.client.stdio import stdio_client
+
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            params = StdioServerParameters(
+                command=sys.executable,
+                args=["-c", BLOCKING_SERVER, str(ROOT), str(root)], env={})
+            async with stdio_client(params) as (read, write):
+                async with ClientSession(read, write) as session:
+                    await session.initialize()
+                    # The SDK exposes no public request ID on call_tool(). Capture
+                    # the next ID before scheduling, as in the issue's fixture.
+                    request_id = session._request_id
+                    call = asyncio.create_task(session.call_tool(
+                        "research_search", {"query": query}))
+                    try:
+                        await self.wait_for_file(root / "started")
+                        yield session, call, request_id, root
+                    finally:
+                        # Always release blocking work, including on a pre-fix
+                        # assertion failure, and retrieve any tool exception.
+                        (root / "release").touch()
+                        await asyncio.wait_for(
+                            asyncio.gather(call, return_exceptions=True), timeout=5)
+                        await self.wait_for_file(root / "finished")
+
+    async def test_tools_list_responds_while_query_is_blocked(self):
+        async with self.blocked_call() as (session, call, _, root):
+            listing = await asyncio.wait_for(session.list_tools(), timeout=1)
+            self.assertEqual([tool.name for tool in listing.tools], ["research_search"])
+            self.assertFalse(call.done())
+            self.assertFalse((root / "finished").exists())
+            (root / "release").touch()
+            self.assertEqual(self.envelope(await call)["status"], "empty")
+
+    async def test_cancellation_discards_result_and_worker_finishes_cleanup(self):
+        from mcp.shared.exceptions import McpError
+        from mcp.types import ClientNotification, CancelledNotification, CancelledNotificationParams
+
+        for query in ("blocked", "blocked-error"):
+            with self.subTest(query=query):
+                async with self.blocked_call(query) as (session, call, request_id, root):
+                    await session.send_notification(ClientNotification(
+                        CancelledNotification(method="notifications/cancelled",
+                            params=CancelledNotificationParams(requestId=request_id,
+                                                               reason="synthetic cancellation"))))
+                    # Cancellation must finish the protocol request before the
+                    # synchronous worker is released, never return tool success.
+                    with self.assertRaises(McpError) as cancelled:
+                        await asyncio.wait_for(asyncio.shield(call), timeout=1)
+                    self.assertIn("cancel", str(cancelled.exception).lower())
+                    listing = await asyncio.wait_for(session.list_tools(), timeout=1)
+                    self.assertEqual([tool.name for tool in listing.tools], ["research_search"])
+                    self.assertFalse((root / "finished").exists())
+                    workspace = Path((root / "workspace").read_text())
+                    self.assertTrue(workspace.is_dir())
+                    # A running thread cannot be killed: it keeps its normal
+                    # cleanup and its eventual result/exception is discarded.
+                    (root / "release").touch()
+                    await self.wait_for_file(root / "finished")
+                    self.assertFalse(workspace.exists())
+                    result = self.envelope(await asyncio.wait_for(session.call_tool(
+                        "research_search", {"query": "after-cancel"}), timeout=1))
+                    self.assertEqual(result["status"], "empty")
+
     async def test_final_search_limit_survives_real_stdio(self):
         from mcp import ClientSession, StdioServerParameters
         from mcp.client.stdio import stdio_client

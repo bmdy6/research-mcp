@@ -1,4 +1,5 @@
 """Synthetic DNS regression coverage for the explicit fake-IP exception."""
+import asyncio
 import contextlib
 import importlib.util
 import io
@@ -152,13 +153,13 @@ class FakeIPOutputTest(unittest.TestCase):
         with patch.dict(sys.modules, {"mcp": types.ModuleType("mcp"), "mcp.server": types.ModuleType("mcp.server"), "mcp.server.mcpserver": stub}):
             spec.loader.exec_module(server)
         for address, message in (("198.18.0.1", FAKE_IP), ("10.0.0.1", BLOCKED)):
-            with self.subTest(address=address), patch.dict(os.environ, {FLAG: ""}), patch.object(safe_dns.SubprocessResolver, "__call__", return_value=[address]), patch("research_mcp.safe_transport.socket.socket") as socket:
+            with self.subTest(address=address), patch.dict(os.environ, {FLAG: ""}), patch.object(safe_dns.SubprocessResolver, "__call__", return_value=[address]), patch("research_mcp.safe_transport.PinnedIPTransport.__call__") as transport:
                 output = io.StringIO()
                 with patch.object(sys, "argv", ["research-mcp", "fetch", "https://fixture.invalid/", "--format", "json"]), contextlib.redirect_stdout(output):
                     self.assertEqual(cli.main(), 1)
                 self.assert_failure(json.loads(output.getvalue()), message)
-                self.assert_failure(json.loads(server.research_search("https://fixture.invalid/")), message)
-                socket.assert_not_called()
+                self.assert_failure(json.loads(asyncio.run(server.research_search("https://fixture.invalid/"))), message)
+                transport.assert_not_called()
 
     def test_reader_and_raw_fallback_preserve_safety_code(self):
         for address, message in (("198.18.0.1", FAKE_IP), ("10.0.0.1", BLOCKED)):

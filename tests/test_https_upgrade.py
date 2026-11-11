@@ -1,4 +1,5 @@
 """HTTP upgrades and exhaustive safe-fetch diagnostics without network I/O."""
+import asyncio
 import contextlib
 import importlib.util
 import io
@@ -90,7 +91,7 @@ class HTTPSUpgradeTest(unittest.TestCase):
             with patch.object(sys, "argv", ["research-mcp", "fetch", "http://fixture.invalid/", "--format", "json"]), contextlib.redirect_stdout(output):
                 self.assertEqual(cli.main(), 0)
             self.assertTrue(json.loads(output.getvalue())["data"]["upgraded_to_https"])
-            self.assertTrue(json.loads(server.research_search("http://fixture.invalid/"))["data"]["upgraded_to_https"])
+            self.assertTrue(json.loads(asyncio.run(server.research_search("http://fixture.invalid/")))["data"]["upgraded_to_https"])
 
 
 class SafeErrorContractTest(unittest.TestCase):
@@ -102,7 +103,7 @@ class SafeErrorContractTest(unittest.TestCase):
                 output = io.StringIO()
                 with patch.object(sys, "argv", ["research-mcp", "fetch", "https://fixture.invalid/", "--format", "json"]), contextlib.redirect_stdout(output):
                     self.assertEqual(cli.main(), 1)
-                for result in (json.loads(output.getvalue()), json.loads(server.research_search("https://fixture.invalid/"))):
+                for result in (json.loads(output.getvalue()), json.loads(asyncio.run(server.research_search("https://fixture.invalid/")))):
                     self.assertEqual(result["errors"][0]["code"], code)
                     self.assertEqual(result["errors"][0]["message"], message)
                     self.assertEqual(result["data"]["error"], message)
