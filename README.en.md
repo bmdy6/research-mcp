@@ -14,23 +14,6 @@
 
 The terminal in the banner shows a real run on 2026-11-11: `search "mcp server" --limit 5` returned results from all 5 channels, pooled 119 candidates and took 3.4 seconds. Results vary with network conditions.
 
-## Why use it
-
-An AI agent's built-in search may only return a page of snippets: it can miss PR reviews, cannot read Bilibili videos and may not tell you which sources failed. research-mcp combines search and source reading in one tool, and reports what it could not read.
-
-| | Before | With research-mcp |
-|---|---|---|
-| Research a topic | Open separate tabs for GitHub, HN, Bilibili and Juejin | One command searches 5 channels concurrently, with source links |
-| Read a PR | Get only the title and description | Get reviews, inline comments and file paths; `coverage` reports how many were read |
-| A source fails | Silently lose part of the evidence while the agent still draws conclusions | Results include `partial`, failed channels and truncation reasons |
-| Connect an agent | Install a separate tool for each platform | 1 MCP tool accepts both keywords and URLs |
-
-## ✨ Features
-
-<div align="center">
-<img src="docs/readme/showcase/features.en.png" alt="Six features: search 5 channels with one command; read PR reviews; turn webpages into Markdown; report incomplete reads; block private addresses by default; run a zero-dependency CLI with uvx." width="838">
-</div>
-
 ## Quick start
 
 ```sh
@@ -65,6 +48,23 @@ args = ["--from", "git+https://github.com/bmdy6/research-mcp", "--with", "mcp>=1
 ```
 
 </details>
+
+## Why use it
+
+An AI agent's built-in search may only return a page of snippets: it can miss PR reviews, cannot read Bilibili videos and may not tell you which sources failed. research-mcp combines search and source reading in one tool, and reports what it could not read.
+
+| | Before | With research-mcp |
+|---|---|---|
+| Research a topic | Open separate tabs for GitHub, HN, Bilibili and Juejin | One command searches 5 channels concurrently, with source links |
+| Read a PR | Get only the title and description | Get reviews, inline comments and file paths; `coverage` reports how many were read |
+| A source fails | Silently lose part of the evidence while the agent still draws conclusions | Results include `partial`, failed channels and truncation reasons |
+| Connect an agent | Install a separate tool for each platform | 1 MCP tool accepts both keywords and URLs |
+
+## ✨ Features
+
+<div align="center">
+<img src="docs/readme/showcase/features.en.png" alt="Six features: search 5 channels with one command; read PR reviews; turn webpages into Markdown; report incomplete reads; block private addresses by default; run a zero-dependency CLI with uvx." width="838">
+</div>
 
 ## Capabilities and real output
 

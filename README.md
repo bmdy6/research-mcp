@@ -14,23 +14,6 @@
 
 横幅里的终端是 2026-11-11 的真实运行：`search "mcp server" --limit 5`，5 个渠道全部返回，汇集 119 条候选，用时 3.4 秒；结果随网络变化。
 
-## 为什么需要它
-
-AI agent 自带的搜索只给一页摘要：看不到 PR 里的审查意见，读不了 B 站视频，哪个来源失败了也不会说。research-mcp 把“搜”和“读原文”合成一个工具，并且把没读到的部分写进结果。
-
-| | 以前 | 用 research-mcp |
-|---|---|---|
-| 查一个话题 | GitHub、HN、B站、掘金各开一个标签页 | 一条命令，5 个渠道并发，结果带来源 |
-| 读一个 PR | 只拿到标题和描述 | 审查、行内评论、文件路径，`coverage` 写明读了几条 |
-| 来源失败 | 悄悄少一块，agent 照样下结论 | `partial`、失败渠道、截断原因都在结果里 |
-| 接入 agent | 每个平台装一个工具 | 1 个 MCP 工具，关键词和链接都收 |
-
-## ✨ 功能
-
-<div align="center">
-<img src="docs/readme/showcase/features.zh-CN.webp" alt="六项功能：一条命令搜 5 个渠道；把 PR 审查读完整；网页直接变 Markdown；没读到就明说；默认挡住内网地址；零依赖，uvx 即用。" width="838">
-</div>
-
 ## 快速开始
 
 ```sh
@@ -65,6 +48,23 @@ args = ["--from", "git+https://github.com/bmdy6/research-mcp", "--with", "mcp>=1
 ```
 
 </details>
+
+## 为什么需要它
+
+AI agent 自带的搜索有时只给一页摘要：可能漏掉 PR 里的审查意见，无法读取 B 站视频，也可能不说明哪些来源失败了。research-mcp 把“搜”和“读原文”合成一个工具，并且把没读到的部分写进结果。
+
+| | 以前 | 用 research-mcp |
+|---|---|---|
+| 查一个话题 | GitHub、HN、B站、掘金各开一个标签页 | 一条命令，5 个渠道并发，结果带来源 |
+| 读一个 PR | 只拿到标题和描述 | 审查、行内评论、文件路径，`coverage` 写明读了几条 |
+| 来源失败 | 悄悄少一块，agent 照样下结论 | `partial`、失败渠道、截断原因都在结果里 |
+| 接入 agent | 每个平台装一个工具 | 1 个 MCP 工具，关键词和链接都收 |
+
+## ✨ 功能
+
+<div align="center">
+<img src="docs/readme/showcase/features.zh-CN.webp" alt="六项功能：一条命令搜 5 个渠道；把 PR 审查读完整；网页直接变 Markdown；没读到就明说；默认挡住内网地址；零依赖，uvx 即用。" width="838">
+</div>
 
 ## 能力与真实输出
 
