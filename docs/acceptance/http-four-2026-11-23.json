@@ -1,0 +1,487 @@
+{
+  "baseline": "28116ae",
+  "transport": "system curl, verified TLS, browser UA, no cookies/authorization, no browser opt-in",
+  "live_searches": [
+    {
+      "channel": "youtube",
+      "query": "Python 教程",
+      "seconds": 3.671,
+      "status": "ok",
+      "returned": 3,
+      "failures": [],
+      "candidates": [
+        {
+          "title": "3小时超快速入门Python | 动画教学【2025新版】【自学Python教程】【零基础Python】",
+          "url": "https://www.youtube.com/watch?v=9Hku_7e-JSk",
+          "actual_backend": "http/www.youtube.com"
+        },
+        {
+          "title": "50分钟超快速入门Python爬虫 | 动画教学【2025新版】【自学Python爬虫教程】【零基础爬虫】",
+          "url": "https://www.youtube.com/watch?v=ryICg82dIEY",
+          "actual_backend": "http/www.youtube.com"
+        },
+        {
+          "title": "2026最新Python快速入门教程：1小时让代码为你打工，快速通关！",
+          "url": "https://www.youtube.com/watch?v=D2Nf2EPKyrY",
+          "actual_backend": "http/www.youtube.com"
+        }
+      ]
+    },
+    {
+      "channel": "youtube",
+      "query": "python",
+      "seconds": 1.32,
+      "status": "ok",
+      "returned": 3,
+      "failures": [],
+      "candidates": [
+        {
+          "title": "お題どおりの画像を作れる？ AIに正確に指示を出そう！プロンプトゲームに挑戦！",
+          "url": "https://www.youtube.com/watch?v=hBxqMUy-eCA",
+          "actual_backend": "http/www.youtube.com"
+        },
+        {
+          "title": "【新バージョンPython3.15】注目の新機能を解説！frozendictやlazy importが新登場！！",
+          "url": "https://www.youtube.com/watch?v=GdcxHb6yF_A",
+          "actual_backend": "http/www.youtube.com"
+        },
+        {
+          "title": "「Cookieの使用に同意しますか？」って何？🍪 Cookieの仕組みを解説！〜Webブラウザの機能を知ろう〜",
+          "url": "https://www.youtube.com/watch?v=TRh6kgSCQzY",
+          "actual_backend": "http/www.youtube.com"
+        }
+      ]
+    },
+    {
+      "channel": "douban",
+      "query": "三体",
+      "seconds": 3.108,
+      "status": "ok",
+      "returned": 3,
+      "failures": [],
+      "candidates": [
+        {
+          "title": "三体",
+          "url": "https://book.douban.com/subject/2567698/",
+          "actual_backend": "http/www.douban.com"
+        },
+        {
+          "title": "三体",
+          "url": "https://movie.douban.com/subject/26647087/",
+          "actual_backend": "http/www.douban.com"
+        },
+        {
+          "title": "三体 广播剧（全六季）",
+          "url": "https://music.douban.com/subject/35879428/",
+          "actual_backend": "http/www.douban.com"
+        }
+      ]
+    },
+    {
+      "channel": "douban",
+      "query": "Dune",
+      "seconds": 3.077,
+      "status": "ok",
+      "returned": 3,
+      "failures": [],
+      "candidates": [
+        {
+          "title": "沙丘",
+          "url": "https://book.douban.com/subject/26836970/",
+          "actual_backend": "http/www.douban.com"
+        },
+        {
+          "title": "沙丘",
+          "url": "https://movie.douban.com/subject/3001114/",
+          "actual_backend": "http/www.douban.com"
+        },
+        {
+          "title": "DUNE",
+          "url": "https://music.douban.com/subject/1397728/",
+          "actual_backend": "http/www.douban.com"
+        }
+      ]
+    },
+    {
+      "channel": "hupu",
+      "query": "篮球",
+      "seconds": 0.221,
+      "status": "ok",
+      "returned": 3,
+      "failures": [],
+      "candidates": [
+        {
+          "title": "约基奇还差8次登顶常规赛历史三双榜第一，就在这赛季？",
+          "url": "https://bbs.hupu.com/644156015.html",
+          "actual_backend": "http/bbs.hupu.com"
+        },
+        {
+          "title": "[流言板]记者：贾巴里-帕克已抵达深圳，若体检顺利将与球队汇合",
+          "url": "https://bbs.hupu.com/644153316.html",
+          "actual_backend": "http/bbs.hupu.com"
+        },
+        {
+          "title": "五年首度四连败，凯尔特人怎么了？",
+          "url": "https://bbs.hupu.com/644156724.html",
+          "actual_backend": "http/bbs.hupu.com"
+        }
+      ]
+    },
+    {
+      "channel": "hupu",
+      "query": "NBA",
+      "seconds": 0.275,
+      "status": "ok",
+      "returned": 3,
+      "failures": [],
+      "candidates": [
+        {
+          "title": "约基奇还差8次登顶常规赛历史三双榜第一，就在这赛季？",
+          "url": "https://bbs.hupu.com/644156015.html",
+          "actual_backend": "http/bbs.hupu.com"
+        },
+        {
+          "title": "五年首度四连败，凯尔特人怎么了？",
+          "url": "https://bbs.hupu.com/644156724.html",
+          "actual_backend": "http/bbs.hupu.com"
+        },
+        {
+          "title": "等我们打出一波十连胜之后，那些声音会怎么变？",
+          "url": "https://bbs.hupu.com/644151580.html",
+          "actual_backend": "http/bbs.hupu.com"
+        }
+      ]
+    },
+    {
+      "channel": "devto",
+      "query": "中文",
+      "seconds": 0.997,
+      "status": "ok",
+      "returned": 3,
+      "failures": [],
+      "candidates": [
+        {
+          "title": "[ZH] CarPlay Is Additive [ZH]",
+          "url": "https://dev.to/aikitt/zh-carplay-is-additive-zh-269m",
+          "actual_backend": "http/dev.to/api/articles (exact tag)"
+        },
+        {
+          "title": "[ZH] An American Privacy Emergency [ZH]",
+          "url": "https://dev.to/aikitt/zh-an-american-privacy-emergency-zh-4bke",
+          "actual_backend": "http/dev.to/api/articles (exact tag)"
+        },
+        {
+          "title": "[ZH] Virginia bans sale of geolocation data [ZH]",
+          "url": "https://dev.to/aikitt/zh-virginia-bans-sale-of-geolocation-data-zh-2k4p",
+          "actual_backend": "http/dev.to/api/articles (exact tag)"
+        }
+      ]
+    },
+    {
+      "channel": "devto",
+      "query": "python",
+      "seconds": 0.818,
+      "status": "ok",
+      "returned": 3,
+      "failures": [],
+      "candidates": [
+        {
+          "title": "🎨 NECOZ Art Class: The Day 35 Cats Painted a Portrait of the King 👑 | How Pixels Work",
+          "url": "https://dev.to/necoz/necoz-art-class-the-day-35-cats-painted-a-portrait-of-the-king-how-pixels-work-10en",
+          "actual_backend": "http/dev.to/api/articles (exact tag)"
+        },
+        {
+          "title": "I fault-injected 60 live MCP tool failures: LLMs lied, my verifier hit a 38% false-positive wall, and here is what fixed both",
+          "url": "https://dev.to/rollsolo/i-fault-injected-60-live-mcp-tool-failures-llms-lied-my-verifier-hit-a-38-false-positive-wall-4iac",
+          "actual_backend": "http/dev.to/api/articles (exact tag)"
+        },
+        {
+          "title": "Harness2: better agents by improving the harness, not the model",
+          "url": "https://dev.to/alexr/harness2-better-agents-by-improving-the-harness-not-the-model-3m1h",
+          "actual_backend": "http/dev.to/api/articles (exact tag)"
+        }
+      ]
+    }
+  ],
+  "initial_searches": [
+    {
+      "channel": "youtube",
+      "query": "Python 教程",
+      "seconds": 5.252,
+      "status": "error",
+      "returned": 0,
+      "failures": [
+        {
+          "channel": "youtube",
+          "error": "上游连接失败",
+          "status": "connection_failed"
+        }
+      ],
+      "candidates": []
+    },
+    {
+      "channel": "youtube",
+      "query": "python tutorial",
+      "seconds": 5.234,
+      "status": "error",
+      "returned": 0,
+      "failures": [
+        {
+          "channel": "youtube",
+          "error": "上游连接失败",
+          "status": "connection_failed"
+        }
+      ],
+      "candidates": []
+    },
+    {
+      "channel": "douban",
+      "query": "三体",
+      "seconds": 3.108,
+      "status": "ok",
+      "returned": 3,
+      "failures": [],
+      "candidates": [
+        {
+          "title": "三体",
+          "url": "https://book.douban.com/subject/2567698/",
+          "actual_backend": "http/www.douban.com"
+        },
+        {
+          "title": "三体",
+          "url": "https://movie.douban.com/subject/26647087/",
+          "actual_backend": "http/www.douban.com"
+        },
+        {
+          "title": "三体 广播剧（全六季）",
+          "url": "https://music.douban.com/subject/35879428/",
+          "actual_backend": "http/www.douban.com"
+        }
+      ]
+    },
+    {
+      "channel": "douban",
+      "query": "Dune",
+      "seconds": 3.077,
+      "status": "ok",
+      "returned": 3,
+      "failures": [],
+      "candidates": [
+        {
+          "title": "沙丘",
+          "url": "https://book.douban.com/subject/26836970/",
+          "actual_backend": "http/www.douban.com"
+        },
+        {
+          "title": "沙丘",
+          "url": "https://movie.douban.com/subject/3001114/",
+          "actual_backend": "http/www.douban.com"
+        },
+        {
+          "title": "DUNE",
+          "url": "https://music.douban.com/subject/1397728/",
+          "actual_backend": "http/www.douban.com"
+        }
+      ]
+    },
+    {
+      "channel": "hupu",
+      "query": "篮球",
+      "seconds": 0.221,
+      "status": "ok",
+      "returned": 3,
+      "failures": [],
+      "candidates": [
+        {
+          "title": "约基奇还差8次登顶常规赛历史三双榜第一，就在这赛季？",
+          "url": "https://bbs.hupu.com/644156015.html",
+          "actual_backend": "http/bbs.hupu.com"
+        },
+        {
+          "title": "[流言板]记者：贾巴里-帕克已抵达深圳，若体检顺利将与球队汇合",
+          "url": "https://bbs.hupu.com/644153316.html",
+          "actual_backend": "http/bbs.hupu.com"
+        },
+        {
+          "title": "五年首度四连败，凯尔特人怎么了？",
+          "url": "https://bbs.hupu.com/644156724.html",
+          "actual_backend": "http/bbs.hupu.com"
+        }
+      ]
+    },
+    {
+      "channel": "hupu",
+      "query": "NBA",
+      "seconds": 0.275,
+      "status": "ok",
+      "returned": 3,
+      "failures": [],
+      "candidates": [
+        {
+          "title": "约基奇还差8次登顶常规赛历史三双榜第一，就在这赛季？",
+          "url": "https://bbs.hupu.com/644156015.html",
+          "actual_backend": "http/bbs.hupu.com"
+        },
+        {
+          "title": "五年首度四连败，凯尔特人怎么了？",
+          "url": "https://bbs.hupu.com/644156724.html",
+          "actual_backend": "http/bbs.hupu.com"
+        },
+        {
+          "title": "等我们打出一波十连胜之后，那些声音会怎么变？",
+          "url": "https://bbs.hupu.com/644151580.html",
+          "actual_backend": "http/bbs.hupu.com"
+        }
+      ]
+    },
+    {
+      "channel": "devto",
+      "query": "中文",
+      "seconds": 0.997,
+      "status": "ok",
+      "returned": 3,
+      "failures": [],
+      "candidates": [
+        {
+          "title": "[ZH] CarPlay Is Additive [ZH]",
+          "url": "https://dev.to/aikitt/zh-carplay-is-additive-zh-269m",
+          "actual_backend": "http/dev.to/api/articles (exact tag)"
+        },
+        {
+          "title": "[ZH] An American Privacy Emergency [ZH]",
+          "url": "https://dev.to/aikitt/zh-an-american-privacy-emergency-zh-4bke",
+          "actual_backend": "http/dev.to/api/articles (exact tag)"
+        },
+        {
+          "title": "[ZH] Virginia bans sale of geolocation data [ZH]",
+          "url": "https://dev.to/aikitt/zh-virginia-bans-sale-of-geolocation-data-zh-2k4p",
+          "actual_backend": "http/dev.to/api/articles (exact tag)"
+        }
+      ]
+    },
+    {
+      "channel": "devto",
+      "query": "python",
+      "seconds": 5.028,
+      "status": "error",
+      "returned": 0,
+      "failures": [
+        {
+          "channel": "devto",
+          "error": "上游连接失败",
+          "status": "connection_failed"
+        }
+      ],
+      "candidates": []
+    }
+  ],
+  "recheck_note": "Manual service-level rechecks after initial connection failures; English python tutorial also timed out before testing python. Initial failures and intermediate rechecks retained. No automatic retries; success does not establish stable availability.",
+  "rechecks": [
+    {
+      "channel": "youtube",
+      "query": "Python 教程",
+      "seconds": 3.671,
+      "status": "ok",
+      "returned": 3,
+      "failures": [],
+      "candidates": [
+        {
+          "title": "3小时超快速入门Python | 动画教学【2025新版】【自学Python教程】【零基础Python】",
+          "url": "https://www.youtube.com/watch?v=9Hku_7e-JSk",
+          "actual_backend": "http/www.youtube.com"
+        },
+        {
+          "title": "50分钟超快速入门Python爬虫 | 动画教学【2025新版】【自学Python爬虫教程】【零基础爬虫】",
+          "url": "https://www.youtube.com/watch?v=ryICg82dIEY",
+          "actual_backend": "http/www.youtube.com"
+        },
+        {
+          "title": "2026最新Python快速入门教程：1小时让代码为你打工，快速通关！",
+          "url": "https://www.youtube.com/watch?v=D2Nf2EPKyrY",
+          "actual_backend": "http/www.youtube.com"
+        }
+      ]
+    },
+    {
+      "channel": "youtube",
+      "query": "python tutorial",
+      "seconds": 20.022,
+      "status": "error",
+      "returned": 0,
+      "failures": [
+        {
+          "channel": "youtube",
+          "error": "上游超时",
+          "status": "timeout"
+        }
+      ],
+      "candidates": []
+    },
+    {
+      "channel": "devto",
+      "query": "python",
+      "seconds": 0.818,
+      "status": "ok",
+      "returned": 3,
+      "failures": [],
+      "candidates": [
+        {
+          "title": "🎨 NECOZ Art Class: The Day 35 Cats Painted a Portrait of the King 👑 | How Pixels Work",
+          "url": "https://dev.to/necoz/necoz-art-class-the-day-35-cats-painted-a-portrait-of-the-king-how-pixels-work-10en",
+          "actual_backend": "http/dev.to/api/articles (exact tag)"
+        },
+        {
+          "title": "I fault-injected 60 live MCP tool failures: LLMs lied, my verifier hit a 38% false-positive wall, and here is what fixed both",
+          "url": "https://dev.to/rollsolo/i-fault-injected-60-live-mcp-tool-failures-llms-lied-my-verifier-hit-a-38-false-positive-wall-4iac",
+          "actual_backend": "http/dev.to/api/articles (exact tag)"
+        },
+        {
+          "title": "Harness2: better agents by improving the harness, not the model",
+          "url": "https://dev.to/alexr/harness2-better-agents-by-improving-the-harness-not-the-model-3m1h",
+          "actual_backend": "http/dev.to/api/articles (exact tag)"
+        }
+      ]
+    },
+    {
+      "channel": "youtube",
+      "query": "python",
+      "seconds": 5.219,
+      "status": "error",
+      "returned": 0,
+      "failures": [
+        {
+          "channel": "youtube",
+          "error": "上游连接失败",
+          "status": "connection_failed"
+        }
+      ],
+      "candidates": []
+    }
+  ],
+  "diagnostic_service_success": {
+    "channel": "youtube",
+    "query": "python",
+    "seconds": null,
+    "status": "ok",
+    "returned": 3,
+    "failures": [],
+    "candidates": [
+      {
+        "title": "【Python入門】プログラミングの基本を2時間半で学ぶ！〜初心者用チュートリアル〜 Python速習",
+        "url": "https://www.youtube.com/watch?v=tCMl1AWfhQQ",
+        "actual_backend": "http/www.youtube.com"
+      },
+      {
+        "title": "【Python入門完全版】AI時代に必須の知識50個をこれ1本で習得！",
+        "url": "https://www.youtube.com/watch?v=jigU7LQoDAw",
+        "actual_backend": "http/www.youtube.com"
+      },
+      {
+        "title": "Python フルコースを無料で受講🐍",
+        "url": "https://www.youtube.com/watch?v=ix9cRaBkVe0",
+        "actual_backend": "http/www.youtube.com"
+      }
+    ]
+  },
+  "collected_at": "2026-11-23T13:49:19.131135+00:00"
+}

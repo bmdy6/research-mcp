@@ -156,6 +156,22 @@ The catalog exposes cost class, key/login requirements, languages, content types
 | `arxiv` | Papers | All papers by default; opt into GitHub-only with ARXIV_REQUIRE_GITHUB=1 |
 | `tavily`, `openalex` | Web / papers | Recurring free key + explicit `*_FREE_ONLY=1`; quota preflight, no paid fallback |
 
+### Browser and login requirements (complete list)
+
+These disjoint groups cover all 59 catalog channels. Browser-free does not mean credential-free.
+
+| Requirement | Channel IDs |
+|---|---|
+| **No browser (35; all API / HTTP / request backends)** | `github_search`, `hacker_news`, `arxiv`, `exa`, `juejin`, `bilibili`, `baidu`, `sogou`, `bing`, `duckduckgo`, `csdn`, `tavily`, `openalex`, `wikipedia`, `wikidata`, `crossref`, `stackexchange`, `huggingface`, `europe_pmc`, `pubmed`, `openlibrary`, `itunes_podcasts`, `mdn`, `google_news_rss`, `npm`, `crates_io`, `docker_hub`, `itunes_apps`, `sogou_wechat`, `hupu`, `douban`, `youtube`, `devto`, `segmentfault`, `suning` |
+| **Browser, no login requirement (10)** | `smzdm`, `kr36`, `amazon`, `medium`, `pypi`, `gitee`, `mafengwo`, `sspai`, `huxiu`, `lobsters` |
+| **Browser with an existing login (14)** | `xianyu`, `weibo`, `jd`, `taobao`, `tmall`, `zhihu`, `xiaohongshu`, `douyin`, `boss`, `liepin`, `x`, `maimai`, `dianping`, `tieba` |
+
+`github_search` needs an existing gh login; Tavily/OpenAlex need free keys and free-only flags; Google News RSS needs its local personal opt-in. The five open-webSearch engines need the pinned Node request backend and never launch a browser. All browser channels require explicit Ego Lite opt-in. Login requirements are conservative catalog requirements, not conclusions from HTTP blocking; no fresh/incognito browser check was performed. Unimplemented platforms such as VIP and NGA are outside these lists.
+
+YouTube, Douban, Hupu and dev.to now use the same anonymous TLS-verified curl transport as Suning, Sogou WeChat and SegmentFault. YouTube parses primary search video renderers; Douban interleaves public book/movie/music category pages and emits subject URLs; Hupu parses result titles. dev.to uses official [`/api/articles`](https://developers.forem.com/api/v1#tag/articles/operation/getArticles) **exact-tag filtering** (e.g. `python` or `中文`, optional `#`), not arbitrary full-text search. Missing tags yield empty results rather than an unrelated feed. Legacy browser implementations remain explicit diagnostic fallbacks in code; HTTP calls never automatically open a browser.
+
+See [bilingual HTTP acceptance and timings](docs/acceptance-http-four-2026-11-23.md). The previous urllib probe was invalid due to local CA errors; a reproducible curl probe now replaces its [acceptance table](docs/acceptance-browser-parallel-2026-11-23.md#登录需求和匿名-http-探测).
+
 The calling agent chooses 1–2 complementary providers: domestic facts → Baidu/Sogou; English official docs → DDG + keyless Exa; implementation → GitHub + Juejin; papers → arXiv + Exa. Shopping can use the opt-in local browser providers documented below alongside Bilibili/Baidu reviews. No separate routing model is called. Shared service searches force model reranking off even if a legacy caller supplies `rerank=True`; the old explicitly opted-in internal Python reranker remains separate.
 
 ```json
@@ -223,7 +239,7 @@ Inject `TAVILY_API_KEY` / `OPENALEX_API_KEY` through environment variables only,
 
 Examples: errors → github_search + stackexchange + juejin + csdn; papers → openalex + crossref + arxiv; biomedical literature → pubmed + europe_pmc; concepts → wikipedia + wikidata; books/podcasts → openlibrary + itunes_podcasts; public models → huggingface + github_search. Shopping can combine opt-in JD/Taobao/SMZDM browser results with Bilibili reviews.
 
-Local browser providers also include JD, Taobao, Tmall, SMZDM, Xianyu, Zhihu, Xiaohongshu, Douyin, Weibo and Sogou WeChat. See [local browser acceptance](docs/acceptance-local-browser-2026-11-23.md), [session follow-up](docs/acceptance-logged-in-browser-2026-11-23.md), and the round-six continuation below. Pinduoduo lacks extractable product links; V2EX hit a challenge; linux.do was declined by the user. No cookie export or CAPTCHA bypass.
+Local browser providers also include JD, Taobao, Tmall, SMZDM, Xianyu, Zhihu, Xiaohongshu, Douyin and Weibo; Sogou WeChat now uses anonymous HTTP. See [local browser acceptance](docs/acceptance-local-browser-2026-11-23.md), [session follow-up](docs/acceptance-logged-in-browser-2026-11-23.md), and the round-six continuation below. Pinduoduo lacks extractable product links; V2EX hit a challenge; linux.do was declined by the user. No cookie export or CAPTCHA bypass.
 
 
 ### Additional free discovery channels (2026-11-23)
@@ -237,8 +253,8 @@ Examples: development `--providers npm,crates_io,mdn`; everyday app discovery `-
 
 ### Round-six browser continuation
 
-Opt-in `local_browser` providers: `boss`, `liepin` (job search only, existing sessions); `hupu`, `kr36`, `sspai`, `huxiu`; `douban` (book/movie/music entries); `youtube`, `x`; `medium`, `devto`, `segmentfault`; `pypi`, `gitee`, `lobsters` (stories, discussion links); `amazon`, `suning`, `mafengwo`. Both languages returned adapter results except dev.to: its Chinese page was readable manually, but the adapter returned startup_failed; English passed. Existing local browser opt-in, page selection, process lock and limits apply. Defaults and public-adapter permissions are unchanged. Huxiu opens at most two read-only article popups and closes them. No salaries, prices, purchases, applications or video transcripts are inferred.
+This historical round added browser providers. Current browser providers from this round: `boss`, `liepin` (job search only, existing sessions); `kr36`, `sspai`, `huxiu`; `x`, `medium`; `pypi`, `gitee`, `lobsters` (stories, discussion links); `amazon`, `mafengwo`. `hupu`, `douban`, `youtube`, `devto`, `segmentfault` and `suning` now use anonymous HTTP; current bilingual acceptance supersedes their historical browser results. Existing local browser opt-in, page selection, process lock and limits apply. Defaults and public-adapter permissions are unchanged. Huxiu opens at most two read-only article popups and closes them. No salaries, prices, purchases, applications or video transcripts are inferred.
 
-Current unsupported browser cases: Fliggy (homepage submission initially worked, later direct search hit an Alibaba slider challenge), Ctrip (autocomplete without extractable canonical result links), Product Hunt (irrelevant Chinese results; no accepted bilingual adapter), Coolapk/Dewu (landing/download pages), Meituan (consumer route redirects to corporate Not Found), VIP/ITHome (login). User login needed: **VIP, ITHome, NGA (also reputation > 0), Maimai, Dianping, Baidu Tieba**. BOSS, Liepin and X reused existing sessions. Fliggy hit a slider despite an existing session. Previous challenges remain documented: CNBlogs, Lagou, Reddit, 1688, Tianyancha and Qichacha; GDELT had HTTP 429. No bypass or login attempts.
+Current unsupported browser cases: Fliggy (homepage submission initially worked, later direct search hit an Alibaba slider challenge), Ctrip (autocomplete without extractable canonical result links), Product Hunt (irrelevant Chinese results; no accepted bilingual adapter), Coolapk/Dewu (landing/download pages), Meituan (consumer route redirects to corporate Not Found), VIP (login). Pending user action: **VIP re-login, NGA account permission (reputation > 0)**. ITHome was declined by the user. Maimai, Dianping and Baidu Tieba are implemented browser channels using existing sessions. BOSS, Liepin and X reused existing sessions. Fliggy hit a slider despite an existing session. Previous challenges remain documented: CNBlogs, Lagou, Reddit, 1688, Tianyancha and Qichacha; GDELT had HTTP 429. No bypass or login attempts.
 
 Geolocation and notification policies were reloaded and verified as `2`, normal. Only task space 15 was used; space 14 was never operated. See the [completed browser matrix and evidence](docs/acceptance-round-six-browser-2026-11-23.md), which supersedes the browser-pending entries in the [initial 43-platform matrix](docs/acceptance-more-free-2026-11-23.md#full-candidate-matrix-43-platforms).

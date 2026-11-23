@@ -146,6 +146,24 @@ flowchart LR
 
 目录覆盖免费网页、官方 API 与本机浏览器渠道（最新增量见下表）；没有 key、没有登录也能启动；HN、网页渠道等各自工作，失败不会中断其他渠道。
 
+### 按浏览器与登录要求选择（完整清单）
+
+三类互斥，覆盖目录全部 59 个渠道；“不需要浏览器”不等于不需要免费 key 或 CLI 身份。
+
+| 类别 | 渠道 ID |
+|---|---|
+| **不需要浏览器（35，全部 API / HTTP / 请求渠道）** | `github_search`, `hacker_news`, `arxiv`, `exa`, `juejin`, `bilibili`, `baidu`, `sogou`, `bing`, `duckduckgo`, `csdn`, `tavily`, `openalex`, `wikipedia`, `wikidata`, `crossref`, `stackexchange`, `huggingface`, `europe_pmc`, `pubmed`, `openlibrary`, `itunes_podcasts`, `mdn`, `google_news_rss`, `npm`, `crates_io`, `docker_hub`, `itunes_apps`, `sogou_wechat`, `hupu`, `douban`, `youtube`, `devto`, `segmentfault`, `suning` |
+| **需要浏览器，不要求登录（10）** | `smzdm`, `kr36`, `amazon`, `medium`, `pypi`, `gitee`, `mafengwo`, `sspai`, `huxiu`, `lobsters` |
+| **需要浏览器及已有登录态（14）** | `xianyu`, `weibo`, `jd`, `taobao`, `tmall`, `zhihu`, `xiaohongshu`, `douyin`, `boss`, `liepin`, `x`, `maimai`, `dianping`, `tieba` |
+
+无浏览器组中，`github_search` 需已有 `gh auth login` 身份；`tavily`、`openalex` 需免费 key 和免费模式开关；`google_news_rss` 需 `RESEARCH_GOOGLE_NEWS_RSS=1`，仅本地个人使用；`baidu/sogou/bing/duckduckgo/csdn` 需安装固定版本 open-webSearch 的 Node 请求后端，也不会打开浏览器。
+
+浏览器组均需显式启用 Ego Lite；“不要求登录”仍可能遇到 JS 渲染、反爬和地区限制。“需登录”是当前适配器的保守使用要求，未逐站无痕复核，不能由 HTTP 拦截推断平台必须登录。唯品会、NGA 等未接入平台不计入这三类。
+
+`youtube`、`douban`、`hupu`、`devto` 与 `suning/sogou_wechat/segmentfault` 一样使用校验 TLS 的匿名 curl，不依赖 Ego Lite。YouTube 解析搜索主列表的 `ytInitialData/videoRenderer`；豆瓣合并公开书籍、电影、音乐分类搜索，返回规范 subject 链接；虎扑解析搜索结果标题。`devto` 通过官方 [`/api/articles`](https://developers.forem.com/api/v1#tag/articles/operation/getArticles) **精确标签筛选**（如 `python`、`中文`，可加 `#`），不支持任意全文关键词；无该标签时返回空结果，不以热门文章替代。旧浏览器实现保留在代码中供显式诊断回退，正常调用和失败都不会自动打开浏览器。
+
+四渠道中英文实测及耗时见 [HTTP 迁移验收](docs/acceptance-http-four-2026-11-23.md)。上一轮 urllib 匿名探测因本机 CA 故障失效，已用共享 curl 脚本重测并[替换原表](docs/acceptance-browser-parallel-2026-11-23.md#登录需求和匿名-http-探测)。
+
 | 渠道 ID | 内容 / 适合语言 | 条件与费用 |
 |---|---|---|
 | `baidu`、`sogou` | 中文网页、国内信息 | 免 key；可选 open-webSearch 请求子进程；反爬时 `blocked` |
@@ -157,7 +175,8 @@ flowchart LR
 | `bilibili` | 课程、演示、评测 | 免 key 搜索；API 不通时可尝试已有 bili CLI |
 | `jd` / `taobao` / `tmall` | 京东、淘宝、天猫商品，中英文查询 | `local_browser`，仅本机 Ego Lite、已有登录态、显式启用 |
 | `xianyu` / `weibo` | 闲鱼商品（标价、想要人数、地区）、微博帖子（过滤广告），中英文查询 | `local_browser`，复用已有登录态；仅搜索页结果 |
-| `smzdm` / `sogou_wechat` | 什么值得买好价/文章、搜狗微信公众号线索，中英文查询 | `local_browser`，本轮无需登录可读；搜狗链接为有时效的跳转链接 |
+| `smzdm` | 什么值得买好价/文章，中英文查询 | `local_browser`，无需登录可读 |
+| `sogou_wechat` | 搜狗微信公众号线索，中英文查询 | 匿名 HTTP；链接为有时效的跳转链接 |
 | `zhihu` / `xiaohongshu` / `douyin` | 知乎、小红书笔记、抖音作品，中英文查询 | `local_browser`，复用已有登录态；仅搜索页结果，非全文/视频转写 |
 | `arxiv` | 英文论文 | 免 key；默认全部论文，`ARXIV_REQUIRE_GITHUB=1` 可限定 GitHub 链接 |
 | `tavily`、`openalex` | 通用网页 / 学术 | `free_recurring`，免费 key + 对应 `*_FREE_ONLY=1`；请求前核验配额 |
@@ -328,13 +347,13 @@ research-mcp search "Python 招聘 苏州" --providers bing,baidu --limit 5 --fo
 
 #### 第 6 轮浏览器增量
 
-下面列的是第 6 轮接入结果；其中 `suning`、`segmentfault` 本轮已迁移为匿名 HTTP，其余通过本机 Ego Lite 的 `local_browser` 方式使用，均需显式指定 provider，沿用上面的环境变量、空间选择和按平台限频；不进入默认组或匿名公开搜索。
+下面保留第 6 轮历史验收；当前 `suning`、`segmentfault`、`hupu`、`douban`、`youtube`、`devto` 已迁移为匿名 HTTP，搜狗微信也走 HTTP。其余渠道通过本机 Ego Lite 的 `local_browser` 方式使用，沿用上面的环境变量、空间选择和按平台限频。均需显式指定 provider，不进入默认组或匿名公开搜索。最新分类与 HTTP 实测以上方清单为准。
 
 | 渠道 ID | 平台与范围 | 本次双语结果 |
 |---|---|---|
 | `boss` / `liepin` | BOSS直聘、猎聘职位标题与规范链接；已有登录态，只搜职位，不沟通、不投递；BOSS 不猜测字体编码薪资 | 均有结果 |
 | `hupu` / `kr36` / `sspai` / `huxiu` | 虎扑、36氪、少数派、虎嗅搜索；虎嗅只读点击取得公开链接，每次最多 2 条并关闭临时页 | 均有结果 |
-| `douban` | 豆瓣书影音条目；保留公开 dispatch 链接，不抓个人内容 | 均有结果 |
+| `douban` | 豆瓣书影音条目；当前 HTTP 返回规范 subject 链接，不抓个人内容 | 均有结果 |
 | `youtube` / `x` | YouTube 视频标题/链接、X 帖子文本/链接；X 使用已有登录态；不转写视频，帖子陈述未经核实 | 均有结果 |
 | `medium` / `devto` / `segmentfault` | Medium、dev.to、SegmentFault 文章搜索；不保证会员正文可读 | Medium、SegmentFault 双语通过；dev.to 英文通过，中文页面可读但适配调用 `startup_failed` |
 | `pypi` / `gitee` / `lobsters` | PyPI 包、Gitee 仓库、Lobsters 故事搜索的讨论页；不安装包；Lobsters 显式选择 stories | 均有结果 |
@@ -346,7 +365,7 @@ python3 -m research_mcp search "人工智能" --providers huxiu,kr36 --limit 4
 python3 -m research_mcp search "python" --providers pypi,gitee --limit 4
 ```
 
-所有浏览器渠道返回的都是本次搜索页线索。YouTube 当前地区/语言会影响结果；豆瓣 dispatch 链接不等于独立网页版详情可读；少数派和 Medium 搜索可能包含付费内容。亚马逊不沿用旧商品渠道的人民币 `price` 契约，只返回标题/链接。请求改版、挑战或未识别结果均报失败，不冒充空结果。
+所有渠道返回的都是本次检索线索。YouTube 当前地区/语言会影响结果；豆瓣当前返回书影音 subject 链接，未逐条验证详情页；少数派和 Medium 搜索可能包含付费内容。亚马逊不沿用旧商品渠道的人民币 `price` 契约，只返回标题/链接。请求改版、挑战或未识别结果均报失败，不冒充空结果。
 
 已在 policy 页点击重载并确认 `DefaultGeolocationSetting=2`、`DefaultNotificationsSetting=2` 状态正常。本次只操作空间 15，未操作空间 14；未出现新的浏览器权限提示。后续若弹出浏览器权限提示，记录站点/类型并跳过，不自动授予权限或接管用户。
 
@@ -378,6 +397,6 @@ research-mcp login-status
 
 MCP 工具为 `research_login_status`。逐个平台打开轻量页面、读取可见登录标记，然后关闭自己开的页；不自动登录，不读取/保存密码或 Cookie。`logged_in` 为正向账号标记，`expired` 为明确登录跳转/提示，`blocked` 为验证拦截，`restricted` 为账号权限限制；`unknown` 需手工确认，不能当作过期。返回 `expired` 与 `needs_attention` 清单。网站仍可主动使会话过期，浏览器设置不能保证永久登录。
 
-新增浏览器渠道：`maimai`（脉脉）、`dianping`（大众点评，搜索默认上海城市 1）、`tieba`（贴吧）。脉脉最多打开两条结果以取得真实帖子链接；这些临时详情页也会关闭。苏宁 `suning`、搜狗微信 `sogou_wechat`、思否 `segmentfault` 已转为匿名 HTTP，不依赖 Ego Lite。唯品会、NGA 等待用户处理登录/账号权限；IT之家按用户决定不接入、不测试。
+新增浏览器渠道：`maimai`（脉脉）、`dianping`（大众点评，搜索默认上海城市 1）、`tieba`（贴吧）。脉脉最多打开两条结果以取得真实帖子链接；这些临时详情页也会关闭。苏宁 `suning`、搜狗微信 `sogou_wechat`、思否 `segmentfault`、YouTube `youtube`、豆瓣 `douban`、虎扑 `hupu`、dev.to `devto` 均走匿名 HTTP，不依赖 Ego Lite。唯品会、NGA 等待用户处理登录/账号权限；IT之家按用户决定不接入、不测试。
 
 本次匿名 HTTP 探测、渠道登录需求、耗时及并发对比见 [验收记录](docs/acceptance-browser-parallel-2026-11-23.md)。

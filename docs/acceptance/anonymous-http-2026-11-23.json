@@ -1,0 +1,615 @@
+{
+  "collected_at": "2026-11-23T13:44:58.770976+00:00",
+  "transport": "system curl",
+  "anonymous": true,
+  "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "channels": [
+    {
+      "channel": "xianyu",
+      "query": "轻薄本",
+      "requires_login": true,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 0,
+          "final_host": "www.goofish.com",
+          "observation": "unverified_html_or_js",
+          "seconds": 0.074
+        }
+      ],
+      "seconds": 0.074
+    },
+    {
+      "channel": "weibo",
+      "query": "python",
+      "requires_login": true,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": null,
+          "final_host": "passport.weibo.com",
+          "observation": "auth_required",
+          "seconds": 0.297
+        }
+      ],
+      "seconds": 0.297
+    },
+    {
+      "channel": "jd",
+      "query": "轻薄本",
+      "requires_login": true,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 0,
+          "final_host": "cfe.m.jd.com",
+          "observation": "unverified_html_or_js",
+          "seconds": 0.479
+        }
+      ],
+      "seconds": 0.479
+    },
+    {
+      "channel": "taobao",
+      "query": "轻薄本",
+      "requires_login": true,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 0,
+          "final_host": "s.taobao.com",
+          "observation": "unverified_html_or_js",
+          "seconds": 0.07
+        }
+      ],
+      "seconds": 0.07
+    },
+    {
+      "channel": "tmall",
+      "query": "轻薄本",
+      "requires_login": true,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 0,
+          "final_host": "s.taobao.com",
+          "observation": "unverified_html_or_js",
+          "seconds": 0.063
+        }
+      ],
+      "seconds": 0.063
+    },
+    {
+      "channel": "smzdm",
+      "query": "python",
+      "requires_login": false,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 202,
+          "curl_exit_code": 0,
+          "result_count": null,
+          "final_host": "search.smzdm.com",
+          "observation": "http_non_200",
+          "seconds": 0.171
+        }
+      ],
+      "seconds": 0.171
+    },
+    {
+      "channel": "zhihu",
+      "query": "python",
+      "requires_login": true,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 403,
+          "curl_exit_code": 0,
+          "result_count": null,
+          "final_host": "www.zhihu.com",
+          "observation": "blocked",
+          "seconds": 0.137
+        }
+      ],
+      "seconds": 0.137
+    },
+    {
+      "channel": "xiaohongshu",
+      "query": "python",
+      "requires_login": true,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 301,
+          "curl_exit_code": 1,
+          "result_count": null,
+          "final_host": "www.xiaohongshu.com",
+          "observation": "connection_failed",
+          "seconds": 0.112
+        }
+      ],
+      "seconds": 0.112
+    },
+    {
+      "channel": "douyin",
+      "query": "python",
+      "requires_login": true,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 0,
+          "final_host": "www.douyin.com",
+          "observation": "unverified_html_or_js",
+          "seconds": 0.165
+        }
+      ],
+      "seconds": 0.165
+    },
+    {
+      "channel": "sogou_wechat",
+      "query": "python",
+      "requires_login": false,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "HTTP/API",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 10,
+          "final_host": "weixin.sogou.com",
+          "observation": "parsed_results",
+          "public_links": [
+            "https://weixin.sogou.com/link?url=dn9a_-gY295K0Rci_xozVXfdMkSQTLW6cwJThYulHEtVjXrGTiVgS4wOagRgUm_MU5Drb2Ta8wnHLm9pRHDc91qXa8Fplpd9no4c0EKbg6O0O2FqdF0tA3ZZ59j2PwS0R77Y6DP2Y1UYQoSsQKqhut_T_Ld_c4o-37cOES_SwZHTtjrAm6xiKScDlvQ8Dssq_0BxSPW-HIBsWju9q3GcDy72lA7aS6qO42CUgNrh0a12vQSmJ3EjU8kqTe_ALxOD3aST6WSKIXwC2Qmj7RgGwQ..",
+            "https://weixin.sogou.com/link?url=dn9a_-gY295K0Rci_xozVXfdMkSQTLW6cwJThYulHEtVjXrGTiVgS4wOagRgUm_MU5Drb2Ta8wnHLm9pRHDc91qXa8Fplpd9GRPUbrKKXbQ3neSbyFQBV6je6torLtRLhGjuxlX8tkr96-PixGHz7DOWwE9ss2i2LvrRNTPpSxyLmcXZ2nL4FK5RGk_Eyhoa_5WofO9V5aiqNMmzyhX8uzj1Y4AiYsB8Ynm0BJXXH_x54eVkdfxUlFLNrHcD1LT6i4PzzPcVQtjm0CtGSSkZQQ.."
+          ],
+          "seconds": 0.284
+        }
+      ],
+      "seconds": 0.284
+    },
+    {
+      "channel": "boss",
+      "query": "python",
+      "requires_login": true,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 0,
+          "final_host": "www.zhipin.com",
+          "observation": "unverified_html_or_js",
+          "seconds": 0.174
+        }
+      ],
+      "seconds": 0.174
+    },
+    {
+      "channel": "liepin",
+      "query": "python",
+      "requires_login": true,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 0,
+          "final_host": "www.liepin.com",
+          "observation": "unverified_html_or_js",
+          "seconds": 0.207
+        }
+      ],
+      "seconds": 0.207
+    },
+    {
+      "channel": "hupu",
+      "query": "NBA",
+      "requires_login": false,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "HTTP/API",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 20,
+          "final_host": "bbs.hupu.com",
+          "observation": "parsed_results",
+          "public_links": [
+            "https://bbs.hupu.com/644156015.html",
+            "https://bbs.hupu.com/644156724.html"
+          ],
+          "seconds": 0.363
+        }
+      ],
+      "seconds": 0.363
+    },
+    {
+      "channel": "kr36",
+      "query": "python",
+      "requires_login": false,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 0,
+          "final_host": "36kr.com",
+          "observation": "unverified_html_or_js",
+          "seconds": 0.21
+        }
+      ],
+      "seconds": 0.21
+    },
+    {
+      "channel": "amazon",
+      "query": "python",
+      "requires_login": false,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 9,
+          "final_host": "www.amazon.com",
+          "observation": "result_link_hints",
+          "seconds": 2.001
+        }
+      ],
+      "seconds": 2.001
+    },
+    {
+      "channel": "douban",
+      "query": "三体",
+      "requires_login": false,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "HTTP/API",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 20,
+          "final_host": "www.douban.com",
+          "observation": "parsed_results",
+          "public_links": [
+            "https://book.douban.com/subject/2567698/",
+            "https://book.douban.com/subject/3066477/"
+          ],
+          "seconds": 0.761
+        },
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 20,
+          "final_host": "www.douban.com",
+          "observation": "parsed_results",
+          "public_links": [
+            "https://movie.douban.com/subject/26647087/",
+            "https://movie.douban.com/subject/21335171/"
+          ],
+          "seconds": 0.996
+        },
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 20,
+          "final_host": "www.douban.com",
+          "observation": "parsed_results",
+          "public_links": [
+            "https://music.douban.com/subject/35879428/",
+            "https://music.douban.com/subject/25729517/"
+          ],
+          "seconds": 0.541
+        }
+      ],
+      "seconds": 2.298
+    },
+    {
+      "channel": "youtube",
+      "query": "python",
+      "requires_login": false,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "HTTP/API",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 20,
+          "final_host": "www.youtube.com",
+          "observation": "parsed_results",
+          "public_links": [
+            "https://www.youtube.com/watch?v=hBxqMUy-eCA",
+            "https://www.youtube.com/watch?v=GdcxHb6yF_A"
+          ],
+          "seconds": 1.655
+        }
+      ],
+      "seconds": 1.655
+    },
+    {
+      "channel": "x",
+      "query": "python",
+      "requires_login": true,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 0,
+          "curl_exit_code": 35,
+          "result_count": null,
+          "final_host": "x.com",
+          "observation": "tls_error",
+          "seconds": 5.247
+        }
+      ],
+      "seconds": 5.247
+    },
+    {
+      "channel": "medium",
+      "query": "python",
+      "requires_login": false,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 0,
+          "curl_exit_code": 35,
+          "result_count": null,
+          "final_host": "medium.com",
+          "observation": "tls_error",
+          "seconds": 5.032
+        }
+      ],
+      "seconds": 5.032
+    },
+    {
+      "channel": "devto",
+      "query": "python",
+      "requires_login": false,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "HTTP/API",
+      "requests": [
+        {
+          "http_status": 0,
+          "curl_exit_code": 35,
+          "result_count": null,
+          "final_host": "dev.to",
+          "observation": "tls_error",
+          "seconds": 5.016
+        }
+      ],
+      "seconds": 5.016
+    },
+    {
+      "channel": "segmentfault",
+      "query": "python",
+      "requires_login": false,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "HTTP/API",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 20,
+          "final_host": "segmentfault.com",
+          "observation": "parsed_results",
+          "public_links": [
+            "https://segmentfault.com/a/1190000043636349",
+            "https://segmentfault.com/q/1010000017126260"
+          ],
+          "seconds": 0.297
+        }
+      ],
+      "seconds": 0.297
+    },
+    {
+      "channel": "pypi",
+      "query": "python",
+      "requires_login": false,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 0,
+          "final_host": "pypi.org",
+          "observation": "unverified_html_or_js",
+          "seconds": 0.586
+        }
+      ],
+      "seconds": 0.586
+    },
+    {
+      "channel": "gitee",
+      "query": "python",
+      "requires_login": false,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 0,
+          "final_host": "so.gitee.com",
+          "observation": "unverified_html_or_js",
+          "seconds": 0.277
+        }
+      ],
+      "seconds": 0.277
+    },
+    {
+      "channel": "mafengwo",
+      "query": "旅游",
+      "requires_login": false,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 202,
+          "curl_exit_code": 0,
+          "result_count": null,
+          "final_host": "www.mafengwo.cn",
+          "observation": "http_non_200",
+          "seconds": 0.187
+        }
+      ],
+      "seconds": 0.187
+    },
+    {
+      "channel": "sspai",
+      "query": "python",
+      "requires_login": false,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 0,
+          "final_host": "sspai.com",
+          "observation": "unverified_html_or_js",
+          "seconds": 0.215
+        }
+      ],
+      "seconds": 0.215
+    },
+    {
+      "channel": "suning",
+      "query": "轻薄本",
+      "requires_login": false,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "HTTP/API",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 30,
+          "final_host": "search.suning.com",
+          "observation": "parsed_results",
+          "public_links": [
+            "https://product.suning.com/0000000000/12453298532.html",
+            "https://product.suning.com/0000000000/12453303850.html"
+          ],
+          "seconds": 0.291
+        }
+      ],
+      "seconds": 0.291
+    },
+    {
+      "channel": "huxiu",
+      "query": "python",
+      "requires_login": false,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 405,
+          "curl_exit_code": 0,
+          "result_count": null,
+          "final_host": "www.huxiu.com",
+          "observation": "blocked",
+          "seconds": 0.26
+        }
+      ],
+      "seconds": 0.26
+    },
+    {
+      "channel": "lobsters",
+      "query": "python",
+      "requires_login": false,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 0,
+          "final_host": "lobste.rs",
+          "observation": "unverified_html_or_js",
+          "seconds": 1.08
+        }
+      ],
+      "seconds": 1.08
+    },
+    {
+      "channel": "maimai",
+      "query": "python",
+      "requires_login": true,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": null,
+          "final_host": "maimai.cn",
+          "observation": "auth_required",
+          "seconds": 0.198
+        }
+      ],
+      "seconds": 0.198
+    },
+    {
+      "channel": "dianping",
+      "query": "咖啡",
+      "requires_login": true,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 200,
+          "curl_exit_code": 0,
+          "result_count": 0,
+          "final_host": "verify.meituan.com",
+          "observation": "unverified_html_or_js",
+          "seconds": 0.285
+        }
+      ],
+      "seconds": 0.285
+    },
+    {
+      "channel": "tieba",
+      "query": "python",
+      "requires_login": true,
+      "login_basis": "catalog requirement; not inferred from anonymous HTTP",
+      "implementation": "browser",
+      "requests": [
+        {
+          "http_status": 403,
+          "curl_exit_code": 0,
+          "result_count": null,
+          "final_host": "tieba.baidu.com",
+          "observation": "blocked",
+          "seconds": 0.217
+        }
+      ],
+      "seconds": 0.217
+    }
+  ],
+  "tls_verification_enabled": true
+}

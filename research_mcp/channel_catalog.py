@@ -63,9 +63,9 @@ CATALOG += tuple(_entry(name, ["zh", "en"], [kind], backend, terms=terms,
                  for name, (backend, kind, terms) in DEFINITIONS.items())
 
 from research_mcp.channels.local_browser import PLATFORMS
-from research_mcp.channels.http_search import HTTP_PLATFORMS
+from research_mcp.channels.http_search import HTTP_PLATFORMS, BACKENDS as HTTP_BACKENDS
 CATALOG += tuple(_entry(name, ["zh", "en"], [definition["kind"]],
-                       ("http/search.suning.com" if name == "suning" else "http/"+definition["terms"].split("//")[1]) if name in HTTP_PLATFORMS else "ego-browser/local_browser",
+                       HTTP_BACKENDS[name] if name in HTTP_PLATFORMS else "ego-browser/local_browser",
                        cost="keyless" if name in HTTP_PLATFORMS else "local_browser", login=definition["login"],
                        terms=definition["terms"])
                  for name, definition in PLATFORMS.items())
