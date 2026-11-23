@@ -91,6 +91,9 @@ def search_result(payload: object) -> dict:
               "attempted_channels_count": len(attempted), "succeeded_channels_count": len(succeeded),
               "failed_channels": [{"channel": item.get("channel", "unknown"), "error": item.get("error", "unknown"), **({"status": item["status"]} if isinstance(item.get("status"), str) and item["status"] in FAILURE_STATES else {})} for item in failed],
               "failed_channels_count": len(failed), "errors": [], "display_notes": []}
+    result["used_default_providers"] = payload.get("used_default_providers") is True
+    if result["used_default_providers"]:
+        result["display_notes"].append("未指定 providers，使用默认免费渠道：" + ", ".join(attempted))
     statuses = payload.get("channel_statuses")
     if isinstance(statuses, list):
         result["channel_statuses"] = [

@@ -12,7 +12,7 @@
 
 </div>
 
-横幅记录旧版默认全源搜索（2026-11-11）：`search "mcp server" --limit 5`，5 个渠道全部返回，汇集 119 条候选，用时 3.4 秒；当前版本先列目录、显式选渠道，见下文；旧图不代表当前默认行为。
+横幅记录旧版默认全源搜索（2026-11-11）：`search "mcp server" --limit 5`，5 个渠道全部返回，汇集 119 条候选，用时 3.4 秒；当前版本有小组免费默认渠道，建议先列目录、按题选渠道，见下文；旧图不代表当前默认行为。
 
 ## 快速开始
 
@@ -103,7 +103,7 @@ flowchart LR
 ```
 
 
-1. 先调用 `research_list_channels`（CLI：`research-mcp channels`），再显式选择 `providers`；不传或传空数组返回 `CHANNELS_REQUIRED`，不发请求。
+1. 先调用 `research_list_channels`（CLI：`research-mcp channels`），再显式选择 `providers`；省略或传空数组时使用默认免费组 `bing,baidu,exa`，返回 `used_default_providers=true` 和说明；用环境变量 `RESEARCH_DEFAULT_PROVIDERS=hacker_news,baidu` 可覆盖，空值恢复内置默认。
 2. 把候选链接传给 `fetch`；MCP 的 `research_search` 同时接受关键词或链接。
 3. 检查 `status`、`errors`、`truncated` 和 `coverage`，再决定是否补搜或翻页。
 

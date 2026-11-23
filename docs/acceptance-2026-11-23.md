@@ -100,3 +100,13 @@ Exa 连接根因为 python.org 解释器未配置 CA 路径：urllib 直接报 C
 提供的上一轮调研材料不作为本轮逐平台重测的替代。未导出 Cookie、绕验证码、自动发帖或下单。草稿 PR 保留这些未完成项，不把 Issue #12 关闭。
 
 复核方式：已完成按需求、调用路径、凭据边界、子进程/临时文件清理和发行包内容的结构化自审；没有使用独立审查代理。当前只适合草稿审查，浏览器剩余验收仍需完成。
+
+## PR13 follow-up (2026-11-23)
+
+Omitted/empty providers now use bing + baidu + exa (override RESEARCH_DEFAULT_PROVIDERS); result carries used_default_providers and a note. Agent should still inspect the directory and choose sources. Public anonymous search remains explicit and restricted.
+
+OpenAlex successfully resumed original Ego Lite space12 after user handled permission: account shows Free Plan, $1/day included budget, full remaining daily allowance, no prepaid purchase. Key copied directly to backed-up local vault, readback matches, vault and backup mode600; no key/cookie in artifacts. API adapter follows in stacked PR.
+
+Browser probe restarted sequentially in original space12, but navigating JD immediately triggered another browser-owned local-network permission and automatic handoff, before any platform record. Waiting for user confirmation; no alternate space, cookie export or CAPTCHA bypass. This is an environment-blocked attempt, not a platform-specific unsupported verdict. All 13 platforms remain pending at this point.
+
+Offline suite: 268 tests, 8 optional SDK skips; sdist/wheel built. Expanded SDK verification and CI recorded on PR.

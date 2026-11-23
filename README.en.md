@@ -102,7 +102,7 @@ flowchart LR
   R --> A[Agent decides to search more or paginate]
 ```
 
-1. Call `research_list_channels` (CLI: `research-mcp channels`), then explicitly select `providers`. Omitted/empty providers return `CHANNELS_REQUIRED` without network calls.
+1. Call `research_list_channels` (CLI: `research-mcp channels`), then explicitly select `providers`. Omitted/empty providers use `bing,baidu,exa`, with `used_default_providers=true` and a display note. Override with `RESEARCH_DEFAULT_PROVIDERS=hacker_news,baidu`; blank restores the built-in group.
 2. Pass a candidate URL to `fetch`; the single MCP tool `research_search` accepts keywords or URLs.
 3. Inspect `status`, `errors`, `truncated` and `coverage` before searching more or following pages.
 

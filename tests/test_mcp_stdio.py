@@ -293,7 +293,8 @@ class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
         from mcp.client.stdio import stdio_client
 
         args = ["-c", FIXTURE_SERVER, str(ROOT)] if fixtures else ["-m", "research_mcp.mcp_server"]
-        async with stdio_client(StdioServerParameters(command=sys.executable, args=args)) as (read, write):
+        async with stdio_client(StdioServerParameters(command=sys.executable, args=args,
+                env={"RESEARCH_DEFAULT_PROVIDERS": os.environ.get("RESEARCH_DEFAULT_PROVIDERS", "unsupported_offline_fixture")})) as (read, write):
             async with ClientSession(read, write) as session:
                 await session.initialize()
                 yield session
@@ -311,25 +312,27 @@ class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
         return payload
 
     async def test_unmodified_server_schema_and_validation_round_trip(self):
-        async with asyncio.timeout(20), self.session(fixtures=False) as session:
-            tools = (await session.list_tools()).model_dump(by_alias=True)["tools"]
-            self.assertEqual(sorted(tool["name"] for tool in tools), ["research_list_channels", "research_search"])
-            tools = sorted(tools, key=lambda tool: tool["name"] != "research_search")
-            schema = tools[0]["inputSchema"]
-            self.assertEqual(schema["required"], ["query"])
-            self.assertEqual(set(schema["properties"]), {"query", "limit", "providers"})
-            self.assertEqual(schema["properties"]["limit"]["default"], 12)
-            annotations = tools[0].get("annotations") or {}
-            self.assertIs(annotations.get("readOnlyHint"), True)
-            self.assertIs(annotations.get("destructiveHint"), False)
-            result = self.envelope(await session.call_tool("research_search", {"query": ""}))
-            self.assertEqual(result["status"], "error")
-            self.assertEqual(result["errors"][0]["code"], "INVALID_INPUT")
-            catalog = self.envelope(await session.call_tool("research_list_channels", {}))
-            self.assertEqual(catalog["operation"], "list_channels")
-            self.assertIn("bing", [row["id"] for row in catalog["channels"]])
-            required = self.envelope(await session.call_tool("research_search", {"query": "synthetic"}))
-            self.assertEqual(required["errors"][0]["code"], "CHANNELS_REQUIRED")
+        with patch.dict(os.environ, {"RESEARCH_DEFAULT_PROVIDERS": "unsupported_offline_fixture"}):
+            async with asyncio.timeout(20), self.session(fixtures=False) as session:
+                tools = (await session.list_tools()).model_dump(by_alias=True)["tools"]
+                self.assertEqual(sorted(tool["name"] for tool in tools), ["research_list_channels", "research_search"])
+                tools = sorted(tools, key=lambda tool: tool["name"] != "research_search")
+                schema = tools[0]["inputSchema"]
+                self.assertEqual(schema["required"], ["query"])
+                self.assertEqual(set(schema["properties"]), {"query", "limit", "providers"})
+                self.assertEqual(schema["properties"]["limit"]["default"], 12)
+                annotations = tools[0].get("annotations") or {}
+                self.assertIs(annotations.get("readOnlyHint"), True)
+                self.assertIs(annotations.get("destructiveHint"), False)
+                result = self.envelope(await session.call_tool("research_search", {"query": ""}))
+                self.assertEqual(result["status"], "error")
+                self.assertEqual(result["errors"][0]["code"], "INVALID_INPUT")
+                catalog = self.envelope(await session.call_tool("research_list_channels", {}))
+                self.assertEqual(catalog["operation"], "list_channels")
+                self.assertIn("bing", [row["id"] for row in catalog["channels"]])
+                required = self.envelope(await session.call_tool("research_search", {"query": "synthetic"}))
+                self.assertTrue(required["used_default_providers"])
+                self.assertEqual(required["attempted_channels"], ["unsupported_offline_fixture"])
 
     async def test_search_and_fetch_envelopes_survive_real_stdio_transport(self):
         async with asyncio.timeout(20), self.session(fixtures=True) as session:

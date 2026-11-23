@@ -56,7 +56,7 @@ async def research_search(query: str, limit: int = 12, providers: list[str] | No
     Args:
         query: 搜索关键词，或要读取的 http(s) 链接。
         limit: 搜索时最多返回条数，1~40，默认 12（传链接时忽略）。
-        providers: 搜索必须显式指定；先用 research_list_channels 查看目录。可选 github_search / hacker_news /
+        providers: 省略时使用可配置的免费默认组；建议先用 research_list_channels 查看目录。可选 github_search / hacker_news /
             arxiv / exa / juejin / bilibili / baidu / sogou / bing / duckduckgo。搜单个站（如 linux.do、知乎）用 ["exa"] 配
             `site:域名 关键词` 的查询词（传链接时忽略）。
     """

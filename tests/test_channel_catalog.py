@@ -31,12 +31,24 @@ class CatalogTests(unittest.TestCase):
         self.assertFalse(rows["tavily"]["implemented"])
         self.assertNotIn("SECRET", json.dumps(result))
 
-    def test_missing_provider_selection_does_no_work(self):
+    def test_missing_selection_uses_named_free_defaults(self):
         for providers in (None, []):
-            with self.subTest(providers=providers), patch.object(research, "_default_providers") as factory:
+            with patch.dict(os.environ, {}, clear=True), patch.object(research, "_default_providers", return_value={name: lambda _: [] for name in ("bing", "baidu", "exa")}):
                 result = service.search("test", providers=providers)
-            factory.assert_not_called()
-            self.assertEqual(result["errors"][0]["code"], "CHANNELS_REQUIRED")
+            self.assertTrue(result["used_default_providers"])
+            self.assertEqual(result["attempted_channels"], ["bing", "baidu", "exa"])
+            self.assertTrue(any("默认" in n for n in result["display_notes"]))
+
+    def test_configured_defaults_and_explicit_override(self):
+        with patch.dict(os.environ, {"RESEARCH_DEFAULT_PROVIDERS": "hacker_news,hacker_news"}), patch.object(research, "_default_providers", return_value={"hacker_news": lambda _: []}):
+            self.assertEqual(service.search("test")["attempted_channels"], ["hacker_news"])
+            result = service.search("test", providers=["other"])
+            self.assertFalse(result["used_default_providers"])
+            self.assertEqual(result["attempted_channels"], ["other"])
+
+    def test_blank_default_env_restores_builtin_group(self):
+        with patch.dict(os.environ, {"RESEARCH_DEFAULT_PROVIDERS": " , "}):
+            self.assertEqual(research.default_search_providers(), ["bing", "baidu", "exa"])
 
     def test_selected_channels_record_empty_and_safe_failure_separately(self):
         def broken(_):

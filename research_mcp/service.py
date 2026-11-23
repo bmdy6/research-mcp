@@ -108,9 +108,6 @@ def search(query: object, *, limit: object = 12, providers: object = None, reran
         return _identified(error_result("search", "INVALID_INPUT", "rerank 必须是布尔值"), request_id)
     if max_age_days is not None and (type(max_age_days) is not int or not 1 <= max_age_days <= 3650):
         return _identified(error_result("search", "INVALID_INPUT", "max_age_days 必须是 1 到 3650 的整数"), request_id)
-    if not providers:
-        return _identified(error_result("search", "CHANNELS_REQUIRED",
-                                       "请先调用 research_list_channels，再显式指定 providers"), request_id)
     try:
         if max_age_days is None:
             raw = R.search(query.strip(), limit=limit, providers=providers, rerank=False)

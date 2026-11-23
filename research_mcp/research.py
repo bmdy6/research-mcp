@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import base64
 import json
+import os
 import re
 import shlex
 import subprocess
@@ -578,7 +579,7 @@ def _failed_fetch(kind: str, url: str, error: FetchError, **extra) -> dict:
 
 
 # 榜单/订阅型渠道：输出是「当前最新」而不是「命中查询词」，临时搜索里带上只会灌无关结果。
-# 关键词渠道必须显式选择；这些与查询无关的渠道即使点名也跳过。
+# 关键词渠道可显式选择或使用小组默认；与查询无关的渠道即使点名也跳过。
 QUERY_AGNOSTIC_CHANNELS = frozenset({"github_trending", "rss"})
 
 
@@ -619,12 +620,18 @@ def _collect_channel(
         return name, [], failure_status(error)
 
 
+def default_search_providers() -> list[str]:
+    """Small free group, configurable per process; never defaults to all sources."""
+    configured = os.environ.get("RESEARCH_DEFAULT_PROVIDERS", "bing,baidu,exa")
+    return list(dict.fromkeys(n.strip() for n in configured.split(",") if n.strip())) or ["bing", "baidu", "exa"]
+
+
 def search(query: str, *, limit: int = 10, providers: list[str] | None = None, rerank: bool = False,
            max_age_days: int = 3650) -> dict:
     """按查询词打各个关键词渠道。
 
     providers 只传渠道名子集时只打这些渠道（例如只搜某个站就用 `["exa"]` 配
-    `site:` 查询词）；必须显式指定。渠道名不存在或不可用只跳过，不报错。
+    `site:` 查询词）；省略时使用可配置免费默认组。渠道名不存在或不可用只跳过，不报错。
     rerank 显式为 True 时（仅供内部旧接口），先用 Jev 判断哪些条目值得保留再返回；无 key 时正常跳过，调用失败时降级返回原始候选。
 
     渠道之间互不依赖、也不共享状态，所以并发调（只读工具的天然红利）。串行时
@@ -633,8 +640,8 @@ def search(query: str, *, limit: int = 10, providers: list[str] | None = None, r
     返回值里的 `total` / `returned` / `truncated` 说明结果有没有被截：
     截断时调用方才能判断该不该补搜，而不是默认「看到的就是全部」。
     """
-    if not providers:
-        raise ValueError("Explicit providers required; call list_channels first")
+    used_defaults = not providers
+    providers = providers or default_search_providers()
     # 临时搜索用本次查询词；B站按播放量取（每日发现场景才按时间+门槛）
     if type(max_age_days) is not int or not 1 <= max_age_days <= 3650:
         raise ValueError("max_age_days must be an integer from 1 to 3650")
@@ -732,6 +739,7 @@ def search(query: str, *, limit: int = 10, providers: list[str] | None = None, r
 
     payload: dict = {
         "query": query,
+        "used_default_providers": used_defaults,
         "attempted_channels": attempted,
         "succeeded_channels": [name for name, _, error in collected if error is None],
         "candidates": result,
