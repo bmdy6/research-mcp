@@ -1,0 +1,396 @@
+{
+  "baseline": {
+    "seconds": 24.41,
+    "status": "ok",
+    "succeeded": [
+      "jd",
+      "taobao",
+      "smzdm",
+      "xianyu"
+    ],
+    "failures": [],
+    "counts": {
+      "jd": 2,
+      "taobao": 2,
+      "smzdm": 2,
+      "xianyu": 2
+    }
+  },
+  "parallel": {
+    "seconds": 3.52,
+    "status": "ok",
+    "succeeded": [
+      "jd",
+      "taobao",
+      "smzdm",
+      "xianyu"
+    ],
+    "failures": [],
+    "counts": {
+      "jd": 2,
+      "taobao": 2,
+      "smzdm": 2,
+      "xianyu": 2
+    }
+  },
+  "first_parallel_seconds": 4.44,
+  "anonymous_http": [
+    {
+      "channel": "xianyu",
+      "seconds": 0.07,
+      "error": "URLError"
+    },
+    {
+      "channel": "weibo",
+      "seconds": 0.11,
+      "error": "URLError"
+    },
+    {
+      "channel": "jd",
+      "seconds": 0.08,
+      "error": "URLError"
+    },
+    {
+      "channel": "taobao",
+      "seconds": 0.04,
+      "error": "URLError"
+    },
+    {
+      "channel": "tmall",
+      "seconds": 0.03,
+      "error": "URLError"
+    },
+    {
+      "channel": "smzdm",
+      "seconds": 0.1,
+      "error": "URLError"
+    },
+    {
+      "channel": "zhihu",
+      "seconds": 0.06,
+      "error": "URLError"
+    },
+    {
+      "channel": "xiaohongshu",
+      "seconds": 0.07,
+      "error": "URLError"
+    },
+    {
+      "channel": "douyin",
+      "seconds": 0.04,
+      "error": "URLError"
+    },
+    {
+      "channel": "sogou_wechat",
+      "seconds": 0.09,
+      "error": "URLError"
+    },
+    {
+      "channel": "boss",
+      "seconds": 0.12,
+      "error": "URLError"
+    },
+    {
+      "channel": "liepin",
+      "seconds": 0.11,
+      "error": "URLError"
+    },
+    {
+      "channel": "hupu",
+      "seconds": 0.07,
+      "error": "URLError"
+    },
+    {
+      "channel": "kr36",
+      "seconds": 0.07,
+      "error": "URLError"
+    },
+    {
+      "channel": "amazon",
+      "seconds": 0.45,
+      "error": "URLError"
+    },
+    {
+      "channel": "douban",
+      "seconds": 0.11,
+      "error": "URLError"
+    },
+    {
+      "channel": "youtube",
+      "seconds": 62.82,
+      "error": "URLError"
+    },
+    {
+      "channel": "x",
+      "seconds": 0.22,
+      "error": "URLError"
+    },
+    {
+      "channel": "medium",
+      "seconds": 0.22,
+      "error": "URLError"
+    },
+    {
+      "channel": "devto",
+      "seconds": 1.27,
+      "error": "URLError"
+    },
+    {
+      "channel": "segmentfault",
+      "seconds": 0.1,
+      "error": "URLError"
+    },
+    {
+      "channel": "pypi",
+      "seconds": 1.16,
+      "error": "URLError"
+    },
+    {
+      "channel": "gitee",
+      "seconds": 0.13,
+      "error": "URLError"
+    },
+    {
+      "channel": "mafengwo",
+      "seconds": 0.12,
+      "error": "URLError"
+    },
+    {
+      "channel": "sspai",
+      "seconds": 0.1,
+      "error": "URLError"
+    },
+    {
+      "channel": "suning",
+      "seconds": 0.06,
+      "error": "URLError"
+    },
+    {
+      "channel": "huxiu",
+      "seconds": 2.25,
+      "error": "URLError"
+    },
+    {
+      "channel": "lobsters",
+      "seconds": 21.27,
+      "error": "URLError"
+    }
+  ],
+  "anonymous_http_extra": [
+    {
+      "channel": "maimai",
+      "seconds": 0.17,
+      "http_meta": "200",
+      "bytes": 6606
+    },
+    {
+      "channel": "dianping",
+      "seconds": 0.3,
+      "http_meta": "200",
+      "bytes": 4975
+    },
+    {
+      "channel": "tieba",
+      "seconds": 0.18,
+      "http_meta": "403",
+      "bytes": 2517
+    },
+    {
+      "channel": "amazon",
+      "seconds": 4.5,
+      "http_meta": "200",
+      "bytes": 180171
+    }
+  ],
+  "login_status": {
+    "ok": true,
+    "operation": "login-status",
+    "platforms": [
+      {
+        "channel": "xianyu",
+        "status": "unknown",
+        "seconds": 4.06
+      },
+      {
+        "channel": "weibo",
+        "status": "unknown",
+        "seconds": 3.981
+      },
+      {
+        "channel": "jd",
+        "status": "logged_in",
+        "seconds": 0.968
+      },
+      {
+        "channel": "taobao",
+        "status": "logged_in",
+        "seconds": 1.673
+      },
+      {
+        "channel": "tmall",
+        "status": "logged_in",
+        "seconds": 1.671
+      },
+      {
+        "channel": "zhihu",
+        "status": "unknown",
+        "seconds": 4.457
+      },
+      {
+        "channel": "xiaohongshu",
+        "status": "logged_in",
+        "seconds": 2.854
+      },
+      {
+        "channel": "douyin",
+        "status": "unknown",
+        "seconds": 5.678
+      },
+      {
+        "channel": "boss",
+        "status": "unknown",
+        "seconds": 4.037
+      },
+      {
+        "channel": "liepin",
+        "status": "unknown",
+        "seconds": 4.198
+      },
+      {
+        "channel": "x",
+        "status": "logged_in",
+        "seconds": 10.729
+      },
+      {
+        "channel": "maimai",
+        "status": "logged_in",
+        "seconds": 1.249
+      },
+      {
+        "channel": "dianping",
+        "status": "logged_in",
+        "seconds": 1.918
+      },
+      {
+        "channel": "tieba",
+        "status": "logged_in",
+        "seconds": 1.015
+      },
+      {
+        "channel": "vip",
+        "status": "expired",
+        "seconds": 1.597
+      },
+      {
+        "channel": "nga",
+        "status": "restricted",
+        "seconds": 0.631
+      }
+    ],
+    "expired": [
+      "vip"
+    ],
+    "needs_attention": [
+      "xianyu",
+      "weibo",
+      "zhihu",
+      "douyin",
+      "boss",
+      "liepin",
+      "vip",
+      "nga"
+    ]
+  },
+  "new_channel_searches": [
+    {
+      "channel": "maimai",
+      "seconds": 3.23,
+      "status": "ok",
+      "failures": [],
+      "items": [
+        {
+          "title": "薪资对标互联网怎么样呢？卷不卷？有大佬了解内部情况吗？",
+          "url": "https://maimai.cn/community/feed-detail/1925327495"
+        }
+      ]
+    },
+    {
+      "channel": "dianping",
+      "seconds": 1.84,
+      "status": "ok",
+      "failures": [],
+      "items": [
+        {
+          "title": "瑞幸咖啡(柘林新柘中路店)",
+          "url": "https://www.dianping.com/shop/l2zNZzJ5Fdc3tqvp"
+        },
+        {
+          "title": "Plusone 咖啡(巨鹿路Landing店)",
+          "url": "https://www.dianping.com/shop/H4pwFGotOzLaqOqN"
+        }
+      ]
+    },
+    {
+      "channel": "suning",
+      "seconds": 0.27,
+      "status": "ok",
+      "failures": [],
+      "items": [
+        {
+          "title": "2.5K+90Hz高分高刷屏，86Whr大容量电池，店保1年 戴尔(DELL)笔记本电脑 灵越PLUS14-7440 14英寸全面屏轻薄本便携办公手提笔记本电脑(酷睿i7标压 16G内存 1TB SSD 2.5K屏90Hz) 2.5K+90Hz高分高刷屏，86Whr大容量电池，店保1年 2500+评价 查看详情",
+          "url": "https://product.suning.com/0010352056/12423237434.html"
+        },
+        {
+          "title": "Ultra 5-225H处理器；16G+512G大内存流畅运行；2.8K OLED屏 ； 惠普(HP)星Book Pro Air 14酷睿2026笔记本电脑轻薄本14英寸商务办公学生(Intel Ultra 5-225H 16G 512G 2.8K 120Hz )银色 Ultra 5-225H处理器；16G+512G大内存流畅运行；2.8K OLED屏 ； 20+评价",
+          "url": "https://product.suning.com/0000000000/12453298532.html"
+        }
+      ]
+    },
+    {
+      "channel": "tieba",
+      "seconds": 2.63,
+      "status": "ok",
+      "failures": [],
+      "items": [
+        {
+          "title": "影之刃吧\n帕森泥鳅 发布于 2026-10-9\n美国IGN爆出来了？\n如图，官方一直在藏的机械魔躯？又给外媒爆出来了\n分享\n24\n114",
+          "url": "https://tieba.baidu.com/p/11089346800"
+        },
+        {
+          "title": "2ch吧\n伤痛之 发布于 2026-10-1\n川普将“AI”更名为“SI”，美国任何正式文件不得使用“AI”\n64\n701\n1.5W",
+          "url": "https://tieba.baidu.com/p/11069460390"
+        }
+      ]
+    },
+    {
+      "channel": "sogou_wechat",
+      "seconds": 0.16,
+      "status": "ok",
+      "items": [
+        {
+          "title": "第二届全球人工智能可持续发展创新合作论坛(GAIIF 2026)将在法国巴黎开幕",
+          "url": "https://weixin.sogou.com/link?url=dn9a_-gY295K0Rci_xozVXfdMkSQTLW6cwJThYulHEtVjXrGTiVgS4wOagRgUm_MNYUbVD71L0rHLm9pRHDc91qXa8Fplpd9FCiTEj2drDXUn8vsCKMgIrzWCERFherb-pN3yOa4vwwfJMZYpB5Xa3DjGoXcaSOnwk5D4tycu23YozSXWSqBc7Nr3QnQcfdvfzujOyznoc-TlvgtACgKe3Jh7Ytdfk9WNLHqcDo6G1u0laAkbkk6GBA_AgivOID_87fb4ymiAIjdrgozfSg6bw.."
+        },
+        {
+          "title": "AI终结人类...",
+          "url": "https://weixin.sogou.com/link?url=dn9a_-gY295K0Rci_xozVXfdMkSQTLW6cwJThYulHEtVjXrGTiVgS4wOagRgUm_MNYUbVD71L0rHLm9pRHDc91qXa8Fplpd9NMcnw-wLQdSg-Od9Xrv2rN3hFXwqVHfy2C2cMRQ6SW0KTsHxSN1CRTXqZWKnPmJ9RJo9bqe3cR2yOTIFFkp_ZAJV1dp9y5mNEgHuT2AfmLu3xz6I8ub56zFcthISe2B9Xd0dXpwEHvfpbVKqNXaGikzcxLkz-kTb7Lx395jVImle0WC6Sbi7DA.."
+        }
+      ]
+    },
+    {
+      "channel": "segmentfault",
+      "seconds": 0.55,
+      "status": "ok",
+      "items": [
+        {
+          "title": "【专题】2022中国AI人工智能技术应用场景市场研究及选型评估报告PDF合集分享（附原数据表）",
+          "url": "https://segmentfault.com/a/1190000044869221"
+        },
+        {
+          "title": "【专题】2022中国AI人工智能技术应用场景市场研究及选型评估报告PDF合集分享（附原数据表）",
+          "url": "https://segmentfault.com/a/1190000043685437"
+        }
+      ]
+    }
+  ]
+}

@@ -20,7 +20,6 @@ class RoundSixBrowserTests(unittest.TestCase):
             'lobsters': ('https://lobste.rs/s/abc123/python_test?utm=secret','https://lobste.rs/s/abc123/python_test'),
             'sspai': ('https://sspai.com/post/123?utm=secret','https://sspai.com/post/123'),
             'mafengwo': ('http://www.mafengwo.cn/sales/123.html?utm=secret','https://www.mafengwo.cn/sales/123.html'),
-            'suning': ('https://product.suning.com/0001/123.html?utm=secret','https://product.suning.com/0001/123.html'),
             'gitee': ('https://gitee.com/example/repo?utm=secret','https://gitee.com/example/repo'),
             'devto': ('https://dev.to/example/python-intro?utm=secret','https://dev.to/example/python-intro'),
             'segmentfault': ('https://segmentfault.com/a/123?utm=secret','https://segmentfault.com/a/123'),
@@ -44,9 +43,9 @@ globalThis.location={hostname:new URL(input.definition.search_url).hostname};
 const child={innerText:'Search result title text'};
 const card={innerText:'Search result title text',href:RAW,querySelector:()=>child,closest:()=>({querySelector:()=>child})};
 globalThis.document={body:{innerText:''},querySelectorAll:()=>[{...card,innerText:'Details'},card,card,{...card,href:'https://evil.invalid/login'},{...card,href:'https://'+input.definition.hosts[0]+'/login'}]};
-const page={label:'p5',goto:async url=>{if(!url.includes(encodeURIComponent(input.query)))throw Error('query lost')},waitForFunction:async()=>{},evaluate:async(fn,arg)=>fn(arg)};
+const page={close:async()=>{},label:'p5',goto:async url=>{if(!url.includes(encodeURIComponent(input.query)))throw Error('query lost')},waitForFunction:async()=>{},evaluate:async(fn,arg)=>fn(arg)};
 const listTaskSpaces=async()=>[{id:12,ownership:'agent'}];
-const taskSpace=async()=>({pages:async()=>[page]});
+const taskSpace=async()=>({newPage:async()=>page, pages:async()=>[page]});
 '''.replace('INPUT', json.dumps(dict(space=12, page='p5', platform=name, query='人工智能 & python', limit=2, definition=definition))).replace('RAW', json.dumps(raw))
             with self.subTest(platform=name):
                 run = subprocess.run(['node', '--input-type=module', '-e', setup+script], capture_output=True, text=True, timeout=10)
@@ -83,9 +82,9 @@ const input=INPUT;
 let closes=0,clicks=0;
 globalThis.document={querySelectorAll:()=>[{innerText:'Article title'},{innerText:'Second article'}]};
 const detail={waitForURL:async()=>{},url:async()=> 'https://www.huxiu.com/article/123.html?utm=private',close:async()=>{closes++}};
-const page={label:'p5',waitForEvent:async()=>detail,goto:async()=>{},fill:async(s,q)=>{if(q!==input.query)throw Error('query changed')},click:async s=>{if(s.includes('nth=')){clicks++;return {popups:[{label:'p6'}]}}return {}},waitForSelector:async()=>{},waitForFunction:async()=>{},evaluate:async(fn,arg)=>fn(arg)};
+const page={close:async()=>{},label:'p5',waitForEvent:async()=>detail,goto:async()=>{},fill:async(s,q)=>{if(q!==input.query)throw Error('query changed')},click:async s=>{if(s.includes('nth=')){clicks++;return {popups:[{label:'p6'}]}}return {}},waitForSelector:async()=>{},waitForFunction:async()=>{},evaluate:async(fn,arg)=>fn(arg)};
 const listTaskSpaces=async()=>[{id:12,ownership:'agent'}];
-const taskSpace=async()=>({pages:async()=>[page],page:()=>detail});
+const taskSpace=async()=>({newPage:async()=>page, pages:async()=>[page],page:()=>detail});
 '''.replace('INPUT',json.dumps(dict(space=12,page='p5',platform='huxiu',query='人工智能 & python',limit=40,definition=browser.PLATFORMS['huxiu'])))
         run = subprocess.run(['node','--input-type=module','-e',setup+script+'\nconsole.log(JSON.stringify({closes,clicks}));'],capture_output=True,text=True,timeout=10)
         self.assertEqual(run.returncode,0,run.stderr)

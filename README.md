@@ -269,20 +269,20 @@ research-mcp search "轻薄本 14英寸" --providers jd,bilibili --limit 5 --for
 
 #### 本机 Ego Lite 渠道（可选）
 
-已接入 `jd`、`taobao`、`tmall`、`smzdm`、`zhihu`、`xiaohongshu`、`douyin`、`sogou_wechat`、`xianyu`、`weibo`，`cost_class=local_browser`；其中什么值得买和搜狗微信本轮无需登录可读，其余按需要已有登录态登记。需安装 ego-browser，只用于本地 CLI / stdio MCP，不进入匿名公开搜索白名单，默认渠道不包含它们。支持具备 POSIX 文件锁的 macOS/Linux 本机；缺依赖或不支持的平台返回 `startup_failed`。
+已接入 `jd`、`taobao`、`tmall`、`smzdm`、`zhihu`、`xiaohongshu`、`douyin`、`xianyu`、`weibo`，`cost_class=local_browser`；其中什么值得买无需登录可读，其余按需要已有登录态登记。需安装 ego-browser，只用于本地 CLI / stdio MCP，不进入匿名公开搜索白名单，默认渠道不包含它们。支持具备 POSIX 文件锁的 macOS/Linux 本机；缺依赖或不支持的平台返回 `startup_failed`。
 
-1. 在 Ego Lite 中准备一个本任务专用的现有任务空间与页面，并交给 agent 控制。渠道会导航该页面；不要指定正在操作的其他任务页面。
+1. 在 Ego Lite 中准备一个本任务专用的现有任务空间与页面，并交给 agent 控制。渠道会用 newPage 创建独立页面并在结束时关闭，只保留用户已有登录页。
 2. 在启动本机 research-mcp 的进程环境显式设置：
 
 ```bash
 export RESEARCH_LOCAL_BROWSER=1
 export RESEARCH_BROWSER_SPACE_ID=123 # 替换为现有任务空间数字 ID
-export RESEARCH_BROWSER_PAGE=p1 # 替换为该空间已有页面标签
+export RESEARCH_BROWSER_CONCURRENCY=4 # 本进程浏览器并发上限，1–16
 ```
 
-上述 123/p1 是示例，请替换成实际值；本包不会自动创建实例、任务空间、页面或接管用户。未启用、无空间或控制权在用户时返回 `auth_required`；缺 CLI 返回 `startup_failed`。权限提示和登录/验证码由本人处理，渠道不重试、不绕过、不导出 cookie。
+上述 123 是空间 ID 示例；本包不会创建浏览器实例、任务空间或接管用户。RESEARCH_BROWSER_PAGE 已不再使用。未启用、无空间或控制权在用户时返回 `auth_required`；缺 CLI 返回 `startup_failed`。权限提示和登录/验证码由本人处理，渠道不重试、不绕过、不导出 cookie。
 
-通过 `ego-browser nodejs -e` 仅导航搜索页和读 DOM，不滚动翻页、不访问私有接口。跨线程/CLI 进程用本机文件锁串行执行，每次完成后至少间隔 5 秒；子进程超时 45 秒，每页最多 40 条。结果 `price` 为人民币字符串：京东只读取可辨认的未优惠标价，注明“页面标价，未含券/国补”；淘宝/天猫保留页面展示价及“国补后/补贴后/优惠后”等条件，不推算原价或结算价。闲鱼 `price_note=页面标价，非成交价`，不推算运费、规格价或最终成交价；`want_count` 保留页面数量文本（例如 `1.2万`），没展示时省略，`region` 为页面地区。微博过滤标为“广告”的卡片，仅收录带帖子链接的正文，忽略用户卡片和智搜回答；正文属于发帖者陈述，未经事实核查。什么值得买仅返回好价/文章标题与链接，不解析成交价。页面改版会返回 `parse_error`，有明确无结果提示才返回 `empty`。
+通过 `ego-browser nodejs -e` 仅导航搜索页和读 DOM，不滚动翻页、不访问私有接口。不同平台并发，同一平台跨线程/CLI 进程通过独立文件锁保持每次完成后至少 5 秒间隔（淘宝/天猫共用限流）；并发上限按进程配置，SDK 页预算不足时等待空位，不关已有页。子进程超时 45 秒，每页最多 40 条。结果 `price` 为人民币字符串：京东只读取可辨认的未优惠标价，注明“页面标价，未含券/国补”；淘宝/天猫保留页面展示价及“国补后/补贴后/优惠后”等条件，不推算原价或结算价。闲鱼 `price_note=页面标价，非成交价`，不推算运费、规格价或最终成交价；`want_count` 保留页面数量文本（例如 `1.2万`），没展示时省略，`region` 为页面地区。微博过滤标为“广告”的卡片，仅收录带帖子链接的正文，忽略用户卡片和智搜回答；正文属于发帖者陈述，未经事实核查。什么值得买仅返回好价/文章标题与链接，不解析成交价。页面改版会返回 `parse_error`，有明确无结果提示才返回 `empty`。
 
 小红书只返回笔记规范链接，不携带 `xsec_token` 或签名图片地址；该链接单独打开可能仍需登录或平台校验。抖音由卡片公开 ID 构建视频/图文链接，依赖当前页面类名。搜狗微信返回搜索结果中的公开跳转链接及摘要，不保证链接长期有效或文章全文可读。所有结果仅代表本次搜索页展示，未逐条验收落地页。
 
@@ -328,7 +328,7 @@ research-mcp search "Python 招聘 苏州" --providers bing,baidu --limit 5 --fo
 
 #### 第 6 轮浏览器增量
 
-下面的渠道通过本机 Ego Lite 的 `local_browser` 方式使用，均需显式指定 provider，沿用上面的环境变量、空间/页面选择和串行限频；不进入默认组或匿名公开搜索。
+下面列的是第 6 轮接入结果；其中 `suning`、`segmentfault` 本轮已迁移为匿名 HTTP，其余通过本机 Ego Lite 的 `local_browser` 方式使用，均需显式指定 provider，沿用上面的环境变量、空间选择和按平台限频；不进入默认组或匿名公开搜索。
 
 | 渠道 ID | 平台与范围 | 本次双语结果 |
 |---|---|---|
@@ -359,10 +359,25 @@ python3 -m research_mcp search "python" --providers pypi,gitee --limit 4
 | Product Hunt | 英文 Python 产品卡可读；中文返回 iOS 等不相关产品，未通过双语相关性与规范链接验收 |
 | 酷安 / 得物 | 当前网页分别为 App 下载首页、官网介绍/下载入口，未找到可用关键词搜索列表 |
 | 美团 | 消费搜索地址双语均转企业站 Not Found |
-| 唯品会 / IT之家 | 双语均进入登录页；IT之家明确显示“登录以查看搜索结果” |
+| 唯品会 | 搜索仍跳登录页，需用户重新登录/确认保存 |
+| IT之家 | 用户决定不接入，本轮未测试 |
 | 博客园 / 拉勾 / Reddit / 1688 / 天眼查 / 企查查 | 第 6 轮已遇人机验证、滑动验证、风控或脚本挑战，不绕过；本次未重测 |
 | GDELT | 第 6 轮双语均 429；本次未重测，不自动重试 |
 
-**需要用户登录：唯品会、IT之家、NGA（另需威望大于 0）、脉脉、大众点评、百度贴吧。** BOSS、猎聘、X 本次复用已有登录态，不代表匿名可读。飞猪虽有已有登录态，仍触发滑块验证。
+**待用户处理：唯品会重新登录、NGA 账号权限（威望大于 0）。** 脉脉、大众点评、百度贴吧已确认登录并接入。IT之家不接入。 BOSS、猎聘、X 本次复用已有登录态，不代表匿名可读。飞猪虽有已有登录态，仍触发滑块验证。
 
 这是本次环境的结果，不代表平台永久不可用。最新 [26 平台浏览器验收](docs/acceptance-round-six-browser-2026-11-23.md) 及规范化 JSON 补全了此前 [43 项候选矩阵](docs/acceptance-more-free-2026-11-23.md#full-candidate-matrix-43-platforms) 的浏览器待验项。
+
+### 如何保持登录
+
+登录时勾选“记住我/保持登录”；Ego Lite 不要清除 Cookie，也不要启用退出时清理站点数据。定期在已交给 agent 控制的任务空间运行：
+
+```bash
+research-mcp login-status
+```
+
+MCP 工具为 `research_login_status`。逐个平台打开轻量页面、读取可见登录标记，然后关闭自己开的页；不自动登录，不读取/保存密码或 Cookie。`logged_in` 为正向账号标记，`expired` 为明确登录跳转/提示，`blocked` 为验证拦截，`restricted` 为账号权限限制；`unknown` 需手工确认，不能当作过期。返回 `expired` 与 `needs_attention` 清单。网站仍可主动使会话过期，浏览器设置不能保证永久登录。
+
+新增浏览器渠道：`maimai`（脉脉）、`dianping`（大众点评，搜索默认上海城市 1）、`tieba`（贴吧）。脉脉最多打开两条结果以取得真实帖子链接；这些临时详情页也会关闭。苏宁 `suning`、搜狗微信 `sogou_wechat`、思否 `segmentfault` 已转为匿名 HTTP，不依赖 Ego Lite。唯品会、NGA 等待用户处理登录/账号权限；IT之家按用户决定不接入、不测试。
+
+本次匿名 HTTP 探测、渠道登录需求、耗时及并发对比见 [验收记录](docs/acceptance-browser-parallel-2026-11-23.md)。

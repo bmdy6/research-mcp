@@ -1,5 +1,6 @@
 // Runs only inside ego-browser nodejs. DOM reads only; no fetch/cookies/storage.
-const emit = (status, items = []) => console.log("RESEARCH_BROWSER_JSON:" + JSON.stringify({status, items}));
+let payload;
+const emit = (status, items = []) => { payload = {status, items}; };
 const platform = input.platform || "jd";
 const q = encodeURIComponent(input.query);
 const definition = input.definition || {};
@@ -16,37 +17,52 @@ const routes = {
   sogou_wechat: ["https://weixin.sogou.com/weixin?type=2&query=" + q, '.news-list h3 a', 'weixin.sogou.com'],
 };
 if (definition.search_url) routes[platform] = [definition.search_url.replace('{query}', q), definition.selector, new URL(definition.search_url).hostname];
+let ownedPage, deadline;
+let expired = false;
 try {
   const entry = (await listTaskSpaces()).find(s => s.id === input.space);
   if (!entry || entry.ownership !== "agent") {
     emit("auth_required");
   } else {
     const task = await taskSpace(input.space);
-    const page = (await task.pages()).find(p => p.label === input.page);
+    // Existing login tabs are never navigated or closed. Respect the SDK budget.
+    for (let attempt = 0; !ownedPage; attempt++) {
+      try { ownedPage = await task.newPage(); }
+      catch (error) {
+        if (!/Page budget reached/.test(String(error)) || attempt >= 30) throw error;
+        await new Promise(resolve => setTimeout(resolve, 400));
+      }
+    }
+    // Finish cleanup before Python's 45s subprocess safety timeout.
+    deadline = setTimeout(() => { expired = true; ownedPage.close().catch(() => {}); }, 27000);
+    const page = ownedPage;
     if (!page || !routes[platform]) {
       emit("startup_failed");
     } else {
       const [url, selector, host] = routes[platform];
       await page.goto(url, {timeout: 18000});
       let huxiuItems;
-      if (platform === 'huxiu') {
+      if (platform === 'huxiu' || platform === 'maimai') {
+        if (platform === 'huxiu') {
         await page.click('svg.search-btn');
         await page.fill('input[placeholder="搜索文章"]', input.query);
         await page.click('.input-icons .icon-search');
         await page.waitForSelector('.result-article__title', {timeout:8000});
-        const titles = await page.evaluate(() => [...document.querySelectorAll('.result-article__title')].map(e=>e.innerText.trim()));
+        } else { await page.waitForSelector(definition.selector, {timeout:8000}); }
+        const titles = await page.evaluate(selector => [...document.querySelectorAll(selector)].map(e=>e.innerText.trim()), platform === 'maimai' ? definition.selector : '.result-article__title');
         huxiuItems = [];
         for (let i=0; i<Math.min(input.limit,2,titles.length); i++) {
           const popup = page.waitForEvent('popup', {timeout:8000}).then(
             detail=>({detail}), error=>({error}));
-          await page.click('.result-article__title >> nth='+i);
+          await page.click((platform === 'maimai' ? definition.selector : '.result-article__title')+' >> nth='+i);
           const opened = await popup;
           if (opened.error) throw opened.error;
           const detail = opened.detail;
           try {
-            await detail.waitForURL(/https:\/\/www\.huxiu\.com\/article\/[0-9]+\.html/, {timeout:8000});
+            const pattern = platform === 'maimai' ? /https:\/\/maimai\.cn\/community\/feed-detail\/[0-9]+/ : /https:\/\/www\.huxiu\.com\/article\/[0-9]+\.html/;
+            await detail.waitForURL(pattern, {timeout:8000});
             const u = new URL(await detail.url());
-            if (u.hostname === 'www.huxiu.com' && /^\/article\/[0-9]+\.html$/.test(u.pathname)) huxiuItems.push({title:titles[i],url:'https://www.huxiu.com'+u.pathname});
+            if (definition.hosts.includes(u.hostname) && new RegExp('^(?:'+definition.path+')$').test(u.pathname)) huxiuItems.push({title:titles[i],url:'https://'+u.hostname+u.pathname});
           } finally { await detail.close(); }
         }
       }
@@ -88,7 +104,7 @@ try {
             }
             const body = platform === 'x' ? get(a.closest('article'), '[data-testid="tweetText"]') : '';
             if (platform === 'x' && !body) continue;
-            const item = {title: body ? body.slice(0,180) : (definition.title_selector ? get(definition.title_container ? a.closest(definition.title_container) : a,definition.title_selector) : a.innerText.trim()), url, ...(body ? {summary:body.slice(0,1000)} : {})};
+            const item = {title: platform === 'tieba' ? (a.closest('.thread-content-box')?.querySelector('.title')?.innerText || a.closest('.thread-content-box')?.innerText || '').slice(0,180) : body ? body.slice(0,180) : (definition.title_selector ? get(definition.title_container ? a.closest(definition.title_container) : a,definition.title_selector) : a.innerText.trim()), url, ...(body ? {summary:body.slice(0,1000)} : {})};
             if (!candidates.has(url) || candidates.get(url).title.length < item.title.length) candidates.set(url,item);
           }
           for (const item of candidates.values()) add(item);
@@ -192,4 +208,14 @@ try {
   const message = String(error);
   emit(/permission|control|hand.?off|inactive|unassigned/i.test(message) ? "auth_required" :
        /timed.?out|timeout/i.test(message) ? "timeout" : "startup_failed");
+}
+
+finally {
+  clearTimeout(deadline);
+  if (ownedPage) {
+    try { await ownedPage.close(); }
+    catch { emit('startup_failed'); }
+  }
+  if (expired) emit('timeout');
+  console.log("RESEARCH_BROWSER_JSON:" + JSON.stringify(payload || {status:'startup_failed',items:[]}));
 }

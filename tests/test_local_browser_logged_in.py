@@ -67,10 +67,10 @@ const post=(ad=false)=>node(ad?'广告\n推荐':'普通微博内容',{}, {
 const cards=MODE==='ads'?[post(true)]:[post(true),post(),post()];
 globalThis.location={hostname:input.platform==='weibo'?'s.weibo.com':'www.goofish.com'};
 globalThis.document={body:{innerText:BODY},querySelectorAll:s=>input.platform==='xianyu'?[item,item]:cards};
-const page={label:'p5',goto:async u=>{if(!u.includes(encodeURIComponent(input.query)))throw Error('encoding')},
+const page={close:async()=>{},label:'p5',goto:async u=>{if(!u.includes(encodeURIComponent(input.query)))throw Error('encoding')},
  waitForFunction:async()=>{},evaluate:async(fn,arg)=>fn(arg)};
 const listTaskSpaces=async()=>[{id:12,ownership:'agent'}];
-const taskSpace=async()=>({pages:async()=>[page]});
+const taskSpace=async()=>({newPage:async()=>page, pages:async()=>[page]});
 '''
         for platform in ('xianyu', 'weibo'):
             for body, mode, status in [('', '', 'ok'), ('请先登录', '', 'auth_required'),

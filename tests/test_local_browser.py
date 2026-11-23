@@ -16,7 +16,8 @@ class LocalBrowserTests(unittest.TestCase):
         with patch.dict(os.environ, {'RESEARCH_LOCAL_BROWSER': '1', 'RESEARCH_BROWSER_SPACE_ID': '12',
                                      'RESEARCH_BROWSER_PAGE': 'p5'}), \
                 patch.object(browser.shutil, 'which', return_value='/bin/ego-browser'), \
-                patch.object(browser, '_run', return_value=output):
+                patch.object(browser, '_run', return_value=output), \
+                patch.dict(__import__('research_mcp.research',fromlist=['CHANNELS']).CHANNELS, {provider:browser.PROVIDERS[provider]}):
             return service.search('轻薄本 14英寸', providers=[provider], limit=2)
 
     def test_price_survives_public_result_contract(self):
@@ -164,10 +165,10 @@ if (platform==='taobao' || platform==='tmall') {
 }
 globalThis.location={hostname:HOST};
 globalThis.document={body:{innerText:BODY},querySelectorAll:()=>[card,card]};
-const page={label:'p5',goto:async(url)=>{if(!url.includes(encodeURIComponent(input.query)))throw Error('query not encoded')},
+const page={close:async()=>{},label:'p5',goto:async(url)=>{if(!url.includes(encodeURIComponent(input.query)))throw Error('query not encoded')},
  waitForFunction:async()=>{},evaluate:async(fn,arg)=>fn(arg)};
 const listTaskSpaces=async()=>[{id:12,ownership:OWNER}];
-const taskSpace=async()=>({pages:async()=>[page]});
+const taskSpace=async()=>({newPage:async()=>page, pages:async()=>[page]});
 '''
         cases = [('taobao','s.taobao.com','https://detail.tmall.com/item.htm?id=123'),
                  ('tmall','s.taobao.com','https://detail.tmall.com/item.htm?id=123'),
@@ -215,10 +216,10 @@ const card = {querySelector(selector) {
 }};
 globalThis.document = {body:{innerText:BARRIER}, querySelectorAll:()=>[
  {href:'https://chat.jd.com/index.action?pid=123',closest:()=>card}]};
-const page = {label:'p5',goto:async()=>{navigations++},waitForFunction:async()=>{},
+const page = {close:async()=>{},label:'p5',goto:async()=>{navigations++},waitForFunction:async()=>{},
  evaluate:async(fn,arg)=>fn(arg)};
 const listTaskSpaces = async()=>[{id:12,ownership:'agent'}];
-const taskSpace = async()=>({pages:async()=>[page]});
+const taskSpace = async()=>({newPage:async()=>page, pages:async()=>[page]});
 '''
         for barrier, status in [('', 'ok'), ('请完成验证', 'blocked')]:
             result = subprocess.run(['node', '--input-type=module', '-e',

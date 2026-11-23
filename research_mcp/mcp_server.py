@@ -87,5 +87,12 @@ async def research_list_channels() -> str:
     return serialize_result(result, ResultBudget(max_chars=MAX_CHARS))
 
 
+@_tool
+async def research_login_status() -> str:
+    """逐个平台检查本机 Ego Lite 登录状态；unknown 不表示过期，不自动登录。"""
+    from research_mcp.login_status import login_status
+    return serialize_result(await asyncio.to_thread(login_status), ResultBudget(max_chars=MAX_CHARS))
+
+
 if __name__ == "__main__":
     mcp.run()

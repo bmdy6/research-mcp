@@ -175,7 +175,7 @@ class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
     async def test_tools_list_responds_while_query_is_blocked(self):
         async with self.blocked_call() as (session, call, _, root):
             listing = await asyncio.wait_for(session.list_tools(), timeout=1)
-            self.assertEqual(sorted(tool.name for tool in listing.tools), ["research_list_channels", "research_search"])
+            self.assertEqual(sorted(tool.name for tool in listing.tools), ["research_list_channels", "research_login_status", "research_search"])
             self.assertFalse(call.done())
             self.assertFalse((root / "finished").exists())
             (root / "release").touch()
@@ -201,7 +201,7 @@ class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
                     # the cancelled response, so awaiting that reply would hang.
                     await self.wait_for_file(root / "request-finished", timeout=1)
                     listing = await asyncio.wait_for(session.list_tools(), timeout=1)
-                    self.assertEqual(sorted(tool.name for tool in listing.tools), ["research_list_channels", "research_search"])
+                    self.assertEqual(sorted(tool.name for tool in listing.tools), ["research_list_channels", "research_login_status", "research_search"])
                     self.assertFalse((root / "finished").exists())
                     workspace = Path((root / "workspace").read_text())
                     self.assertTrue(workspace.is_dir())
@@ -315,7 +315,11 @@ class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
         with patch.dict(os.environ, {"RESEARCH_DEFAULT_PROVIDERS": "unsupported_offline_fixture"}):
             async with asyncio.timeout(20), self.session(fixtures=False) as session:
                 tools = (await session.list_tools()).model_dump(by_alias=True)["tools"]
-                self.assertEqual(sorted(tool["name"] for tool in tools), ["research_list_channels", "research_search"])
+                self.assertEqual(sorted(tool["name"] for tool in tools), ["research_list_channels", "research_login_status", "research_search"])
+                login = await session.call_tool("research_login_status", {})
+                login_payload = json.loads(login.content[0].text)
+                self.assertEqual(login_payload["operation"], "login-status")
+                self.assertFalse(login_payload["ok"])
                 tools = sorted(tools, key=lambda tool: tool["name"] != "research_search")
                 schema = tools[0]["inputSchema"]
                 self.assertEqual(schema["required"], ["query"])

@@ -8,7 +8,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
-from threading import Lock
+from threading import Lock, BoundedSemaphore
 import time
 from urllib.parse import parse_qs, urlsplit
 
@@ -164,17 +164,32 @@ PLATFORMS.update({'boss': {'login': True,
               'selector': '.story .comments_label a',
               'title_container': 'li.story',
               'title_selector': 'h2.link a'}})
+PLATFORMS.update({
+ 'maimai': {'login': True, 'kind': 'discussion', 'hosts': ['maimai.cn'],
+            'path': r'/community/feed-detail/[0-9]+', 'terms': 'https://maimai.cn',
+            'search_url': 'https://maimai.cn/web/search_center?type=feed&query={query}',
+            'selector': 'li.list-group-item p'},
+ 'dianping': {'login': True, 'kind': 'product', 'hosts': ['www.dianping.com'],
+              'path': r'/shop/[A-Za-z0-9]+', 'terms': 'https://www.dianping.com',
+              'search_url': 'https://www.dianping.com/search/keyword/1/0_{query}',
+              'selector': '#shop-all-list .tit a:has(h4)'},
+ 'tieba': {'login': True, 'kind': 'discussion', 'hosts': ['tieba.baidu.com'],
+           'path': r'/p/[0-9]+', 'terms': 'https://tieba.baidu.com',
+           'search_url': 'https://tieba.baidu.com/f/search/res?ie=utf-8&qw={query}',
+           'selector': '.thread-content-box a.item-link-bg'},
+})
 PRICE_NOTE = '页面标价，未含券/国补'
 _MARKER = 'RESEARCH_BROWSER_JSON:'
 _LOCK = Lock()
+_SEMAPHORES = {}
 _INTERVAL = 5.0
 
 
-def _run(command: list[str]) -> subprocess.CompletedProcess:
-    """Serialize even across CLI processes; >=5s after each completed attempt.
+def _run(command: list[str], platform: str = 'legacy') -> subprocess.CompletedProcess:
+    """Per-platform serialization across CLI processes; >=5s after completion.
 
     The file contains only a monotonic timestamp. The lock covers the complete
-    browser operation so concurrent providers cannot navigate the same tab.
+    browser operation; distinct platforms use independent new tabs.
     """
     try:
         import fcntl
@@ -182,7 +197,15 @@ def _run(command: list[str]) -> subprocess.CompletedProcess:
         raise ChannelError('startup_failed') from None
     directory = Path.home() / '.cache' / 'research-mcp'
     directory.mkdir(parents=True, exist_ok=True, mode=0o700)
-    with _LOCK, (directory / 'local-browser.lock').open('a+') as state:
+    try:
+        concurrency = max(1, min(16, int(os.environ.get('RESEARCH_BROWSER_CONCURRENCY', '4'))))
+    except ValueError:
+        raise ChannelError('startup_failed') from None
+    with _LOCK:
+        semaphore = _SEMAPHORES.setdefault(concurrency, BoundedSemaphore(concurrency))
+    # Tmall and Taobao share one upstream platform and throttle.
+    throttle = 'taobao' if platform == 'tmall' else platform
+    with semaphore, (directory / f'local-browser-{throttle}.lock').open('a+') as state:
         fcntl.flock(state, fcntl.LOCK_EX)
         state.seek(0)
         try:
@@ -209,17 +232,15 @@ def search(config: dict, *, platform: str) -> list[dict]:
     if not executable:
         raise ChannelError('startup_failed')
     space = os.environ.get('RESEARCH_BROWSER_SPACE_ID', '')
-    page = os.environ.get('RESEARCH_BROWSER_PAGE', '')
-    if (os.environ.get('RESEARCH_LOCAL_BROWSER') != '1' or not space.isdecimal()
-            or not page.startswith('p') or not page[1:].isdecimal()):
+    if (os.environ.get('RESEARCH_LOCAL_BROWSER') != '1' or not space.isdecimal()):
         raise ChannelError('auth_required')
     script = Path(__file__).with_suffix('.mjs').read_text(encoding='utf-8')
-    arguments = {'definition': PLATFORMS[platform], 'space': int(space), 'page': page, 'platform': platform,
+    arguments = {'definition': PLATFORMS[platform], 'space': int(space), 'platform': platform,
                  'query': query, 'limit': min(40, max(1, int(config.get('web_limit', 10))))}
     # Argument vector, never a shell. JSON remains data, including quotes/newlines.
     script = 'const input = ' + json.dumps(arguments, ensure_ascii=True) + ';\n' + script
     try:
-        result = _run([executable, 'nodejs', '-e', script])
+        result = _run([executable, 'nodejs', '-e', script], platform)
     except OSError:
         raise ChannelError('startup_failed') from None
     # Ego Lite 2.2.1 sends script console output to stderr; support both streams.
