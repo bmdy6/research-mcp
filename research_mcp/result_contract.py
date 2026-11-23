@@ -14,7 +14,7 @@ from dataclasses import dataclass
 from research_mcp.safe_fetch import safe_error_code
 from research_mcp.channels.errors import FAILURE_STATES
 
-LIST_FIELDS = ("price", "price_note", "source", "title", "url", "author", "play", "views", "published_at", "summary", "jev_relevance", "jev_keep", "rank", "actual_backend")
+LIST_FIELDS = ("want_count", "region", "price", "price_note", "source", "title", "url", "author", "play", "views", "published_at", "summary", "jev_relevance", "jev_keep", "rank", "actual_backend")
 FETCH_FIELDS = ("hint", "upgraded_to_https", "object_type", "file", "discussion", "coverage", "coverage_note", "kind", "url", "ok", "repo", "content", "text", "title", "via", "language", "duration", "duration_seconds", "truncated", "transcript_error", "error", "retryable", "transcript", "source", "bvid", "char_count", "duration_used", "partial", "failed_segments")
 EXA_X_EMPTY_NOTE = (
     "本次包含 X/Twitter site: 限定的 Exa 查询成功，但没有返回结果；"

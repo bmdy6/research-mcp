@@ -16,6 +16,8 @@ from .errors import ChannelError
 
 # Only platforms whose result DOM was actually read belong here.
 PLATFORMS = {
+    'xianyu': {'login': True, 'kind': 'product', 'hosts': ('www.goofish.com',), 'path': r'/item', 'terms': 'https://www.goofish.com'},
+    'weibo': {'login': True, 'kind': 'article', 'hosts': ('weibo.com',), 'path': r'/[0-9]+/[a-zA-Z0-9]+', 'terms': 'https://weibo.com'},
     'jd': {'login': True, 'kind': 'product', 'hosts': ('item.jd.com',), 'path': r'/[0-9]+\.html', 'terms': 'https://www.jd.com'},
     'taobao': {'login': True, 'kind': 'product', 'hosts': ('item.taobao.com', 'detail.tmall.com'), 'path': r'/item\.htm', 'terms': 'https://www.taobao.com'},
     'tmall': {'login': True, 'kind': 'product', 'hosts': ('detail.tmall.com',), 'path': r'/item\.htm', 'terms': 'https://www.tmall.com'},
@@ -110,7 +112,7 @@ def search(config: dict, *, platform: str) -> list[dict]:
             parsed = urlsplit(url)
             definition = PLATFORMS[platform]
             params = parse_qs(parsed.query, keep_blank_values=True)
-            expected_query = ('id' if platform in {'taobao', 'tmall'} else
+            expected_query = ('id' if platform in {'taobao', 'tmall', 'xianyu'} else
                               'url' if platform == 'sogou_wechat' else None)
             if (parsed.scheme != 'https' or parsed.hostname not in definition['hosts']
                     or parsed.username or parsed.password or parsed.port or parsed.fragment
@@ -134,6 +136,10 @@ def search(config: dict, *, platform: str) -> list[dict]:
             if price is not None:
                 item.update(price=price[:80], price_note=PRICE_NOTE if platform == 'jd' else
                             str(row.get('price_note', '页面展示价，优惠条件请回原页核对'))[:160])
+            if platform == 'xianyu':
+                for key in ('want_count', 'region'):
+                    if isinstance(row.get(key), str) and row[key]:
+                        item[key] = row[key][:100]
             items.append(item)
         return items
     except (KeyError, TypeError, ValueError, AttributeError):

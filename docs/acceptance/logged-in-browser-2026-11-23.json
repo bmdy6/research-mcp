@@ -1,0 +1,272 @@
+[
+  {
+    "provider": "xianyu",
+    "query": "机械键盘",
+    "elapsed_seconds": 1.521,
+    "result": {
+      "api_version": "1",
+      "operation": "search",
+      "status": "ok",
+      "ok": true,
+      "query": "机械键盘",
+      "candidates": [
+        {
+          "want_count": "1526",
+          "region": "广东",
+          "price": "49.90",
+          "price_note": "页面标价，非成交价",
+          "source": "xianyu",
+          "title": "全新库存 狼蛛S500有线104键金属面板真机械键盘 冰蓝光 多彩灯光 全键无冲突拼色键盘 游戏电竞商务办公台式笔记本电脑通用  产品：全新库存狼蛛S500系列 有线104键机械键盘   工厂库存 新是新的 95成-99新 基本全新 实拍可见 非二手 功能齐全 注意！能接收才拍 无使用痕迹工厂收回  ...",
+          "url": "https://www.goofish.com/item?id=1038258768156",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "region": "福建",
+          "price": "39",
+          "price_note": "页面标价，非成交价",
+          "source": "xianyu",
+          "title": "双飞燕Q820N机械键盘 光轴二代青轴，一切正常完好，原价4 00多一个，手感好，清脆，拔插轴，已清理卫生测试好，有任何质量问题包退换可放心购买包邮。不包偏远",
+          "url": "https://www.goofish.com/item?id=860841456051",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "want_count": "1081",
+          "region": "河南",
+          "price": "59",
+          "price_note": "页面标价，非成交价",
+          "source": "xianyu",
+          "title": "惠普（HP）k23–98客制化，麻将音，全键热拔插，电竞 游 戏 办公 有线/无线 机械键盘！ 二手95新惠普（HP）k23–98机械键盘，支持全键无冲，兼顾游戏与办公！  键盘分有线版本与无线三模版，价格不同，文案有价格说明  全键热拔插，支持diy换轴！ Gasket结构满填充静设计！...",
+          "url": "https://www.goofish.com/item?id=1059330188998",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ],
+      "total": 3,
+      "pooled": 3,
+      "returned": 3,
+      "truncated": false,
+      "truncated_by": [],
+      "attempted_channels": [
+        "xianyu"
+      ],
+      "succeeded_channels": [
+        "xianyu"
+      ],
+      "attempted_channels_count": 1,
+      "succeeded_channels_count": 1,
+      "failed_channels": [],
+      "failed_channels_count": 0,
+      "errors": [],
+      "display_notes": [],
+      "used_default_providers": false,
+      "channel_statuses": [
+        {
+          "channel": "xianyu",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T09:26:41.410945+00:00"
+        }
+      ],
+      "rerank_downgraded": "disabled_by_transport_policy",
+      "request_id": "1e7974cba3e74a9f97adc5e0652c4f83"
+    }
+  },
+  {
+    "provider": "xianyu",
+    "query": "laptop",
+    "elapsed_seconds": 6.682,
+    "result": {
+      "api_version": "1",
+      "operation": "search",
+      "status": "ok",
+      "ok": true,
+      "query": "laptop",
+      "candidates": [
+        {
+          "want_count": "1",
+          "region": "湖北",
+          "price": "850",
+          "price_note": "页面标价，非成交价",
+          "source": "xianyu",
+          "title": "惠普HP Laptop 14s-dp0xxx R5 3500U 8G DDR4 256G固态 成色还可以 有正常使用痕迹 外观直接看图呗 功能正常 开机流畅 键盘屏幕都好用 无拆无修 原装电源在 支持自提 可邮寄 不议价不包邮",
+          "url": "https://www.goofish.com/item?id=1101873340376",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "want_count": "3",
+          "region": "广东",
+          "price": "788",
+          "price_note": "页面标价，非成交价",
+          "source": "xianyu",
+          "title": "升级转让一台微软Surface Laptop，具体参数配置详 见实拍图片。  这台电脑是在华润万象城顺电门店购买的正品，五一促销时到店自提的，购买记录和小票都还在，可以查验。因为习惯同时期配备两台笔记本分开使用，所以每一台的保养都相对好于只用一台的情况。25年入手新款后，这台就作为备用机使用，运行非常...",
+          "url": "https://www.goofish.com/item?id=1101701757777",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "region": "广东",
+          "price": "600",
+          "price_note": "页面标价，非成交价",
+          "source": "xianyu",
+          "title": "【东莞同城可自提】微软Surface Laptop笔记本 i5-7300U处理器，8G内存，128G固态，13.5寸屏，Win10系统 正常使用，成色还可以，键盘有使用痕迹，具体看图 适合办公、学习，功能都正常 支持包邮，东莞同城可自提 价格可聊，喜欢私聊，售出不退不换",
+          "url": "https://www.goofish.com/item?id=1046377925840",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ],
+      "total": 3,
+      "pooled": 3,
+      "returned": 3,
+      "truncated": false,
+      "truncated_by": [],
+      "attempted_channels": [
+        "xianyu"
+      ],
+      "succeeded_channels": [
+        "xianyu"
+      ],
+      "attempted_channels_count": 1,
+      "succeeded_channels_count": 1,
+      "failed_channels": [],
+      "failed_channels_count": 0,
+      "errors": [],
+      "display_notes": [],
+      "used_default_providers": false,
+      "channel_statuses": [
+        {
+          "channel": "xianyu",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T09:26:48.094687+00:00"
+        }
+      ],
+      "rerank_downgraded": "disabled_by_transport_policy",
+      "request_id": "6d5525196dc54f66b05512014da8dde3"
+    }
+  },
+  {
+    "provider": "weibo",
+    "query": "人工智能",
+    "elapsed_seconds": 7.207,
+    "result": {
+      "api_version": "1",
+      "operation": "search",
+      "status": "ok",
+      "ok": true,
+      "query": "人工智能",
+      "candidates": [
+        {
+          "source": "weibo",
+          "title": "清华深度解读：AI的下一个十年，将如何重塑世界？建议大家都看看！ LMarkGet的微博视频 ​",
+          "url": "https://weibo.com/6073351765/RsrFWjent",
+          "author": "MarkGet",
+          "summary": "清华深度解读：AI的下一个十年，将如何重塑世界？建议大家都看看！ LMarkGet的微博视频 ​",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "weibo",
+          "title": "Luca Guadagnino 的新片《人工智能》的海报应该是今年最佳之一了。看起来是 Andrew Garfield 扮演的 Openai 创始人 Sam Altman 在热情地邀请你步入未来，但仔细一看，海报画面的每个部分都有点诡异阴森？远处的城景、树干上的人脸、树枝上探下来的蛇头、足以触发恐怖谷效应的阴森人像…… 处处透露着 AI 生成的诡异感……但这",
+          "url": "https://weibo.com/1731333827/RsehW0LVI",
+          "author": "Regardez",
+          "summary": "Luca Guadagnino 的新片《人工智能》的海报应该是今年最佳之一了。看起来是 Andrew Garfield 扮演的 Openai 创始人 Sam Altman 在热情地邀请你步入未来，但仔细一看，海报画面的每个部分都有点诡异阴森？远处的城景、树干上的人脸、树枝上探下来的蛇头、足以触发恐怖谷效应的阴森人像…… 处处透露着 AI 生成的诡异感……但这个海报最绝的地方在于——它是100%由人类绘制的（海报右下角有标注），在 AI 能随便模拟人类生成图像的时代，人类也能反过来轻易模仿 AI 的笔迹，制造同样的诡异感…… 这种人类与人工智能相互角力，抢夺创意话语权，最后制造出一些不伦不类的东西的阴冷感，真是淋漓尽致地体现了电影想表达的主题，完全令人回味无穷。精彩的海报！ 收起d",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "weibo",
+          "title": "美国人工智能政策的重大转向：\n刚刚，特朗普突然宣布了一个他没有告诉任何人的决定：不允许美国企业在海外建设数据中心，一定要去的话，要缴巨额税款。。\n因为当年他们就是这么流失芯片产业的，不能再蹈覆辙。\n这意味着以后英伟达的芯片可能都不能流出美国。 L梁赛的微博视频 ​",
+          "url": "https://weibo.com/1725941200/RsmJIlTNm",
+          "author": "梁赛",
+          "summary": "美国人工智能政策的重大转向：\n刚刚，特朗普突然宣布了一个他没有告诉任何人的决定：不允许美国企业在海外建设数据中心，一定要去的话，要缴巨额税款。。\n因为当年他们就是这么流失芯片产业的，不能再蹈覆辙。\n这意味着以后英伟达的芯片可能都不能流出美国。 L梁赛的微博视频 ​",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ],
+      "total": 3,
+      "pooled": 3,
+      "returned": 3,
+      "truncated": false,
+      "truncated_by": [],
+      "attempted_channels": [
+        "weibo"
+      ],
+      "succeeded_channels": [
+        "weibo"
+      ],
+      "attempted_channels_count": 1,
+      "succeeded_channels_count": 1,
+      "failed_channels": [],
+      "failed_channels_count": 0,
+      "errors": [],
+      "display_notes": [],
+      "used_default_providers": false,
+      "channel_statuses": [
+        {
+          "channel": "weibo",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T09:26:55.302679+00:00"
+        }
+      ],
+      "rerank_downgraded": "disabled_by_transport_policy",
+      "request_id": "e2d1526a96ac4e2f82fae44176e1daf4"
+    }
+  },
+  {
+    "provider": "weibo",
+    "query": "laptop",
+    "elapsed_seconds": 9.424,
+    "result": {
+      "api_version": "1",
+      "operation": "search",
+      "status": "ok",
+      "ok": true,
+      "query": "laptop",
+      "candidates": [
+        {
+          "source": "weibo",
+          "title": "卧槽？微软牛逼！Surface Laptop Ultra 刚刚发布，微软终于巨硬了一回NVIDIA RTX Spark处理器，20核心Arm架构；15英寸mini-LED屏幕，PPI262，峰值亮度2000nit；最高6144个 Blackwell CUDA核心GPU；最高128GB内存；重量不到2公斤；售价还没公布，不过目测2开头，作为全网最忠实的Surf",
+          "url": "https://weibo.com/1935347241/R27gLhZgu",
+          "author": "fenibook",
+          "summary": "卧槽？微软牛逼！Surface Laptop Ultra 刚刚发布，微软终于巨硬了一回NVIDIA RTX Spark处理器，20核心Arm架构；15英寸mini-LED屏幕，PPI262，峰值亮度2000nit；最高6144个 Blackwell CUDA核心GPU；最高128GB内存；重量不到2公斤；售价还没公布，不过目测2开头，作为全网最忠实的Surface 粉丝，我会买吗？ 收起d",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "weibo",
+          "title": "关于NVIDIA RTX Spark给你最直接，最简单，最不绕弯子，最扎心的结论：买搭载NVIDIA RTX Spark芯片的笔记本电脑，不如直接买一个花瓶放家里玩。起码漂亮的花瓶看着不烧心，但买搭载NVIDIA RTX Spark芯片的笔记本就不一样了；不仅机器的价格贵得离谱，性能一般，ARM生态的软件适配也差，转译的BUG还多。 收起d",
+          "url": "https://weibo.com/6052350992/Rnh7dplRB",
+          "author": "墨鱼Ty",
+          "summary": "关于NVIDIA RTX Spark给你最直接，最简单，最不绕弯子，最扎心的结论：买搭载NVIDIA RTX Spark芯片的笔记本电脑，不如直接买一个花瓶放家里玩。起码漂亮的花瓶看着不烧心，但买搭载NVIDIA RTX Spark芯片的笔记本就不一样了；不仅机器的价格贵得离谱，性能一般，ARM生态的软件适配也差，转译的BUG还多。 收起d",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "weibo",
+          "title": "【RTX Spark 笔记本正式开售，2599 美元起】 #RTX Spark笔记本正式开售#RTX Spark 笔记本正式开售了，英伟达公布的全球起价是 2599 美元，各地配置与价格会有差别。这次是整批设备到场：华硕 ProArt、戴尔 XPS 16、惠普 OmniBook、联想 Yoga Pro 9n、微软 Surface Laptop Ultra，以",
+          "url": "https://weibo.com/1642720480/RnqGUw2ka",
+          "author": "爱范儿",
+          "summary": "【RTX Spark 笔记本正式开售，2599 美元起】 #RTX Spark笔记本正式开售#RTX Spark 笔记本正式开售了，英伟达公布的全球起价是 2599 美元，各地配置与价格会有差别。这次是整批设备到场：华硕 ProArt、戴尔 XPS 16、惠普 OmniBook、联想 Yoga Pro 9n、微软 Surface Laptop Ultra，以及微星 Prestige N16 系列都在首批名单里。硬件把 Grace CPU 和 Blackwell RTX GPU 集成在同一颗芯片中，最高 128GB 统一内存，官方标称最高 1 PFLOPS FP4 AI 算力。本地模型、AI 智能体和大型 3D 场景都能使用这块共享内存。软件侧也有对应适配：Photoshop 和 Premiere 先提供原生测试版，Windows on Arm 有了 PyTorch-CUDA 构建。游戏首发阵容则包括《赛博朋克 2077》《堡垒之夜》《漫威争锋》和《NBA 2K27》。创作、本地 AI 与游戏，开始在这一批轻薄 Windows 设备上汇合。#英伟达# 收起d",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ],
+      "total": 3,
+      "pooled": 3,
+      "returned": 3,
+      "truncated": false,
+      "truncated_by": [],
+      "attempted_channels": [
+        "weibo"
+      ],
+      "succeeded_channels": [
+        "weibo"
+      ],
+      "attempted_channels_count": 1,
+      "succeeded_channels_count": 1,
+      "failed_channels": [],
+      "failed_channels_count": 0,
+      "errors": [],
+      "display_notes": [],
+      "used_default_providers": false,
+      "channel_statuses": [
+        {
+          "channel": "weibo",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T09:27:04.726955+00:00"
+        }
+      ],
+      "rerank_downgraded": "disabled_by_transport_policy",
+      "request_id": "10bb24ad1200491ab40f97b27f2654c8"
+    }
+  }
+]

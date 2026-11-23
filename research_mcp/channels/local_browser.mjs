@@ -3,6 +3,8 @@ const emit = (status, items = []) => console.log("RESEARCH_BROWSER_JSON:" + JSON
 const platform = input.platform || "jd";
 const q = encodeURIComponent(input.query);
 const routes = {
+  xianyu: ["https://www.goofish.com/search?q=" + q, 'a[class*="feeds-item-wrap"]', 'www.goofish.com'],
+  weibo: ["https://s.weibo.com/weibo?q=" + q, '.card-wrap[action-type="feed_list_item"]', 's.weibo.com'],
   jd: ["https://search.jd.com/Search?keyword=" + q, 'a[href*="chat.jd.com/index.action"][href*="pid="]', 'search.jd.com'],
   taobao: ["https://s.taobao.com/search?q=" + q, 'a[class*="doubleCardWrapper"]', 's.taobao.com'],
   tmall: ["https://s.taobao.com/search?tab=mall&q=" + q, 'a[class*="doubleCardWrapper"]', 's.taobao.com'],
@@ -42,7 +44,32 @@ try {
           if (!item.title?.trim() || !item.url || seen.has(item.url) || items.length >= limit) return;
           seen.add(item.url); items.push(item);
         };
-        if (platform === "jd") {
+        if (platform === "xianyu") {
+          for (const card of document.querySelectorAll('a[class*="feeds-item-wrap"]')) {
+            let u; try {u = new URL(card.href);} catch {continue;}
+            const id = u.searchParams.get('id');
+            if (u.hostname !== 'www.goofish.com' || u.pathname !== '/item' || !/^\d+$/.test(id || '')) continue;
+            const title = card.querySelector('[class*="row1-wrap-title"]')?.getAttribute('title');
+            const price = get(card, '[class*="price-wrap"]').replace(/[¥￥\s]/g, '');
+            if (!/^\d+(?:\.\d{1,2})?$/.test(price)) continue;
+            const want = get(card, '[class*="price-desc"]').match(/([0-9]+(?:\.[0-9]+)?万?)人想要/);
+            add({title, url:'https://www.goofish.com/item?id='+id, price,
+              price_note:'页面标价，非成交价', want_count:want?.[1] || '',
+              region:get(card, '[class*="seller-text"]')});
+          }
+        } else if (platform === "weibo") {
+          for (const card of document.querySelectorAll('.card-wrap[action-type="feed_list_item"]')) {
+            // Filter labelled promotions, not posts merely discussing advertising.
+            if (/(?:^|\s)广告(?:\s|$)/.test(card.innerText) || /广告/.test(get(card, '.card-top'))) continue;
+            const link = card.querySelector('.from a');
+            let u; try {u = new URL(link?.href);} catch {continue;}
+            if (u.hostname !== 'weibo.com' || !/^\/\d+\/[a-zA-Z0-9]+$/.test(u.pathname)) continue;
+            const body = get(card, '[node-type="feed_list_content_full"]') || get(card, '[node-type="feed_list_content"]');
+            if (!body) continue;
+            add({title:body.slice(0,180), summary:body.slice(0,1000),
+              url:'https://weibo.com'+u.pathname, author:get(card, '.name')});
+          }
+        } else if (platform === "jd") {
           for (const link of document.querySelectorAll('a[href*="chat.jd.com/index.action"][href*="pid="]')) {
             const id = new URL(link.href).searchParams.get("pid");
             if (!/^\d+$/.test(id)) continue;
