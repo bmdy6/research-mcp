@@ -449,11 +449,11 @@ def _arxiv_search(config: dict) -> list[dict]:
         summary = " ".join((entry.findtext("a:summary", "", ns) or "").split())
         link = entry.findtext("a:id", "", ns).strip()
         code = re.search(r"https?://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", summary)
-        if not code:
+        if config.get("arxiv_require_github", os.environ.get("ARXIV_REQUIRE_GITHUB") == "1") and not code:
             continue
         title = " ".join((entry.findtext("a:title", "", ns) or "").split())
         published = entry.findtext("a:published", "", ns)
-        items.append({"kind": "article", "title": title, "url": normalize_url(link), "published_at": published, "source": "arxiv", "summary": summary, "code_url": normalize_url(code.group(0))})
+        items.append({"kind": "article", "title": title, "url": normalize_url(link), "published_at": published, "source": "arxiv", "summary": summary, "code_url": normalize_url(code.group(0)) if code else None})
     return items
 
 
@@ -642,11 +642,11 @@ def search(query: str, *, limit: int = 10, providers: list[str] | None = None, r
     """
     used_defaults = not providers
     providers = providers or default_search_providers()
-    # 临时搜索用本次查询词；B站按播放量取（每日发现场景才按时间+门槛）
+    # 临时搜索使用综合相关排序，保留上游顺序，避免新视频或热门英文泛词冲掉相关结果
     if type(max_age_days) is not int or not 1 <= max_age_days <= 3650:
         raise ValueError("max_age_days must be an integer from 1 to 3650")
     config = {"github_query": query, "hn_query": query, "arxiv_query": query, "exa_query": query,
-              "juejin_queries": [query], "bilibili_queries": [query], "bilibili_order": "click",
+              "juejin_queries": [query], "bilibili_queries": [query], "bilibili_order": "totalrank",
               "max_age_days": max_age_days, "web_query": query, "web_limit": limit}
     available = _default_providers()
     wanted = providers

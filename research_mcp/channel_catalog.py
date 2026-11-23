@@ -25,7 +25,7 @@ CATALOG = (
     _entry("github_search", ["en", "zh"], ["repository"], "GitHub CLI", login=True,
            terms="https://docs.github.com/en/site-policy/github-terms/github-terms-of-service"),
     _entry("hacker_news", ["en"], ["discussion"], "HN Algolia API", terms="https://hn.algolia.com/api"),
-    _entry("arxiv", ["en"], ["paper"], "arXiv Atom API (code-linked papers)",
+    _entry("arxiv", ["en"], ["paper"], "arXiv Atom API (optional GitHub filter)",
            terms="https://info.arxiv.org/help/api/tou.html"),
     _entry("exa", ["zh", "en"], ["web"], "Exa official keyless MCP", terms="https://exa.ai/mcp"),
     _entry("juejin", ["zh"], ["technical_article"], "Juejin public search"),
@@ -33,14 +33,29 @@ CATALOG = (
     *(_entry(engine, ["zh", "en"], ["web"], "open-webSearch/" + engine,
              license="Apache-2.0 (open-webSearch); upstream data terms",
              terms="https://github.com/Aas-ee/open-webSearch")
-      for engine in ("baidu", "sogou", "bing", "duckduckgo")),
-    _entry("tavily", ["zh", "en"], ["web"], "Tavily Researcher (future API adapter)",
-           cost="free_recurring", key=True, implemented=False,
+      for engine in ("baidu", "sogou", "bing", "duckduckgo", "csdn")),
+    _entry("tavily", ["zh", "en"], ["web"], "Tavily official basic Search API (free-only)",
+           cost="free_recurring", key=True, implemented=True,
            terms="https://docs.tavily.com/documentation/api-credits"),
-    _entry("openalex", ["en", "zh"], ["paper"], "OpenAlex (future API adapter)",
-           cost="free_recurring", key=True, implemented=False, license="CC0 metadata",
+    _entry("openalex", ["en", "zh"], ["paper"], "OpenAlex official works API (free-only)",
+           cost="free_recurring", key=True, implemented=True, license="CC0 metadata",
            terms="https://docs.openalex.org/how-to-use-the-api/rate-limits-and-authentication"),
 )
+
+from research_mcp.channels.free_apis import BACKENDS
+CATALOG += tuple(_entry(name, ["zh", "en"], [kind], BACKENDS[name],
+                       terms=terms, license=license)
+    for name, kind, terms, license in (
+        ("wikipedia", "encyclopedia", "https://www.mediawiki.org/wiki/API:REST_API", "CC BY-SA content"),
+        ("wikidata", "entity", "https://www.wikidata.org/wiki/Wikidata:Data_access", "CC0 structured data"),
+        ("crossref", "paper", "https://www.crossref.org/documentation/retrieve-metadata/rest-api/", "Crossref metadata terms"),
+        ("stackexchange", "technical_discussion", "https://api.stackexchange.com/docs", "CC BY-SA content; API terms"),
+        ("huggingface", "model", "https://huggingface.co/docs/hub/api", "Per-model licenses"),
+        ("europe_pmc", "paper", "https://europepmc.org/RestfulWebService", "Per-record metadata/content terms"),
+        ("pubmed", "paper", "https://www.ncbi.nlm.nih.gov/books/NBK25501/", "NCBI data usage policies"),
+        ("openlibrary", "book", "https://openlibrary.org/dev/docs/api/search", "Open Library data terms"),
+        ("itunes_podcasts", "podcast", "https://performance-partners.apple.com/search-api", "Apple Search API terms"),
+    ))
 
 _lock = Lock()
 _observed: dict[str, dict] = {}

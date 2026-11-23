@@ -28,7 +28,7 @@ class CatalogTests(unittest.TestCase):
                 self.assertIn(field, row)
         self.assertIsNone(rows["exa"]["last_checked_at"])
         self.assertFalse(rows["exa"]["requires_key"])
-        self.assertFalse(rows["tavily"]["implemented"])
+        self.assertTrue(rows["tavily"]["implemented"])
         self.assertNotIn("SECRET", json.dumps(result))
 
     def test_missing_selection_uses_named_free_defaults(self):

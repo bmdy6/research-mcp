@@ -16,8 +16,10 @@ from .open_websearch import ENGINES, search as web_search
 from .bilibili import search as bilibili_search
 from .exa import search as exa_search
 from .juejin import search as juejin_search
+from .free_apis import PROVIDERS as FREE_API_PROVIDERS
 
 CHANNELS = {
+    **FREE_API_PROVIDERS,
     "bilibili": bilibili_search,
     "exa": exa_search,
     "juejin": juejin_search,

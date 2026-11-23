@@ -8,7 +8,7 @@ for await (const chunk of process.stdin) {
   if (input.length > 64_000) throw new Error("Input budget exceeded");
 }
 const { query, engine, limit } = JSON.parse(input);
-const engines = ["baidu", "sogou", "bing", "duckduckgo"];
+const engines = ["baidu", "sogou", "bing", "duckduckgo", "csdn"];
 if (!engines.includes(engine) || typeof query !== "string" || !Number.isInteger(limit) || limit < 1 || limit > 40) {
   throw new Error("Invalid search arguments");
 }
