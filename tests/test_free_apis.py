@@ -222,6 +222,9 @@ class TransportTests(unittest.TestCase):
         self.assertNotIn("TAVILY_API_KEY", self.kwargs["env"])
         self.assertNotIn("OPENALEX_API_KEY", self.kwargs["env"])
 
+    def test_bounded_utf8_text_uses_same_transport(self):
+        self.assertEqual(self.request(response_body=b"<rss/>", raw_text=True), "<rss/>")
+
     def test_http_statuses_never_expose_body_or_stderr(self):
         for http, expected in [(401, "auth_required"), (403, "blocked"), (402, "quota_exhausted"),
             (429, "quota_exhausted"), (432, "quota_exhausted"), (433, "quota_exhausted"),
