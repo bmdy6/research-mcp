@@ -156,7 +156,7 @@ The catalog exposes cost class, key/login requirements, languages, content types
 | `arxiv` | Papers | All papers by default; opt into GitHub-only with ARXIV_REQUIRE_GITHUB=1 |
 | `tavily`, `openalex` | Web / papers | Recurring free key + explicit `*_FREE_ONLY=1`; quota preflight, no paid fallback |
 
-The calling agent chooses 1–2 complementary providers: domestic facts → Baidu/Sogou; English official docs → DDG + keyless Exa; implementation → GitHub + Juejin; papers → arXiv + Exa. Shopping can currently use Bilibili/Baidu reviews; JD/Taobao and community browser adapters are not implemented. No separate routing model is called. Shared service searches force model reranking off even if a legacy caller supplies `rerank=True`; the old explicitly opted-in internal Python reranker remains separate.
+The calling agent chooses 1–2 complementary providers: domestic facts → Baidu/Sogou; English official docs → DDG + keyless Exa; implementation → GitHub + Juejin; papers → arXiv + Exa. Shopping can use the opt-in local browser providers documented below alongside Bilibili/Baidu reviews. No separate routing model is called. Shared service searches force model reranking off even if a legacy caller supplies `rerank=True`; the old explicitly opted-in internal Python reranker remains separate.
 
 ```json
 {"query":"Docker compose depends_on healthcheck","providers":["duckduckgo"],"limit":5}
@@ -233,3 +233,6 @@ Explicit providers: `npm` (packages), `crates_io` (Rust crates), `docker_hub` (r
 `google_news_rss` is local personal use only, disabled unless `RESEARCH_GOOGLE_NEWS_RSS=1`, and excluded from the public adapter. Initial bilingual RSS responses were HTTP 200; live adapter calls hit 429, then returned two items per query after a cooldown. Rate limits remain visible failures. Defaults remain unchanged.
 
 Examples: development `--providers npm,crates_io,mdn`; everyday app discovery `--providers itunes_apps,smzdm`; job research `--providers bing,baidu` until a native job-list search passes acceptance. See [acceptance and limitations](docs/acceptance-more-free-2026-11-23.md).
+
+
+The [43-platform matrix](docs/acceptance-more-free-2026-11-23.md#full-candidate-matrix-43-platforms) separates unsupported requests from unfinished browser acceptance. Confirmed user-login gates: NGA (also reputation > 0), Maimai, Dianping and Baidu Tieba. Challenges/rate limits are never bypassed. Browser work stopped when Ctrip triggered a location permission handoff; its English query remains untested. Task space 15 is preserved awaiting user confirmation; task space 14 was never accessed.
