@@ -17,12 +17,14 @@ from .bilibili import search as bilibili_search
 from .exa import search as exa_search
 from .juejin import search as juejin_search
 from .free_apis import PROVIDERS as FREE_API_PROVIDERS
+from .discovery_apis import PROVIDERS as DISCOVERY_PROVIDERS
 
 from .local_browser import PROVIDERS as LOCAL_BROWSER_PROVIDERS
 
 CHANNELS = {
     **LOCAL_BROWSER_PROVIDERS,
     **FREE_API_PROVIDERS,
+    **DISCOVERY_PROVIDERS,
     "bilibili": bilibili_search,
     "exa": exa_search,
     "juejin": juejin_search,
