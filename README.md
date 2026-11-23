@@ -326,14 +326,43 @@ research-mcp search "Python 招聘 苏州" --providers bing,baidu --limit 5 --fo
 ```
 
 
-#### 本轮不支持、待验与需要登录
+#### 第 6 轮浏览器增量
 
-已确认受阻：博客园（人机验证）、NGA（登录且威望大于 0）、拉勾（滑动验证）、脉脉/大众点评/贴吧（登录入口）、Reddit（匿名 JSON 403/网页挑战）、GDELT（429）、1688/天眼查/企查查（风控或脚本挑战）。不绕过这些门槛。
+下面的渠道通过本机 Ego Lite 的 `local_browser` 方式使用，均需显式指定 provider，沿用上面的环境变量、空间/页面选择和串行限频；不进入默认组或匿名公开搜索。
 
-当前入口不可用或尚不能验证有效结果：Gitee、酷安、IT之家、虎嗅、美团、得物、苏宁、马蜂窝。路由错误和本机网络失败不能证明平台永久不支持。
+| 渠道 ID | 平台与范围 | 本次双语结果 |
+|---|---|---|
+| `boss` / `liepin` | BOSS直聘、猎聘职位标题与规范链接；已有登录态，只搜职位，不沟通、不投递；BOSS 不猜测字体编码薪资 | 均有结果 |
+| `hupu` / `kr36` / `sspai` / `huxiu` | 虎扑、36氪、少数派、虎嗅搜索；虎嗅只读点击取得公开链接，每次最多 2 条并关闭临时页 | 均有结果 |
+| `douban` | 豆瓣书影音条目；保留公开 dispatch 链接，不抓个人内容 | 均有结果 |
+| `youtube` / `x` | YouTube 视频标题/链接、X 帖子文本/链接；X 使用已有登录态；不转写视频，帖子陈述未经核实 | 均有结果 |
+| `medium` / `devto` / `segmentfault` | Medium、dev.to、SegmentFault 文章搜索；不保证会员正文可读 | Medium、SegmentFault 双语通过；dev.to 英文通过，中文页面可读但适配调用 `startup_failed` |
+| `pypi` / `gitee` / `lobsters` | PyPI 包、Gitee 仓库、Lobsters 故事搜索的讨论页；不安装包；Lobsters 显式选择 stories | 均有结果 |
+| `amazon` / `suning` / `mafengwo` | 亚马逊、苏宁商品，马蜂窝旅行商城产品；仅标题与链接，不推断价格、库存、预订条件 | 均有结果 |
 
-**需要用户登录清单：NGA、脉脉、大众点评、百度贴吧。** 其余平台没有足够证据判定需登录；BOSS、猎聘、X 本次已有登录界面标识，但未完成结果卡片验收。
+```bash
+python3 -m research_mcp search "python" --providers boss,liepin --limit 4
+python3 -m research_mcp search "人工智能" --providers huxiu,kr36 --limit 4
+python3 -m research_mcp search "python" --providers pypi,gitee --limit 4
+```
 
-SegmentFault、Medium、Product Hunt、虎扑、36氪初步可读列表；PyPI 英文、YouTube 英文可读；Lobsters、亚马逊公开 HTML 有结果。它们仍待本机浏览器解析器验收，不计作已接入。豆瓣、dev.to、少数派、唯品会、飞猪也待浏览器复核。携程触发**定位权限**提示后 SDK 交回控制权，英文查询未运行；这不是本地网络权限，未修改系统策略或强行接管。空间 15 保留待用户处理，空间 14 未访问。
+所有浏览器渠道返回的都是本次搜索页线索。YouTube 当前地区/语言会影响结果；豆瓣 dispatch 链接不等于独立网页版详情可读；少数派和 Medium 搜索可能包含付费内容。亚马逊不沿用旧商品渠道的人民币 `price` 契约，只返回标题/链接。请求改版、挑战或未识别结果均报失败，不冒充空结果。
 
-逐个双语查询状态、公开 HTTP 与浏览器的区别见[43 项候选矩阵](docs/acceptance-more-free-2026-11-23.md#full-candidate-matrix-43-platforms)。浏览器部分尚未完成，不能把本轮 API PR 视为全部候选已接入或已否决。
+已在 policy 页点击重载并确认 `DefaultGeolocationSetting=2`、`DefaultNotificationsSetting=2` 状态正常。本次只操作空间 15，未操作空间 14；未出现新的浏览器权限提示。后续若弹出浏览器权限提示，记录站点/类型并跳过，不自动授予权限或接管用户。
+
+#### 本轮不支持与登录清单
+
+| 平台 | 当前原因 |
+|---|---|
+| 飞猪 | 首页提交时中文可读、英文明确空；后续直接搜索触发阿里滑块验证，未绕过，未接入 |
+| 携程 | 双语联想项可读，但 Enter 后仍在首页，链接为 javascript:void(0)；没有把联想项或首页推荐当作正式搜索列表 |
+| Product Hunt | 英文 Python 产品卡可读；中文返回 iOS 等不相关产品，未通过双语相关性与规范链接验收 |
+| 酷安 / 得物 | 当前网页分别为 App 下载首页、官网介绍/下载入口，未找到可用关键词搜索列表 |
+| 美团 | 消费搜索地址双语均转企业站 Not Found |
+| 唯品会 / IT之家 | 双语均进入登录页；IT之家明确显示“登录以查看搜索结果” |
+| 博客园 / 拉勾 / Reddit / 1688 / 天眼查 / 企查查 | 第 6 轮已遇人机验证、滑动验证、风控或脚本挑战，不绕过；本次未重测 |
+| GDELT | 第 6 轮双语均 429；本次未重测，不自动重试 |
+
+**需要用户登录：唯品会、IT之家、NGA（另需威望大于 0）、脉脉、大众点评、百度贴吧。** BOSS、猎聘、X 本次复用已有登录态，不代表匿名可读。飞猪虽有已有登录态，仍触发滑块验证。
+
+这是本次环境的结果，不代表平台永久不可用。最新 [26 平台浏览器验收](docs/acceptance-round-six-browser-2026-11-23.md) 及规范化 JSON 补全了此前 [43 项候选矩阵](docs/acceptance-more-free-2026-11-23.md#full-candidate-matrix-43-platforms) 的浏览器待验项。

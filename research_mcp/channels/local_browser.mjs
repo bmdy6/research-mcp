@@ -2,6 +2,7 @@
 const emit = (status, items = []) => console.log("RESEARCH_BROWSER_JSON:" + JSON.stringify({status, items}));
 const platform = input.platform || "jd";
 const q = encodeURIComponent(input.query);
+const definition = input.definition || {};
 const routes = {
   xianyu: ["https://www.goofish.com/search?q=" + q, 'a[class*="feeds-item-wrap"]', 'www.goofish.com'],
   weibo: ["https://s.weibo.com/weibo?q=" + q, '.card-wrap[action-type="feed_list_item"]', 's.weibo.com'],
@@ -14,6 +15,7 @@ const routes = {
   douyin: ["https://www.douyin.com/search/" + q, '[id^="waterfall_item_"]', 'www.douyin.com'],
   sogou_wechat: ["https://weixin.sogou.com/weixin?type=2&query=" + q, '.news-list h3 a', 'weixin.sogou.com'],
 };
+if (definition.search_url) routes[platform] = [definition.search_url.replace('{query}', q), definition.selector, new URL(definition.search_url).hostname];
 try {
   const entry = (await listTaskSpaces()).find(s => s.id === input.space);
   if (!entry || entry.ownership !== "agent") {
@@ -26,25 +28,71 @@ try {
     } else {
       const [url, selector, host] = routes[platform];
       await page.goto(url, {timeout: 18000});
+      let huxiuItems;
+      if (platform === 'huxiu') {
+        await page.click('svg.search-btn');
+        await page.fill('input[placeholder="搜索文章"]', input.query);
+        await page.click('.input-icons .icon-search');
+        await page.waitForSelector('.result-article__title', {timeout:8000});
+        const titles = await page.evaluate(() => [...document.querySelectorAll('.result-article__title')].map(e=>e.innerText.trim()));
+        huxiuItems = [];
+        for (let i=0; i<Math.min(input.limit,2,titles.length); i++) {
+          const popup = page.waitForEvent('popup', {timeout:8000}).then(
+            detail=>({detail}), error=>({error}));
+          await page.click('.result-article__title >> nth='+i);
+          const opened = await popup;
+          if (opened.error) throw opened.error;
+          const detail = opened.detail;
+          try {
+            await detail.waitForURL(/https:\/\/www\.huxiu\.com\/article\/[0-9]+\.html/, {timeout:8000});
+            const u = new URL(await detail.url());
+            if (u.hostname === 'www.huxiu.com' && /^\/article\/[0-9]+\.html$/.test(u.pathname)) huxiuItems.push({title:titles[i],url:'https://www.huxiu.com'+u.pathname});
+          } finally { await detail.close(); }
+        }
+      }
       try {
         await page.waitForFunction(({selector, host}) =>
           document.querySelector(selector) || (document.body && (
-            /请完成验证|安全验证|拖动滑块|访问受限|请先登录|登录后查看|扫码登录|扫描二维码登录|没有找到|没有搜到/.test(document.body.innerText) ||
+            /请完成验证|安全验证|拖动.{0,8}滑块|请按住滑块|访问受限|请先登录|登录后查看|扫码登录|扫描二维码登录|没有找到|没有搜到/.test(document.body.innerText) ||
             (location.hostname !== host && /login|passport/.test(location.href)))),
           {selector, host}, {timeout: 12000});
       } catch {}
-      const result = await page.evaluate(({limit, platform, host}) => {
+      const result = huxiuItems ? {status:huxiuItems.length ? 'ok':'parse_error',items:huxiuItems} : await page.evaluate(({limit, platform, host, definition}) => {
         const text = document.body?.innerText || "";
-        if (/请完成验证|安全验证|拖动滑块|访问受限|访问过于频繁/.test(text)) return {status: "blocked"};
+        if ((location.pathname || '').includes('/_____tmd_____/') || /请完成验证|安全验证|拖动.{0,8}滑块|请按住滑块|访问受限|访问过于频繁/.test(text)) return {status: "blocked"};
         if (/passport\.|login\./.test(location.hostname) || /请先登录|登录后查看|扫码登录|扫描二维码登录/.test(text)) return {status: "auth_required"};
         if (location.hostname !== host) return {status: "blocked"};
         const items = [], seen = new Set();
-        const get = (e, s) => e.querySelector(s)?.innerText?.trim() || "";
+        const get = (e, s) => e?.querySelector(s)?.innerText?.trim() || "";
         const add = (item) => {
           if (!item.title?.trim() || !item.url || seen.has(item.url) || items.length >= limit) return;
           seen.add(item.url); items.push(item);
         };
-        if (platform === "xianyu") {
+        if (definition.search_url) {
+          // Cards may link the same object via thumbnail, title and review count.
+          // Preserve result order while preferring the descriptive title.
+          const candidates = new Map();
+          for (const a of document.querySelectorAll(definition.selector)) {
+            let u; try {u = new URL(a.href);} catch {continue;}
+            if (!definition.hosts.includes(u.hostname) || !new RegExp('^(?:'+(definition.dom_path || definition.path)+')$').test(u.pathname)) continue;
+            if (platform === 'amazon') {
+              const id = u.pathname.match(/\/dp\/([A-Z0-9]{10})(?:\/|$)/)?.[1];
+              if (!id) continue;
+              u = new URL('https://www.amazon.com/dp/'+id);
+            }
+            let url = 'https://'+u.hostname+u.pathname;
+            if (definition.query_key) {
+              const value = u.searchParams.get(definition.query_key);
+              if (!value || (definition.query_pattern && !new RegExp('^(?:'+definition.query_pattern+')$').test(value))) continue;
+              url += '?'+definition.query_key+'='+encodeURIComponent(value);
+            }
+            const body = platform === 'x' ? get(a.closest('article'), '[data-testid="tweetText"]') : '';
+            if (platform === 'x' && !body) continue;
+            const item = {title: body ? body.slice(0,180) : (definition.title_selector ? get(definition.title_container ? a.closest(definition.title_container) : a,definition.title_selector) : a.innerText.trim()), url, ...(body ? {summary:body.slice(0,1000)} : {})};
+            if (!candidates.has(url) || candidates.get(url).title.length < item.title.length) candidates.set(url,item);
+          }
+          for (const item of candidates.values()) add(item);
+        } else if (platform === "xianyu") {
           for (const card of document.querySelectorAll('a[class*="feeds-item-wrap"]')) {
             let u; try {u = new URL(card.href);} catch {continue;}
             const id = u.searchParams.get('id');
@@ -136,7 +184,7 @@ try {
           }
         }
         return {status: items.length ? "ok" : /抱歉.*没有找到|未找到相关商品|没有搜索到相关|没有找到|没有搜到|暂无搜索结果|暂无相关结果/.test(text) ? "empty" : "parse_error", items};
-      }, {limit:input.limit, platform, host});
+      }, {limit:input.limit, platform, host, definition});
       emit(result.status, result.items);
     }
   }
