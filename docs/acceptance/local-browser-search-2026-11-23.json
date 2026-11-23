@@ -1,0 +1,523 @@
+{
+  "date": "2026-11-23",
+  "boundary": "real service -> local_browser -> existing Ego Lite space; first page only; no landing-page or relevance scoring",
+  "interval_seconds": 5,
+  "queries": [
+    {
+      "platform": "jd",
+      "query": "轻薄本 14英寸",
+      "seconds": 2.122,
+      "status": "ok",
+      "failures": [],
+      "candidates": [
+        {
+          "source": "jd",
+          "title": "惠普（HP）星Book Air14【10月AI新品首发】BookPro Air14轻薄便携笔记本手提电脑高性能全能本学生办公商务 牡丹粉：3代Core5-320丨2K OLED丨全金属 16G LP ",
+          "url": "https://item.jd.com/10237015295986.html",
+          "author": "惠普（HP）电竞旗舰店",
+          "price": "5699",
+          "price_note": "页面标价，未含券/国补",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "jd",
+          "title": "华硕a豆14 Air 2026 国家补贴 高性能AI超轻薄笔记本电脑 学生优惠办公商务本 高刷超亮屏 990克超轻 R7 H 260 16G 512G风信子蓝 2.8K 120Hz OLED屏 预装o",
+          "url": "https://item.jd.com/10238226643710.html",
+          "author": "华硕a豆官方旗舰店",
+          "price": "6399",
+          "price_note": "页面标价，未含券/国补",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "jd",
+          "title": "惠普（HP）战66 14英寸轻薄办公笔记本电脑高性能酷睿Ultra7 16G 512SSD 高清护眼屏 军标认证  【国家补贴】",
+          "url": "https://item.jd.com/100251873237.html",
+          "author": "惠普（HP）京东自营旗舰店",
+          "price": "5989",
+          "price_note": "页面标价，未含券/国补",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ]
+    },
+    {
+      "platform": "taobao",
+      "query": "轻薄本 14英寸",
+      "seconds": 7.268,
+      "status": "ok",
+      "failures": [],
+      "candidates": [
+        {
+          "source": "taobao",
+          "title": "联想二手笔记本电脑正品商务办公本Pro16小新Air14轻薄便携大学生",
+          "url": "https://item.taobao.com/item.htm?id=1098476022660",
+          "author": "精品二手笔记本特卖",
+          "price": "832.02",
+          "price_note": "页面展示价（补贴后），条件与结算价请回原页核对",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "taobao",
+          "title": "华为二手笔记本 Matebook13/14/15商务办公轻薄便携窄边设计手提",
+          "url": "https://item.taobao.com/item.htm?id=1102787392242",
+          "author": "睿不可挡铺",
+          "price": "720",
+          "price_note": "页面展示价，优惠条件与结算价请回原页核对",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "taobao",
+          "title": "14寸笔记本电脑轻薄便携商务办公学习游戏手提电脑带指纹解锁背光",
+          "url": "https://item.taobao.com/item.htm?id=760702073067",
+          "author": "百品惠",
+          "price": "572.4",
+          "price_note": "页面展示价（补贴后），条件与结算价请回原页核对",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ]
+    },
+    {
+      "platform": "tmall",
+      "query": "轻薄本 14英寸",
+      "seconds": 6.916,
+      "status": "ok",
+      "failures": [],
+      "candidates": [
+        {
+          "source": "tmall",
+          "title": "【国补15%+淘金币下单更优惠】机械革命 无界14SE 英特尔酷睿i5-13420H 14英寸轻薄本办公学习177",
+          "url": "https://detail.tmall.com/item.htm?id=1076547591108",
+          "author": "天猫数码家电自营旗舰店",
+          "price": "3195.16",
+          "price_note": "页面展示价（国补后），条件与结算价请回原页核对",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "tmall",
+          "title": "【政府补贴】联想来酷14 轻薄便携笔记本14英寸大学生酷睿i5处理器笔记本电脑学习商务办公娱乐电脑官方旗舰",
+          "url": "https://detail.tmall.com/item.htm?id=1096760784411",
+          "author": "天猫优品官方旗舰店",
+          "price": "3314.15",
+          "price_note": "页面展示价（国补后），条件与结算价请回原页核对",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "tmall",
+          "title": "【新品上市+国补15%】HP/惠普星BookAir14 英特尔Core5 320笔记本电脑学生2026新品轻薄本便携官方旗舰店正品",
+          "url": "https://detail.tmall.com/item.htm?id=1085005830537",
+          "author": "惠普中国官方旗舰店",
+          "price": "5354.15",
+          "price_note": "页面展示价（国补后），条件与结算价请回原页核对",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ]
+    },
+    {
+      "platform": "smzdm",
+      "query": "轻薄本",
+      "seconds": 7.846,
+      "status": "ok",
+      "failures": [],
+      "candidates": [
+        {
+          "source": "smzdm",
+          "title": "国家补贴、88VIP：华硕 无畏14 高性能AI 轻薄本",
+          "url": "https://www.smzdm.com/p/185395576/",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "smzdm",
+          "title": "机械革命 无界14S R7 H 255 14英寸高色域屏幕轻薄便携办公笔记本电脑",
+          "url": "https://www.smzdm.com/p/184509307/",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "smzdm",
+          "title": "众聊：轻薄本到底选小屏便携，还是大屏效率？",
+          "url": "https://post.smzdm.com/p/avgd0nv9/",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ]
+    },
+    {
+      "platform": "zhihu",
+      "query": "轻薄本",
+      "seconds": 6.753,
+      "status": "ok",
+      "failures": [],
+      "candidates": [
+        {
+          "source": "zhihu",
+          "title": "笔记本的「轻薄本」，性能真的能满足日常办公和轻度娱乐吗？",
+          "url": "https://www.zhihu.com/question/1982939189055091210/answer/2105731569193333662",
+          "summary": "尤娜Yuna：那今天普遍用着比它强2~3倍配置，需求还普遍更低的轻薄本，又何必有性能焦虑呢？ 价格焦虑倒是实打实的，各种配件自年初起（一开始只是存储阅读全文​",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "zhihu",
+          "title": "26年轻薄本大涨价，刚需到底怎么买？",
+          "url": "https://www.zhihu.com/question/2077880813484619140/answer/2103142742364897314",
+          "summary": "Sigon：你这个需求这台电脑如果不够用，我把它吃掉，全知乎直播 那些说涨价后轻薄本低于4000已经买不到的，你们真的认真搜索过吗？阅读全文​",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "zhihu",
+          "title": "小米RedmiBook 14/16 2027新品轻薄本上架，6799-8199元，是否值得购买？",
+          "url": "https://www.zhihu.com/question/2098499649179013277/answer/2098873653454754461",
+          "summary": "pansz：他认为销售数字胜过了我对产品的判断，并且放话有生之年别想买到带小键盘的小米轻薄本。争论不欢而散，所以我只好惹不起躲得起，暂时不关...阅读全文​",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ]
+    },
+    {
+      "platform": "xiaohongshu",
+      "query": "轻薄本",
+      "seconds": 7.013,
+      "status": "ok",
+      "failures": [],
+      "candidates": [
+        {
+          "source": "xiaohongshu",
+          "title": "好贵啊，大家都买的什么样的",
+          "url": "https://www.xiaohongshu.com/explore/6adef1910000000002008db4",
+          "author": "堂悸巷",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "xiaohongshu",
+          "title": "想要换电脑🖥️",
+          "url": "https://www.xiaohongshu.com/explore/6a38abf7000000001503dfcb",
+          "author": "夹心喵",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "xiaohongshu",
+          "title": "人生第一台电脑安全落地",
+          "url": "https://www.xiaohongshu.com/explore/6aed6a24000000002c002821",
+          "author": "卷心菜",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ]
+    },
+    {
+      "platform": "douyin",
+      "query": "轻薄本",
+      "seconds": 7.712,
+      "status": "ok",
+      "failures": [],
+      "candidates": [
+        {
+          "source": "douyin",
+          "title": "双十一搭载第三代英特尔酷睿处理器的平价轻薄本怎么选？看完就懂 #来酷Air16 #瑞天14X #无畏16SE #星BookAir14 #第三代英特尔酷睿",
+          "url": "https://www.douyin.com/video/7703869826850147635",
+          "author": "数码杂谈君",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "douyin",
+          "title": "2026年，3000预算还能买到好的笔记本吗？机革无界14S 存储持续涨了1年多， 电脑与手机的非补贴价格现在已经极其夸张， 低价位，已经很难找到能入眼且值得入手的笔记本了， 但3000预算真的没合适的笔记本了吗？ 讲道理，按去年同期的标准看，那是真没有。 不过就事论事，现在预算3000刚需一台轻办公能用的笔记本的话， 我瞅了一圈，得参考一下我手里这台鸡哥无界14S 2026了， 当下ta真是同价位性价比标杆之一。 #笔记本电脑 #轻薄本 #大学生笔记本 #机械革命 #无界14S",
+          "url": "https://www.douyin.com/video/7702352033411632420",
+          "author": "巅峰玩家",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "douyin",
+          "title": "3000到6000价位轻薄本选购指南，谁是真正六边形战士？夯中之夯！#3000价位笔记本推荐 #轻薄本推荐 #笔记本选购",
+          "url": "https://www.douyin.com/video/7618981437831712035",
+          "author": "六六蛙下士（数码豆包）",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ]
+    },
+    {
+      "platform": "sogou_wechat",
+      "query": "轻薄本",
+      "seconds": 8.224,
+      "status": "ok",
+      "failures": [],
+      "candidates": [
+        {
+          "source": "sogou_wechat",
+          "title": "买轻薄本最重要的是什么?",
+          "url": "https://weixin.sogou.com/link?url=dn9a_-gY295K0Rci_xozVXfdMkSQTLW6ft3wfAVofsP5Peu-UiA4DOUWDbhs_ltcV_MniI3bQ7OVgrFeYQugDn4I-GtpYgDM1CaFnEKr7Gm2ZEaJ3kGAFrGNMv4n5LGrQREt8CTo1xHVFcm8c5PMzgqlXNMxEcsf-BUQByhTHDltUZpvpQC-CXktylTk0wjm3_LPSlI3FaoH_MPCYUiXRYKmINfyUkxsoWS8Yv94zD_Hw_rNWFLmHASZw3yNyv_f2NGIKLUcdDLjNMDt1UBxkXyp1CFytLxQ5nPH_godezpMFSMYvU1WiKcQWIVvfNj2iZqwg0yoRFw.",
+          "author": "笔吧评测室",
+          "summary": "轻薄本的屏幕素质普遍都非常高,这也是它们的一个传统优势.那么一台性能够用(不玩游戏),机身精致轻薄,屏幕素质好,响应速...",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "sogou_wechat",
+          "title": "轻薄本价格杀到3000+,6000元轻薄本的价值在哪儿?",
+          "url": "https://weixin.sogou.com/link?url=dn9a_-gY295K0Rci_xozVXfdMkSQTLW6cwJThYulHEtVjXrGTiVgS4wOagRgUm_MIZ5Lv1_1uyf7BgYaLXuT3lqXa8Fplpd9oVLv9M4ypCG0ZbcBvpCrOzYQ-z4w8qTt5TQzhVb2td5LDDXLJ_0gNznQlEhjQLbZO1QCE4cakOpT2wh_Qu3sUxwXrM3uP7v8MROO9uadmG5ecxj6ImUXnZktZGZOpqEn-GZKOP9IJKF7L-wlh-aolRJlALm9FH-eUXrdUZNqUf7P28temKTOwg..",
+          "author": "笔吧评测室",
+          "summary": "不过这台轻薄本的接口设计较少,仅有一个传统USB接口,它还有一个支持PD充电的全功能Type-C接口,对于外接扩展存储有需求的...",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "sogou_wechat",
+          "title": "聊一款新发布的14寸轻薄本",
+          "url": "https://weixin.sogou.com/link?url=dn9a_-gY295K0Rci_xozVXfdMkSQTLW6cwJThYulHEtVjXrGTiVgS4wOagRgUm_MIZ5Lv1_1uyf7BgYaLXuT3lqXa8Fplpd9oVLv9M4ypCG0ZbcBvpCrOzYQ-z4w8qTt5TQzhVb2td5LDDXLJ_0gNx8DAk6S3ksTJsffV7IWi3bFB8Dx-b6uIDWVg4831YHtJ3It1DqvXfC1xU1bZXhB6WQDlJ4UJ5aVSVVZtTNt4dwApHHLZx-5bgjfYD92cbEFTNMD_iP6_W7I3OTRHYU2og..",
+          "author": "笔吧评测室",
+          "summary": "游戏本品牌入场制造轻薄本的表现会如何呢?今天我们就来简单分析一下:机械革命 S1它的配置如下:i5-8250U 处理器MX150 2GB ...",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ]
+    },
+    {
+      "platform": "jd",
+      "query": "laptop",
+      "seconds": 2.09,
+      "status": "ok",
+      "failures": [],
+      "candidates": [
+        {
+          "source": "jd",
+          "title": "惠普星Book Air14/BookPro Air14高性能轻薄酷睿旗舰笔记本学生女生办公商务电脑",
+          "url": "https://item.jd.com/10237060127063.html",
+          "author": "惠普中国旗舰店",
+          "price": "5499",
+          "price_note": "页面标价，未含券/国补",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "jd",
+          "title": "华硕a豆14 Air 2026 国家补贴 高性能AI超轻薄笔记本电脑 学生优惠办公商务本 高刷超亮屏 990克超轻 R7 H 260 16G 512G风信子蓝 2.8K 120Hz OLED屏 预装o",
+          "url": "https://item.jd.com/10238226643710.html",
+          "author": "华硕a豆官方旗舰店",
+          "price": "6399",
+          "price_note": "页面标价，未含券/国补",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "jd",
+          "title": "惠普（HP）战66 14英寸轻薄办公笔记本电脑高性能酷睿Ultra7 16G 512SSD 高清护眼屏 军标认证  【国家补贴】",
+          "url": "https://item.jd.com/100251873237.html",
+          "author": "惠普（HP）京东自营旗舰店",
+          "price": "5989",
+          "price_note": "页面标价，未含券/国补",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ]
+    },
+    {
+      "platform": "taobao",
+      "query": "laptop",
+      "seconds": 7.588,
+      "status": "ok",
+      "failures": [],
+      "candidates": [
+        {
+          "source": "taobao",
+          "title": "笔记本电脑2026新款超薄商务办公大学生手提游戏本独显英特尔I7级",
+          "url": "https://item.taobao.com/item.htm?id=755467578626",
+          "author": "锐龙笔记本电脑品牌店",
+          "price": "1088",
+          "price_note": "页面展示价，优惠条件与结算价请回原页核对",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "taobao",
+          "title": "Huawei/华为笔记本电脑 MatebookD1415轻薄办公学生设计",
+          "url": "https://item.taobao.com/item.htm?id=957670769900",
+          "author": "恒胜数码电脑科技",
+          "price": "1599",
+          "price_note": "页面展示价（优惠后），条件与结算价请回原页核对",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "taobao",
+          "title": "Huawei/华为 笔记本电脑 Matebook",
+          "url": "https://item.taobao.com/item.htm?id=936462768260",
+          "author": "华鸿数码商行",
+          "price": "1599",
+          "price_note": "页面展示价，优惠条件与结算价请回原页核对",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ]
+    },
+    {
+      "platform": "tmall",
+      "query": "laptop",
+      "seconds": 6.825,
+      "status": "ok",
+      "failures": [],
+      "candidates": [
+        {
+          "source": "tmall",
+          "title": "微软（Microsoft）Surface Laptop 第7版 笔记本电脑 触屏轻薄本 骁龙X Plus/X Elite 处理器 笔记本电脑3789",
+          "url": "https://detail.tmall.com/item.htm?id=1041879925039",
+          "author": "苏宁易购官方旗舰店",
+          "price": "8998.69",
+          "price_note": "页面展示价（补贴后），条件与结算价请回原页核对",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "tmall",
+          "title": "【以旧换新补贴2000起】Microsoft/微软Surface Laptop第7代/Surface Pro第11代平板笔记本电脑骁龙办公",
+          "url": "https://detail.tmall.com/item.htm?id=1089815099116",
+          "author": "微软中国官方旗舰店",
+          "price": "10487.72",
+          "price_note": "页面展示价（补贴后），条件与结算价请回原页核对",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "tmall",
+          "title": "Microsoft/微软 Surface Laptop 第 7 版平板笔记本电脑二合一 13.8和15英寸|触屏轻薄本骁龙处理器办公电脑",
+          "url": "https://detail.tmall.com/item.htm?id=1087243186878",
+          "author": "微软中国官方旗舰店",
+          "price": "8887.77",
+          "price_note": "页面展示价（补贴后），条件与结算价请回原页核对",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ]
+    },
+    {
+      "platform": "smzdm",
+      "query": "laptop",
+      "seconds": 8.026,
+      "status": "ok",
+      "failures": [],
+      "candidates": [
+        {
+          "source": "smzdm",
+          "title": "移动端：小米 Book Pro14 2026轻薄笔记本电脑学习办公",
+          "url": "https://www.smzdm.com/p/186604925/",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "smzdm",
+          "title": "890买到仅30多循环的Surface Laptop 3？硬件疯涨时代捡二手记录",
+          "url": "https://post.smzdm.com/p/apqv50ow/",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "smzdm",
+          "title": "来酷 Pro16 （Ultra X9 378H、32GB、1TB）",
+          "url": "https://www.smzdm.com/p/186561658/",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ]
+    },
+    {
+      "platform": "zhihu",
+      "query": "laptop",
+      "seconds": 7.146,
+      "status": "ok",
+      "failures": [],
+      "candidates": [
+        {
+          "source": "zhihu",
+          "title": "闹麻了，笔记本电脑行业都成这个鸟样子了么？",
+          "url": "https://zhuanlan.zhihu.com/p/2102568682438260373",
+          "summary": "小伊评科技：你现在只能买到一款搭载13代I5（标压H）+16G运存+RTX 3050 laptop 4G的游戏本。 是的，RTX3050 laptop而且还是4G版同志们阅读全文​",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "zhihu",
+          "title": "笔记本的「轻薄本」，性能真的能满足日常办公和轻度娱乐吗？",
+          "url": "https://www.zhihu.com/question/1982939189055091210/answer/2105682265976083639",
+          "summary": "林大路：这是我在用的本子： Ultra5 225H 可以看到这是一个Ultra5的笔记本，按照i5、i7、i9来算它属于入门级阅读全文​",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "zhihu",
+          "title": "比MacBook Pro还贵！微软Surface Laptop Ultra，基础版来到20488元",
+          "url": "https://zhuanlan.zhihu.com/p/2096372364133062090",
+          "summary": "海滨稻香：Surface Laptop Ultra这个是英伟达主推的型号，被成为标杆，但是可能价格有些贵。 不少设计就是学习MacBook阅读全文​",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ]
+    },
+    {
+      "platform": "xiaohongshu",
+      "query": "laptop",
+      "seconds": 7.033,
+      "status": "ok",
+      "failures": [],
+      "candidates": [
+        {
+          "source": "xiaohongshu",
+          "title": "🇲🇾➗Gaming Laptop / 败家之眼 （SOLD）",
+          "url": "https://www.xiaohongshu.com/explore/6a2b4f2f000000000d00bc00",
+          "author": "卡皮巴拉",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "xiaohongshu",
+          "title": "laptop这C面确定不是MacBook Neo",
+          "url": "https://www.xiaohongshu.com/explore/6b001b8b000000002b01ef4d",
+          "author": "ideaPaper",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "xiaohongshu",
+          "title": "漂亮极了漂亮漂亮漂亮",
+          "url": "https://www.xiaohongshu.com/explore/6ae9eb09000000000e0270db",
+          "author": "读博退堂鼓（🏊🏸",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ]
+    },
+    {
+      "platform": "douyin",
+      "query": "laptop",
+      "seconds": 7.69,
+      "status": "ok",
+      "failures": [],
+      "candidates": [
+        {
+          "source": "douyin",
+          "title": "最强Ai笔记本电脑来了😨 #科技数码 #笔记本电脑 #我在抖音聊科技 #英伟达 #RTXSpark",
+          "url": "https://www.douyin.com/video/7694595932697403643",
+          "author": "猪开朗基罗",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "douyin",
+          "title": "笔记本电脑为什么叫laptop #英语",
+          "url": "https://www.douyin.com/video/7637519317395863206",
+          "author": "可乐云朵学英语",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "douyin",
+          "title": "GitHub一周1.2万星！AI替你点电脑，还不抢鼠标 Vercel 开源的 agent-desktop，这周 GitHub 涨了 12,120 星（11-10 实测）。它不靠截图，读的是系统给屏幕阅读器准备的界面信息；Windows 上点按钮、填内容都在后台，不动你的鼠标。两步装进 Claude Code：① npm install -g agent-desktop ② 在 skills.sh 搜 agent-desktop，复制安装命令。提醒：软件要公开界面信息才点得了；它读到的内容可能有隐私，别往网上发。#vibe知识大赏 #ClaudeCode #AI编程 #AI工具 #GitHub @抖音科技",
+          "url": "https://www.douyin.com/video/7706564681917287723",
+          "author": "阿森编程日记（AI自动化）",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ]
+    },
+    {
+      "platform": "sogou_wechat",
+      "query": "laptop",
+      "seconds": 7.259,
+      "status": "ok",
+      "failures": [],
+      "candidates": [
+        {
+          "source": "sogou_wechat",
+          "title": "Laptop Go入门级笔记本发布,Windows 10X开发进度严重落后",
+          "url": "https://weixin.sogou.com/link?url=dn9a_-gY295K0Rci_xozVXfdMkSQTLW6cwJThYulHEtVjXrGTiVgS4wOagRgUm_MeIQaB0skcff7BgYaLXuT3lqXa8Fplpd9DITZ_GbyZRi7HY3uttLL-TuBCzpY5vbl4e0nASrfY1ozdcNcZSihLmR_TAga28YgmxIuWWZfbM9RM_ZsESFvKQ6kKwZah6nyyO4WTg_iQifwIFVvNFKQ_oUkPgqF5zYnxvpMxDlR6Tgc-huzlFZSs3ja8e-AkbM2HCVjZQcy_TF535pjGOOjYg..",
+          "author": "科技美学",
+          "summary": "微软低调的发布了新品Surface,全新的Surface Laptop Go登场.Surface Laptop Go是入门级笔记本定位,4+64GB(eMMC)版本起售价为...",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "sogou_wechat",
+          "title": "Surface Laptop到底是一个什么样的产品?",
+          "url": "https://weixin.sogou.com/link?url=dn9a_-gY295K0Rci_xozVXfdMkSQTLW6ft3wfAVofsP5Peu-UiA4DOUWDbhs_ltctUVSzB-1zx6VgrFeYQugDn4I-GtpYgDM1CaFnEKr7Gm2ZEaJ3kGAFrGNMv4n5LGrQREt8CTo1xHVFcm8c5PMzlEW5Qo6et7JXM2lOMAqBVq26BLxNKEi8cRmhAKOWWvdJ8ob_WzfJB7nL-zHlCwsmOT_xIE103pefS6TUI_DaDjG9sH9lgoddZfbo5WfavKqD2PE1vd1r0FV1ZmpTf_nZF-O6aF5DbRYhcFdrbPMz3WbywVOt2hJVPMGcp8toRZ-iZqwg0yoRFw.",
+          "author": "笔吧评测室",
+          "summary": "Laptop不能翻转或拆分成平板模式,屏幕开合也没法达到180度,实际用笔操作非常受限,应该按照对配置的要求首选Surface Pro或...",
+          "actual_backend": "ego-browser/local_browser"
+        },
+        {
+          "source": "sogou_wechat",
+          "title": "微软Surface Laptop 4配置曝光,采用AMD处理器",
+          "url": "https://weixin.sogou.com/link?url=dn9a_-gY295K0Rci_xozVXfdMkSQTLW6cwJThYulHEtVjXrGTiVgS4wOagRgUm_MeIQaB0skcff7BgYaLXuT3lqXa8Fplpd9DITZ_GbyZRi7HY3uttLL-TuBCzpY5vbl4e0nASrfY1ozdcNcZSihLhtN_wRh4_A7sBbMD_dsajnkRmKsHgp2yR6G_P_ScTyyBiAAPZnf35Is8tUQLkgqH7jUSQo_NwqCMJiJOMORforf9O5fijETARXTXDEYt4_mOWoKCNoaq0JflztgI7RZ1g..",
+          "author": "科技美学",
+          "summary": "近日,据 onMSFT 报道,此前一些跑分平台曝光了微软 Surface Laptop 4 的消息,但具体的配置仍然不确定.根据最新爆料,Surface ...",
+          "actual_backend": "ego-browser/local_browser"
+        }
+      ]
+    }
+  ]
+}

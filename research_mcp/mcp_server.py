@@ -59,8 +59,10 @@ async def research_search(query: str, limit: int = 12, providers: list[str] | No
         providers: 省略时使用可配置的免费默认组；建议先用 research_list_channels 查看目录。可选 github_search / hacker_news /
             arxiv / exa / juejin / bilibili / baidu / sogou / bing / duckduckgo / csdn，
             以及目录中的 tavily / openalex / wikipedia / wikidata / crossref / stackexchange /
-            huggingface / europe_pmc / pubmed / openlibrary / itunes_podcasts。搜单个站（如 linux.do、知乎）用 ["exa"] 配
-            `site:域名 关键词` 的查询词（传链接时忽略）。
+            huggingface / europe_pmc / pubmed / openlibrary / itunes_podcasts。
+            显式启用本机 Ego Lite 后还可用 jd / taobao / tmall / smzdm / zhihu /
+            xiaohongshu / douyin / sogou_wechat；需要已有受控任务空间，遇登录或验证停止。
+            未接入站点（如 linux.do）可用 ["exa"] 配 `site:域名 关键词` 补公开线索（传链接时忽略）。
     """
     try:
         normalized_limit = max(1, min(int(limit), 40))
