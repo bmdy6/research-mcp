@@ -12,8 +12,9 @@ from collections import Counter
 from dataclasses import dataclass
 
 from research_mcp.safe_fetch import safe_error_code
+from research_mcp.channels.errors import FAILURE_STATES
 
-LIST_FIELDS = ("source", "title", "url", "author", "play", "views", "published_at", "summary", "jev_relevance", "jev_keep")
+LIST_FIELDS = ("source", "title", "url", "author", "play", "views", "published_at", "summary", "jev_relevance", "jev_keep", "rank", "actual_backend")
 FETCH_FIELDS = ("hint", "upgraded_to_https", "object_type", "file", "discussion", "coverage", "coverage_note", "kind", "url", "ok", "repo", "content", "text", "title", "via", "language", "duration", "duration_seconds", "truncated", "transcript_error", "error", "retryable", "transcript", "source", "bvid", "char_count", "duration_used", "partial", "failed_segments")
 EXA_X_EMPTY_NOTE = (
     "本次包含 X/Twitter site: 限定的 Exa 查询成功，但没有返回结果；"
@@ -88,8 +89,15 @@ def search_result(payload: object) -> dict:
               "truncated": bool(payload.get("truncated")), "truncated_by": payload.get("truncated_by", []),
               "attempted_channels": attempted[:], "succeeded_channels": succeeded[:],
               "attempted_channels_count": len(attempted), "succeeded_channels_count": len(succeeded),
-              "failed_channels": [{"channel": item.get("channel", "unknown"), "error": item.get("error", "unknown")} for item in failed],
+              "failed_channels": [{"channel": item.get("channel", "unknown"), "error": item.get("error", "unknown"), **({"status": item["status"]} if isinstance(item.get("status"), str) and item["status"] in FAILURE_STATES else {})} for item in failed],
               "failed_channels_count": len(failed), "errors": [], "display_notes": []}
+    statuses = payload.get("channel_statuses")
+    if isinstance(statuses, list):
+        result["channel_statuses"] = [
+            {"channel": row["channel"], "status": row["status"], "last_checked_at": row["last_checked_at"]}
+            for row in statuses if isinstance(row, dict) and row.get("channel") in attempted
+            and isinstance(row.get("status"), str) and row["status"] in FAILURE_STATES | {"ok", "empty"}
+            and isinstance(row.get("last_checked_at"), str)]
     if code:
         result["errors"].append({"code": code, "message": "没有渠道成功完成查询"})
     if failed:

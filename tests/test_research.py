@@ -82,13 +82,13 @@ class ResearchTest(unittest.TestCase):
             result = research.search('site:x.com agents', providers=['exa'], rerank=False)
         self.assertNotIn('display_notes', result)
         self.assertEqual(result['succeeded_channels'], [])
-        self.assertEqual(result['failed_channels'], [{'channel': 'exa', 'error': '429 rate limit'}])
+        self.assertEqual(result['failed_channels'], [{'channel': 'exa', 'status': 'quota_exhausted', 'error': '免费额度或频率限制已触发；停止请求'}])
 
     def test_exa_x_note_uses_raw_channel_result_not_filtered_or_deduped_result(self):
         item = {'title': 'Synthetic X post', 'url': 'https://x.com/example/status/1', 'source': 'exa'}
         with patch.object(research, '_default_providers', return_value={'exa': lambda _: [item]}), \
              patch('research_mcp.rerank.filter_candidates', return_value=([], None)):
-            result = research.search('site:x.com agents', providers=['exa'])
+            result = research.search('site:x.com agents', providers=['exa'], rerank=True)
         self.assertEqual(result['returned'], 0)
         self.assertEqual(result['total'], 1)
         self.assertNotIn('display_notes', result)
@@ -97,7 +97,7 @@ class ResearchTest(unittest.TestCase):
         item = {'title': 'Synthetic item', 'url': 'https://example.invalid/one', 'source': 'hacker_news'}
         with patch.object(research, '_default_providers', return_value={
                 'exa': lambda _: [], 'hacker_news': lambda _: [item]}):
-            result = research.search('site:x.com agents', rerank=False)
+            result = research.search('site:x.com agents', rerank=False, providers=["exa", "hacker_news"])
         self.assertEqual(result['total'], 1)
         self.assertEqual(result['candidates'], [item])
         self.assertEqual(result['display_notes'], [research.EXA_X_EMPTY_NOTE])
@@ -168,7 +168,7 @@ class ResearchTest(unittest.TestCase):
 
 
 
-    def test_search_calls_every_keyword_channel_but_skips_query_agnostic_ones(self):
+    def test_explicit_selection_calls_registered_keyword_channels(self):
         """关键词渠道要全部打到；榜单/订阅渠道不能进来（它们不理会查询词）。
 
         回归背景：search() 曾硬编码一份名单，新增的掘金渠道注册了却永远不会被调用，
@@ -184,9 +184,9 @@ class ResearchTest(unittest.TestCase):
 
         providers = {name: spy(name) for name in research._default_providers()}
         with patch("research_mcp.research._default_providers", return_value=providers):
-            research.search("prism", limit=5)
+            research.search("prism", limit=5, providers=list(providers))
 
-        self.assertEqual(sorted(called), sorted({"github_search", "hacker_news", "exa", "juejin", "bilibili"}))
+        self.assertEqual(sorted(called), sorted(providers))
         for name in research.QUERY_AGNOSTIC_CHANNELS:
             self.assertNotIn(name, called)
 
@@ -232,7 +232,7 @@ class ResearchTest(unittest.TestCase):
 
         providers = {"exa": broken, "juejin": lambda _cfg: [{"kind": "article", "title": "ok", "url": "https://example.com/a", "source": "juejin"}]}
         with patch("research_mcp.research._default_providers", return_value=providers):
-            result = research.search("prism", limit=5)
+            result = research.search("prism", limit=5, providers=list(providers))
 
         self.assertEqual([item["title"] for item in result["candidates"]], ["ok"])
 
@@ -243,21 +243,21 @@ class ResearchTest(unittest.TestCase):
 
         providers = {"hacker_news": broken, "exa": lambda _cfg: []}
         with patch("research_mcp.research._default_providers", return_value=providers):
-            result = research.search("prism", limit=5)
+            result = research.search("prism", limit=5, providers=list(providers))
 
-        self.assertEqual(result["failed_channels"], [{"channel": "hacker_news", "error": "连接超时"}])
+        self.assertEqual(result["failed_channels"], [{"channel": "hacker_news", "status": "timeout", "error": "上游超时"}])
 
     def test_search_reports_unknown_provider_name(self):
         providers = {"exa": lambda _cfg: []}
         with patch("research_mcp.research._default_providers", return_value=providers):
             result = research.search("prism", limit=5, providers=["exa", "nope"])
 
-        self.assertEqual(result["failed_channels"], [{"channel": "nope", "error": "没有这个渠道"}])
+        self.assertEqual(result["failed_channels"], [{"channel": "nope", "status": "unsupported", "error": "渠道尚未实现或名称不受支持"}])
 
     def test_search_omits_failed_channels_when_all_ok(self):
         providers = {"exa": lambda _cfg: []}
         with patch("research_mcp.research._default_providers", return_value=providers):
-            result = research.search("prism", limit=5)
+            result = research.search("prism", limit=5, providers=list(providers))
 
         self.assertNotIn("failed_channels", result)
 
@@ -275,7 +275,7 @@ class ResearchTest(unittest.TestCase):
         providers = {"github_search": slow, "hacker_news": slow, "arxiv": slow}
         with patch("research_mcp.research._default_providers", return_value=providers):
             started = _time.monotonic()
-            research.search("prism", limit=5, rerank=False)
+            research.search("prism", limit=5, rerank=False, providers=list(providers))
             elapsed = _time.monotonic() - started
 
         # 串行要 1.2s 以上；并发约 0.4s。留出足够的宽量避免脆断言
@@ -313,7 +313,7 @@ class ResearchTest(unittest.TestCase):
 
         providers = {"exa": many}
         with patch("research_mcp.research._default_providers", return_value=providers):
-            result = research.search("prism", limit=5, rerank=False)
+            result = research.search("prism", limit=5, rerank=False, providers=list(providers))
 
         self.assertEqual(result["returned"], 5)
         self.assertEqual(result["total"], 50)
@@ -337,7 +337,7 @@ class ResearchTest(unittest.TestCase):
         providers = {"exa": many}
         with patch("research_mcp.research._default_providers", return_value=providers), \
                 patch("research_mcp.rerank.filter_candidates", return_value=([{"kind": "article", "title": "t0", "url": "https://example.com/0", "source": "exa"}], None)):
-            result = research.search("prism", limit=5)
+            result = research.search("prism", limit=5, providers=list(providers), rerank=True)
 
         self.assertEqual(result["returned"], 1)
         self.assertIs(result["truncated"], True)
@@ -361,7 +361,7 @@ class ResearchTest(unittest.TestCase):
         providers = {"exa": many}
         with patch("research_mcp.research._default_providers", return_value=providers), \
                 patch("research_mcp.rerank.filter_candidates", return_value=(kept, None)):
-            result = research.search("prism", limit=5)
+            result = research.search("prism", limit=5, providers=list(providers), rerank=True)
 
         self.assertEqual(result["returned"], 5)
         self.assertEqual(result["truncated_by"], ["limit"])
@@ -372,7 +372,7 @@ class ResearchTest(unittest.TestCase):
 
         providers = {"exa": few}
         with patch("research_mcp.research._default_providers", return_value=providers):
-            result = research.search("prism", limit=5, rerank=False)
+            result = research.search("prism", limit=5, rerank=False, providers=list(providers))
 
         self.assertEqual(result["returned"], 1)
         self.assertEqual(result["total"], 1)
@@ -390,7 +390,7 @@ class ResearchTest(unittest.TestCase):
         providers = {"exa": many}
         with patch("research_mcp.research._default_providers", return_value=providers), \
                 patch("research_mcp.rerank.filter_candidates", return_value=([{"kind": "article", "title": "t0", "url": "https://example.com/0", "source": "exa"}], "no_api_key")):
-            result = research.search("prism", limit=5)
+            result = research.search("prism", limit=5, providers=list(providers), rerank=True)
 
         self.assertEqual(result["truncated_by"], ["limit"])
 
@@ -688,7 +688,7 @@ ETH: 0x123456
         fake_items = [{"title": f"item-{i}", "url": f"https://example.com/{i}", "source": "exa"} for i in range(5)]
         with patch.object(research, "_default_providers", return_value={"exa": lambda c: fake_items}):
             with patch("research_mcp.rerank.filter_candidates", return_value=([fake_items[1]], None)) as mock_rerank:
-                res = research.search("test", limit=2, rerank=True)
+                res = research.search("test", limit=2, rerank=True, providers=["exa"])
                 mock_rerank.assert_called_once()
                 self.assertEqual(len(res["candidates"]), 1)
                 self.assertEqual(res["candidates"][0]["title"], "item-1")
@@ -698,13 +698,13 @@ ETH: 0x123456
         fake_items = [{"title": f"item-{i}", "url": f"https://example.com/{i}", "source": "exa"} for i in range(5)]
         with patch.object(research, "_default_providers", return_value={"exa": lambda c: fake_items}):
             with patch("research_mcp.rerank.filter_candidates", return_value=(fake_items[:2], "no_api_key")):
-                res = research.search("test", limit=2, rerank=True)
+                res = research.search("test", limit=2, rerank=True, providers=["exa"])
                 self.assertEqual(res["rerank_downgraded"], "no_api_key")
 
     def test_search_with_no_rerank_skips_reranker(self):
         fake_items = [{"title": f"item-{i}", "url": f"https://example.com/{i}", "source": "exa"} for i in range(5)]
         with patch.object(research, "_default_providers", return_value={"exa": lambda c: fake_items}):
             with patch("research_mcp.rerank.filter_candidates") as mock_rerank:
-                res = research.search("test", limit=2, rerank=False)
+                res = research.search("test", limit=2, rerank=False, providers=["exa"])
                 mock_rerank.assert_not_called()
                 self.assertEqual(len(res["candidates"]), 2)

@@ -6,7 +6,7 @@
 
 ## MCP
 
-Claude Code 的 `.mcp.json`、Codex 的 `.codex/config.toml` 与 Cursor 的 `.cursor/mcp.json` 都使用 README 中各自的配置片段。启动命令统一为 `uvx --from git+https://github.com/bmdy6/research-mcp --with "mcp>=1.0,<3" research-mcp mcp`，其中 `--with` 安装可选 MCP SDK。服务器使用 stdio；单工具 `research_search` 传关键词执行搜索，传 http(s) URL 读取内容。
+Claude Code 的 `.mcp.json`、Codex 的 `.codex/config.toml` 与 Cursor 的 `.cursor/mcp.json` 都使用 README 中各自的配置片段。启动命令统一为 `uvx --from git+https://github.com/bmdy6/research-mcp --with "mcp>=1.0,<3" research-mcp mcp`，其中 `--with` 安装可选 MCP SDK。服务器使用 stdio；`research_list_channels` 列目录；`research_search` 传关键词和显式 providers 执行搜索，传 http(s) URL 读取内容。
 
 三个配置已按原 argv 分别通过真实 SDK 的 `list_tools` 与一次工具调用；未修改本机客户端配置，未进行三个客户端的 GUI 操作验收。
 
@@ -29,3 +29,6 @@ Claude Code 的 `.mcp.json`、Codex 的 `.codex/config.toml` 与 Cursor 的 `.cu
 ## 配置文档
 
 [Claude Code MCP](https://code.claude.com/docs/en/mcp) · [Codex MCP](https://developers.openai.com/codex/mcp) · [Cursor MCP](https://cursor.com/docs/mcp) · [Python macOS certificates](https://docs.python.org/3/using/mac.html).
+
+
+搜索先列目录再选 providers，省略时不发请求。open-webSearch 的可选固定版本安装、免费边界和细分状态见 README；Exa 已改用系统 curl 保持 TLS 校验，不再依赖 Python 的 CA 安装。付费 Exa key 与模型重排 key 均不会被共享搜索入口使用。

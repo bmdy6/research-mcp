@@ -18,13 +18,17 @@ def main() -> int:
     fetch.add_argument("url")
     for command in (search, fetch):
         command.add_argument("--format", choices=("json", "text"), default="text")
+    channels = sub.add_parser("channels", help="列出渠道能力与最近状态（不发网络请求）")
+    channels.add_argument("--format", choices=("json", "text"), default="json")
     sub.add_parser("mcp")
     args = parser.parse_args()
     if args.command == "mcp":
         from .mcp_server import mcp
         mcp.run()
         return 0
-    if args.command == "search":
+    if args.command == "channels":
+        result = service.list_channels()
+    elif args.command == "search":
         providers = [p.strip() for p in args.providers.split(",") if p.strip()] if args.providers else None
         result = service.search(args.query, limit=args.limit, providers=providers)
     else:

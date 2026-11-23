@@ -175,7 +175,7 @@ class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
     async def test_tools_list_responds_while_query_is_blocked(self):
         async with self.blocked_call() as (session, call, _, root):
             listing = await asyncio.wait_for(session.list_tools(), timeout=1)
-            self.assertEqual([tool.name for tool in listing.tools], ["research_search"])
+            self.assertEqual(sorted(tool.name for tool in listing.tools), ["research_list_channels", "research_search"])
             self.assertFalse(call.done())
             self.assertFalse((root / "finished").exists())
             (root / "release").touch()
@@ -201,7 +201,7 @@ class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
                     # the cancelled response, so awaiting that reply would hang.
                     await self.wait_for_file(root / "request-finished", timeout=1)
                     listing = await asyncio.wait_for(session.list_tools(), timeout=1)
-                    self.assertEqual([tool.name for tool in listing.tools], ["research_search"])
+                    self.assertEqual(sorted(tool.name for tool in listing.tools), ["research_list_channels", "research_search"])
                     self.assertFalse((root / "finished").exists())
                     workspace = Path((root / "workspace").read_text())
                     self.assertTrue(workspace.is_dir())
@@ -236,7 +236,7 @@ class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
                                         "providers": ["hacker_news"]}))
                 self.assertEqual((result["total"], result["pooled"], result["returned"]), (12, 12, 5))
                 self.assertEqual(result["delivered"], 5)
-                self.assertEqual(result["rerank"], "skipped_no_key")
+                self.assertEqual(result["rerank_downgraded"], "disabled_by_transport_policy")
                 self.assertTrue(result["truncated"])
                 self.assertEqual(result["truncated_by"], ["limit"])
                 self.assertFalse(result["output_truncation"]["truncated"])
@@ -313,7 +313,8 @@ class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
     async def test_unmodified_server_schema_and_validation_round_trip(self):
         async with asyncio.timeout(20), self.session(fixtures=False) as session:
             tools = (await session.list_tools()).model_dump(by_alias=True)["tools"]
-            self.assertEqual([tool["name"] for tool in tools], ["research_search"])
+            self.assertEqual(sorted(tool["name"] for tool in tools), ["research_list_channels", "research_search"])
+            tools = sorted(tools, key=lambda tool: tool["name"] != "research_search")
             schema = tools[0]["inputSchema"]
             self.assertEqual(schema["required"], ["query"])
             self.assertEqual(set(schema["properties"]), {"query", "limit", "providers"})
@@ -324,6 +325,11 @@ class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
             result = self.envelope(await session.call_tool("research_search", {"query": ""}))
             self.assertEqual(result["status"], "error")
             self.assertEqual(result["errors"][0]["code"], "INVALID_INPUT")
+            catalog = self.envelope(await session.call_tool("research_list_channels", {}))
+            self.assertEqual(catalog["operation"], "list_channels")
+            self.assertIn("bing", [row["id"] for row in catalog["channels"]])
+            required = self.envelope(await session.call_tool("research_search", {"query": "synthetic"}))
+            self.assertEqual(required["errors"][0]["code"], "CHANNELS_REQUIRED")
 
     async def test_search_and_fetch_envelopes_survive_real_stdio_transport(self):
         async with asyncio.timeout(20), self.session(fixtures=True) as session:

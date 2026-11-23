@@ -1,0 +1,2761 @@
+{
+  "date": "2026-11-23",
+  "baseline_commit": "7a3365d",
+  "rubric": "Manual title/snippet topical relevance, not factual accuracy or full-page readability. Specific subtopic required; generic homepages, dictionaries, ads and broad unrelated tutorials score zero. Missing ranks score zero. Single reviewer, unblinded, exploratory only.",
+  "before": [
+    {
+      "id": 1,
+      "group": "zh",
+      "query": "检索增强生成 原理",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 2.294,
+      "raw_count": 40,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "50行代码从零搭一个RAG！通过实例了解RAG的基本原理",
+          "url": "https://www.bilibili.com/video/BV1BDRYBfEaB",
+          "summary": "该视频是使用开源的SKILL制作，该SKILL正常持续迭代优化中，请持续关注，https://github.com/Agents365-ai/video-podcast-maker 本期视频从零讲清楚RAG的核心原理，全程只用50行Python，跑在本地，不依赖任何云服务。模型选型：Qwen3.5的4B版本作为主语言模型，社区版Qwen3-Embedding-0.6B作为嵌入模型，知识库是30条P",
+          "source": "bilibili"
+        },
+        {
+          "title": "如何增强 Dify 的知识库检索能力？",
+          "url": "https://juejin.cn/post/7408775736797249570",
+          "summary": "在上一篇文章《AI 知识库对比：Dify 还是 FastGPT》中对比了 Dify 和 fastGPT ，这一篇分享下如何增强 Dify 的知识库检索能力",
+          "source": "juejin"
+        },
+        {
+          "title": "【2025最新版】保姆级大模型RAG课程，从原理到实战！全程干货，通俗易懂少走99%弯路！",
+          "url": "https://www.bilibili.com/video/BV1eQWYzFEba",
+          "summary": "陆陆续续也整理了不少资源，希望能帮大家少走一些弯路！无论是学业还是事业，都希望你顺顺利利 看在UP这么努力的份上，求个三连+关注嘛 1️⃣ 大模型入门学习路线图（附学习资源） 2️⃣ 大模型方向必读书籍PDF版 3️⃣ 大模型面试题库 4️⃣ 大模型项目源码 5️⃣ 超详细海量大模型LLM实战项目 6️⃣ Langchain/RAG/Agent学习资源 7️⃣ LLM大模型系统0到1入门学习教程 ",
+          "source": "bilibili"
+        },
+        {
+          "title": "SemanticKernel/C#：检索增强生成(RAG)简易实践",
+          "url": "https://juejin.cn/post/7397683076379672628",
+          "summary": "检索增强生成(RAG)是什么？ RAG是“Reference-based Generative model with Attention”的缩写，也可以被称为“Retrieval-Augmented",
+          "source": "juejin"
+        },
+        {
+          "title": "精华30分钟！16种RAG方案大比拼，谁才是RAG最佳选择？？一条视频讲清，全程干货！从理论到进阶再到实战，草履虫也能学会~（大模型/LLM/RAG）",
+          "url": "https://www.bilibili.com/video/BV18QhQztESa",
+          "summary": "精华30分钟！16种RAG方案大比拼，谁才是RAG最佳选择？？一条视频讲清，全程干货！从理论到进阶再到实战，草履虫也能学会~（大模型/LLM/RAG）",
+          "source": "bilibili"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": 2,
+      "group": "zh",
+      "query": "个人知识库 笔记 双向链接",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 1.394,
+      "raw_count": 30,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "一个本地优先的知识工作台：写作、白板、数据库、知识地图、AI 全在一个软件里",
+          "url": "https://www.bilibili.com/video/BV1EByLzBEPL",
+          "summary": "读到的一句话，怎样才能长成自己的知识体系？ Tau 是一个个人知识工作台。从划线摘录到写成文章，从卡片复习到看清笔记之间的关联，一个想法从头到尾都在一个软件里完成。 ✍️ 写作：所见即所得，敲 ## 就是标题、敲 &gt; 就是引用。表格、代码、公式、待办等十几种块随手插入 🎨 白板：思维导图、形状、箭头、画框、手绘风格，排好就能直接演示 📊 数据库：一份数据，表格 · 看板 · 画廊 · 日历四",
+          "source": "bilibili"
+        },
+        {
+          "title": "搭建Coze知识库与智能客服AI聊天机器人：让大模型吞噬一切知识，成为你的贴心小秘书！",
+          "url": "https://juejin.cn/post/7444451586599075878",
+          "summary": "本文将详细介绍如何搭建一个基于Coze的知识库，并将其与大模型结合，创建一个智能客服AI聊天机器人。通过这个项目，企业不仅可以更好地管理和利用其内部的知识资源，还能提供更加准确和及时的客户服务。",
+          "source": "juejin"
+        },
+        {
+          "title": "【硬核教程】这也许是B站讲的最好的Obsidian新手教程，手把手教你搭建 Obsidian 笔记体系，一站式入门双向链接笔记软件，小白也能轻松上手！",
+          "url": "https://www.bilibili.com/video/BV19mdgBxE7q",
+          "summary": "【硬核教程】这也许是B站讲的最好的Obsidian新手教程，手把手教你搭建 Obsidian 笔记体系，一站式入门双向链接笔记软件，小白也能轻松上手！",
+          "source": "bilibili"
+        },
+        {
+          "title": "11.7k star 的 AI 知识库 MaxKB 也用了",
+          "url": "https://juejin.cn/post/7443079659094769683",
+          "summary": "自 Dify、FastGPT、FlowiseAI 以及 RAGFlow 之后，想着干脆把其他类似的 AI 产品也一起都玩儿下看看，所以这次主要在看 MaxKB",
+          "source": "juejin"
+        },
+        {
+          "title": "【2026最新】这也许是B站最好的Obsidian新手教程！一站式入门双向链接笔记软件，邪修指南，效率提升99%!",
+          "url": "https://www.bilibili.com/video/BV13kdBBeEhg",
+          "summary": "【2026最新】这也许是B站最好的Obsidian新手教程！一站式入门双向链接笔记软件，邪修指南，效率提升99%!",
+          "source": "bilibili"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 3,
+      "group": "zh",
+      "query": "杭州 西湖 博物馆 预约",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 1.285,
+      "raw_count": 29,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "2025杭州西湖钱王祠第二届莲荷展攻略及西湖博物馆俄罗斯民族博物馆藏18-20世纪珠宝展攻略",
+          "url": "https://www.bilibili.com/video/BV1Y9KdzLEfH",
+          "summary": "-",
+          "source": "bilibili"
+        },
+        {
+          "title": "【预约开启】1024 码上奇妙夜，程序员的专属狂欢盛宴，将你宠上天！",
+          "url": "https://juejin.cn/post/7425939768850628648",
+          "summary": "豆包MarsCode X 稀土掘金联合打造了 1024 码上奇妙夜直播活动，直播邀请了众多神秘嘉宾，同时准备了 iPhone16 Pro、小米 14 手机等丰厚的奖品，1024 让我们用力宠爱！",
+          "source": "juejin"
+        },
+        {
+          "title": "【Y122】露脸严重！西子奥的斯oh5000mrl-&gt;杭州西湖博物馆（有bgm）",
+          "url": "https://www.bilibili.com/video/BV1pE9BYXEtc",
+          "summary": "待添加",
+          "source": "bilibili"
+        },
+        {
+          "title": "【预约开启】1024 码上奇妙夜，程序员的专属狂欢盛宴，将你宠上天！",
+          "url": "https://juejin.cn/post/7425974185321824283",
+          "summary": "豆包MarsCode X 稀土掘金联合打造了 1024 码上奇妙夜直播活动，直播邀请了众多神秘嘉宾，同时准备了 iPhone16 Pro、小米 14 手机等丰厚的奖品，1024 让我们用力宠爱！",
+          "source": "juejin"
+        },
+        {
+          "title": "昨和姐妹:吴山广场地铁口出，意外遇年货节，感受年味，接着去杭州博物馆，预约免费，再逛河坊街，大马弄接地气的地儿，吃酥鱼，豆腐饼，炸丸子，后步行至in77西湖边。",
+          "url": "https://www.bilibili.com/video/BV1fN6nYhExB",
+          "summary": "-",
+          "source": "bilibili"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 4,
+      "group": "zh",
+      "query": "热泵 工作原理",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 3.76,
+      "raw_count": 40,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "比亚迪热泵空调工作原理",
+          "url": "https://www.bilibili.com/video/BV18ncizBEia",
+          "summary": "",
+          "source": "bilibili"
+        },
+        {
+          "title": "Vue3探秘系列— v-model：双向数据绑定的实现原理（十三）",
+          "url": "https://juejin.cn/post/7443366394697809971",
+          "summary": "前言 Hello~大家好。我是秋天的一阵风 在日常开发或者面试中经常会提到一个问题：什么是双向数据绑定？ 很多同学就会开始侃侃而谈，比如说： \"Vue对数据进行了响应式处理，当数据改变时，页面也会重新",
+          "source": "juejin"
+        },
+        {
+          "title": "一个视频彻底搞懂空气能热泵工作原理#空气能热泵#热泵#空气能热泵采暖 #空气能热泵原理#空气能两联供",
+          "url": "https://www.bilibili.com/video/BV1Hx4szdE6a",
+          "summary": "#空气能热泵#热泵#空气能热泵采暖 #空气能热泵原理#空气能两联供",
+          "source": "bilibili"
+        },
+        {
+          "title": "深入解析Vue2和Vue3响应式原理",
+          "url": "https://juejin.cn/post/7426918825231761419",
+          "summary": "Vue 框架凭借其简洁的响应式系统在前端开发中获得了广泛的应用。这篇文章将详细解读 Vue2 和 Vue3 响应式原理的不同，结合代码示例，帮助读者理解这些变化带来的优势与改进。",
+          "source": "juejin"
+        },
+        {
+          "title": "比亚迪热泵空调工作原理讲解",
+          "url": "https://www.bilibili.com/video/BV17kBiYvEvt",
+          "summary": "-",
+          "source": "bilibili"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        1,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 5,
+      "group": "zh",
+      "query": "如何改善 睡眠 光照 作息",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 1.611,
+      "raw_count": 30,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "如何通过调整作息时间、饮食和运动来改善睡眠质量、提升精力和情绪状态 | 萨梅尔·哈塔尔博士 - Andrew Huberman",
+          "url": "https://www.bilibili.com/video/BV1FNHa61Eg1",
+          "summary": "—— 信息来源 —— 标题：Timing Light, Food, &amp; Exercise for Better Sleep, Energy &amp; Mood | Dr. Samer Hattar 作者：Andrew Huberman 日期：20211025 出处：https://www.youtube.com/watch?v=oUu3f0ETMJQ 70tIS/TtSIdX1.5Wzf",
+          "source": "bilibili"
+        },
+        {
+          "title": "调查研究-218 如何稳住皮质醇：不是把它压低，而是让它恢复节律",
+          "url": "https://juejin.cn/post/7659251251616448539",
+          "summary": "如何稳住皮质醇：不是把它压低，而是让它恢复节律 TL;DR 场景：长期睡不好、白天疲惫、晨起必须靠咖啡、晚上降不下来、压力恢复越来越慢 结论：皮质醇不是敌人，关键在昼夜节律是否清晰；用睡眠/光照/运动",
+          "source": "juejin"
+        },
+        {
+          "title": "蜕变计划2：如何科学改善睡眠 | 三天睡眠质量提升计划",
+          "url": "https://www.bilibili.com/video/BV1NJbW6UEik",
+          "summary": "新人up，求关注",
+          "source": "bilibili"
+        },
+        {
+          "title": "学习Three.js--光源Light+轨道控制器OrbitControls",
+          "url": "https://juejin.cn/post/7597230546239242276",
+          "summary": "学习Three.js--光源Light+轨道控制器OrbitControls 前置核心说明 Three.js 的 3D 世界默认处于全黑状态，想要让「受光照影响的材质」显示出真实的光影效果，必须手动添",
+          "source": "juejin"
+        },
+        {
+          "title": "建议想要早睡的人去晒太阳，实践表明，晨间30分钟光照，可以改善睡眠延迟，提前入睡时间，有条件的情况下也可以晒太阳时运动一下。",
+          "url": "https://www.bilibili.com/video/BV1MngW6VEL7",
+          "summary": "",
+          "source": "bilibili"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        1,
+        1,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 6,
+      "group": "en",
+      "query": "retrieval augmented generation",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 1.258,
+      "raw_count": 70,
+      "raw_duplicates": 2,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "How do domain-specific chatbots work? A retrieval augmented generation overview",
+          "url": "https://scriv.ai/guides/retrieval-augmented-generation-overview",
+          "summary": "How do domain-specific chatbots work? A <em>retrieval</em> <em>augmented</em> <em>generation</em> overview",
+          "source": "hacker_news"
+        },
+        {
+          "title": "【大模型面试题】RAG（Retrieval-Augmented Generation‌）面试真题讲解（带PDF讲义），比背八股文有用多了！",
+          "url": "https://www.bilibili.com/video/BV1hP486KEPK",
+          "summary": "1️⃣ RAG面试题（课件、讲义、笔记） 2️⃣ AI大模型学习路线（应用+工具+算法） 3️⃣ AI大模型入门及进阶视频教程（含配套笔记） 4️⃣ AI大模型最新面试题库（附PDF答案笔记） 5️⃣ 免费1v1职业规划、面试突击指导、定制学习路线✚【mf975320】",
+          "source": "bilibili"
+        },
+        {
+          "title": "什么是 RAG？如何用 RAG 实现一个用户记忆？",
+          "url": "https://juejin.cn/post/7683339702867542058",
+          "summary": "什么是 RAG？不是再接一套向量库。Postgres + pgvector、GLM 分片，下一轮请求召回后写进 systemPrompt。一篇看完：用户记忆怎么在 prompt 上跑通",
+          "source": "juejin"
+        },
+        {
+          "title": "Retrieval Augmented Generation Based on SQLite",
+          "url": "https://github.com/ggozad/haiku.rag",
+          "summary": "<em>Retrieval</em> <em>Augmented</em> <em>Generation</em> Based on SQLite",
+          "source": "hacker_news"
+        },
+        {
+          "title": "【吴恩达】2026年公认最好的《RAG知识图谱》，从入门到精通，一套解决！Retrieval Augmented Generation-附带课件代码",
+          "url": "https://www.bilibili.com/video/BV1tFGc6LE5n",
+          "summary": "视频来源：DeepLearning.AI 课件代码：评论区自取 本课程我们将学习到： 知识图谱在开发中用于构建复杂数据关系、驱动智能搜索功能，并构建能够对不同数据类型进行推理的强大人工智能应用程序。知识图谱可以连接来自结构化和非结构化来源（数据库、文件等）的数据，为建模复杂的实际场景提供直观灵活的方式。 与表格或简单列表不同，知识图谱可以捕捉数据背后的含义和上下文，使您能够发现使用传统数据库难以找",
+          "source": "bilibili"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": 7,
+      "group": "en",
+      "query": "open source personal knowledge management",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 1.553,
+      "raw_count": 39,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "Show HN: Quilly – A simple, open-source personal knowledge management app",
+          "url": "https://github.com/aks579/quilly",
+          "summary": "Show HN: Quilly – A simple, <em>open</em>-<em>source</em> <em>personal</em> <em>knowledge</em> <em>management</em> app",
+          "source": "hacker_news"
+        },
+        {
+          "title": "Ontology + Open Claw：分析，推演，知识补全",
+          "url": "https://www.bilibili.com/video/BV1m1XLBHEFF",
+          "summary": "",
+          "source": "bilibili"
+        },
+        {
+          "title": "信息差周刊第19期：OpenAI 发布 Prompt 指南",
+          "url": "https://juejin.cn/post/7416908856867127334",
+          "summary": "【信息差——独立开发者出海周刊第19期】OpenAI 发布 Prompt 指南；还有更多开源项目、使用工具、出海教程和学习资源。",
+          "source": "juejin"
+        },
+        {
+          "title": "Personal Knowledge Management (PKM) open source application: Contextualise",
+          "url": "https://github.com/brettkromkamp/contextualise",
+          "summary": "<em>Personal</em> <em>Knowledge</em> <em>Management</em> (PKM) <em>open</em> <em>source</em> application: Contextualise",
+          "source": "hacker_news"
+        },
+        {
+          "title": "Open knowledge maps +Connected papers,带你尽早解锁开题报告的知识图谱～分享给你们，加油哇",
+          "url": "https://www.bilibili.com/video/BV1RP41147rY",
+          "summary": "开题报告怎么写？文献从哪里找？",
+          "source": "bilibili"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        1,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 8,
+      "group": "en",
+      "query": "how heat pumps work",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 2.652,
+      "raw_count": 40,
+      "raw_duplicates": 1,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "How a heat pump works",
+          "url": "https://hvac-learning.com/courses/heat-pumps-part-1",
+          "summary": "<em>How</em> a <em>heat</em> <em>pump</em> <em>works</em>",
+          "source": "hacker_news"
+        },
+        {
+          "title": "【双语】热泵是怎么工作的Heat Pumps Explained - How Heat Pumps Work HVAC",
+          "url": "https://www.bilibili.com/video/BV1ok4y1U7WT",
+          "summary": "转自The Engineering Mindset",
+          "source": "bilibili"
+        },
+        {
+          "title": "Cursor力量，用爬虫展示",
+          "url": "https://juejin.cn/post/7443737228399656969",
+          "summary": "前言 Cursor现在应该无人不知，无人不晓了吧。作为一个免费的代码生成器，覆盖了所有程序员的编程语言。根据你的需求来生成代码，还可以帮你对代码进行优化、理解、改错。 建议所有程序员都安装Cursor",
+          "source": "juejin"
+        },
+        {
+          "title": "Stumped by Heat Pumps?",
+          "url": "https://www.wired.com/story/how-do-heat-pumps-work",
+          "summary": "Stumped by <em>Heat</em> <em>Pumps</em>?",
+          "source": "hacker_news"
+        },
+        {
+          "title": "船舶机舱内各种类型的泵 ENGINE ROOM ON SHIP TYPES OF PUMPS HOW PUMPS WORK",
+          "url": "https://www.bilibili.com/video/BV1YL4y1j7hj",
+          "summary": "-",
+          "source": "bilibili"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        1,
+        1,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 9,
+      "group": "en",
+      "query": "SQLite write ahead log documentation",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 1.5,
+      "raw_count": 40,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "不止前端夯，我拿K3爆改177万源码数据库",
+          "url": "https://www.bilibili.com/video/BV12Pg16YEyi",
+          "summary": "Kimi k3 K3后端实测，我用它爆改了177万行源码的SQLite数据库",
+          "source": "bilibili"
+        },
+        {
+          "title": "MySQL与SQLite3数据库的入门指南",
+          "url": "https://juejin.cn/post/7448547775689556006",
+          "summary": "本文详细介绍了启动MySQL服务、在VSCode中集成MySQL以及使用Node.js连接MySQL数据，如何通过npm安装sqlite3并在Node.js中创建和查询SQLite数据库。",
+          "source": "juejin"
+        },
+        {
+          "title": "今天我们认识全球部署量最大的数据库之一SQLite的作者——D.Richard Hipp",
+          "url": "https://www.bilibili.com/video/BV1HkfxBdEj1",
+          "summary": "-",
+          "source": "bilibili"
+        },
+        {
+          "title": "前端项目接入sqlite轻量级数据库sql.js指南",
+          "url": "https://juejin.cn/post/7428797031777075241",
+          "summary": "前端项目接入sqlite轻量级数据库sql.js指南 引言 我们的目标 项目中加载sql.js 有两个版本,一个是在网页中直接加载的版本，一个是electron等桌面端应用使用的版本 1.在网页中加载",
+          "source": "juejin"
+        },
+        {
+          "title": "一人开发的 SQLite 如何统治世界？程序员的最强开源奇迹！",
+          "url": "https://www.bilibili.com/video/BV1LD3wzjERp",
+          "summary": "🌍 全球使用最广泛的数据库，不是 MySQL、不是 PostgreSQL，而是 —— SQLite。 它运行在你的 iPhone、浏览器、汽车、甚至 NASA 的探测器上。最不可思议的是，这个项目最初竟然是由一名程序员独立开发的！ 在本期视频中，我们将从程序员视角深入揭秘： ✅ SQLite 是什么，为什么这么受欢迎？ ✅ 它的作者 Richard Hipp 是如何一人改变世界的？ ✅ SQLit",
+          "source": "bilibili"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 10,
+      "group": "en",
+      "query": "accessible web forms WAI tutorial",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 1.954,
+      "raw_count": 40,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "每日记一个单词：accessible",
+          "url": "https://www.bilibili.com/video/BV1PMMd69ERa",
+          "summary": "",
+          "source": "bilibili"
+        },
+        {
+          "title": "Win32 API：读取窗口的无障碍树",
+          "url": "https://juejin.cn/post/7388022210856845324",
+          "summary": "什么是无障碍树？ 无障碍树（Accessibility Tree）是操作系统提供的一种结构，用于描述应用程序的用户界面元素。这些元素包括按钮、文本框、菜单等，它们被组织成一个树形结构，便于辅助技术。",
+          "source": "juejin"
+        },
+        {
+          "title": "四六级作文热门主题词汇Accessible Facilities",
+          "url": "https://www.bilibili.com/video/BV1vAySB6EQ5",
+          "summary": "-",
+          "source": "bilibili"
+        },
+        {
+          "title": "Django高级表单处理与验证实战",
+          "url": "https://juejin.cn/post/7365716724128038966",
+          "summary": "title: Django高级表单处理与验证实战 date: 2024/5/6 20:47:15 updated: 2024/5/6 20:47:15 categories: 后端开发 tags: D",
+          "source": "juejin"
+        },
+        {
+          "title": "accessible 一秒速记法 （可进入、到达、使用的; 可理解的; 随和的）",
+          "url": "https://www.bilibili.com/video/BV1AdeFzyExX",
+          "summary": "accessible 可进入、到达、使用的; 可理解的; 随和的",
+          "source": "bilibili"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 11,
+      "group": "tech",
+      "query": "Python asyncio TaskGroup exception handling",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 1.998,
+      "raw_count": 29,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "Python 异步多任务 用 asyncio.TaskGroup() 还是 asyncio.gather()",
+          "url": "https://www.bilibili.com/video/BV1YN83zCEia",
+          "summary": "",
+          "source": "bilibili"
+        },
+        {
+          "title": "Python 如何同时做很多事：进程、线程、协程",
+          "url": "https://juejin.cn/post/7648435540396081215",
+          "summary": "从全局角度理解“程序如何同时做很多事”。并发与并行、同步与异步、进程、线程、协程、GIL、锁、队列、管道、进程池、线程池这些知识点，会放到各自真正适合的位置讲。 你可以先记住一句话： 一、先建立全局地",
+          "source": "juejin"
+        },
+        {
+          "title": "Swift 如何绕过可变 self 属性不能并发修改的问题",
+          "url": "https://www.bilibili.com/video/BV1gC4y1Q79H",
+          "summary": "在本堂视频课中，我们介绍了在 Swift 5.5 新并发模型撸码中遇到的 “mutable capture of ‘inout’ parameter ‘self’ is not allowed in concurrently-executing code” 错误，并讨论了如何绕过它。",
+          "source": "bilibili"
+        },
+        {
+          "title": "🚀 Claude Agent SDK 使用指南：概述",
+          "url": "https://juejin.cn/post/7607112994061402139",
+          "summary": "📖 前言 你是否想过，如果能将 Claude Code 那种强大的“阅读代码、执行命令、修复 Bug”的能力集成到自己的 Python 或 TypeScript 脚本中，会是怎样的体验？ Claude",
+          "source": "juejin"
+        },
+        {
+          "title": "Swift并发编程 第26讲_Swift新并发模型总结",
+          "url": "https://www.bilibili.com/video/BV17h4y1P7TR",
+          "summary": "本套课程共26讲，第1、6、16、17、24、26讲免费试看。 每周五18点，更新1讲试看内容。 如需收看全集，请至以下地址购买。 https://www.bilibili.com/cheese/play/ep177960?csource=private_space_class_null 配套示例代码如下，欢迎所有同学们下载。 https://github.com/FengyuanWorldMed",
+          "source": "bilibili"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 12,
+      "group": "tech",
+      "query": "React useEffect cleanup strict mode",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 2.643,
+      "raw_count": 24,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "106_React TypeScript Tutorial - 13 - useReducer Strict Action Types",
+          "url": "https://www.bilibili.com/video/BV1gYEK6SE6z",
+          "summary": "",
+          "source": "bilibili"
+        },
+        {
+          "title": "React第十五章(useEffect)",
+          "url": "https://juejin.cn/post/7436589005838319635",
+          "summary": "useEffect useEffect 是 React 中用于处理副作用的钩子。并且useEffect 还在这里充当生命周期函数，在之前你可能会在类组件中使用 componentDidMount、co",
+          "source": "juejin"
+        },
+        {
+          "title": "9.React 的严格模式（Strict Mode）解决了哪些潜在问题？特邀字节大佬分享团队代码质。。。",
+          "url": "https://www.bilibili.com/video/BV1Z615BnEyM",
+          "summary": "",
+          "source": "bilibili"
+        },
+        {
+          "title": "谈谈React中useLayoutEffect钩子函数与浏览器的故事",
+          "url": "https://juejin.cn/post/7419907933243588619",
+          "summary": "让我们再谈谈 React 中的 DOM 访问。在上一篇文章深入浅出 React 中的 refs中，我们介绍了如何使用 ref 进行访问，并额外学习了有关 ref 的所有知识。然而，在处理 DOM 时，",
+          "source": "juejin"
+        },
+        {
+          "title": "React面试题：React的严格模式（Strict Mode）解决了哪些潜在问题？",
+          "url": "https://www.bilibili.com/video/BV1j8eFzaEkp",
+          "summary": "",
+          "source": "bilibili"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 13,
+      "group": "tech",
+      "query": "Docker compose depends_on healthcheck",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 1.625,
+      "raw_count": 21,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "让我给大家演示一下CPRFor this assignment, create a short video to demonstrate a healthc…",
+          "url": "https://www.bilibili.com/video/BV1f44y1V7ha",
+          "summary": "让我给大家演示一下CPR For this assignment, create a short video to demonstrate a healthcare skill of your choice. 让我拿娃娃demonstrate 真的会笑死",
+          "source": "bilibili"
+        },
+        {
+          "title": "Docker 万字入门教程",
+          "url": "https://juejin.cn/post/7424338056918777882",
+          "summary": "Docker 使用 Google 公司推出的 Go 语言进行开发实现，对进程进行封装隔离，属于操作系统层面的虚拟化技术。由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。",
+          "source": "juejin"
+        },
+        {
+          "title": "利用 Docker Compose 部署多服务应用",
+          "url": "https://juejin.cn/post/7397617342163386378",
+          "summary": "解读Docker Compose 文件中服务配置： Docker UI、MySQL、ZooKeeper、Kafka、Redis 和 Elasticsearch，并提供了如何启动和停止这些服务的具体命令",
+          "source": "juejin"
+        },
+        {
+          "title": "史上最全docker-compose.yaml语法规则",
+          "url": "https://juejin.cn/post/7394289267265781812",
+          "summary": "版本（version） 含义：指定 Compose 文件的版本。 所需值结构：字符串（string） 示例： 服务（services） 含义：定义应用的服务。 所需值结构：映射（map） 服务下的关键",
+          "source": "juejin"
+        },
+        {
+          "title": "使用Dockerfile构建镜像 & 使用docker-compose 一键部署IM项目",
+          "url": "https://juejin.cn/post/7385245216054722594",
+          "summary": "本文讲解：使用Dockerfile构建镜像 & 使用docker-compose 一键部署IM项目。 im项目地址：xzll-im ，欢迎志同道合的开发者 一起 维护，学习，欢迎star 😄",
+          "source": "juejin"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 14,
+      "group": "tech",
+      "query": "PostgreSQL EXPLAIN ANALYZE tutorial",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 1.556,
+      "raw_count": 40,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "PostgreSQL源码｜核心数据结构 List｜重点函数讲解",
+          "url": "https://www.bilibili.com/video/BV1VvY26rEgM",
+          "summary": "AI 越繁荣，学习越有价值 笔记: +v: coreele",
+          "source": "bilibili"
+        },
+        {
+          "title": "30个sql调优及高级sql技巧",
+          "url": "https://juejin.cn/post/7423293748974895155",
+          "summary": "大家好，我是 V 哥。SQL调优对于提升数据库查询性能至关重要，特别是当数据量大时。以下是20个详细的SQL调优指南和高级技巧，结合案例说明，帮助优化SQL查询的性能。 1. 选择合适的索引 技巧:",
+          "source": "juejin"
+        },
+        {
+          "title": "PostgreSQL源码：Select 语句的语义分析过程Overview: SelectStmt---&gt;Analyze---&gt;Query",
+          "url": "https://www.bilibili.com/video/BV1xzrTBNEm6",
+          "summary": "无论AI如何繁荣，理解的有多么迅速，留在自己脑子才有价值，享受学习过程 笔记文档：私信获取",
+          "source": "bilibili"
+        },
+        {
+          "title": "超全mysql转换postgresql数据库方案",
+          "url": "https://juejin.cn/post/7408462655944114187",
+          "summary": "超全mysql转换postgresql数据库方案，学习postgresql的使用，mysql转型postgresql",
+          "source": "juejin"
+        },
+        {
+          "title": "2025-6月现制！B站最新【PgSQL数据库】讲解教程，从小白入门到快速熟练，十分钟学会PostgreSQL，小白运维篇【附课件笔记】",
+          "url": "https://www.bilibili.com/video/BV1dLKtzqEWX",
+          "summary": "2025年全网最新的Linux入门视频学习及路线规划！适合小白和刚毕业的兄弟！每周无休！每日更新！ 超级零基础课程！！！本课程采取十分钟短课，分次讲解各类常用命令和功能，意在帮助大家补弱精强，真正学会Linux，完成就业！！ https://www.bilibili.com/opus/1069645451716722705?spm_id_from=333.1387.0.0 需要课件资料和Linux",
+          "source": "bilibili"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 15,
+      "group": "tech",
+      "query": "MCP Streamable HTTP specification",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 1.829,
+      "raw_count": 41,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "Show HN: Tachyon – Java MCP Server SDK",
+          "url": "https://tachyonmcp.dev/",
+          "summary": "Show HN: Tachyon – Java <em>MCP</em> Server SDK",
+          "source": "hacker_news"
+        },
+        {
+          "title": "给 AI 一个分数，它就会找到你没想到的拿分方法",
+          "url": "https://www.bilibili.com/video/BV1LVWd6LExU",
+          "summary": "2016 年，OpenAI 让 AI 学玩赛艇游戏。它的分数比人类玩家高 20%，却一次也没跑到终点：它找到一片小水湾，绕圈撞那三个会重新出现的目标。 这期用两分钟、不配音讲清“奖励黑客”：AI 只看得见分数时，会怎样钻规则的空子；从赛艇、挡住镜头“假装抓住”的机械手，一直讲到 2025 年 OpenAI 公开的推理模型训练记录：模型在思考里写下“Let&#x27;s hack”，被罚之后，作弊没",
+          "source": "bilibili"
+        },
+        {
+          "title": "最近在外网大火的MCP（模型上下文协议）是个什么鬼",
+          "url": "https://juejin.cn/post/7442296819710476297",
+          "summary": "MCP服务器的基本介绍与优势 MCP（模型上下文协议）是由Anthropic公司提出的一种新技术，旨在通过简化AI模型（如Claude）与外部工具、数据源之间的连接，优化智能应用的开发与集成过程。",
+          "source": "juejin"
+        },
+        {
+          "title": "【osu!taiko】キミのとなりで (&lt;3) 99.87% A",
+          "url": "https://www.bilibili.com/video/BV1F1hy6uEvt",
+          "summary": "饿啊",
+          "source": "bilibili"
+        },
+        {
+          "title": "用Next.js编写OCR护照上MRZ的网页应用",
+          "url": "https://juejin.cn/post/7397335019894013962",
+          "summary": "本文介绍了如何使用Dynamsoft Label Recognizer在Next.js应用程序中扫描MRZ ，从护照、身份证等中提取信息。",
+          "source": "juejin"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 16,
+      "group": "mixed",
+      "query": "retrieval augmented generation survey arxiv",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 1.789,
+      "raw_count": 44,
+      "raw_duplicates": 1,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG",
+          "url": "https://arxiv.org/abs/2501.09136",
+          "summary": "Agentic <em>Retrieval</em>-<em>Augmented</em> <em>Generation</em>: A <em>Survey</em> on Agentic RAG",
+          "source": "hacker_news"
+        },
+        {
+          "title": "【大模型面试题】RAG（Retrieval-Augmented Generation‌）面试真题讲解（带PDF讲义），比背八股文有用多了！",
+          "url": "https://www.bilibili.com/video/BV1hP486KEPK",
+          "summary": "1️⃣ RAG面试题（课件、讲义、笔记） 2️⃣ AI大模型学习路线（应用+工具+算法） 3️⃣ AI大模型入门及进阶视频教程（含配套笔记） 4️⃣ AI大模型最新面试题库（附PDF答案笔记） 5️⃣ 免费1v1职业规划、面试突击指导、定制学习路线✚【mf975320】",
+          "source": "bilibili"
+        },
+        {
+          "title": "万字长文分享AI落地前端实操，带你成为公司最懂AI的前端大佬！",
+          "url": "https://juejin.cn/post/7409191765708947465",
+          "summary": "本篇万字长文分享AI落地前端实操作，相信你认真学习之后，也能够在公司的前端 AI 落地中迈出第一步！也是成为公司最懂 AI 的前端大佬的第一步！",
+          "source": "juejin"
+        },
+        {
+          "title": "Trustworthiness in Retrieval-Augmented Generation Systems: A Survey",
+          "url": "https://arxiv.org/abs/2409.10102",
+          "summary": "Trustworthiness in <em>Retrieval</em>-<em>Augmented</em> <em>Generation</em> Systems: A <em>Survey</em>",
+          "source": "hacker_news"
+        },
+        {
+          "title": "【吴恩达】2026年公认最好的《RAG知识图谱》，从入门到精通，一套解决！Retrieval Augmented Generation-附带课件代码",
+          "url": "https://www.bilibili.com/video/BV1tFGc6LE5n",
+          "summary": "视频来源：DeepLearning.AI 课件代码：评论区自取 本课程我们将学习到： 知识图谱在开发中用于构建复杂数据关系、驱动智能搜索功能，并构建能够对不同数据类型进行推理的强大人工智能应用程序。知识图谱可以连接来自结构化和非结构化来源（数据库、文件等）的数据，为建模复杂的实际场景提供直观灵活的方式。 与表格或简单列表不同，知识图谱可以捕捉数据背后的含义和上下文，使您能够发现使用传统数据库难以找",
+          "source": "bilibili"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        1,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 17,
+      "group": "mixed",
+      "query": "circadian rhythm morning light review",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 1.428,
+      "raw_count": 33,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "Nobel Medicine Prize 2017 - circadian rhythm molecular mechanisms 昼夜节律机制",
+          "url": "https://www.bilibili.com/video/BV1hCgS6pE7K",
+          "summary": "The 2017 Nobel Prize in Physiology or Medicine was conferred upon Jeffrey C. Hall, Michael Rosbash and Michael W. Young for their discoveries of molecular mechanisms controlling the circadian rhythm. ",
+          "source": "bilibili"
+        },
+        {
+          "title": "2024 年了！ CSS 终于加入了 light-dark 函数！",
+          "url": "https://juejin.cn/post/7443828372775764006",
+          "summary": "light-dark 是在 2024 年 5 月新加入的一种新的 CSS 函数，它允许我们根据用户的系统颜色方案（浅色或深色模式）来自动选择合适的颜色值。",
+          "source": "juejin"
+        },
+        {
+          "title": "【Drake】Circadian Rhythm（中字）",
+          "url": "https://www.bilibili.com/video/BV1AzSoBoEyA",
+          "summary": "-",
+          "source": "bilibili"
+        },
+        {
+          "title": "这是我拿下 Google一面的源码阅读技巧！",
+          "url": "https://juejin.cn/post/7426978989044039734",
+          "summary": "在我的技术文章中，经常会通过分析一些核心源码来帮助读者更好地理解该技术点。自己也一直想写一篇文章来介绍如何阅读源码，刚好这次在评论区有小伙伴留言：如何阅读源代码？",
+          "source": "juejin"
+        },
+        {
+          "title": "[Life Kit] How to optimize your circadian rhythm",
+          "url": "https://www.bilibili.com/video/BV1BP21BgEXV",
+          "summary": "There&#x27;s research showing that too much light at night and not enough daylight is taking years off our lives. NPR health correspondent Will Stone has tips to tune up your body&#x27;s internal cloc",
+          "source": "bilibili"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 18,
+      "group": "mixed",
+      "query": "人体工学椅 腰部支撑 选购",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 1.518,
+      "raw_count": 40,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "【绝对不是广】非常客观的评价座易T8/T9全系列，不得不说小厂下料还是猛！腰部支撑独一档！",
+          "url": "https://www.bilibili.com/video/BV1myh86kEP7",
+          "summary": "这期是座易全家桶，不是广不是广！",
+          "source": "bilibili"
+        },
+        {
+          "title": "发现一个程序员最强外设！写代码起飞！",
+          "url": "https://juejin.cn/post/7444903023237120041",
+          "summary": "在代码的海洋中，程序员是 探索者，他们用键盘和鼠标绘制出数字世界的宏伟蓝图。 然而，长时间的编程工作不仅要求极高的专注度，还伴随着对效率的极致追求。程序员最害怕的莫过于思路被打断，一个流畅的编码环境对",
+          "source": "juejin"
+        },
+        {
+          "title": "【2026年人体工学椅推荐】人体工学椅怎么选？哪个品牌的腰部支撑最到位？西昊/保友/黑白调/歌德利/永艺/网易严选~",
+          "url": "https://www.bilibili.com/video/BV1pDYJ61EVW",
+          "summary": "人体工学椅怎么选？很多人会在西昊、保友、黑白调、歌德利、永艺、网易严选等品牌间犹豫。本期人体工学椅推荐围绕腰部支撑、扶手调节、坐垫透气性和后仰角度等维度，整理不同价位的产品特点，帮大家避开选购误区。入门款适合学生宿舍和预算有限者，进阶款强化腰背分离与联动扶手，高端款追腰和头枕调节更精细。不论久坐办公或电竞游戏，都能找到合适的一把。",
+          "source": "bilibili"
+        },
+        {
+          "title": "我做了三把椅子原来纹理这样加载切换",
+          "url": "https://juejin.cn/post/7433815619685187622",
+          "summary": "我们在浏览一些3D网站时，经常能看到一些模型提供了切换外观的按钮，通过不同的颜色或者纹理的按钮切换，来让模型呈现出来更多的效果。本文我们先从简单的模型入手，看下给椅子模型切换纹理是如何来实现这样的效果",
+          "source": "juejin"
+        },
+        {
+          "title": "【2026年人体工学椅推荐】人体工学椅怎么选？哪个品牌腰部支撑结构更符合久坐办公需求呢？京东京造/西昊/黑白调/网易严选/保友/永艺~",
+          "url": "https://www.bilibili.com/video/BV1z2b36rEbs",
+          "summary": "人体工学椅是久坐办公人群改善坐姿的关键装备。面对众多人体工学椅推荐信息，很多用户更关心人体工学椅怎么选才能兼顾腰部支撑与透气性。视频重点讲解腰靠调节、坐深头枕以及气压棒安全，并结合京东京造、西昊、黑白调、网易严选、保友、永艺等品牌常见配置给出参考，适合久坐、打游戏或升级座椅的用户，避免只看外观忽略底盘和网布耐用性。",
+          "source": "bilibili"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        1,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 19,
+      "group": "mixed",
+      "query": "降噪耳机 地铁 通话 评测",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 1.472,
+      "raw_count": 38,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "地铁口给客户打电话，对方却一句都听不清？😱",
+          "url": "https://www.bilibili.com/video/BV14zWt6XERY",
+          "summary": "做销售最崩溃的瞬间是什么？📞 刚出地铁站，重要客户的电话就来了！周围人声、地铁广播、车辆噪音混在一起，自己说得声嘶力竭，客户却一直说：“听不清！你那边太吵了！” 客户电话不能等，环境噪音又控制不了，怎么办？ 这次用黄鹂智声 Archer 进行真实通话测试，看看 50dB ENC 通话降噪在嘈杂环境下究竟表现如何！🎧",
+          "source": "bilibili"
+        },
+        {
+          "title": "svg实现地铁线路图",
+          "url": "https://juejin.cn/post/7445208959151767604",
+          "summary": "简介 最近学习了svg,想着使用svg实现地铁线路图 其中黄色是1号线，蓝色是2号线，橙色是3号线 实现：react+svg+数据结构-图。 考虑范围包括了每站时间，但未包括了换站时间。考虑到换站时间",
+          "source": "juejin"
+        },
+        {
+          "title": "地铁噪音对比戴黄鹂耳机前后实录差距有多大",
+          "url": "https://www.bilibili.com/video/BV15Rn26yEHv",
+          "summary": "为什么在地铁打电话，对方总是听不清？最难处理的不是轰鸣，是身边杂乱的人声干扰。黄鹂智声依靠 AI 通话灭噪技术，精准区分你的人声和周围杂音，过滤旁人说话声，让通话另一端只听见你的声音。",
+          "source": "bilibili"
+        },
+        {
+          "title": "让声音更纯净：一个简单的音频降噪工具",
+          "url": "https://juejin.cn/post/7439627361953857536",
+          "summary": "为什么要降噪？ 在许多语音相关的应用场景中，噪声的存在会严重影响性能和用户体验。例如： 语音识别: 噪声会降低语音识别的准确率，尤其是在低信噪比环境下。 语音克隆: 噪声会使依据参考音频合成语音的",
+          "source": "juejin"
+        },
+        {
+          "title": "耳夹也能把通话降噪做好？JVC E27A骨声纹降噪怎么样？商场+地铁实测！",
+          "url": "https://www.bilibili.com/video/BV15Stg6oEJy",
+          "summary": "耳夹式耳机戴着舒服是一回事，到了商场、地铁这种嘈杂环境里，通话能不能听清又是另一回事。这期就来实际体验一下JVC E27A的骨声纹通话降噪，同时聊聊佩戴、音质和日常使用体验",
+          "source": "bilibili"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        1,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 20,
+      "group": "mixed",
+      "query": "mechanical keyboard hot swap switch comparison",
+      "providers": [
+        "github_search",
+        "hacker_news",
+        "exa",
+        "juejin",
+        "bilibili"
+      ],
+      "seconds": 1.337,
+      "raw_count": 40,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "github_search",
+        "hacker_news",
+        "bilibili",
+        "exa",
+        "juejin"
+      ],
+      "succeeded_channels": [
+        "hacker_news",
+        "bilibili",
+        "juejin"
+      ],
+      "failed_channels": [
+        {
+          "channel": "github_search",
+          "status": "legacy_failure"
+        },
+        {
+          "channel": "exa",
+          "status": "legacy_failure"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "制作微型机械键盘",
+          "url": "https://www.bilibili.com/video/BV1kbb56DE6f",
+          "summary": "https://www.youtube.com/watch?v=eqOzTvWjd7U 原视频标题：Building a Tiny Mechanical Keyboard 原视频频道：Exercising Ingenuity 内容简介：这段视频详细介绍了一款为Altoids Cyberdeck项目设计的超小型机械键盘，从工作原理、组装过程到编程方法逐步展开。作者首先解释了二极管矩阵键盘的运作机制，",
+          "source": "bilibili"
+        },
+        {
+          "title": "对话式导购 + RAG + MCP 智能商品推荐系统",
+          "url": "https://juejin.cn/post/7703772628574486579",
+          "summary": "前言 维度 说明 技术栈 Spring AI（Alibaba）+ RAG（Milvus / PgVector）+ Function Calling + MCP + Graph 工作流 + SSE 流式",
+          "source": "juejin"
+        },
+        {
+          "title": "10把超薄机械键盘 Top 10 Low Profile Mechanical Keyboard [I6WZNKzHzXc]",
+          "url": "https://www.bilibili.com/video/BV1Am5m62E9G",
+          "summary": "https://www.youtube.com/watch?v=I6WZNKzHzXc",
+          "source": "bilibili"
+        },
+        {
+          "title": "iOS 27 兼容放大模式下，keyboardFrame 与 UIScreen.bounds 的坐标差异",
+          "url": "https://juejin.cn/post/7696090442723393576",
+          "summary": "旧版兼容布局下，UIScreen.mainScreen.bounds 返回 375 × 812，键盘收起后的 y 却是 932。结合真机采样，分析坐标混用导致的页面偏移及修复方式。",
+          "source": "juejin"
+        },
+        {
+          "title": "如何（避免）打造一款开源键盘——以 TOTEM 为例",
+          "url": "https://www.bilibili.com/video/BV1fZvfBnEe4",
+          "summary": "YouTube INFO: This is a re-upload, I accidentally deleted the original 2-weeks ago. 🤦 I briefly talked about open source keyboards in a previous video of mine, but in this one, I finally get to answer",
+          "source": "bilibili"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "after": [
+    {
+      "id": 1,
+      "group": "zh",
+      "query": "检索增强生成 原理",
+      "providers": [
+        "baidu",
+        "sogou"
+      ],
+      "seconds": 2.329,
+      "raw_count": 10,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "baidu",
+        "sogou"
+      ],
+      "succeeded_channels": [
+        "baidu",
+        "sogou"
+      ],
+      "failed_channels": [],
+      "candidates": [
+        {
+          "title": "OceanBase-向量数据库新选择-AI的一体化数据底座",
+          "url": "https://www.baidu.com/baidu.php?url=K60000avpXkFvm720KPBqtvAJVKrfbxeHwRb9inGchDjtkJLWslPYGjyyWdLoDwUBacTL8ld3V5a8-Gfqm7IVzwXGkzyZmUqkEv90IP13aEEhhVk4Ov-iVFW2V4VR7aKeWBuPtfje9J66YkoVYhIeYkyzHhUCuMv0vuov6BxpVu16oneJVmKfmyer7KHSie2s9QW7jpBQCgErVVNcnad2QIblUuV.DY_NR2Ar5Od663rj6tMfGuBEuWiBaPdZKfXl2K-Ox24tg38sHfGmEukmrgtLstV-hHW3vIUe8glnHDgeOl7YgexlZl3JOYQCEvO-kBOxdd1xEOQWSpEeqDgeTPvJEklcELecqNxKYwxEOQqx4Ev3xSk7SL7vkuUrdmhPhz1xkzUJSgGzTVHQ8gZJyAp7WWbvUS26.U1Yk0ZDqEr1QqqHvkeOFSo5FFHcsd2L0efKspynqnfKY5U1_zOxRq_XOzxJ1zfKGUHYznWR0u1dsmvqsXfKdpHdBmy-bIfKspyfqnHb0mv-b5HR40AdY5HnknWwxnH0kPdtknjfYg1csPH7xnH0krNt1PW0k0AVG5H00TMfqrHcv0AFG5HDdr7tznjf0Uynqn1DzP7tknjDLg1DsPjwxnW0dnNtknjD4g100TgKGujYs0Z7Wpyfqn0KzuLw9u1Ys0A49pyfqn0K8mgws5H00mLNb5HfzrHDsP1DdPsK9mWYsg100ugFM5H00TZ0qn0K8IM0qna3snj0snj0sn0KVIZ0qn0KbuAqs5H00ThCqn0KbugmqTAn0uMfqn0KspjYs0Aq15H00mMTqnH00UMfqn0K1XWY0mgPxpywW5gK1QyNWp6KGuAnqHbC0TA9YXHY0IA7zuvNY5Hnkg1nkn-t30ZwdT1YLnHb3rH0vnH0knj0krHmzPHb0ThNkIjYkP1bdPjDYPWc1njD30A-W5H00Tv-b5ym1nvmsrjm4nj0srjwWPjR0mLPV5Rm3fWnYP1FAfYmLnWf3nRR0UAF15H00mynqnfKsUWYs0Z7VIjYs0Z7VT1Ys0ZGY5H00mMub5Hc0uLKY5HD0uv7Y5HD0UyPxuMFEUHYsg1KxnH0YP-tsg1Kxn0Kbmy4dmhNxTAk9Uh-bT1YzrjbYnHTvPWuxn7tzrjbYnHTvPWuxn7tsg100TA7Ygvu_myTqn0Kbmv-b5HnkPjRLnW60ugwGujYVnfK9TLKWm1Ys0ZNspy4Wm1Ys0Z7VuWYs0AuWIgfqn0KGTvP_5H00mywhUA7M5HD0UAuW5H00uAPWujY0IZF9uARqnW0zPW010AFbpyfqPWRLnbm3P1fkPHbYn1D3rHNDrH9jrDN7fY77nRDkPYc0mMfqn0KEmgwL5H00ULfqn0KETMKY5H0WnanWnansc10Wna3snj0snj0WnaPDw-fWnanVc108nj0snj0sc1D8nj0snj0sc10WnansQW0snj0snansc10Wnansc10Wnansc108nj0Wnans0AF9UhV9mvnqnansc10Wn0K3TLwd5Hn4PjTzP1nY0Z7xIWYsQW03g108njKxna3sn7tsQWbzg108njKxna3sn7tsQWnkg108n17xn7tsg100mMPxTZFEuA-b5H00ThqGuhk9u1Ys0ZKzTvRqPHR40Ad-IjYs0APv5fKGTdqWTADqn0KWTjYs0AN1IjYs0Z7MIvfqn0KETjDqn0KsTjfqn6KWThnqnHn3rH6&us=newvui&xst=mWYvPHTzwW6LPjDdrHf1nH64PRf4rDn3wRNjfRRkfHDLf6715HDLPHcLP1nLPHckrjDYn1bkrjTLg1czPNts0gTqEr1QqqHvkeOFSo5F0gDqEr1QqqHvkeOFSo5FcPiVsrYKIHY1rHfLnWT1P07Y5HDLrHRYnHfvnWnKUgDqn0cs0BYKmv6quhPxTAnKUZRqn07WUWY3rj04n1cdnNtvn-qCmyqxTATKTMfqn0DYnHTvPW0YPHRk&cegduid=n1bYP1cLn1f&solutionId=46714052&word=",
+          "summary": "",
+          "source": "baidu"
+        },
+        {
+          "title": "打破幻觉的钥匙:一文读懂检索增强生成(RAG)如何让AI更靠谱- · 科普中国网",
+          "url": "https://www.kepuchina.cn/article/articleinfo?ar_id=686303&business_type=100&classify=0",
+          "summary": "",
+          "source": "sogou"
+        },
+        {
+          "title": "检索增强生成(大模型前沿技术之一) - 百度百科",
+          "url": "http://www.baidu.com/link?url=V8eaxRT-m-A-LOLXt0AVkI3nHbx0fIqtlPFweeUJbQncPFGTDHmhssRO-0Cn_qHUvbR3OwaO-GjEDXNBM79aXZAHbXv-wcP0lEW9mbUN6AwrWuyrZR1Ptr0F5I1b2O3YItj2fsE6crzn14QARNhsZ_",
+          "summary": "RAG的工作原理是通过检索大规模文档集合中的相关信息，然后利用这些信息来指导文本的生成，从而提高预测的质量和准确性。RAG 包含三个主要过程：检索、增强和生成。检索：根据用户的查询内容，从外部知识库获取相关信息。具体而言，将用户的查询通过嵌入模型转换为向量，以便与向量数据库中存储的相关知识进行比对。通过相似...历史沿革技术定义工作流程重要组成成分百度百科",
+          "source": "baidu"
+        },
+        {
+          "title": "什么是检索增强生成 (RAG)?| NVIDIA 术语表",
+          "url": "https://www.nvidia.cn/glossary/retrieval-augmented-generation",
+          "summary": "",
+          "source": "sogou"
+        },
+        {
+          "title": "深入解析 RAG:检索增强生成的原理与应用-腾讯云开发者社区-腾讯云",
+          "url": "http://www.baidu.com/link?url=yCQ56XXLeaZ0-lSO2CpV549vOGJRBHxbkuRxrjWcNCCenRyrRWG0cr4pbJQfLU21uXhCr_p4dE0Wpey-HMJAXa",
+          "summary": "2025年3月11日RAG 的工作原理 RAG 的工作流程可以分为两个主要阶段:检索和生成。这两个阶段通过端到端... 腾讯云计算",
+          "source": "baidu"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": 2,
+      "group": "zh",
+      "query": "个人知识库 笔记 双向链接",
+      "providers": [
+        "baidu",
+        "sogou"
+      ],
+      "seconds": 1.526,
+      "raw_count": 5,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "baidu",
+        "sogou"
+      ],
+      "succeeded_channels": [
+        "baidu"
+      ],
+      "failed_channels": [
+        {
+          "channel": "sogou",
+          "status": "connection_failed"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "双向链接(网页或笔记间的相互关... - 百度百科",
+          "url": "http://www.baidu.com/link?url=u6S4Xd0D6iJ9UcFEc3t3DhkLZcowgO9KmDRZdI4ck8GZP7-S5zeSXrxkCL8dxIRpFUAcZbBKuvx2ENql-JUnooIU1So6uqssJjREryKqFsQS0J5sYzFRq036rX6g926V",
+          "summary": "双向链接（Reciprocal Link），又称交互链接，指两个网页或两篇笔记之间建立的相互关联关系，使得用户可以从A跳转到B，也能从B返回A。在网站优化中，它指两个网站相互链接以共享流量的做法。双向链接的概念可追溯至1945年范内瓦·布什对关联索引的构想。1965年，泰德·尼尔森提出“超文本”概念，描述了互联信息网络的愿景。2020年左右，该概念在Roam Research、Obsidian等知识管理工具中流行，用于构建个人知识网络。在网站SEO领域，它常被称为友情链接，是网站间常见的合作方式。定义与概念发展历程技术原理实现与操作百度百科",
+          "source": "baidu"
+        },
+        {
+          "title": "思源笔记搭建个人知识库:双向链接、块引用与Docker部署全攻略-CSDN博客",
+          "url": "http://www.baidu.com/link?url=3w64mVn7vHXbmw796CgIquav2xUb6HXoKjk_1MkZbwWJL95kaqYIqXAi5yabaTYz1kpQ9hcNqXQfw46G0bLgq2AQXw4S8cEixAPPZgSaVOW",
+          "summary": "2026年9月16日和Notion相比,它的数据不托管在别人服务器上;和纯Markdown文件工具相比,它多了一层数据库和块引用能力,尤其适合长期积累型的内容。这也是为什么我说它是“搭建个人知识库”的工具,而不是“又一个笔记App”。 2. 思源笔记的核心机制:块、双向链接与本地优先 2.1 块就是最小单元,Markdown在这里被升级了 思源笔记...",
+          "source": "baidu"
+        },
+        {
+          "title": "从零搭建个人知识库:原子化笔记与双向链接实战-CSDN博客",
+          "url": "http://www.baidu.com/link?url=3w64mVn7vHXbmw796CgIquav2xUb6HXoKjk_1MkZbwWukrPHI9ls5OMvksCOWb0l9gzUTqhAez_lQ1nUcFPcTZCPkVs4GqOf3Uoi4U00sIq",
+          "summary": "2026年10月22日本文系统阐述了以原子化笔记和双向链接为核心的个人知识库搭建方法。强调知识管理本质是维护信息与人的关系,而非信息堆砌;通过将每条笔记限定为单一核心想法、建立语义明确的双向链接、坚持本地优先的纯文本存储,实现知识的可复用、可关联与可迁移。实操部分涵盖扁平目录结构(收集箱/卡片盒/项目区/归档区)、标准化命名规...",
+          "source": "baidu"
+        },
+        {
+          "title": "告别废纸式笔记:用卡片盒+双向链接打造个人知识复利系统",
+          "url": "http://www.baidu.com/link?url=P2YYS0b3vBr5rFXkBqJ8oDWzDSLiEptePgwH-wl8gPoRIhvMo7nwsX3eAYoG8T0hh0HptXFSNj4v7BNpelaRXtZFcEDX3M5pGgz9hZVt4ka",
+          "summary": "2026年11月9日理由有三条:文件是纯文本Markdown格式,不依赖任何软件的私有格式,任何一个文本编辑器都能打开;文件存储在本地硬盘,数据安全感强;双向链接是原生功能,做知识关联非常顺手。 在此基础上,我按照卡片盒笔记法的思路,把整个库分成几个区域,目录结构如下: TEXT复制 1 0-收件箱/ 2 0-闪念/ 3 1-文献/ 4 2-永久...",
+          "source": "baidu"
+        },
+        {
+          "title": "第3篇·双向链接:连接知识的黄金桥梁 - 腾讯云开发者社区-腾讯云",
+          "url": "http://www.baidu.com/link?url=6f9PaSR5ehPaku3LoE8HWJ-4wy4Vfp2cR34GCs-AWtb7Lj2dmPTOYY_FYkdnCbseaXmPxL8kt8d0nN1vH4Mt_a",
+          "summary": "2026年7月27日双向链接是 Obsidian 的核心,它通过简单的语法,将孤立的笔记编织成一张动态的知识网络。 腾讯云计算",
+          "source": "baidu"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": 3,
+      "group": "zh",
+      "query": "杭州 西湖 博物馆 预约",
+      "providers": [
+        "baidu",
+        "sogou"
+      ],
+      "seconds": 1.742,
+      "raw_count": 5,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "baidu",
+        "sogou"
+      ],
+      "succeeded_channels": [
+        "baidu"
+      ],
+      "failed_channels": [
+        {
+          "channel": "sogou",
+          "status": "connection_failed"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "杭州西湖博物馆怎么预约(附预约流程)- 杭州本地宝",
+          "url": "http://www.baidu.com/link?url=5uArR9yITF1Ql1sDR2aONZRvsomiLI-0PFinOo_08keatZjCmXXXtcH5zkA4kfz9Yc01M_6kgalr_I0Ai6rSDK",
+          "summary": "2026年8月13日一、关注官方微信公众号【杭州西湖博物馆总馆非常西湖】,点击菜单栏的【导览服务】→【预约通道】 二、进入预约系统页面,找到【杭州西湖博物馆】,点击【预约】 三、填写预约信息,选择预约时间、游玩时间,填写游客个人信息后,点击【立即预约】 四、出现如下页面即为预约成功,同时也会收到一则预约成功的提示短信 【导语】:杭州",
+          "source": "baidu"
+        },
+        {
+          "title": "馆区介绍",
+          "url": "http://www.baidu.com/link?url=Rpm93gM5K15Pc9Qi_BgtCAK4jQDs2wt1hnO2lvPj6sOeqw7RGZcqeCFdekAFaHZ_nW1QSzhWLIb3_GCYBQYOeYDlKtJjPXwt-rJwV3-6WsG",
+          "summary": "杭州西湖博物馆总馆是一座综合型博物馆,涵盖四大馆区(西博馆区、南宋官窑馆区、名人馆区、肖峰馆区),... 杭州西湖博物馆",
+          "source": "baidu"
+        },
+        {
+          "title": "杭州西湖博物馆参观攻略:开放时间、预约方式、交通路线全指南 - 百度文库",
+          "url": "http://www.baidu.com/link?url=X2WvXKiLMVhgcs1tk4ZiuLACRNDz-bzBPp5XaZXc-oU5O9Kyucult-aHi4aQYBTpd1_bzmOTjmq4wkQr1mnq5ArF104q8d4H7KtYn74wsGZuc9E1EKtGiONkljfx0q6c",
+          "summary": "预约方式如下：1.关注官方微信公众号【杭州西湖博物馆总馆非常西湖】；2.点击菜单栏的【导览服务】→【预约通道】；3.进入预约系统页面，找到【杭州西湖博物馆】，点击【预约】；4.选择预约时间与游玩时间，填写游客个人信息后点击【立即预约】；5.出现预约成功页面即为预约成功，同时会收到提示短信。预约可约3天内...",
+          "source": "baidu"
+        },
+        {
+          "title": "西湖博物馆怎么预约 - 百度经验",
+          "url": "http://www.baidu.com/link?url=pj_GGcubmxsvtEHZ3vEM9xusudgdRw6a8cw0MRPengoZPmjibVmIZumcDt398lkCFMjOaKdN7QPhDxADErC_bfKzZKgdJLwvGUQwl7KeFT_",
+          "summary": "2021年7月11日方法/步骤 1 点击预约。2 点击杭州西湖博物馆。3 选择预约日期。4 选择游玩时间。5 填写游客信息。6 ...",
+          "source": "baidu"
+        },
+        {
+          "title": "杭州最全博物馆预约攻略(附链接)",
+          "url": "http://www.baidu.com/link?url=6QPUExP6cNwVFPvkR4tSywytfQ_1AfHN4WkJoLPSBco4jsQr01Buk5muZGOmt6VnoBUU1_Ars6UFfuJtGUkPRU_imVEU193m9ADovcvLa6K",
+          "summary": "2023年7月28日杭州工艺美术博物馆（中国刀剪剑、扇、伞博物馆）开放时间：9:00-16:30 地址：小河路334号 可通过“杭州工艺美术博物馆”官方微信公众号进行预约，点击预约 司徒雷登故居 开放时间：8:30-16:30 地址：耶稣堂弄3号 预约方式：（无需预约）杭州西湖博物馆总馆 开放时间：9:00-17:00 地址：南山路89号 可通过... 都市快报橙柿互动",
+          "source": "baidu"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": 4,
+      "group": "zh",
+      "query": "热泵 工作原理",
+      "providers": [
+        "baidu",
+        "sogou"
+      ],
+      "seconds": 2.28,
+      "raw_count": 5,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "baidu",
+        "sogou"
+      ],
+      "succeeded_channels": [
+        "baidu"
+      ],
+      "failed_channels": [
+        {
+          "channel": "sogou",
+          "status": "connection_failed"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "热泵的工作原理标准版-资料文档库-全文阅读下载",
+          "url": "https://www.baidu.com/baidu.php?url=K60000avpXkFvm7207mwdqDL8sV_WQzryLDLIMhO3QwaYKfDTBXgXxB26MTnlr9g4OLyU4cZuscAr0NXqxaHUzx4ic5Z-NCd0inPUtsQrLkbWf8RfPRyhxZvMWZXR9ZixIAc2VsLZmmlAPQk1tWrKJ3D0wbjyCuRvbFspFhdHuTbs_NP9pmNhzMB7im9ABBJn2IESOArvIneGFX_7M3bmPK0X5Tk.DD_NR2Ar5Od663DkI8jzWTBa9o8ek1f_g_3_DTIxgZwuB4THAeGvyUqvl1GllGMmnxQBmo__vX5uklxZFgdeRlrKYd1AZ1tTr1W9qEzsSxH9qXrZdLmx5kseOU9vIhZ1LmxgksSLI9tS1jlOQjESZj4e_r11seOo9tOZjE_serMJzOlZ3SN5wfzk8BmsS5o9zur5HmlZZj9zun5Zv3xZds4nWnnQ_DNj79zun5Zv3ThHI8tXMuYeqvZFbs459s4nMpMwsrh8kmThHjkq8ZFbvTxZu_oLuPqXeF9zunrH3TrHFjn-h6OlD3_rHF93SLjbzUOZGLIrOuguu_s4nhZFtrZFbdHrsmtyZFbstxU9zu2eQPMWvTXMkzN3ThHjbSZjbzmlQnyQjbzmX5Vs4nheGvyUqvl1Gs4nhZFtrZFbqhKnvWjbzmX5Vs4nhZ1tTr1W9qEzsSxH9qXrZdLmx5kseOU9vIhZ1LmxgksSLI9tS1jlOQjESZj4e_r11seOo9tOZjE_serMjbzmxZ4mTMs3ThHZjAMH9zun5Zv3xZds4nh-P1tAMjbzmX5Vs4n-erQK9zunrH3TrHFZWsRAIyZFbstxU9zuc333l7a9fs4nhZFtrZFbuxxBs4nhZWeTrHczzz1xxxx9zunrH3TrHFnh6h26qYRIauh6MNCs4nhZWeTrHFPPPPZZZZ9zun5Wt_5Wt-BmvUQPOZF8o4XMFzdn84TXGmuCyr1W8zU-.U1Yk0ZDqznBkszRznQhbdOxRoTjV0ZKGm1Yk0ZK1pyI85iY0IjLczQZjVTi4GPxLd2L0efKGUHYkPjmk0ATqUvNsT100Iybqmh7GuZR0TA-b5HD40APGujYdrfKVIjY4njRsg1nznW9xnH0kPdtznjRkg1DsnH-xn1msnfKopHYs0ZFY5Hm3r0KBpHYkPH9xnW0Y0AdW5HbsPHKxn1czr7tknjDLg1csPH7xnH0krNts0Z7spyfqn0Kkmv-b5H00ThIYmyTqn0K8my-b5H00Uh7YTjYs0APdujYznj0srHDkrHT10A7B5HKxn0K-ThTqn0KsTjYs0A4vTjYsQW0snj0snj0s0AdYTjYs0AwbUL0qn0KzpWYs0Aw-IWdsmsKhIjYs0ZKC5H00ULnqn0KBI1Ykn0K8IjYs0ZPl5fK9TdqGuAnqTZnVuyPJ0A-bm1dri6KspZw45fKYmgFMugfqPWPxn7t1P6KYIgnqnHRvnjf3n163PHcLPW0kPjnzP1f0ThNkIjYkP1bdPjDYPWc3njRz0A-W5H00Tv-b5HbYnWbLuHcknj0srjTzrAm0mLPV5Rm3fWnYP1FAfYmLnWf3nRR0UAF15H00mynqnfKsUWYs0Z7VIjYs0Z7VT1Ys0Aw-I7qWTADqn0KlIjYs0AFvujYs0AIsIjYk0AI9IjYk0AdWgvuzUvYqn7tsg1Kxn7tsg100uA78IyF-gLK_my4GuZnqnW04P1fYPHR1g1c3PWTkP1cvndtsg1Kxn7ts0ZK9I7qhUA7M5H00uAPGujYknjf3PHTv0ANYpyfqQHD0mgPsmvnqn0KdTA-8mvnqn0KkUymqn0KhmLNY5H00pgPWUjYs0A7buhk9u1Yk0Akhm1Ys0AwWmvfq0Zwzmyw-5HcsnHTsP0KBuA-b5RcYfRm3wWP7wWmYfH0zrDDswDnYPDNjPHD3fYwjwWNa0AqW5HD0mMfqn0KEmgwL5H00ULfqnfKETMKY5HcWnanzPBnzc1nYnjmdnj0YnjRWnH0sPj0WnH0sPj08nj0snj0sc1nWnBnsczYWna3sn1bdPHDWni3snj0snj0Wninsc108nj0snj0sc10Wn1cLP1R1PWmdnHDWnansc10Wnansc108nj0WnH0sPj0Wn0KBmy4omyPW5H0Wnansc100XZPYIHYdPHTvrjm4PfKkgLmqna3sn7tsQW0sg108njKxna3sn-tsQWb3g108njKxna3LrNtsQWT4g1Kxn7ts0AF1gLKzUvwGujYs0ZFEpyu_myTqn0KVugfqn0KWugw9u1Yk0APv5fKGTdqWTADqn0KWTjYs0AN1IjYs0Z7MIvfqn0KETjDqnHm0TZ0Y5Hc0mLFW5HR1njTs&us=newvui&xst=mWdaPD7ArDm1wRmvPDDsnW9KnDwjPjw7f1RkrDPDfYmdf6715HDsPWTvnW01njTkrjR3njfdPH61g1DYPW7xn07L5TWc_TrdkQhbdOxRoTjV0gDqznBksza4GPxLd2L0ef7d5HRdP1m3PWbd0gfqnHT4PHfkPjmzr07VTHYs0W0aQf7Wpjdhmdqsms7_IHYs0yP85H63njb1nWRkg1mzgv99Udqsus7zIjYs0HDvP1DdrHR4PjD&word=",
+          "summary": "",
+          "source": "baidu"
+        },
+        {
+          "title": "热泵(一种节能装置) - 百度百科",
+          "url": "http://www.baidu.com/link?url=6K-qWkGoNEGubXuYGOPYh47afRq1mn9KVjLd5GDxoyrNT89uEPpRvE-iAuaGewIHHfWEn1tiHZBkSAEnfPFZ7areZPHTavfjX80gq04V8S_",
+          "summary": "热泵是一种充分利用低品位热能的高效节能装置。热量可以自发地从高温物体传递到低温物体中去，但不能自发地沿相反方向进行。热泵的工作原理就是以逆循环方式迫使热量从低温物体流向高温物体的机械装置，它仅消耗少量的逆循环净功，就可以得到较大的供热量，可以有效地把难以应用的低品位热能利用起来达到节能目的。热泵概念...热泵概念工作原理发展历史分类百度百科",
+          "source": "baidu"
+        },
+        {
+          "title": "热泵原理 - 百度百科",
+          "url": "http://www.baidu.com/link?url=fIUXIjKTgt6PVPI7XumvXaevjRQ08os322MxT4or3VpA7ROGdad_lPd4zX0i5hT4LMra11lLVNrf1BkOC5ZB-QhyvdKJu8-yQIAvr9Ritkarf4AdgXequrrZb_fu9Zf8",
+          "summary": "\u0002热泵\u0001装置\u0001的\u0001工作\u0001原理\u0001与\u0001压缩\u0001式\u0001制冷\u0001机\u0001是\u0001一致\u0001的\u0003，\u0001在\u0001小型\u0001空调\u0001器\u0001中\u0001，\u0001为了\u0001充分\u0001发挥\u0001其\u0001效能\u0001，\u0001夏季\u0001空调\u0001降温\u0001或\u0001冬季\u0001取暖\u0001，\u0001都\u0001是\u0001使用\u0001同\u0001一\u0001套\u0001设备\u0001来\u0001完成\u0001。\u0001冬季\u0001取暖\u0001时\u0001，\u0001将\u0001空调\u0001器\u0001中\u0001的\u0001蒸发\u0001器\u0001与\u0001冷凝\u0001器\u0001通过\u0001一\u0001个\u0001换向\u0001阀\u0001来\u0001调换\u0001工作\u0001。\u0001在\u0001夏季\u0001空调\u0001降温\u0001时\u0001，\u0001按\u0001制冷\u0001工况\u0001运行\u0001，\u0001由\u0001压缩\u0001机\u0001排出\u0001的\u0001高压\u0001蒸汽\u0001，\u0001经\u0001换向\u0001阀\u0001（\u0001又\u0001称\u0001四通\u0001阀\u0001）\u0001进入\u0001冷凝\u0001器\u0001；\u0001在\u0001冬季\u0001取暖\u0001...\u0001",
+          "source": "baidu"
+        },
+        {
+          "title": "科普|生活里的“热量搬运工”——热泵技术",
+          "url": "http://www.baidu.com/link?url=-lP35Tmm1rd3XnH8nmh1Ywk1Iuf3oBbjFzIHu5XPeFXjI4KBKB82XdTpO7KW4I11ClsBw17wQQfJPn5TX5HOIyQl8RehQsV5d9ANavlyqzRZ9o8hA8mKANJXMpFw0EulHm6D9TvaHq6VikdYfaAL0umIT5gAuaRjSVJzvnLvojUVOg2p7BEN3xUMQVhhz12MYmo3-Z0SugielDvmjWSPgxfww9mIsP6P5TP2Xz5t4VXUIPvnVaqI-o12Go0lU2jvChTDIIxxEEJKu_lZzZgd1_",
+          "summary": "2026年4月11日第一种是空气源热泵,也是我们最容易见到的一种,它的热量来源就是我们身边的室外空气。不管...",
+          "source": "baidu"
+        },
+        {
+          "title": "空气能是真有用还是瞎忽悠?一文读懂工作原理+南北选购避坑",
+          "url": "http://www.baidu.com/link?url=-lP35Tmm1rd3XnH8nmh1Y7nq7AMQNy1_GZj5GytVd9PU_9Jcg-S0zYMGngjIjcg0-EwKGwfu_Lj_rCdBpEKsayYsJ8ix6euMGnCJ2hd3e-O",
+          "summary": "2026年4月16日空气能热泵的工作原理完全一样：蒸发器像海绵\"吸热\"，从空气中吸收热量；压缩机像手\"挤热\"，把冷媒压缩成高温气体；换热器把热量释放出来加热水或空气；膨胀阀让冷媒回到低压状态，回到蒸发器继续\"吸热\"。就这样周而复始，把空气中的热量源源不断地\"吸\"到室内来。空气里虽然没有火炉那种高温热能，但蕴含着丰富的低... 潇湘晨报网",
+          "source": "baidu"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": 5,
+      "group": "zh",
+      "query": "如何改善 睡眠 光照 作息",
+      "providers": [
+        "baidu",
+        "sogou"
+      ],
+      "seconds": 1.745,
+      "raw_count": 5,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "baidu",
+        "sogou"
+      ],
+      "succeeded_channels": [
+        "baidu"
+      ],
+      "failed_channels": [
+        {
+          "channel": "sogou",
+          "status": "connection_failed"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "失眠怎么办有什么好方法没有?_-出现这些症状,警惕失眠",
+          "url": "https://www.baidu.com/baidu.php?url=K60000avpXkFvm72079qqLEDiDthYwnNpvtwUmKhXWjBm0f0Fvak6uvDFfS69Amm6zNzLkbvtc5T7hBj69pWU4nVv9_woT56XNeUIVZqRXS9g3ddB6OFuahT-bbBGOUe7XvilaXkv4fHqDRdLmnosbaQv5khaYmdhy53oThL6YzW7mTVaYRuxz44wSuVqcHj-3JuZ6d-VGgmbf6eyKQpz6px002k.7Y_NR2Ar5Od66u8utovTyKDDUlamrjQsePxYXktnjrGnNj8OHBmouHbHvyIhV5Zgbo8ds4QPIxu_Hke5ZuIoer1o6CpXyPvap7Q7erQKvIT7jHzlRL5spycTT5gKfYtVKnv-Wj4e_5Ven5og9tOZjESZjeUn5MY3I-hZu43x5_sS8Oj_vmx5I9vXLjEtt5MY3IOs3IhOj4qhZdqTrz1j4qhZdL3Ih1j4e_5VLmxg4mx5GseSMjlet5MY3xgW9Le_5MY3xgF9qVXZ1lTrO3Tr1xdsRP5Qal26h26k9tSrZuu9Lvmx5I9qEu9qpt5M33IOs3xUu9tSrZuu9Ld4t5MY3I-hZu43x5_sS8Oj_vmx5I9vXLjEtS8a9G4myIrP-SJFWHxIvnwlX8glcgwpLlhDl5qo6E3O-_ObxtjeEOCEOvMgxEOlSaZ9ksOoo35CEYOgV8YYXLSwSL_YxoYOeNH5exS8EqXMtEYgOtgKqZtH4NNxqWqjSwvOYxYrLWODzsqZqZ4XoO4ZexOmLx-3xUsO-OftlOzOVSXHSwS9qlO4ZlZ4tjngo7qLtAQHwex4ZeXOOpObxjqSMe4mXjSF-tqL4TEOmzx-zOMxSE3xqoc1SLOoCLdOtyBO3xEYOxHNuISOlt5qAWsxwOs59LlxSkCo_9YOgKjkObmO4ZlMO7qZlq5SdR1SLOooOgGOQq7OO7sxwOcOfO3J5tWHqlOz451qM4xYcXZtElZ4pEzlxSkCOQGOdYx3MzqVMtWqEOgNSgQ4dOqWQSggODOfeIZtHlerWSFtVgKSEHgsx-SZOpLqIXFBQqSA5tLeIMOmOP-BOeZ4JeSLtvyQl51ux-vxhoOtZw7SLjIJoSgyAGW_lLLTEYmhcEL3mO1xVvxqWtvyQO_xhoEex1umECOP-SguSpEOsIDgeTPvJEklcELecqNxKYwxEkI_getNx4_88etdXM9lsdnIMySe-ElcljZhqMQS9ODB9_ObxgtvJWYUeQ5-toQ5drWwuSOsqE43E1yIP--MO6lcXkQGVbgeOdexgQSIdjIYfOMOBXVLLOdqPLqZCLxjYvyyyyyyyyyynOSjOspOLqPxKSOS9gsx2QVBSg4xU7-sxSjtLzYtnvyZ9OPgSgOsTZztx-7gqtEKOVX1xk8OvxEqAh1QuZuuujbYuP5HOsQQQQrLwOwOUSWdYOSazz1qS1QzvXL-OvE3bx_OCOlOuS9POvrypEqOO_wxegjA-qAP5O0qMO7wOUze5u8dkTESdODWqMqZOge5YFESkz1NOEOqBQOp3mYECkGO3Z_O3J5eXguePvEIsOqWOB4xl5S188O3VgoOvnMtHwt5O7Os5SkSxtqZ1ohOUzxJRPLwuuuuu8OCOYxl5qZSWOwOCOYxl5qZ1dkOSa1vOtjWJzOq9mhPhz1xkzUJSgGzTVHQ8gZJyAp7W_er1Gz2.U1Yk0ZDqzrXl1oWDzTm-nWjQot5xFHcs8XQNdiRznPxL1lc0TA-W5HD0IjL2Gt5xd5gjVQj_Yqj2__rY8_rLEUXCseEHY0KGUHYznWR0u1dsTLwz0ZNG5yF9pywd0ZKGujYkrfKWpyfqPHb0UgfqrH03ndtknjDLg1czr7tznjRkg1DsnH-xn1msnfKopHYk0ZFY5HRYnsKBpHYkPH9xnW0Y0AdW5HbsrjPxnH0kPdtznW9xnW0dnNtknjD4g100TgKGujYs0Z7Wpyfqn0KzuLw9u1Ys0A49pyfqn0K8mgws5H00mLNb5HcsnHnsPHDdn160mycqn7ts0ANzu1Ys0ZKs5H00UMus5H08nj0snj0snj00Ugws5H00uAwETjYs0ZFJ5H00uANv5gKW0AuY5H00TA6qn0KET1Ys0AFL5HDs0A4Y5H00TLCq0A71gv-bm1dsTzd8p6KGuAnqHbC0TA9YXHY0IA7zuvNY5Hnkg1nkP7tknjDY0ZwdT1YdPW6vrH04nHf3n103n1DLPHTs0ZF-TgfqnHT4PHfkPjm1njnkrfKGm1Ys0ZPGujd9P1NhPAfLnW0snj6Ln1Tz0AP1UHdArDc1PjTzwbPAP1cYrj770AkBT1Ys0A7W5HD0TA3qn0KkUgfqn0KkUgnqn0KbugwxmLK95H00XMfqn0KBIhfqn6KMTZfqnfKMmgfqnfKVmdqhThqV5HKxn7tsg1Kxn7ts0Aw9UMNBuNqsUA78pyw15HKxn7tsg1Kxn7ts0ZK9I7qhUA7M5H00uAPGujY1nHfdP1c30ANYpyfqQHD0mgPsmvnqn0KdTA-8mvnqn0KkUymqn0KhmLNY5H00pgPWUjYs0A7buhk9u1Yk0Akhm1Ys0AwWmvfq0Zwzmyw-5HcsnjDkP6KBuA-b5R7KPWP7P1PDf1DswRmsPbDYwWc3nWcLPR7DfRf1PYPA0AFY5HD0Uv7YI1Ys0AqY5HD0ULFsIjYzc10WnHTWnH0snan1rjRsnj6vrjTLc1cvnj0WnWmsna3snj0snj0Wnznknj0sc10WQinsQW01rHRdninkQW0snj0snankc10Wna3snj0snj0Wnansc10Wnansc1D3c10Wna3snanzPW0sc100mh78pv7Wm1YzPjnWnHf1c1cYnznkP160XZPYIHYLnWbsnjnvn6KkgLmqna3kP-tsQW0sg108njKxna33P7tsQW0sg108njKxna3zr7tsQWc3g1Kxn7ts0AF1gLKzUvwGujYs0ZFEpyu_myTqn0KVugfqn0KWugw9u1Yz0APv5fKGTdqWTADqn0KWTjYs0AN1IjYs0Z7MIvfqn0KETjDqnW030ZKsPjYkn0KWThnqPW6zPs&us=newvui&xst=mWdKfHm1wHT1wDnknDNAnjuKPDmzrjczP1NKwD7Dn1Ijw6715HDznjmsPjf1PjT4nHf1PWfkrHTsg1czPNts0gTqzJxjLqHdseiseP5fzoQjVQojVevLJnreYq0KTHLc4eor8nHFkBjQot5xcQMBdIR6dOx5C67d5HTzrH0sn1mz0gfqnHT4PHfkPjm1n07VTHYs0W0aQf7Wpjdhmdqsms7_IHYs0yP85H63njb1nWRkg1mzgv99Udqsus7zIjYs0Hn3rH6krH6snjb&cegduid=P1c4nj01PWc&solutionId=41328346&word=",
+          "summary": "",
+          "source": "baidu"
+        },
+        {
+          "title": "如何改善 睡眠 光照 作息 - 精选笔记",
+          "url": "http://www.baidu.com/link?url=Ru-Yn8GUMQc7z-GCHhftGwe4VWI0IJTZvpQopXSEGGFHEh3fR8O6zmrVZdgwVo1OLFDI5BsB1ZSVDMfuE5GKN1A082BIKfiEzN6_OuW7wK0gIvkNg6yDK7ODySlqgqrAo6dBXQuqHYVJJ8In4HCBm33XIFUfpNrWrtQrckwF2D2szk9xskOjUT1Wy8-bGsjlT8D-eFt0bwippuLdY5iZqnvTgviJMV5pIxrszsEWDgu",
+          "summary": "8种治疗失眠的方法 失眠干预可从作息调整、光照管理、睡眠限制、刺激控制、放松训练、认知调整、饮食管控、药物干预8个方向开展。 1、固定作息 每天固定在同一时间上床休息,同一时间起床,即使前一晚没睡好也不要赖床补觉,周末的起床时间与工作日相差不超过1小时,帮身体建立稳定的生物钟节律。 2、光照调节 白天起床后尽快接触自然光30分钟,下午3点后避免强光照射,夜间睡前1小时关闭室内主灯,使用暖光小夜灯,减少蓝光对褪黑素分泌的抑制。 3、睡眠限制 记录一周的实际睡眠时长,将卧床时间调整至与实际睡眠时长接近,比如实际每天睡5小时,就先把卧床时间控制在5.5小时,睡眠效率提升后再逐步增加卧床时间。 4、刺激控制 只有产生明显困意时才上床,不在床上刷手机、看电视、处理工作,如果卧床20分钟仍无法入睡,就起身到昏暗环境中做放松的事,有困意再返回床上。 5、放松训练 睡前10分钟进行腹式呼吸训练,吸气4秒屏息2秒呼气6秒,同时配合渐进式肌肉放松,从脚趾到头顶依次绷紧再放松肌肉,降低身体紧张感。 6、认知调整 睡前不要反复思虑“睡不着会影响第二天状态”,把对睡眠的预期调整为“即使睡不够也能维持基本状态”,减少对失眠的焦虑情绪,避免形成恶性循环。 7、饮食管控 下午2点后不摄入咖啡、浓茶、能量饮料,晚餐避免过饱或吃辛辣油腻食物,睡前1小时不大量饮水,减少夜间起夜次数打断睡眠。 8、药物干预 可在专业人员指导下使用非苯二氮类催眠药物,用药期间避免饮酒,不要自行长期连续服药,定期复诊评估睡眠状态调整方案。 #失眠# #心理健康# #生活习惯影响# #健康新势力计划# #健康热力赛# #白大褂朋友# #金牌药师#王大夫的神经课 改善睡眠的4个实用攻略梦逸轩 怎么调整作息养成睡眠习惯 熬夜党必看!调整作息养成睡眠习惯的5个科学方法 最近门诊遇到好多因为作息紊乱导致失眠的患者,今天分享几个实用小技巧,帮你重建健康睡眠节律 1 固定起床时间比固定入睡时间更重要 每天同一时间起床(包括周末),让生物钟形成规律。即使前一天睡晚了,也要坚持按时起床,避免补觉打乱节奏 2 睡前1小时进入\"睡眠模式\" 调暗灯光,远离电子屏幕,可以听轻音乐或做简单拉伸。让身体接收到\"该休息了\"的信号 3 午睡控制在20-30分钟 过长午睡会影响夜间睡眠质量。建议在下午3点前完成,避免影响晚上入睡 4 建立睡前仪式感 比如温水泡脚、喝杯温牛奶、写日记等,让身体形成条件反射,知道做完这些就该睡觉了 5 卧室环境要\"三宜三忌\" 宜暗、宜静、宜凉爽;忌亮、忌吵、忌过热。保持室温18-22℃,使用遮光窗帘,营造最佳睡眠环境 坚持2-4周就能看到明显改善,好睡眠是健康的基础,从今天开始调整吧! #睡眠习惯# #作息调整# #健康睡眠# #失眠改善# #睡眠质量##金牌药师##白大褂朋友#中医王栋 科学改善睡眠质量的7个实用方法EcoZzzAUS",
+          "source": "baidu"
+        },
+        {
+          "title": "如何改善 睡眠 光照 作息？-权威中医内科专家解答-百度健康",
+          "url": "http://www.baidu.com/link?url=MAVK9UUrQwkKgDuVx4p11tGxIxio07a_9VC8aKZWiVE1hV1w8F7lHhhAKLSgUrstr_CXIeFJ38H6ThzDbggjnd8SPT9wyiTqYvRsxpKbkefdxebViJOoe3sKPihpfGSY5CpeO3BUW-4M68gFVE21hSOGB8EpZLuQGamMxwh7AbeFckx6Qc89aVlv3CaHac0rwSVwbHbO1ZwVKb5Y-DudVXSTAJAvjpEofUxODttW1Wt3zW_AQbPO5FN_ws5Isu8X1AxYToe_U37TdTHz5g2KiKGvSXHIyNeFXfu_Kj5jqt8I1lqLm8SutXDbeLUwtyEpaBBB1wBRm0QKMKZ3thJ75GS0gB7f3tmhABnhlzR9P_rh0CmI0tOT1tuqxdmmYOOxGLTuYsh4qQsUDe0UXfO9BZYyUI9-rXDj4SS4oGhOh7ouqQZ-T1NYd8aUTakU4HBr-4XIotjBIhKBHYdADBWR4izxbaFDcbdzXfTu7RlulfSJ-iQLVCIJhcrzFZagyn_f6_jXXKEj1qEHP6TYX9TyYRdsqAGSJ9NlffY4ttIE2pIt6nOo9tSXgH0tpjAXEzjgusCBNvrNy73BrzNEEBdXgLr3ChjV3FQCeA_l4ETLLXPKkif07NdTJzaIt-_8uwafHAWjhZOHSP90O8zIBgDlzm238SY4F61CRWsW0hFjToWGZmTUMwXzfjVabbCEj9sueOL0pAO7QmvUj7TyhpYbf06QjxRRxGGikFU9yThScCca7q-etJlr50A1eY9anUZ6yR8QnAzuIQAcW_pluac3NLFxlt6bmuWHgjaBBTWIsCcaOdPJOIJNNkb7hNEj8Kh2mDTeglXrL6NHCA7E75jQocLerQfoYeEf8yarnbE5PhNLrqD5cCm5luGEzA9GcKCJOpsOvuHoYO4HWy5IjCj5lbhKEq9d37dP1JKL7T46BOAY-Gyestyj_CgoUMrTSFB30UoC-6j_E4SmEIORtcf6qAZd9emBEJ8fsHtsw3m94m42spqVzN8HqgPv8mqLgZ73Jpy1mLEiA6Izpz8MmHMV4gK4M902ev-w5zv4X9x64D_",
+          "summary": "",
+          "source": "baidu"
+        },
+        {
+          "title": "如何改善睡眠比较好啊-专家文章-博禾医生",
+          "url": "http://www.baidu.com/link?url=lBKTfJh6-JoaZRPPBilVz6JmBTjvTmodEoJr2iBWa7iViOEocUxyd5M7h7FrM3YvR_m45sRC_XaHLPvo3af90K",
+          "summary": "2025年11月9日改善睡眠可通过调整作息、营造舒适环境、适度运动、调节饮食、心理放松等方式实现。 1、调整作息 保持规律作息有助于稳定生物钟,建议每天固定时间入睡和起床,避免熬夜或过度补觉。午睡时间控制在20-30分钟,避免影响夜间睡眠。睡前1小时避免使用电子设备,减少蓝光对褪黑素分泌的干扰。 2、营造舒适环境 卧室温度保持在18-22摄氏度,",
+          "source": "baidu"
+        },
+        {
+          "title": "怎样调回正常睡眠时间-专家文章-博禾医生",
+          "url": "http://www.baidu.com/link?url=LSWXBWOAhRFAa51kwynrZdL--1oth0iLJlSQYzCKHPPnFhXqzBBNXLtmFkwTb8x_KzmQoTeIBeX8rXSodrRTy_",
+          "summary": "建立睡前仪式如温水浴、阅读纸质书籍等有助于身心过渡到睡眠状态。卧室温度保持在18-22摄氏度,使用遮光窗帘和降噪耳塞优化睡眠环境。持续2周仍无改善或伴随日间功能损害时,需排查睡眠呼吸暂停综合征、不安腿综合征等病理因素,必要时在医生指导下使用褪黑素受体激动剂如雷美替胺等短期药物调节。",
+          "source": "baidu"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        1,
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "id": 6,
+      "group": "en",
+      "query": "retrieval augmented generation",
+      "providers": [
+        "bing",
+        "duckduckgo"
+      ],
+      "seconds": 2.763,
+      "raw_count": 10,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "succeeded_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "failed_channels": [],
+      "candidates": [
+        {
+          "title": "KY（网络流行词）_百度百科",
+          "url": "https://baike.baidu.com/item/KY/2652",
+          "summary": "KY，网络流行词，来源于日语的“空気が読めない（发音kuuki ga yomenai）；“K”取自“空気”的“ku”，而“Y”取自“読め”的“yo”，直接译 …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "Retrieval-augmented generation - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+          "summary": "Retrieval-augmented generation (RAG) is a technique that enables large language models (LLMs) to retrieve and incorporate new information from external data sources. [1][2] With RAG, LLMs first refer to a specified set of documents, then respond to user queries. These documents supplement information from the LLM&#x27;s pre-existing training data. [3]",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "KY是什么意思？网络流行语KY的由来、用法及注意事项 ...",
+          "url": "https://wenku.baidu.com/view/9b80c2bdbdf3f90f76c66137ee06eff9aef849b9.html",
+          "summary": "如今，KY已经从小众圈层走向大众网络，成为日常交流中常用的评价性词汇。 KY是日语“空気が読めない”的缩写，发音为“kuuki ga …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "What is Retrieval-Augmented Generation (RAG) - GeeksforGeeks",
+          "url": "https://www.geeksforgeeks.org/nlp/what-is-retrieval-augmented-generation-rag/",
+          "summary": "Retrieval-Augmented Generation (RAG) is a way to make AI answers more reliable by combining searching for relevant information and then generating a response. Instead of guessing based only on old training data, it first finds useful data from external sources (like documents or databases) and then uses it to give a better answer.",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "ky是什么意思网络流行语 - 库库",
+          "url": "https://kuku.baidu.com/landing/tscp_doc/d62bdd13c8c328885fd161b113b1e956",
+          "summary": "1 天前 · ky是什么意思网络流行语-“ky”是一个在网络环境中较为常见的流行语，尤其在二次元文化、论坛、社交媒体以及某些特定的粉 …阅读更多",
+          "source": "bing"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 7,
+      "group": "en",
+      "query": "open source personal knowledge management",
+      "providers": [
+        "bing",
+        "duckduckgo"
+      ],
+      "seconds": 2.826,
+      "raw_count": 10,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "succeeded_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "failed_channels": [],
+      "candidates": [
+        {
+          "title": "OpenAI",
+          "url": "https://openai.smapply.org/",
+          "summary": "OpenAI’s mission is to ensure that artificial general intelligence (AGI) benefits all of humanity. In service of that mission, we …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "Mindolph is an open source personal knowledge management ... - GitHub",
+          "url": "https://github.com/mindolph/Mindolph",
+          "summary": "Mindolph Mindolph is an open source personal knowledge management software with Gen-AI support for all desktop platforms. 简体中文",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "open（英文单词）_百度百科",
+          "url": "https://baike.baidu.com/item/open/497859",
+          "summary": "2026年2月10日 · Open是一个英文单词，形容词、名词、及物动词、不及物动词，作形容词时翻译为“公开的；敞开的；空旷的；坦率 …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "Open Source Personal Knowledge Management (PKM) Tools",
+          "url": "https://openalternative.co/categories/productivity-utilities/note-taking-knowledge-management/personal-knowledge-management-pkm",
+          "summary": "A curated collection of the best open source tools for organizing personal information and building knowledge graphs..",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "open是什么意思_open的翻译_音标_读音_用法_例句_爱词霸 ...",
+          "url": "https://www.iciba.com/word?w=open",
+          "summary": "They're open to the tactical possibilities and the musical challenges precisely because they're freed, through skill, from the need to …阅读更多",
+          "source": "bing"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 8,
+      "group": "en",
+      "query": "how heat pumps work",
+      "providers": [
+        "bing",
+        "duckduckgo"
+      ],
+      "seconds": 2.48,
+      "raw_count": 10,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "succeeded_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "failed_channels": [],
+      "candidates": [
+        {
+          "title": "heat（英语单词）_百度百科",
+          "url": "https://baike.baidu.com/item/heat/19657715",
+          "summary": "8.N-COUNT A heat is one of a series of races or competitions. The winners of a heat take part in another race or competition, against …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "How Heat Pumps Work | HowStuffWorks",
+          "url": "https://home.howstuffworks.com/home-improvement/heating-and-cooling/heat-pump.htm",
+          "summary": "Heat pumps use a small amount of energy to move heat from one place to another. But is one right for your home?",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "HEAT中文 (简体)翻译：剑桥词典 - Cambridge Dictionary",
+          "url": "https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD-%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93/heat",
+          "summary": "Turn the oven to a low heat. Firefighters were driven back by the heat of the flames. A greenhouse stays warm because the glass …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "What Is A Heat Pump And How Does It Work? | Carrier",
+          "url": "https://www.carrier.com/us/en/residential/hvac-resources/heat-pumps/what-is-a-heat-pump-how-does-it-work/",
+          "summary": "Learn what a heat pump is and how it works to provide energy-efficient heating and cooling for your home. Explore types, benefits, and how to choose the right system.",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "heat是什么意思_heat的翻译_音标_读音_用法_例句_爱词霸 ...",
+          "url": "https://www.iciba.com/word?w=heat",
+          "summary": "Some of the heat is used directly or produces useful work; the rest is lost or rejected, radiated into the atmosphere from the engines, …阅读更多",
+          "source": "bing"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 9,
+      "group": "en",
+      "query": "SQLite write ahead log documentation",
+      "providers": [
+        "bing",
+        "duckduckgo"
+      ],
+      "seconds": 4.679,
+      "raw_count": 10,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "succeeded_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "failed_channels": [],
+      "candidates": [
+        {
+          "title": "SQLite Home Page",
+          "url": "https://sqlite.org/index.html",
+          "summary": "2026年10月25日 · SQLite is a C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "Write-Ahead Logging - SQLite",
+          "url": "https://sqlite.org/wal.html",
+          "summary": "1. Overview The default method by which SQLite implements atomic commit and rollback is a rollback journal. Beginning with version 3.7.0 (2010-07-21), a new &quot; Write-Ahead Log &quot; option (hereafter referred to as &quot;WAL&quot;) is available. There are advantages and disadvantages to using WAL instead of a rollback journal. Advantages include: WAL is significantly faster in most scenarios. WAL provides more ...",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "SQLite 教程 | 菜鸟教程",
+          "url": "https://www.runoob.com/sqlite/sqlite-tutorial.html",
+          "summary": "SQLite 教程 SQLite 是一个软件库，实现了自给自足的、无服务器的、零配置的、事务性的 SQL 数据库引擎。 SQLite 是在世界上最 …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "Write-Ahead Logging | SQLite Documentation",
+          "url": "https://wizardforcel.gitbooks.io/sqlite-doc-en/content/48.html",
+          "summary": "Write-Ahead Logging The default method by which SQLite implements atomic commit and rollback is a rollback journal. Beginning with version 3.7.0, a new &quot; Write-Ahead Log &quot; option (hereafter referred to as &quot;WAL&quot;) is available. There are advantages and disadvantages to using WAL instead of a rollback journal. Advantages include: WAL is significantly faster in most scenarios. WAL provides more ...",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "SQLite Download Page",
+          "url": "https://sqlite.org/download.html",
+          "summary": "4 天之前 · See the How To Compile SQLite page for additional information on how to use the raw SQLite source code. Note that a …阅读更多",
+          "source": "bing"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 10,
+      "group": "en",
+      "query": "accessible web forms WAI tutorial",
+      "providers": [
+        "bing",
+        "duckduckgo"
+      ],
+      "seconds": 2.428,
+      "raw_count": 10,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "succeeded_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "failed_channels": [],
+      "candidates": [
+        {
+          "title": "ACCESSIBLE中文 (简体)翻译：剑桥词典",
+          "url": "https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD-%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93/accessible",
+          "summary": "All parts of the museum are accessible to wheelchairs. If your restaurant is not accessible, you will lose not only disabled customers …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "Forms Tutorial | Web Accessibility Initiative (WAI) | W3C",
+          "url": "https://www.w3.org/WAI/tutorials/forms/",
+          "summary": "Accessibility resources free online from the international standards organization: W3C Web Accessibility Initiative ( WAI ).",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "accessible是什么意思_accessible的翻译_音标_读音_用法 ...",
+          "url": "https://www.iciba.com/word?w=accessible",
+          "summary": "爱词霸权威在线词典,为您提供accessible的中文意思,accessible的用法讲解,accessible的读音,accessible的同义词,accessible的反义 …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "Form Instructions | Web Accessibility Initiative (WAI) | W3C",
+          "url": "https://www.w3.org/WAI/tutorials/forms/instructions/",
+          "summary": "Accessibility resources free online from the international standards organization: W3C Web Accessibility Initiative ( WAI ).",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "accessible_百度百科",
+          "url": "https://baike.baidu.com/item/accessible/3756593",
+          "summary": "accessible 是英语形容词，发音为英 [əkˈsesəb (ə)l]、美 [əkˈsesəb (ə)l]，核心含义包含“可到达的”“易获取的”及“可理解的”三层语义。 …阅读更多",
+          "source": "bing"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 11,
+      "group": "tech",
+      "query": "Python asyncio TaskGroup exception handling",
+      "providers": [
+        "bing",
+        "duckduckgo"
+      ],
+      "seconds": 3.564,
+      "raw_count": 10,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "succeeded_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "failed_channels": [],
+      "candidates": [
+        {
+          "title": "Welcome to Python.org",
+          "url": "https://www.python.org/",
+          "summary": "The mission of the Python Software Foundation is to promote, protect, and advance the Python programming language, and to …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "Python Taskgroups with asyncIO - GeeksforGeeks",
+          "url": "https://www.geeksforgeeks.org/python/python-taskgroups-with-asyncio/",
+          "summary": "Prerequisite Exception Handling Asyncio Exception Groups in Python NOTE: Task group is the latest feature available in Python 3.11, so if the user doesn&#x27;t have Python 3.11 installed this will not work. Let&#x27;s understand using the Coding process:",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "Download Python | Python.org",
+          "url": "https://www.python.org/downloads/",
+          "summary": "Starting with the Python 3.11.0, Python 3.10.7, and Python 3.9.14 releases, CPython release artifacts are signed with Sigstore. See …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "python - How to prevent python3.11 TaskGroup from canceling all the ...",
+          "url": "https://stackoverflow.com/questions/75250788/how-to-prevent-python3-11-taskgroup-from-canceling-all-the-tasks",
+          "summary": "As other answers have pointed out, TaskGroup s don&#x27;t currently come with any built-in mechanism like asyncio .gather () &#x27;s return_exceptions parameter, to prevent the TaskGroup from cancelling all its tasks when one of them raises an exception .",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "Python 基础教程 | 菜鸟教程",
+          "url": "https://www.runoob.com/python/python-tutorial.html",
+          "summary": "Python 基础教程 Python 是一种解释型、面向对象、动态数据类型的高级程序设计语言。 Python 由 Guido van Rossum 于 1989 年底 …阅读更多",
+          "source": "bing"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 12,
+      "group": "tech",
+      "query": "React useEffect cleanup strict mode",
+      "providers": [
+        "bing",
+        "duckduckgo"
+      ],
+      "seconds": 3.19,
+      "raw_count": 10,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "succeeded_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "failed_channels": [],
+      "candidates": [
+        {
+          "title": "快速入门 – React 中文文档",
+          "url": "https://zh-hans.react.dev/learn",
+          "summary": "使用 Hook 以 use 开头的函数被称为 Hook。 useState 是 React 提供的一个内置 Hook。 你可以在 React API 参考 中找到其他内置的 …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "React useEffect cleanup function in StrictMode - Stack Overflow",
+          "url": "https://stackoverflow.com/questions/77937225/react-useeffect-cleanup-function-in-strictmode",
+          "summary": "My entire application is wrapped under React . StrictMode and because of the strict mode , useEffect is getting called twice which is setting the user input twice and subsequently calling the service twice. As I understand, it should call the cleanup function before running the next effect to keep the component pure.",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "React",
+          "url": "https://react.dev/",
+          "summary": "React is the library for web and native user interfaces. Build user interfaces out of individual pieces called components written in …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "React 18 strict mode: How to create something in a useMemo and cleanup ...",
+          "url": "https://stackoverflow.com/questions/78343636/react-18-strict-mode-how-to-create-something-in-a-usememo-and-cleanup-in-a-usee",
+          "summary": "However, with strict mode in react 18, the useEffect cleanup is called twice to check if the useEffect is not missing a cleanup . But we do have a cleanup . It&#x27;s just cleaning up something which was not created in a useEffect and therefore is not being recreated... I could change my code to",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "React 教程 | 菜鸟教程",
+          "url": "https://www.runoob.com/react/react-tutorial.html",
+          "summary": "React 教程 React 是一个用于构建用户界面的 JAVASCRIPT 库。 React 主要用于构建 UI，很多人认为 React 是 MVC 中的 V（视 …阅读更多",
+          "source": "bing"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 13,
+      "group": "tech",
+      "query": "Docker compose depends_on healthcheck",
+      "providers": [
+        "bing",
+        "duckduckgo"
+      ],
+      "seconds": 2.591,
+      "raw_count": 10,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "succeeded_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "failed_channels": [],
+      "candidates": [
+        {
+          "title": "Docker | Secure Sandboxes for AI Agents",
+          "url": "https://www.docker.com/",
+          "summary": "Run AI agents and containers safely, anywhere. Docker gives builders trusted sandboxes, governance, and a secure supply chain for …",
+          "source": "bing"
+        },
+        {
+          "title": "Control startup and shutdown order in Compose | Docker Docs",
+          "url": "https://docs.docker.com/compose/how-tos/startup-order/",
+          "summary": "Learn how to manage service startup and shutdown order in Docker Compose using depends_on and healthchecks .",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "Docker 教程 | 菜鸟教程",
+          "url": "https://www.runoob.com/docker/docker-tutorial.html",
+          "summary": "Docker 教程 Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从 Apache2.0 协议开源。 Docker 可以让开发者打包他们的应用 …",
+          "source": "bing"
+        },
+        {
+          "title": "docker-compose healthcheck does not work in a way it is expected for ...",
+          "url": "https://stackoverflow.com/questions/59062517/docker-compose-healthcheck-does-not-work-in-a-way-it-is-expected-for-making-cont",
+          "summary": "So, unless your docker-compose version is &lt;3 the healthcheck will not help you much. The healthcheck sets the status of the container (starting, healthy or unhealthy) but docker-compose does not wait until backend container is healthy before starting the app-test.",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "Docker入门教程（非常详细）从零基础入门到精通，看完这 ...",
+          "url": "https://zhuanlan.zhihu.com/p/1892960016316748037",
+          "summary": "2026年2月3日 · Docker入门教程（非常详细）从零基础入门到精通，看完这一篇就够了一、Docker概述1.1 Docker 为什么出现？ 个人 …",
+          "source": "bing"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 14,
+      "group": "tech",
+      "query": "PostgreSQL EXPLAIN ANALYZE tutorial",
+      "providers": [
+        "bing",
+        "duckduckgo"
+      ],
+      "seconds": 2.822,
+      "raw_count": 10,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "succeeded_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "failed_channels": [],
+      "candidates": [
+        {
+          "title": "PostgreSQL: The world's most advanced open source database",
+          "url": "https://www.postgresql.org/",
+          "summary": "Mission-critical usage of PostgreSQL continues to rapidly rise, and PostgreSQL 19 responds to this by simplifying both administration …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "PostgreSQL: Documentation: 19: EXPLAIN",
+          "url": "https://www.postgresql.org/docs/current/sql-explain.html",
+          "summary": "ANALYZE Carry out the command and show actual run times and other statistics. This parameter defaults to FALSE. VERBOSE Display additional information regarding the plan. Specifically, include the output column list for each node in the plan tree, schema-qualify table and function names, always label variables in expressions with their range table alias, and always print the name of each ...",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "PostgreSQL: The world's most advanced open source database",
+          "url": "https://www.postgresql.org/?lang=zh-CN",
+          "summary": "1 天前 · Mission-critical usage of PostgreSQL continues to rapidly rise, and PostgreSQL 19 responds to this by simplifying both …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "PostgreSQL: Documentation: 19: 14.1. Using EXPLAIN",
+          "url": "https://www.postgresql.org/docs/current/using-explain.html",
+          "summary": "The examples use EXPLAIN &#x27;s default &quot;text&quot; output format, which is compact and convenient for humans to read. If you want to feed EXPLAIN &#x27;s output to a program for further analysis, you should use one of its machine-readable output formats (XML, JSON, or YAML) instead.",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "PostgreSQL 教程 | 菜鸟教程",
+          "url": "https://www.runoob.com/postgresql/postgresql-tutorial.html",
+          "summary": "PostgreSQL 教程 PostgreSQL 是一个免费的对象-关系数据库服务器 (ORDBMS)，在灵活的BSD许可证下发行。 PostgreSQL 开发者 …阅读更多",
+          "source": "bing"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 15,
+      "group": "tech",
+      "query": "MCP Streamable HTTP specification",
+      "providers": [
+        "bing",
+        "duckduckgo"
+      ],
+      "seconds": 2.765,
+      "raw_count": 10,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "succeeded_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "failed_channels": [],
+      "candidates": [
+        {
+          "title": "MCP (Model Context Protocol)，一篇就够了。 - 知乎",
+          "url": "https://zhuanlan.zhihu.com/p/29001189476",
+          "summary": "2025年4月12日 · Anthropic 基于这样的痛点设计了 MCP，充当 AI 模型的\"万能转接头\"，让 LLM 能轻松的获取数据或者调用工具。 更 …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "Streamable HTTP - Model Context Protocol",
+          "url": "https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/streamable-http",
+          "summary": "Clients using the Streamable HTTP transport MUST reject tool definitions where any x- mcp -header value violates these constraints. Rejection means the client MUST exclude the invalid tool from the result of tools/list.",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "通俗易懂讲清楚：什么是MCP、MCP服务，其实没那么高深",
+          "url": "https://zhuanlan.zhihu.com/p/1922641762163340954",
+          "summary": "2025年6月29日 · 一、MCP是什么？ MCP ，全名是 Model Context Protocol（模型上下文协议） ，这是 Anthropic 公司在 2024 年 11 …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "Untitled :: Spring AI Reference",
+          "url": "https://docs.spring.io/spring-ai/reference/api/mcp/mcp-streamable-http-server-boot-starter-docs.html",
+          "summary": "The Streamable HTTP transport allows MCP servers to operate as independent processes that can handle multiple client connections using HTTP POST and GET requests, with optional Server-Sent Events (SSE) streaming for multiple server messages. It replaces the SSE transport.",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "MCP World - 海量MCP工具导航",
+          "url": "https://www.mcpworld.com/",
+          "summary": "2025年9月19日 · Excel MCP Server 是一个开源的模型上下文协议（MCP）服务器，让 Claude、Cursor、VS Code Copilot 等 AI 客户 …阅读更多",
+          "source": "bing"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 16,
+      "group": "mixed",
+      "query": "retrieval augmented generation survey arxiv",
+      "providers": [
+        "exa",
+        "bing"
+      ],
+      "seconds": 3.667,
+      "raw_count": 5,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "exa",
+        "bing"
+      ],
+      "succeeded_channels": [
+        "bing"
+      ],
+      "failed_channels": [
+        {
+          "channel": "exa",
+          "status": "quota_exhausted"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "RETRIEVAL中文 (简体)翻译：剑桥词典 - Cambridge Dictionary",
+          "url": "https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD-%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93/retrieval",
+          "summary": "The data management system facilitates easy retrieval of evidence. During egg retrieval, the eggs are removed from the ovaries. a …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "retrieval - 搜索 词典",
+          "url": "https://global.bing.com/dict/search?q=retrieval&FORM=BDVSP6&cc=cn",
+          "summary": "必应词典为您提供retrieval的释义，美 [rɪˈtriv (ə)l]，英 [rɪˈtriːv (ə)l]，n. 取回；索回；数据检索； 网络释义： 恢复；提取；补偿；",
+          "source": "bing"
+        },
+        {
+          "title": "retrieval是什么意思_retrieval的翻译_音标_读音_用法_例句 ...",
+          "url": "https://www.iciba.com/word?w=retrieval",
+          "summary": "爱词霸权威在线词典,为您提供retrieval的中文意思,retrieval的用法讲解,retrieval的读音,retrieval的同义词,retrieval的反义词,retrieval的例 …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "retrieval_百度百科",
+          "url": "https://baike.baidu.com/item/retrieval/53095249",
+          "summary": "What is in question is not the retrieval of an absolute, fixed or \"true\" meaning that can be read off and checked for accuracy, or some …阅读更多",
+          "source": "bing"
+        },
+        {
+          "title": "RETRIEVE中文 (简体)翻译：剑桥词典",
+          "url": "https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD-%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93/retrieve",
+          "summary": "This software helps firms archive and retrieve emails. They've managed to retrieve most of the data. Did they manage to retrieve …阅读更多",
+          "source": "bing"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 17,
+      "group": "mixed",
+      "query": "circadian rhythm morning light review",
+      "providers": [
+        "exa",
+        "duckduckgo"
+      ],
+      "seconds": 2.642,
+      "raw_count": 5,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "exa",
+        "duckduckgo"
+      ],
+      "succeeded_channels": [
+        "duckduckgo"
+      ],
+      "failed_channels": [
+        {
+          "channel": "exa",
+          "status": "quota_exhausted"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "Morning Light &amp; Circadian Rhythm: What Evidence Shows",
+          "url": "https://www.thewellnessvoyage.com/posts/mindful-living/morning-light-exposure-circadian-rhythm",
+          "summary": "Morning light exposure helps set your circadian clock, but timing and intensity matter more than duration. Here&#x27;s what the research actually shows.",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "Morning Light and Circadian Rhythm: 2026 Guide",
+          "url": "https://www.completewellnesshub.com/circadian-rhythm-morning-light-optimization-2026/",
+          "summary": "Learn how morning light resets your circadian clock via the SCN and melanopsin, tied to the 2026 AHA cardiometabolic statement, plus a practical how-to guide.",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "Morning Sunlight and Mental Health: The Science of Light, Mood, and ...",
+          "url": "https://www.simplypsychology.com/articles/morning-sunlight-mental-health",
+          "summary": "Morning light viewing is the most repeated wellness advice of the decade. Here&#x27;s what circadian science actually shows about sunlight, mood, and sleep.",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "Effects of light on human circadian rhythms, sleep and mood",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6751071/",
+          "summary": "On the other hand, light can also be used as an effective and noninvasive therapeutic option with little to no side effects, to improve sleep, mood and general well-being. This article reviews our current state of knowledge regarding the effects of light on circadian rhythms , sleep, and mood.",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "Morning Light Exposure Resets Your Circadian Clock",
+          "url": "https://www.sleepcoachinginstitute.com/blog/morning-light-exposure-circadian-rhythm",
+          "summary": "A single morning light session shifts your circadian clock more than a bottle of melatonin ever will. Here&#x27;s the research behind why timing beats trying harder.",
+          "source": "duckduckgo"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": 18,
+      "group": "mixed",
+      "query": "人体工学椅 腰部支撑 选购",
+      "providers": [
+        "baidu",
+        "sogou"
+      ],
+      "seconds": 1.811,
+      "raw_count": 5,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "baidu",
+        "sogou"
+      ],
+      "succeeded_channels": [
+        "baidu"
+      ],
+      "failed_channels": [
+        {
+          "channel": "sogou",
+          "status": "connection_failed"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "人体工程学座椅-京东电脑椅,热销榜办公坐具整理!",
+          "url": "https://www.baidu.com/baidu.php?url=K60000avpXkFvm720nM701PkdUa8zKgwLC2cObbb_6vHZcAgsVTab2Mi0j8NJZoQvsKFIxadOfMkgBJId475pIg9aIZRbscTGVRiAr1cdkGdopkgz89GZHoMSvf8nunz98hSUlAlAmpqTs23EIyhmkMXxz8v2Bk41fBc_Z8JQHf4LBfLQvoof4Gb9NJ4ya6ywioL2tyE2sC3dWkeX4Zl8QcQPZxw.7b_NR2Ar5Od66sw5I7M9CE9exQQTBaPrMLek8sHfGmEukmntpyuCp88aFeCEETkblTMWYS5ZIblkECFSq17erQKA-hpAo-oerzzExuvIrHFbvImyTNxQG8LnImyTyH-YLUhrohTgQG8LnITyVM-YLUhrVK17Na9WWstxU9zxgjbS_zxQQTWjbS_pyuCp_5ZlqJIZ0lpejkSyZF8tS1jbLXEVs4PLoeTrHI4qhZF8qx-9zUVOZjbLXXejbLXEW9zUEU8s4PLM33ThevenrHI_qTrHI4e_rHIex-9zUEUY3The1LmThedq8ZF8qEW9zUE5Gs4PLVenrHI_LmTMi1Iz88stx-ks4rh9n1odE94mLmFCR3X5zo__enrHGhHzLf3t5Z4uQnhh1tSgeOxN93OQjkSyZFYLLTEYm_5Z4wxElSLtdXh828OWP-dOwSUqOgOvFELqxjSUQ6lcELqxYwx-CI8JE4wkyIUe8glnHDgeSEVOPgGoBoE31uIxYxhOxdOqBUqOgsOhz3rBQqOgqDg4pZUJoSRTNBknUP-hOWbLNtEHb4phgT85R_nYQ7Xlzkf.U1Yk0ZDqznEn4UhbYpxi1BRznPZt_oOyGe57FHcsYpA486KspynqnfKY5TWQ1ry4GQ5nYpxgSIQr0A-V5HDYPWD0u1dsT1c0Iybqmh7GuZR0TA-b5HD40APGujYdrfKVIjY1nWc3g1DsnHIxnW0dnNtknjD4g1nvnj7xrHDLr0KopHYs0ZFY5Hc1PfKBpHYkPH9xnW0Y0AdW5HnznW9xnH0kPdtznjRkg1DsnH-xn7t4nHT30Z7spyfqn0Kkmv-b5H00ThIYmyTqn0K8my-b5H00Uh7YTjYs0APdujYYnWTYPW0Lrjb0mycqn7ts0ANzu1Ys0ZKs5H00UMus5H08nj0snj0snj00Ugws5H00uAwETjYs0ZFJ5H00uANv5gKW0AuY5H00TA6qn0KET1Ys0AFL5HDs0A4Y5H00TLCq0A71gv-bm1dsTzd-mvC0pywW5R420ZKCIZbq0Zw9ThI-IjY1nNt1nHFxnHc0IZN15Hf3rj6vrjfdnj6snjTzPHb3rH00ThNkIjYkP1bdPjDYPWm3PHm30A-W5H00Tv-b5ynYmhnLmH0Ynj0srj6znWm0mLPV5Rm3fWnYP1FAfYmLnWf3nRR0UAF15H00mynqnfKsUWYs0Z7VIjYs0Z7VT1Ys0Aw-I7qWTADqn0KlIjYs0AFvujYk0AIsIjYk0AI9IjYk0AdWgvuzUvYqn7tsg1Kxn7tsg100uA78IyF-gLK_my4GuZnqnHR4rHm4nHcYg1Kxn7tsg1Kxn0Ksmgwxuhk9u1Ys0AwWpyfqn1DYPHTzr0K-IA-b5iYk0A71TAPW5H00IgKGUhPW5H00Tydh5H00uhPdIjYs0A-1mvsqn0K9uAu_myTqnfK_uhnqn0KbmvPb5fKYTh7buHYznjcznjc0mhwGujYzrRm4PjRvnDFDrHP7wRfvfWNKn1-DrH0dwDmkrRwDwfKBIjYs0Aq9IZTqn0KEIjYk0AqzTZfqnBnsc1csc1RWn1T3rHRvrH0Lrandn1TWn161QW0snj0snan1c1RWnanVc108njn4PHRkc1D8nj0snj0sc1DWnansQW0snj0snansc10Wnansc10Wnansc108nj0WPHnLc100mh78pv7Wm1Ysc10Wnans0Z7xIWYsQW0dg108njKxna3sn7tsQWbzg108njKxna3sndtsQWnYg108n1wxn7tsg100mMPxTZFEuA-b5H00ThqGuhk9u1Ys0Ad-IjYs0APv5fKGTdqWTADqn0KWTjYs0AN1IjYs0Z7MIvfqn0KETjDqnHfY0ZKsPjYkn0KWThnqn1RLnWf&us=newvui&word=",
+          "summary": "",
+          "source": "baidu"
+        },
+        {
+          "title": "人体工学椅 腰部支撑 选购 - 精选笔记",
+          "url": "http://www.baidu.com/link?url=eimsg1COxjsqYK58xpJ2DwEjTlfgjhKyXdd5XBePf0dEi6ma_M3-VhDZakeLOmu43mPmbTcg84Q0bY5PQVD657279FQ6JB94sS03cALUNKWbQL3NJ9ZSYNXu-qLZTm_wMqTJWPaq824RY6zvLZ4_T1vENmds1x-EtVykT72GYidBpKLqnEXUemis9JSAdT5G5FXwfzXcuGicxjUQ6dZSSZ_22imGKR5AIMBWwoDO-zS",
+          "summary": "人体工学椅品牌排行榜:哪些品牌质量好?腰部支撑、调节功能与耐用性对比明亮玩数码 换过8把椅子才明白:人体工学椅的“腰部支撑”差距比想象中大得多关关选好物 人体工学椅到底怎么选?从腰到肩的支撑,我对比了十款后留下了这几把百家号 打工人办公椅避坑指南:这10款人体工学椅值得入手,别再花冤枉钱二蛋精选好物屋",
+          "source": "baidu"
+        },
+        {
+          "title": "人体工学椅 腰部支撑 选购 - 百度图片",
+          "url": "https://image.baidu.com/search/index?tn=baiduimage&ct=201326592&lm=-1&cl=2&ie=utf8&sa=vs_ala_img&fr=ala&ala=1&alatpl=normal&pos=3&dyTabStr=MCwzLDEsMiwxMyw3LDYsNSwxMiw5&word=%E4%BA%BA%E4%BD%93%E5%B7%A5%E5%AD%A6%E6%A4%85%20%E8%85%B0%E9%83%A8%E6%94%AF%E6%92%91%20%E9%80%89%E8%B4%AD&lid=c4bc7a0400088226&topic=%E4%BA%BA%E4%BD%93%E5%B7%A5%E5%AD%A6%E6%A4%85%20%E8%85%B0%E9%83%A8%E6%94%AF%E6%92%91%20%E9%80%89%E8%B4%AD",
+          "summary": "",
+          "source": "baidu"
+        },
+        {
+          "title": "2025年人体工学椅选购推荐,2K内8款护腰、颜值、性价比哪款最强_电脑椅_什么值得买",
+          "url": "http://www.baidu.com/link?url=koI1Pvj2vzzDpv-KPp-PFvScCwTftou_DeVxdDX90iU5GEjuVo8z4XVPEYJrmd-g",
+          "summary": "2025年7月12日歌德利 V1人体工学椅子电脑椅电竞椅人工力学座椅 4D分离腰靠 京东 ¥1233.38 腰部支撑部分采用了自适应弹性支撑设计,能够主动贴合不同体型腰部变化,不管是正坐还是后仰,都能提供比较舒适的支撑效果。而且椅背支持 9 档 5cm 升降以及 145°后仰调节,另外头枕支持升降+选择旋转调节,不过对于小个子而言,体验可能不太",
+          "source": "baidu"
+        },
+        {
+          "title": "人体工学椅 腰部支撑 选购的最新相关信息",
+          "url": "http://www.baidu.com/link?url=w9x7G9h0IJ6bfkcZZOFy6cV9G_Vz9M1IzzVznyiPwLPX-oMAAT3W_elxXEk18RyRneLzKvMe9uv8hNJL6ttss6FXAvPJ4YQ1_aKIiT2c0Hy5rRcp-K6UJO9HL68hNh6huMgDRmZ--jjYTL9NWm5PVhKGOzeFES4RhMEUxNtVaw8juJz_AOBUJuQue9S0p051E4iS9qU_K9Bdc9cmxo86Laec_pZPzZljuTM4EnwDuba",
+          "summary": "办公室久坐腰背酸痛?五把人体工学椅真实横评,从百元到千元怎么选...人体工学椅的核心，在于主动贴合你的身体曲线，而不是让你去适应椅子。它主要解决三个问题：腰部支撑、颈部承托、坐姿矫正。腰部支撑：腰椎不是直的，它有一个向前的生理曲度。普通椅子靠背是平的，坐久了腰部悬空，肌肉为了维持姿势会持续紧张，这就是腰酸的根源。颈部承托：很多人低头看屏幕，颈椎承受的压力是正常姿势的好心理咨询师知禾4天前  播报  暂停",
+          "source": "baidu"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        1,
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "id": 19,
+      "group": "mixed",
+      "query": "降噪耳机 地铁 通话 评测",
+      "providers": [
+        "baidu",
+        "sogou"
+      ],
+      "seconds": 1.96,
+      "raw_count": 5,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "baidu",
+        "sogou"
+      ],
+      "succeeded_channels": [
+        "baidu"
+      ],
+      "failed_channels": [
+        {
+          "channel": "sogou",
+          "status": "connection_failed"
+        }
+      ],
+      "candidates": [
+        {
+          "title": "蓝牙耳机地铁通话实测:降噪、断连、清晰度一次说清 - 百度文库",
+          "url": "http://www.baidu.com/link?url=mmDkKVehghR9PC52LT16Wfk4t_hZ3vT2rk9zX00u-5DzoNGcyXyAQoG6Fi6jwRQcgwOsRg0NZHFnMXAkNd8WcYrKqkPrrstP63gQvsBOwlEW15FaWF8Lc2jDzM7xM6JDRxSKwiGconvcWOPcZMZKmYALSsyXXP_Gm7mBdjAckuvKNGqFSpkchLqVY2f7K8Rta-2MdyqcNxChM_TxzN5bVkE2m8ewJK4Dsu7eDR5ifI81sqqnKHb3OGkmi1O0YBlFeKyN16n8naR9boADeo7jqq",
+          "summary": "华为FreeBuds Pro 5降噪深度50dB够用吗?实测降噪效果、原理与提升全解 ...",
+          "source": "baidu"
+        },
+        {
+          "title": "实测三款AI降噪耳机:地铁通勤党到底该选谁? - 智机风向",
+          "url": "http://www.baidu.com/link?url=XM-BWea37bhc-dw3OTkXnVPshTAACrE02OjB3OsElnCvyuKpcEfKRvCdDCPFRbWZ5bx1gs558zFj6SuRO8wuqK",
+          "summary": "7天前如果你主要是通勤用,闭眼入索尼;如果在办公室需要偶尔交流,建议试试那些支持自适应通透模式的国产旗舰。至于预算有限的朋友,别迷信大牌,有些百元级TWS耳机的被动隔音效果已经足够应付日常需求。记住,最好的降噪永远是让你忘记它的存在,而不是时刻提醒你科技有多厉害。下次选购前,不妨先去线下店戴上走一圈,听听空调风声和隔壁桌聊天声的处理差异,比看十篇评测都管用。",
+          "source": "baidu"
+        },
+        {
+          "title": "降噪耳机横评:索尼Bose苹果,谁才是地铁通勤之王",
+          "url": "http://www.baidu.com/link?url=tdY9xNdBGdTRUcWK72H-JkUUIJnsWsjSHJzY44ja-QZaFOnhHmP9O1wvxwqlUEIOtfRkoidM-Y1r7Rx7kLb8er1nW_MZM69BxcgGRxlWRmu",
+          "summary": "2026年10月25日补充一个测试细节：降噪耳机的地铁实测，建议选高峰期去试，站台播报、车厢摩擦声、旁边人聊天的混合噪音，才是真实使用场景。很多耳机在安静环境下降噪听着猛，一到嘈杂环境就露馅，所以买前一定要去实体店试戴。还有个容易被忽略的是通话降噪。地铁里接电话，麦克风能不能把环境噪音滤掉、让对面听清你的声音，这个... 棕熊数码",
+          "source": "baidu"
+        },
+        {
+          "title": "蓝牙耳机地铁通话实测:降噪、断连、清晰度一次说清 - 百度文库",
+          "url": "http://www.baidu.com/link?url=XM-BWea37bhc-dw3OTkXnPXPzBgNZNktq6Y6LY9LLyotsZUS-S73mAKkS47gWCe49jiDWOkKl5yQw6RTdxdABVbJezXKNGQH6qaCmUSvRX0tQaqpAPFM5Amn4EIug_9V",
+          "summary": "华为FreeBuds 7悦彰耳机：通话清晰度表现稳定，最大优势是不挑手机——iPhone和安卓用户都能使用完整的降噪与智慧体验，这在地铁通勤场景中非常实用，不用为了耳机换手机。从实测数据来看，搭载双耳4麦加ENC算法的设备在80dB高噪音环境下仍可维持MOS 4.0以上的清晰通话水准；而常规双麦降噪机型在环境噪音超过60dB后，...",
+          "source": "baidu"
+        },
+        {
+          "title": "降噪耳机 地铁 通话 评测 - 精选笔记",
+          "url": "http://www.baidu.com/link?url=jIEyxLg3c_ujZjimgG4L7DVKjOL_1q0MwgXWyX1eFFZb92vvpZtUvgw2kgBt35X3Z_e25QwhgyuQrG7agfyhDQAF14x2GS0DEdMnhvglpBogp8FrNBqgnfLeRqbt7VsDUQhNDdb-T6SV_1Ferrg4D2oU9R7EoEHJ14fsUIx29p0uOFoNsiwOv1f6jLb924cAoF3LxOGVatTEgUb5bH2vd3tbm56ImhL5-ckRqeRhhJK",
+          "summary": "300块降噪耳机挤地铁:实测2款,能听清通话的真就2台_蓝牙耳机_什么值得买深海派大星 降噪够狠、通话够稳:漫步者FitBuds Turbo地铁实测_耳机_什么值得买 通勤地铁太吵受不了?5款降噪耳机实测对比来了小爱说家电 799元新款降噪耳机首发实测|连续7天,降噪、通透、续航真实数据_什么值得买栩睿",
+          "source": "baidu"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": 20,
+      "group": "mixed",
+      "query": "mechanical keyboard hot swap switch comparison",
+      "providers": [
+        "bing",
+        "duckduckgo"
+      ],
+      "seconds": 2.533,
+      "raw_count": 10,
+      "raw_duplicates": 0,
+      "attempted_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "succeeded_channels": [
+        "bing",
+        "duckduckgo"
+      ],
+      "failed_channels": [],
+      "candidates": [
+        {
+          "title": "MECHANICAL中文 (简体)翻译：剑桥词典",
+          "url": "https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD-%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93/mechanical",
+          "summary": "The company produces mechanical parts for airplane engines. 这家公司生产飞机引擎的机械部件。 The plane appeared to have …",
+          "source": "bing"
+        },
+        {
+          "title": "11 Best Hot-Swappable Keyboards (November 2026) Ranked and Tested",
+          "url": "https://mercury-pc.com/11-best-hot-swappable-keyboards/",
+          "summary": "A hot -swappable keyboard has special PCB sockets that let you swap mechanical switches using a simple switch puller, without any soldering. This allows you to easily change switch types, replace failed switches, and experiment with different typing feels without buying a new keyboard .",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "Mechanical - 搜索 词典",
+          "url": "https://global.bing.com/dict/search?q=Mechanical&FORM=BDVSP6&cc=cn",
+          "summary": "机械式(mechanical) 是利用可伸缩的机械结构 安装于撷取物体上， 以取得各部位的运动量。 电磁 式 (Magnetic) 是利用数个可感 …",
+          "source": "bing"
+        },
+        {
+          "title": "Best Hot Swappable Keyboards 2026: Budget, 5-Pin, Full-Size",
+          "url": "https://mkbguide.com/blog/best-hot-swap-keyboards",
+          "summary": "Which hot -swappable boards take any 3-pin or 5-pin MX switch — and which lock you in? Picks for every layout and budget, socket specs compared.",
+          "source": "duckduckgo"
+        },
+        {
+          "title": "Mechanical - 百度百科",
+          "url": "https://baike.baidu.com/item/Mechanical/530185",
+          "summary": "1.ADJ A mechanical device has parts that move when it is working, often using power from an engine or from electricity. 机械的. …",
+          "source": "bing"
+        }
+      ],
+      "manual_topical_relevance_by_rank": [
+        0,
+        1,
+        0,
+        1,
+        0
+      ]
+    }
+  ]
+}

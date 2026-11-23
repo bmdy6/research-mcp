@@ -10,13 +10,17 @@ HINTS = {
 }
 
 
+class CommandUnavailableError(RuntimeError):
+    """Missing executable, distinct from a process that needs authentication."""
+
+
 def run(command: list[str], **kwargs) -> subprocess.CompletedProcess:
     """Run without changing output; replace missing/login errors with fixed hints."""
     name = command[0]
     try:
         result = subprocess.run(command, **kwargs)
     except FileNotFoundError:
-        raise RuntimeError(HINTS.get(name, "外部命令不可用")) from None
+        raise CommandUnavailableError(HINTS.get(name, "外部命令不可用")) from None
     text = (result.stderr or "").lower()
     if result.returncode and name in HINTS and any(
         marker in text for marker in ("auth login", "not logged in", "authentication", "未登录", "请先登录")
