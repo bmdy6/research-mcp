@@ -10,12 +10,21 @@ import shutil
 import subprocess
 from threading import Lock
 import time
-from urllib.parse import urlsplit
+from urllib.parse import parse_qs, urlsplit
 
 from .errors import ChannelError
 
 # Only platforms whose result DOM was actually read belong here.
-PLATFORMS = {'jd': {'login': True, 'kind': 'product', 'host': 'item.jd.com'}}
+PLATFORMS = {
+    'jd': {'login': True, 'kind': 'product', 'hosts': ('item.jd.com',), 'path': r'/[0-9]+\.html', 'terms': 'https://www.jd.com'},
+    'taobao': {'login': True, 'kind': 'product', 'hosts': ('item.taobao.com', 'detail.tmall.com'), 'path': r'/item\.htm', 'terms': 'https://www.taobao.com'},
+    'tmall': {'login': True, 'kind': 'product', 'hosts': ('detail.tmall.com',), 'path': r'/item\.htm', 'terms': 'https://www.tmall.com'},
+    'smzdm': {'login': False, 'kind': 'article', 'hosts': ('www.smzdm.com', 'post.smzdm.com'), 'path': r'/p/[a-zA-Z0-9]+/', 'terms': 'https://www.smzdm.com'},
+    'zhihu': {'login': True, 'kind': 'article', 'hosts': ('www.zhihu.com', 'zhuanlan.zhihu.com'), 'path': r'/(?:question/[0-9]+(?:/answer/[0-9]+)?|p/[0-9]+)', 'terms': 'https://www.zhihu.com'},
+    'xiaohongshu': {'login': True, 'kind': 'article', 'hosts': ('www.xiaohongshu.com',), 'path': r'/explore/[a-f0-9]{24}', 'terms': 'https://www.xiaohongshu.com'},
+    'douyin': {'login': True, 'kind': 'video', 'hosts': ('www.douyin.com',), 'path': r'/(?:video|note)/[0-9]+', 'terms': 'https://www.douyin.com'},
+    'sogou_wechat': {'login': False, 'kind': 'article', 'hosts': ('weixin.sogou.com',), 'path': r'/link', 'terms': 'https://weixin.sogou.com'},
+}
 PRICE_NOTE = '页面标价，未含券/国补'
 _MARKER = 'RESEARCH_BROWSER_JSON:'
 _LOCK = Lock()
@@ -99,19 +108,33 @@ def search(config: dict, *, platform: str) -> list[dict]:
                 raise ValueError
             url = row.get('url', '')
             parsed = urlsplit(url)
-            if (parsed.scheme != 'https' or parsed.hostname != PLATFORMS[platform]['host']
-                    or parsed.username or parsed.password
-                    or not re.fullmatch(r'/[0-9]+\.html', parsed.path)):
+            definition = PLATFORMS[platform]
+            params = parse_qs(parsed.query, keep_blank_values=True)
+            expected_query = ('id' if platform in {'taobao', 'tmall'} else
+                              'url' if platform == 'sogou_wechat' else None)
+            if (parsed.scheme != 'https' or parsed.hostname not in definition['hosts']
+                    or parsed.username or parsed.password or parsed.port or parsed.fragment
+                    or not re.fullmatch(definition['path'], parsed.path)
+                    or (expected_query is None and parsed.query)
+                    or (expected_query and (set(params) != {expected_query}
+                        or len(params[expected_query]) != 1 or not params[expected_query][0]))
+                    or (expected_query == 'id' and not params['id'][0].isdecimal())):
                 raise ValueError
             if not isinstance(row.get('title'), str) or not row['title'].strip():
                 raise ValueError
             price = row.get('price')
-            if not isinstance(price, str) or not re.fullmatch(r'[0-9]+(?:\.[0-9]{1,2})?', price):
+            if ((platform == 'jd' or price is not None) and
+                    (not isinstance(price, str) or not re.fullmatch(r'[0-9]+(?:\.[0-9]{1,2})?', price))):
                 raise ValueError
-            items.append({'kind': PLATFORMS[platform]['kind'], 'title': row['title'][:1000],
+            item = {'kind': definition['kind'], 'title': row['title'][:1000],
                           'url': url, 'source': platform, 'published_at': None,
-                          'author': str(row.get('author', ''))[:300], 'price': price[:80],
-                          'price_note': PRICE_NOTE, 'actual_backend': 'ego-browser/local_browser'})
+                          'author': str(row.get('author', ''))[:300],
+                          'summary': str(row.get('summary', ''))[:1000],
+                          'actual_backend': 'ego-browser/local_browser'}
+            if price is not None:
+                item.update(price=price[:80], price_note=PRICE_NOTE if platform == 'jd' else
+                            str(row.get('price_note', '页面展示价，优惠条件请回原页核对'))[:160])
+            items.append(item)
         return items
     except (KeyError, TypeError, ValueError, AttributeError):
         raise ChannelError('parse_error') from None

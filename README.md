@@ -155,7 +155,9 @@ flowchart LR
 | `hacker_news` | 英文技术讨论 | 免 key；Algolia 公开 API |
 | `juejin` | 中文工程文章 | 免 key；公开搜索接口 |
 | `bilibili` | 课程、演示、评测 | 免 key 搜索；API 不通时可尝试已有 bili CLI |
-| `jd` | 京东商品，中文 | `local_browser`，仅本机 Ego Lite、已有登录态、显式启用；成功查询验收待权限恢复 |
+| `jd` / `taobao` / `tmall` | 京东、淘宝、天猫商品，中英文查询 | `local_browser`，仅本机 Ego Lite、已有登录态、显式启用 |
+| `smzdm` / `sogou_wechat` | 什么值得买好价/文章、搜狗微信公众号线索，中英文查询 | `local_browser`，本轮无需登录可读；搜狗链接为有时效的跳转链接 |
+| `zhihu` / `xiaohongshu` / `douyin` | 知乎、小红书笔记、抖音作品，中英文查询 | `local_browser`，复用已有登录态；仅搜索页结果，非全文/视频转写 |
 | `arxiv` | 英文论文 | 免 key；默认全部论文，`ARXIV_REQUIRE_GITHUB=1` 可限定 GitHub 链接 |
 | `tavily`、`openalex` | 通用网页 / 学术 | `free_recurring`，免费 key + 对应 `*_FREE_ONLY=1`；请求前核验配额 |
 
@@ -167,7 +169,7 @@ flowchart LR
 - 英文概念 / 官网 → `duckduckgo`，补 `exa` 或 `bing`；不要把共享索引当成独立佐证。
 - 报错 / 实现 → `github_search` + `stackexchange` + `juejin` + `csdn`，官方文档可加网页 `site:` 查询。
 - 论文 → `arxiv` + `openalex` + `crossref`；arXiv 的 GitHub 链接过滤默认关闭。
-- 买东西 → 优先用京东/淘宝/什么值得买查商品与标价，再用 B站看评测。目前只接入京东 `jd`（需本机启用，成功查询验收待完成）和 `bilibili`；淘宝/什么值得买未接入，用网页 `site:` 只算线索。
+- 买东西 → 用 `jd` / `taobao` / `tmall` 查商品展示价，`smzdm` 查好价与文章线索，再用 `bilibili` 看评测；前四个需显式启用本机浏览器。
 
 ```json
 {"query":"Docker compose depends_on healthcheck","providers":["duckduckgo"],"limit":5}
@@ -250,7 +252,7 @@ research-mcp search "检索增强生成" --providers baidu,duckduckgo --limit 5
 
 例如：查报错 → `github_search,stackexchange,juejin,csdn`；查论文 → `openalex,crossref,arxiv`；查生物医学 → `pubmed,europe_pmc`；查图书或播客 → `openlibrary,itunes_podcasts`；了解概念 → `wikipedia,wikidata`；找开源模型 → `huggingface,github_search`。
 
-购物问题组合为 **京东/淘宝/什么值得买 + B站**：先查商品标价和规格，再用评测补体验。目前可指定 `jd,bilibili`；淘宝和什么值得买尚未完成实测，不能作为已实现 provider 指定。可用 `bing` / `baidu` 的 `site:taobao.com`、`site:smzdm.com` 补公开线索，价格回商品页核对。
+购物问题组合为 **京东/淘宝/什么值得买 + B站**：先查商品展示价与好价线索，再用评测补体验。可按问题少选 `jd,taobao,tmall,smzdm,bilibili` 中的渠道，价格和规格回商品页核对。
 
 ```bash
 research-mcp search "轻薄本 14英寸" --providers jd,bilibili --limit 5 --format json
@@ -266,7 +268,7 @@ research-mcp search "轻薄本 14英寸" --providers jd,bilibili --limit 5 --for
 
 #### 本机 Ego Lite 渠道（可选）
 
-目前仅 `jd` 已接入，`cost_class=local_browser`、`requires_login=true`；需安装 ego-browser 并保持本机已有登录态。只用于本地 CLI / stdio MCP，不提供远程浏览器代理，不进入匿名公开搜索白名单，默认渠道不包含它。支持具备 POSIX 文件锁的 macOS/Linux 本机；缺依赖或不支持的平台返回 `startup_failed`。
+已接入 `jd`、`taobao`、`tmall`、`smzdm`、`zhihu`、`xiaohongshu`、`douyin`、`sogou_wechat`，`cost_class=local_browser`；其中什么值得买和搜狗微信本轮无需登录可读，其余按需要已有登录态登记。需安装 ego-browser，只用于本地 CLI / stdio MCP，不进入匿名公开搜索白名单，默认渠道不包含它们。支持具备 POSIX 文件锁的 macOS/Linux 本机；缺依赖或不支持的平台返回 `startup_failed`。
 
 1. 在 Ego Lite 中准备一个本任务专用的现有任务空间与页面，并交给 agent 控制。渠道会导航该页面；不要指定正在操作的其他任务页面。
 2. 在启动本机 research-mcp 的进程环境显式设置：
@@ -279,14 +281,20 @@ export RESEARCH_BROWSER_PAGE=p1 # 替换为该空间已有页面标签
 
 上述 123/p1 是示例，请替换成实际值；本包不会自动创建实例、任务空间、页面或接管用户。未启用、无空间或控制权在用户时返回 `auth_required`；缺 CLI 返回 `startup_failed`。权限提示和登录/验证码由本人处理，渠道不重试、不绕过、不导出 cookie。
 
-通过 `ego-browser nodejs -e` 仅导航搜索页和读 DOM，不滚动翻页、不访问私有接口。跨线程/CLI 进程用本机文件锁串行执行，每次完成后至少间隔 5 秒；子进程超时 45 秒，每页最多 40 条。结果 `price` 为人民币字符串，`price_note` 固定为“页面标价，未含券/国补”；灰色未补贴标价可辨认时才返回该商品，不计算结算优惠。页面改版会返回 `parse_error`，有明确无结果提示才返回 `empty`。
+通过 `ego-browser nodejs -e` 仅导航搜索页和读 DOM，不滚动翻页、不访问私有接口。跨线程/CLI 进程用本机文件锁串行执行，每次完成后至少间隔 5 秒；子进程超时 45 秒，每页最多 40 条。结果 `price` 为人民币字符串：京东只读取可辨认的未优惠标价，注明“页面标价，未含券/国补”；淘宝/天猫保留页面展示价及“国补后/补贴后/优惠后”等条件，不推算原价或结算价。什么值得买仅返回好价/文章标题与链接，不解析成交价。页面改版会返回 `parse_error`，有明确无结果提示才返回 `empty`。
+
+小红书只返回笔记规范链接，不携带 `xsec_token` 或签名图片地址；该链接单独打开可能仍需登录或平台校验。抖音由卡片公开 ID 构建视频/图文链接，依赖当前页面类名。搜狗微信返回搜索结果中的公开跳转链接及摘要，不保证链接长期有效或文章全文可读。所有结果仅代表本次搜索页展示，未逐条验收落地页。
+
+Ego Lite 本地网络策略需在 `chrome://policy`（会显示为 `ego://policy`）核验，写入 defaults 不等于已加载。本轮点击“重新加载政策”后三条阻止策略均为“正常/推荐”，8 个渠道的适配验收可继续；期间仍有一次 SDK 权限提示，不能保证所有网站永不再弹。渠道不会自行授予本地网络权限或接管用户。
 
 #### 本机浏览器未支持清单与原因
 
 | 平台 | 原因 |
 |---|---|
-| 淘宝 | 本轮导航再次触发 Ego Lite 本地网络权限提示，整个任务空间交还用户，未能读取页面；未据此判断淘宝自身不可读 |
-| 天猫、拼多多、什么值得买、闲鱼 | 被同一任务空间的权限提示阻塞，尚未逐平台实测，未接入 |
-| 知乎、小红书、抖音、微博、微信公众号（搜狗微信）、V2EX、linux.do | 同上，未确认搜索结果或登录/验证码要求，未接入 |
+| 拼多多 | 搜索入口跳到 `mobile.yangkeduo.com/login.html`，本轮没有可用搜索结果；未自动登录 |
+| 闲鱼 | 搜索页显示“请先登录，再继续使用”，没有商品结果；未自动登录 |
+| 微博 | 搜索入口跳到 `passport.weibo.com/sso/signin`，要求扫码或验证码登录；未自动登录 |
+| V2EX | 站点入口出现 Cloudflare“正在进行安全验证”，未能进入搜索；未绕过验证，也未把节点列表当搜索结果 |
+| linux.do | 搜索入口先显示验证等待页，随后跳到 `/login`；无可用搜索结果，未登录或绕验证 |
 
-京东已读到真实商品列表，但接入后的完整成功查询也被任务空间控制权阻塞；当前真实 CLI 验证到 `auth_required`。逐平台结果、耗时和字段见 [本机浏览器验收记录](docs/acceptance-local-browser-2026-11-23.md)。这些限制不影响其他免费渠道启动与查询。
+以上是本次浏览器登录态与访问环境的结论，不代表平台永久不可用。13 个平台均有接入或不支持结论；逐平台双语结果、耗时和字段见 [本机浏览器验收记录](docs/acceptance-local-browser-2026-11-23.md)。这些限制不影响其他免费渠道启动与查询。

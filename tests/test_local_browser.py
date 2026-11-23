@@ -74,6 +74,36 @@ class LocalBrowserTests(unittest.TestCase):
     def test_confirmed_empty(self):
         self.assertEqual(self.call({'status': 'empty', 'items': []})['status'], 'empty')
 
+    def test_community_and_shopping_channels_preserve_fields(self):
+        examples = {
+            'taobao': 'https://item.taobao.com/item.htm?id=123',
+            'tmall': 'https://detail.tmall.com/item.htm?id=123',
+            'smzdm': 'https://www.smzdm.com/p/123/',
+            'zhihu': 'https://www.zhihu.com/question/123/answer/456',
+            'xiaohongshu': 'https://www.xiaohongshu.com/explore/abcdef123456789012345678',
+            'douyin': 'https://www.douyin.com/video/123456',
+            'sogou_wechat': 'https://weixin.sogou.com/link?url=public-redirect',
+        }
+        for name, url in examples.items():
+            with self.subTest(platform=name):
+                result = self.call({'status': 'ok', 'items': [{'title': '轻薄本推荐', 'url': url,
+                                    'summary': '搜索结果摘要', 'author': '公开作者'}]}, provider=name)
+                self.assertEqual(result['status'], 'ok')
+                self.assertEqual(result['candidates'][0]['url'], url)
+                self.assertEqual(result['candidates'][0]['summary'], '搜索结果摘要')
+                self.assertNotIn('price', result['candidates'][0])
+                with patch.object(browser, '_run') as run:
+                    self.assertFalse(service.search_public('电脑', providers=[name])['ok'])
+                run.assert_not_called()
+
+    def test_browser_urls_reject_tracking_credentials_and_wrong_paths(self):
+        for url in ('https://item.jd.com/123.html?token=secret',
+                    'https://user:password@item.jd.com/123.html',
+                    'https://item.jd.com:8443/123.html',
+                    'https://item.jd.com/login', 'https://item.jd.com.evil/123.html'):
+            self.assertEqual(self.call({'status':'ok', 'items':[{'title':'电脑', 'url':url,
+                             'price':'6399'}]})['failed_channels'][0]['status'], 'parse_error')
+
     def test_catalog_and_defaults(self):
         from research_mcp.channel_catalog import list_channels
         from research_mcp.research import default_search_providers
@@ -101,6 +131,72 @@ class LocalBrowserTests(unittest.TestCase):
             sleep.assert_called_once_with(4.0)
             self.assertEqual(run.call_count, 2)
             self.assertEqual(run.call_args.kwargs['timeout'], 45)
+
+    @unittest.skipUnless(__import__('shutil').which('node'), 'Node needed for DOM fixture')
+    def test_packaged_javascript_platform_links_and_price_labels(self):
+        script = browser.Path(browser.__file__).with_suffix('.mjs').read_text()
+        # Minimal public result cards, including duplicate links and tracking data.
+        # No browser, account, network, site scripts or signed media involved.
+        fixture = r'''
+const input = INPUT;
+const platform = input.platform;
+function node(text='', attrs={}, children={}) {
+ return {innerText:text, ...attrs, getAttribute:k=>attrs[k],
+   querySelector:s=>children[s] || null, closest:()=>node('card')};
+}
+let card, nodes;
+if (platform==='taobao' || platform==='tmall') {
+ card=node('', {href:'https://detail.tmall.com/item.htm?id=123&tracking=private'}, {
+  '[class*="title--"][title]':node('',{title:'真实标题'}),
+  '[class*="innerPriceWrapper"]':node('3195\n.16'),
+  '[class*="priceWrapper"]':node('¥3195.16 国补后'),
+  '[class*="shopNameText"]':node('公开店铺')});
+} else if (platform==='smzdm') {
+ card=node('真实标题',{href:'http://www.smzdm.com/p/123/?tracking=private'});
+} else if (platform==='zhihu') {
+ card=node('真实标题',{href:'https://www.zhihu.com/question/123/answer/456?tracking=private'});
+} else if (platform==='xiaohongshu') {
+ card=node('',{'data-note-id':'abcdef123456789012345678'}, {'.title':node('真实标题'),'.name':node('作者')});
+} else if (platform==='douyin') {
+ card=node('图文\n真实标题',{id:'waterfall_item_123456'}, {'.BjLsdJMi':node('真实标题'),'.WldPmwm5':node('作者')});
+} else {
+ card=node('真实标题',{href:'https://weixin.sogou.com/link?url=public-redirect&tracking=private'});
+}
+globalThis.location={hostname:HOST};
+globalThis.document={body:{innerText:BODY},querySelectorAll:()=>[card,card]};
+const page={label:'p5',goto:async(url)=>{if(!url.includes(encodeURIComponent(input.query)))throw Error('query not encoded')},
+ waitForFunction:async()=>{},evaluate:async(fn,arg)=>fn(arg)};
+const listTaskSpaces=async()=>[{id:12,ownership:OWNER}];
+const taskSpace=async()=>({pages:async()=>[page]});
+'''
+        cases = [('taobao','s.taobao.com','https://detail.tmall.com/item.htm?id=123'),
+                 ('tmall','s.taobao.com','https://detail.tmall.com/item.htm?id=123'),
+                 ('smzdm','search.smzdm.com','https://www.smzdm.com/p/123/'),
+                 ('zhihu','www.zhihu.com','https://www.zhihu.com/question/123/answer/456'),
+                 ('xiaohongshu','www.xiaohongshu.com','https://www.xiaohongshu.com/explore/abcdef123456789012345678'),
+                 ('douyin','www.douyin.com','https://www.douyin.com/note/123456'),
+                 ('sogou_wechat','weixin.sogou.com','https://weixin.sogou.com/link?url=public-redirect')]
+        for platform, host, url in cases:
+            for owner, body, status in [('agent','','ok'), ('agent','请完成验证','blocked'),
+                                        ('agent','请先登录','auth_required'), ('user','','auth_required')]:
+                with self.subTest(platform=platform, owner=owner, body=body):
+                    setup = fixture.replace('INPUT',json.dumps({'space':12,'page':'p5','platform':platform,
+                                             'query':'电脑 & laptop','limit':2}))
+                    setup = setup.replace('HOST',json.dumps(host)).replace('BODY',json.dumps(body)).replace('OWNER',json.dumps(owner))
+                    # Avoid colliding with the real script's platform binding.
+                    setup = setup.replace('const platform = input.platform;', 'const fixturePlatform = input.platform;').replace("platform===", "fixturePlatform===")
+                    result = subprocess.run(['node','--input-type=module','-e',setup+script],
+                                            capture_output=True,text=True,timeout=10)
+                    self.assertEqual(result.returncode,0,result.stderr)
+                    payload=json.loads(result.stdout.strip().split(browser._MARKER)[-1])
+                    self.assertEqual(payload['status'],status)
+                    if status=='ok':
+                        self.assertEqual(len(payload['items']),1)
+                        self.assertEqual(payload['items'][0]['url'],url)
+                        self.assertEqual(payload['items'][0]['title'],'真实标题')
+                        if platform in ('taobao','tmall'):
+                            self.assertEqual(payload['items'][0]['price'],'3195.16')
+                            self.assertIn('国补后',payload['items'][0]['price_note'])
 
     @unittest.skipUnless(__import__('shutil').which('node'), 'Node needed for DOM fixture')
     def test_packaged_javascript_reads_unsubsidized_price_and_stops_for_barriers(self):

@@ -58,9 +58,9 @@ CATALOG += tuple(_entry(name, ["zh", "en"], [kind], BACKENDS[name],
     ))
 
 from research_mcp.channels.local_browser import PLATFORMS
-CATALOG += tuple(_entry(name, ["zh"], [definition["kind"]], "ego-browser/local_browser",
+CATALOG += tuple(_entry(name, ["zh", "en"], [definition["kind"]], "ego-browser/local_browser",
                        cost="local_browser", login=definition["login"],
-                       terms="https://www.jd.com")
+                       terms=definition["terms"])
                  for name, definition in PLATFORMS.items())
 
 _lock = Lock()
