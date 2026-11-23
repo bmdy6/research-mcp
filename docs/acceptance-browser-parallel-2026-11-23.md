@@ -16,45 +16,51 @@
 
 ## 登录需求和匿名 HTTP 探测
 
-每个渠道均用不带 Cookie/Authorization 的系统 curl 直接请求搜索页（跟随重定向，最大 18 秒）；Python 自带证书链缺失，未关闭 TLS 验证，改用系统 curl。初筛后用 HTMLParser 复核相对链接，避免把 CSS、标签导航或空壳页面当结果。SDK 没有文档化的独立无痕上下文接口，本轮没有使用隔离浏览器复核。
+旧表已撤回：上一轮 Python urllib 的本机 CA 错误被误当作平台结果，原 `URLError` 表不能支持渠道可用性或登录结论。
 
-“保守需登录”是目录原有要求或本轮带登录态接入的要求，**不意味着已证实该站禁止匿名浏览器搜索**。HTTP 拦截/JS 空壳不能证明必须登录；这些站点保留浏览器渠道。目录既有 requires_login=false 的渠道保持 false。耗时是匿名 HTTP 探测总耗时，非浏览器耗时；更改后的真实渠道耗时见下表后说明。
+以下为系统 curl 重测。复现命令：`python3 scripts/probe_anonymous_http.py --output docs/acceptance/anonymous-http-2026-11-23.json --markdown /tmp/anonymous-http-table.md`。
 
-| 渠道 | 登录需求 | 实现 | 匿名 HTTP 耗时 | 本轮 HTTP 观察 |
-|---|---|---|---:|---|
-| xianyu | 保守需登录，匿名浏览器待确认 | 浏览器 | 0.07s | URLError；未证实可直接提取搜索结果 |
-| weibo | 保守需登录，匿名浏览器待确认 | 浏览器 | 0.11s | URLError；未证实可直接提取搜索结果 |
-| jd | 保守需登录，匿名浏览器待确认 | 浏览器 | 0.08s | URLError；未证实可直接提取搜索结果 |
-| taobao | 保守需登录，匿名浏览器待确认 | 浏览器 | 0.04s | URLError；未证实可直接提取搜索结果 |
-| tmall | 保守需登录，匿名浏览器待确认 | 浏览器 | 0.03s | URLError；未证实可直接提取搜索结果 |
-| smzdm | 不需要（既有登记） | 浏览器 | 0.10s | URLError；未证实可直接提取搜索结果 |
-| zhihu | 保守需登录，匿名浏览器待确认 | 浏览器 | 0.06s | URLError；未证实可直接提取搜索结果 |
-| xiaohongshu | 保守需登录，匿名浏览器待确认 | 浏览器 | 0.07s | URLError；未证实可直接提取搜索结果 |
-| douyin | 保守需登录，匿名浏览器待确认 | 浏览器 | 0.04s | URLError；未证实可直接提取搜索结果 |
-| sogou_wechat | 不需要（HTTP 实证） | HTTP | 0.09s | 可读结果，已转 HTTP |
-| boss | 保守需登录，匿名浏览器待确认 | 浏览器 | 0.12s | URLError；未证实可直接提取搜索结果 |
-| liepin | 保守需登录，匿名浏览器待确认 | 浏览器 | 0.11s | URLError；未证实可直接提取搜索结果 |
-| hupu | 不需要（既有登记） | 浏览器 | 0.07s | URLError；未证实可直接提取搜索结果 |
-| kr36 | 不需要（既有登记） | 浏览器 | 0.07s | URLError；未证实可直接提取搜索结果 |
-| amazon | 不需要（既有登记） | 浏览器 | 4.50s | 200；未证实可直接提取搜索结果 |
-| douban | 不需要（既有登记） | 浏览器 | 0.11s | URLError；未证实可直接提取搜索结果 |
-| youtube | 不需要（既有登记） | 浏览器 | 62.82s | URLError；未证实可直接提取搜索结果 |
-| x | 保守需登录，匿名浏览器待确认 | 浏览器 | 0.22s | URLError；未证实可直接提取搜索结果 |
-| medium | 不需要（既有登记） | 浏览器 | 0.22s | URLError；未证实可直接提取搜索结果 |
-| devto | 不需要（既有登记） | 浏览器 | 1.27s | URLError；未证实可直接提取搜索结果 |
-| segmentfault | 不需要（HTTP 实证） | HTTP | 0.10s | 可读结果，已转 HTTP |
-| pypi | 不需要（既有登记） | 浏览器 | 1.16s | URLError；未证实可直接提取搜索结果 |
-| gitee | 不需要（既有登记） | 浏览器 | 0.13s | URLError；未证实可直接提取搜索结果 |
-| mafengwo | 不需要（既有登记） | 浏览器 | 0.12s | URLError；未证实可直接提取搜索结果 |
-| sspai | 不需要（既有登记） | 浏览器 | 0.10s | URLError；未证实可直接提取搜索结果 |
-| suning | 不需要（HTTP 实证） | HTTP | 0.06s | 可读结果，已转 HTTP |
-| huxiu | 不需要（既有登记） | 浏览器 | 2.25s | URLError；未证实可直接提取搜索结果 |
-| lobsters | 不需要（既有登记） | 浏览器 | 21.27s | URLError；未证实可直接提取搜索结果 |
-| maimai | 保守需登录，匿名浏览器待确认 | 浏览器 | 0.17s | 200；未证实可直接提取搜索结果 |
-| dianping | 保守需登录，匿名浏览器待确认 | 浏览器 | 0.30s | 200；未证实可直接提取搜索结果 |
-| tieba | 保守需登录，匿名浏览器待确认 | 浏览器 | 0.18s | 403；未证实可直接提取搜索结果 |
+统一复用生产 HTTP 传输：普通浏览器 UA、校验 TLS、禁用 curlrc、不带 Cookie/Authorization，单请求最多 18 秒、5 MB、5 次 HTTPS 重定向；每站不重试。豆瓣分别请求公开书籍/电影/音乐分类页。表中耗时包含该渠道所有请求，HTTP 状态按请求顺序列出。
 
-匿名 HTTP 实际渠道验收：苏宁 0.27 秒、搜狗微信 0.16 秒、思否 0.55 秒，均 status=ok。HTTP 200 本身不算结果证据；只接受平台规范结果路径并清除跟踪参数。搜狗只保留公开跳转 url 参数，不返回 token。
+登录要求来自既有目录：浏览器“需登录”是保守使用要求，未作无痕浏览器复核。HTTP 拦截、JS 空壳、TLS/网络错误均不能证明必须登录或平台不可用。`result_link_hints` 仅为 URL 线索，未据此迁移浏览器渠道；虎嗅首页探测不等于完成其搜索。
+
+采集时间（UTC）：2026-11-23T13:44:58.770976+00:00。原始状态见 [JSON](acceptance/anonymous-http-2026-11-23.json)。
+
+| 渠道 | 登录要求 | 当前实现 | HTTP 状态 | 耗时 | curl / 解析观察 |
+|---|---|---|---|---:|---|
+| xianyu | 需登录（目录保守要求） | browser | 200 | 0.074s | unverified_html_or_js (curl=0, results=0) |
+| weibo | 需登录（目录保守要求） | browser | 200 | 0.297s | auth_required (curl=0, results=None) |
+| jd | 需登录（目录保守要求） | browser | 200 | 0.479s | unverified_html_or_js (curl=0, results=0) |
+| taobao | 需登录（目录保守要求） | browser | 200 | 0.070s | unverified_html_or_js (curl=0, results=0) |
+| tmall | 需登录（目录保守要求） | browser | 200 | 0.063s | unverified_html_or_js (curl=0, results=0) |
+| smzdm | 不要求登录 | browser | 202 | 0.171s | http_non_200 (curl=0, results=None) |
+| zhihu | 需登录（目录保守要求） | browser | 403 | 0.137s | blocked (curl=0, results=None) |
+| xiaohongshu | 需登录（目录保守要求） | browser | 301 | 0.112s | connection_failed (curl=1, results=None) |
+| douyin | 需登录（目录保守要求） | browser | 200 | 0.165s | unverified_html_or_js (curl=0, results=0) |
+| sogou_wechat | 不要求登录 | HTTP/API | 200 | 0.284s | parsed_results (curl=0, results=10) |
+| boss | 需登录（目录保守要求） | browser | 200 | 0.174s | unverified_html_or_js (curl=0, results=0) |
+| liepin | 需登录（目录保守要求） | browser | 200 | 0.207s | unverified_html_or_js (curl=0, results=0) |
+| hupu | 不要求登录 | HTTP/API | 200 | 0.363s | parsed_results (curl=0, results=20) |
+| kr36 | 不要求登录 | browser | 200 | 0.210s | unverified_html_or_js (curl=0, results=0) |
+| amazon | 不要求登录 | browser | 200 | 2.001s | result_link_hints (curl=0, results=9) |
+| douban | 不要求登录 | HTTP/API | 200/200/200 | 2.298s | parsed_results (curl=0, results=20); parsed_results (curl=0, results=20); parsed_results (curl=0, results=20) |
+| youtube | 不要求登录 | HTTP/API | 200 | 1.655s | parsed_results (curl=0, results=20) |
+| x | 需登录（目录保守要求） | browser | — | 5.247s | tls_error (curl=35, results=None) |
+| medium | 不要求登录 | browser | — | 5.032s | tls_error (curl=35, results=None) |
+| devto | 不要求登录 | HTTP/API | — | 5.016s | tls_error (curl=35, results=None) |
+| segmentfault | 不要求登录 | HTTP/API | 200 | 0.297s | parsed_results (curl=0, results=20) |
+| pypi | 不要求登录 | browser | 200 | 0.586s | unverified_html_or_js (curl=0, results=0) |
+| gitee | 不要求登录 | browser | 200 | 0.277s | unverified_html_or_js (curl=0, results=0) |
+| mafengwo | 不要求登录 | browser | 202 | 0.187s | http_non_200 (curl=0, results=None) |
+| sspai | 不要求登录 | browser | 200 | 0.215s | unverified_html_or_js (curl=0, results=0) |
+| suning | 不要求登录 | HTTP/API | 200 | 0.291s | parsed_results (curl=0, results=30) |
+| huxiu | 不要求登录 | browser | 405 | 0.260s | blocked (curl=0, results=None) |
+| lobsters | 不要求登录 | browser | 200 | 1.080s | unverified_html_or_js (curl=0, results=0) |
+| maimai | 需登录（目录保守要求） | browser | 200 | 0.198s | auth_required (curl=0, results=None) |
+| dianping | 需登录（目录保守要求） | browser | 200 | 0.285s | unverified_html_or_js (curl=0, results=0) |
+| tieba | 需登录（目录保守要求） | browser | 403 | 0.217s | blocked (curl=0, results=None) |
+
+本次四渠道双语查询与失败重测详见 [HTTP 迁移验收](acceptance-http-four-2026-11-23.md)。此前苏宁、搜狗微信、思否耗时属于历史实测，本表仅列本次重新执行的 curl 结果。
 
 新增浏览器渠道：脉脉 3.23 秒，大众点评 1.84 秒，贴吧 2.63 秒，均有真实搜索正文和规范链接。脉脉最多读取 2 条临时详情页以获取帖子 ID；大众点评当前默认上海（城市 1）；贴吧读取搜索区 thread-content-box，排除侧栏热榜。
 

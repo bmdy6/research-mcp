@@ -23,6 +23,8 @@ from .local_browser import PROVIDERS as LOCAL_BROWSER_PROVIDERS
 
 from .http_search import PROVIDERS as HTTP_SEARCH_PROVIDERS
 
+# Keep HTTP providers after local providers: these IDs never implicitly open
+# a browser. Legacy local_browser.PROVIDERS remain explicit diagnostic fallbacks.
 CHANNELS = {
     **LOCAL_BROWSER_PROVIDERS,
     **HTTP_SEARCH_PROVIDERS,

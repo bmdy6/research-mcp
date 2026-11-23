@@ -2,3 +2,5 @@ include tests/*.py
 include research_mcp/channels/open_websearch_bridge.mjs
 include THIRD_PARTY_NOTICES.md
 include third_party/open-webSearch-LICENSE
+include scripts/probe_anonymous_http.py
+include README.en.md

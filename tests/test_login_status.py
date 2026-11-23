@@ -17,7 +17,7 @@ class LoginTests(unittest.TestCase):
         with patch.dict(os.environ,{'RESEARCH_LOCAL_BROWSER':'1','RESEARCH_BROWSER_SPACE_ID':'15'}), patch.object(module.shutil,'which',return_value='/bin/ego-browser'), patch.object(module,'_run',side_effect=run): r=module.login_status()
         self.assertEqual(r['expired'],['vip']);self.assertNotIn('SECRET',json.dumps(r))
     def test_http_only_accepts_result_hosts_and_no_browser(self):
-        html=b'<a href="//product.suning.com/001/123.html?utm=x">Laptop</a><a href="https://evil.com/001/123.html">bad</a>\n200'
+        html=b'<a href="//product.suning.com/001/123.html?utm=x">Laptop</a><a href="https://evil.com/001/123.html">bad</a>\n200\nhttps://search.suning.com/test/'
         with patch('research_mcp.channels.http_search.subprocess.run',return_value=subprocess.CompletedProcess([],0,html,b'')) as run:
             rows=search({'web_query':'a & b','web_limit':2})
         self.assertEqual(len(rows),1);self.assertEqual(rows[0]['url'],'https://product.suning.com/001/123.html')
