@@ -1,0 +1,1011 @@
+[
+  {
+    "platform": "boss",
+    "query": "人工智能",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "job",
+        "title": "接受无经验+当月发薪（人工智能赛道+双休）",
+        "url": "https://www.zhipin.com/job_detail/e2cb62491e35f67c0nB82d64E1BY.html",
+        "source": "boss",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "job",
+        "title": "Ai产品销售代表",
+        "url": "https://www.zhipin.com/job_detail/47f5c2f30d2fec7c03Fz3tW7FVJQ.html",
+        "source": "boss",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "boss",
+    "query": "python",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "job",
+        "title": "软件（测试/C/C++/java/python）",
+        "url": "https://www.zhipin.com/job_detail/f9d60c338be010380nx-3dq9EVVY.html",
+        "source": "boss",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "job",
+        "title": "python后端开发工程师",
+        "url": "https://www.zhipin.com/job_detail/0685d2f713ad346c0nR529u8EFtW.html",
+        "source": "boss",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "liepin",
+    "query": "人工智能",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "job",
+        "title": "急聘前台接待员【济南-市中区】4-6k经验不限大专",
+        "url": "https://www.liepin.com/job/1965433079.shtml",
+        "source": "liepin",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "job",
+        "title": "课题合作联合博士后\n【\n北京-海淀区\n】\n急聘\n25-40k\n应届\n学生可投\n博士",
+        "url": "https://www.liepin.com/job/1972639063.shtml",
+        "source": "liepin",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "liepin",
+    "query": "python",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "job",
+        "title": "科技研发（博士）\n【\n上海\n】\n急聘\n25-26k\n学生可投\n经验不限\n博士",
+        "url": "https://www.liepin.com/job/1986485417.shtml",
+        "source": "liepin",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "job",
+        "title": "技术产品实习生（Python爬虫 / App产品方向）\n【\n上海-浦东新区\n】\n150-300元/天\n实习\n学生可投\n本科",
+        "url": "https://www.liepin.com/job/1986389027.shtml",
+        "source": "liepin",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "hupu",
+    "query": "人工智能",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "discussion",
+        "title": "[流言板]黄仁勋或将创办新半导体公司，重返人工智能行业",
+        "url": "https://bbs.hupu.com/644096805.html",
+        "source": "hupu",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "discussion",
+        "title": "[流言板]安德鲁·加菲尔德新片《人工智能》，曝纯手工绘制海报",
+        "url": "https://bbs.hupu.com/644087908.html",
+        "source": "hupu",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "hupu",
+    "query": "python",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "discussion",
+        "title": "挑战44天入门lammps、Python、fluent、COMSOL",
+        "url": "https://bbs.hupu.com/639691499.html",
+        "source": "hupu",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "discussion",
+        "title": "python被cad调用作图，求助大佬救大学生",
+        "url": "https://bbs.hupu.com/638173903.html",
+        "source": "hupu",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "kr36",
+    "query": "人工智能",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "article",
+        "title": "2026（第二届）“人工智能+”产业生态大会将于12月1日至3日在北京举办 聚焦“务实推动智能经济发展”",
+        "url": "https://36kr.com/p/4081793887081347",
+        "source": "kr36",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "article",
+        "title": "David Navarro：从人工智能到物理智能，机器人正迎来黄金时代",
+        "url": "https://36kr.com/p/4062358414316421",
+        "source": "kr36",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "kr36",
+    "query": "python",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "article",
+        "title": "Python之禅作者Tim Peters逝世，Guido发文悼念：没有他，就没有今天的Python",
+        "url": "https://36kr.com/p/4066641444820100",
+        "source": "kr36",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "article",
+        "title": "《Python之禅》作者去世，Python之父：没有他就没有今天的Python",
+        "url": "https://36kr.com/p/4066607732495493",
+        "source": "kr36",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "amazon",
+    "query": "人工智能",
+    "status": "parse_error"
+  },
+  {
+    "platform": "amazon",
+    "query": "python",
+    "status": "parse_error"
+  },
+  {
+    "platform": "douban",
+    "query": "人工智能",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "article",
+        "title": "人工智能",
+        "url": "https://www.douban.com/doubanapp/dispatch?uri=%2Fmovie%2F1302827",
+        "source": "douban",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "article",
+        "title": "人工智能",
+        "url": "https://www.douban.com/doubanapp/dispatch?uri=%2Fmovie%2F37378794",
+        "source": "douban",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "douban",
+    "query": "python",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "article",
+        "title": "Python编程 ：从入门到实践(第3版)",
+        "url": "https://www.douban.com/doubanapp/dispatch?uri=%2Fbook%2F36365320",
+        "source": "douban",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "article",
+        "title": "流畅的Python",
+        "url": "https://www.douban.com/doubanapp/dispatch?uri=%2Fbook%2F27028517",
+        "source": "douban",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "youtube",
+    "query": "人工智能",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "video",
+        "title": "AIってなに? ①AIの「本質」を理解すれば恐ろしさがわかる【解説】【人工知能】【ディープラーニング】",
+        "url": "https://www.youtube.com/watch?v=buweV-p_ZAs",
+        "source": "youtube",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "video",
+        "title": "Humanity isn't ready yet. AI is about to enter the \"realm of God.\"",
+        "url": "https://www.youtube.com/watch?v=LZoLcRlFuxw",
+        "source": "youtube",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "youtube",
+    "query": "python",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "video",
+        "title": "【Python入門】プログラミングの基本を2時間半で学ぶ！〜初心者用チュートリアル〜 Python速習",
+        "url": "https://www.youtube.com/watch?v=tCMl1AWfhQQ",
+        "source": "youtube",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "video",
+        "title": "The Story of Python and how it took over the world | Python: The Documentary",
+        "url": "https://www.youtube.com/watch?v=GfH4QL4VqJ0",
+        "source": "youtube",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "x",
+    "query": "人工智能",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "discussion",
+        "title": "台湾股市追缴保证金通知激增200倍，交易员纷纷抛售人工智能股票",
+        "url": "https://x.com/BoosKrabs/status/2124812813835334004",
+        "source": "x",
+        "published_at": null,
+        "author": "",
+        "summary": "台湾股市追缴保证金通知激增200倍，交易员纷纷抛售人工智能股票",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "discussion",
+        "title": "【盘面】民主党“拒绝救助AI行业”\n参议员拟提决议：AI 行业出事，国会不救\n\n据知情人士，加州民主党参议员亚当·希夫（Adam Schiff）计划在国会复会后提出一项决议，表明一旦人工智能行业陷入困境，国会不能出手纾困。决议的意思很直接：不能拿工薪家庭的利益，去替那些在 AI",
+        "url": "https://x.com/qg7777/status/2124812708377657613",
+        "source": "x",
+        "published_at": null,
+        "author": "",
+        "summary": "【盘面】民主党“拒绝救助AI行业”\n参议员拟提决议：AI 行业出事，国会不救\n\n据知情人士，加州民主党参议员亚当·希夫（Adam Schiff）计划在国会复会后提出一项决议，表明一旦人工智能行业陷入困境，国会不能出手纾困。决议的意思很直接：不能拿工薪家庭的利益，去替那些在 AI",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "x",
+    "query": "python",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "discussion",
+        "title": "At 50 I learned Python with first book. Then SQL with next one. \nFunny thing is, I need not have learned anything. Claude writes better codes & Excel almost replaced SQL.\nNow, at 5",
+        "url": "https://x.com/ramamoorthy_h/status/2124812933058437546",
+        "source": "x",
+        "published_at": null,
+        "author": "",
+        "summary": "At 50 I learned Python with first book. Then SQL with next one. \nFunny thing is, I need not have learned anything. Claude writes better codes & Excel almost replaced SQL.\nNow, at 55, I'm  learning R with next book. This time, free version of Claude helping me.😎",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "discussion",
+        "title": "3/ That's Indenture. Default-deny policy, runtime hook, hash-chained audit log. One Python file, no deps, MIT/Apache-2.0.\npip install indenture",
+        "url": "https://x.com/Sylvain_Ctr/status/2124812862711648489",
+        "source": "x",
+        "published_at": null,
+        "author": "",
+        "summary": "3/ That's Indenture. Default-deny policy, runtime hook, hash-chained audit log. One Python file, no deps, MIT/Apache-2.0.\npip install indenture",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "medium",
+    "query": "人工智能",
+    "status": "timeout"
+  },
+  {
+    "platform": "medium",
+    "query": "python",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "article",
+        "title": "He Wrote the Zen of Python. Billions Use His Code. Python’s Leaders Banned Him Anyway.",
+        "url": "https://medium.com/peoplebehind/he-wrote-the-zen-of-python-billions-use-his-code-pythons-leaders-banned-him-anyway-62b7c55bcd62",
+        "source": "medium",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "article",
+        "title": "Hugging Face PyBot: 1,000 Agents Built a Chatbot in Python Using Only If-Else Statements",
+        "url": "https://medium.com/towards-deep-learning/hugging-face-pybot-1-000-agents-built-a-chatbot-in-python-using-only-if-else-statements-214f23cd3c78",
+        "source": "medium",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "devto",
+    "query": "人工智能",
+    "status": "startup_failed"
+  },
+  {
+    "platform": "devto",
+    "query": "python",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "article",
+        "title": "Python Day 18: Introduction to Objects, Classes and Object-Oriented Programming",
+        "url": "https://dev.to/vasanthakumari_n/python-day-18-introduction-to-objects-classes-and-object-oriented-programming-543h",
+        "source": "devto",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "article",
+        "title": "Python's enumerate() Function() is a Game Changer",
+        "url": "https://dev.to/sameerqaiser17/pythons-enumerate-function-is-a-game-changer-51kn",
+        "source": "devto",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "segmentfault",
+    "query": "人工智能",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "article",
+        "title": "【专题】2022中国AI人工智能技术应用场景市场研究及选型评估报告PDF合集分享（附原数据表）",
+        "url": "https://segmentfault.com/a/1190000044869221",
+        "source": "segmentfault",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "article",
+        "title": "【专题】探索人工智能新前沿： 中国经济再迎 6000亿美元机遇报告PDF合集分享（附原数据表）",
+        "url": "https://segmentfault.com/a/1190000044865490",
+        "source": "segmentfault",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "segmentfault",
+    "query": "python",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "article",
+        "title": "Python环境部署及虚拟环境部署",
+        "url": "https://segmentfault.com/a/1190000043636349",
+        "source": "segmentfault",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "article",
+        "title": "Python和Anaconda的版本对应关系",
+        "url": "https://segmentfault.com/a/1190000043895596",
+        "source": "segmentfault",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "pypi",
+    "query": "人工智能",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "article",
+        "title": "CorpusKit",
+        "url": "https://pypi.org/project/corpuskit/",
+        "source": "pypi",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "article",
+        "title": "wordfreq-cn",
+        "url": "https://pypi.org/project/wordfreq-cn/",
+        "source": "pypi",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "pypi",
+    "query": "python",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "article",
+        "title": "python-rd-python-gitlab",
+        "url": "https://pypi.org/project/python-rd-python-gitlab/",
+        "source": "pypi",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "article",
+        "title": "1322-python",
+        "url": "https://pypi.org/project/1322-python/",
+        "source": "pypi",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "gitee",
+    "query": "人工智能",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "repo",
+        "title": "Calvin/AIAS",
+        "url": "https://gitee.com/mymagicpower/AIAS",
+        "source": "gitee",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "repo",
+        "title": "dromara/EasyAi",
+        "url": "https://gitee.com/dromara/easyAi",
+        "source": "gitee",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "gitee",
+    "query": "python",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "repo",
+        "title": "vn.py官方/vn.py",
+        "url": "https://gitee.com/vnpy/vnpy",
+        "source": "gitee",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "repo",
+        "title": "fasiondog/hikyuu",
+        "url": "https://gitee.com/fasiondog/hikyuu",
+        "source": "gitee",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "mafengwo",
+    "query": "人工智能",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "product",
+        "title": "【遇见交大】西安交通大学 学士服体验+人工智能DIY体验+观看纪录片激发探究欲+聆听科学家故事 独立营一日游（适合6+儿童）",
+        "url": "https://www.mafengwo.cn/sales/13439946.html",
+        "source": "mafengwo",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "product",
+        "title": "【大兴·京东亚一参观】亲子参与·人工智能物流仓·硬核黑科技·世界500强·智能物流世界",
+        "url": "https://www.mafengwo.cn/sales/12836834.html",
+        "source": "mafengwo",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "mafengwo",
+    "query": "python",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "product",
+        "title": "【科学院研学·机械臂编程】半日/全日可选·Python编程·芯片技术·微电子集成电路·主板设计",
+        "url": "https://www.mafengwo.cn/sales/13008632.html",
+        "source": "mafengwo",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "sspai",
+    "query": "人工智能",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "article",
+        "title": "长谈人工智能：AI 时代的伦理、教育、工作和生产力",
+        "url": "https://sspai.com/post/79596",
+        "source": "sspai",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "article",
+        "title": "如何不写代码，训练人工智能模型？",
+        "url": "https://sspai.com/post/70199",
+        "source": "sspai",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "sspai",
+    "query": "python",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "article",
+        "title": "学 Python ，能提升你的竞争力吗？",
+        "url": "https://sspai.com/post/52117",
+        "source": "sspai",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "article",
+        "title": "就算你是文科生，也能轻松自学编程——《Python 自学手册》正式上线",
+        "url": "https://sspai.com/post/62281",
+        "source": "sspai",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "suning",
+    "query": "人工智能",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "product",
+        "title": "长虹电视50D4P-G1 50英寸电视全面屏人工智能4K超高清HDR轻薄平板LED液晶平板电视政府补贴",
+        "url": "https://product.suning.com/0000000000/12439977530.html",
+        "source": "suning",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "product",
+        "title": "小米电视 A75英寸2025款 4K超高清 人工智能语音 120Hz高刷 2+32GB超大内存 Redmi A75电视机",
+        "url": "https://product.suning.com/0071518951/12373994923.html",
+        "source": "suning",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "suning",
+    "query": "python",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "product",
+        "title": "[M]\"笨办法\"学Python 3-9787115478818",
+        "url": "https://product.suning.com/0071624348/10565677976.html",
+        "source": "suning",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "product",
+        "title": "[M]深入浅出Python机器学习-9787302503231",
+        "url": "https://product.suning.com/0071624348/10582545382.html",
+        "source": "suning",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "fliggy",
+    "query": "人工智能",
+    "status": "parse_error"
+  },
+  {
+    "platform": "fliggy",
+    "query": "python",
+    "status": "parse_error"
+  },
+  {
+    "platform": "huxiu",
+    "query": "人工智能",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "article",
+        "title": "假如人工智能拥有内心世界，它就会和人类智能一样吗？",
+        "url": "https://www.huxiu.com/article/4907586.html",
+        "source": "huxiu",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "article",
+        "title": "人的终结：真正的危险并不在于人工智能",
+        "url": "https://www.huxiu.com/article/4907324.html",
+        "source": "huxiu",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "huxiu",
+    "query": "python",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "article",
+        "title": "【视频】股价越吉利，股票越赚钱？python量化大A数字密码，揭秘股价真相",
+        "url": "https://www.huxiu.com/article/4896150.html",
+        "source": "huxiu",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "article",
+        "title": "Python拯救了我的人生",
+        "url": "https://www.huxiu.com/article/4851883.html",
+        "source": "huxiu",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "lobsters",
+    "query": "人工智能",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "discussion",
+        "title": "CJK computer science terms comparison",
+        "url": "https://lobste.rs/s/o8zjma/cjk_computer_science_terms_comparison",
+        "source": "lobsters",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "lobsters",
+    "query": "python",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "discussion",
+        "title": "Python's many command-line utilities",
+        "url": "https://lobste.rs/s/kgctwv/python_s_many_command_line_utilities",
+        "source": "lobsters",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "discussion",
+        "title": "The Set theory and Python + Tips & Tricks",
+        "url": "https://lobste.rs/s/6rbqnk/set_theory_python_tips_tricks",
+        "source": "lobsters",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "amazon",
+    "query": "人工智能",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "product",
+        "title": "少年学AI：我的第一本人工智能实战手册",
+        "url": "https://www.amazon.com/dp/7122462587",
+        "source": "amazon",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "product",
+        "title": "人工智能基础(高中版)",
+        "url": "https://www.amazon.com/dp/B07CXBXRD8",
+        "source": "amazon",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "amazon",
+    "query": "python",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "product",
+        "title": "Python Crash Course, 3rd Edition: A Hands-On, Project-Based Introduction to Programming",
+        "url": "https://www.amazon.com/dp/1718502702",
+        "source": "amazon",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "product",
+        "title": "Learning Python: Powerful Object-Oriented Programming",
+        "url": "https://www.amazon.com/dp/1098171306",
+        "source": "amazon",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "medium",
+    "query": "人工智能",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "article",
+        "title": "人工智能的危险究竟会有多大？",
+        "url": "https://medium.com/@fangshimin/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%9A%84%E5%8D%B1%E9%99%A9%E7%A9%B6%E7%AB%9F%E4%BC%9A%E6%9C%89%E5%A4%9A%E5%A4%A7-a8efb29e1b2e",
+        "source": "medium",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "article",
+        "title": "中国人工智能大跃进的智障逻辑",
+        "url": "https://medium.com/@fangshimin/%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%A4%A7%E8%B7%83%E8%BF%9B%E7%9A%84%E6%99%BA%E9%9A%9C%E9%80%BB%E8%BE%91-20be68896f11",
+        "source": "medium",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "pypi",
+    "query": "人工智能",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "package",
+        "title": "CorpusKit",
+        "url": "https://pypi.org/project/corpuskit/",
+        "source": "pypi",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "package",
+        "title": "wordfreq-cn",
+        "url": "https://pypi.org/project/wordfreq-cn/",
+        "source": "pypi",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  },
+  {
+    "platform": "pypi",
+    "query": "python",
+    "status": "ok",
+    "items": [
+      {
+        "kind": "package",
+        "title": "python-rd-python-gitlab",
+        "url": "https://pypi.org/project/python-rd-python-gitlab/",
+        "source": "pypi",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      },
+      {
+        "kind": "package",
+        "title": "1322-python",
+        "url": "https://pypi.org/project/1322-python/",
+        "source": "pypi",
+        "published_at": null,
+        "author": "",
+        "summary": "",
+        "actual_backend": "ego-browser/local_browser"
+      }
+    ]
+  }
+]

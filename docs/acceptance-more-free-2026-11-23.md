@@ -1,5 +1,7 @@
 # Free channel expansion — 2026-11-23
 
+**Browser continuation completed:** see [26-platform browser acceptance](acceptance-round-six-browser-2026-11-23.md) for the updated results, adapters and login list. The observations below preserve the initial #18 snapshot.
+
 Baseline: origin/main 20a1930 (includes #13/#14/#15/#17). Read-only, no keys, no login attempts, no CAPTCHA bypass, no cookie export. Local browser task space 15 only; space 14 was not accessed.
 
 ## API adapter results
