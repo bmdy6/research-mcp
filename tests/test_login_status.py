@@ -27,3 +27,17 @@ class LoginTests(unittest.TestCase):
         for name,html,url in examples:
             p=Results(name);p.feed(html)
             self.assertEqual(list(p.rows),[url]);self.assertNotIn('private',str(p.rows))
+    @unittest.skipUnless(__import__('shutil').which('node'), 'Node required')
+    def test_hidden_account_marker_is_unknown(self):
+        from pathlib import Path
+        script=Path(module.__file__).with_suffix('.mjs').read_text()
+        setup='''
+const input={space:15,platforms:[{channel:'example',url:'https://example.com',yes:'.account'}]};
+globalThis.location={hostname:'example.com',pathname:'/'};
+globalThis.document={body:{innerText:''},querySelector:()=>({getBoundingClientRect:()=>({width:0,height:0})})};
+let closed=false;
+const taskSpace=async()=>({newPage:async()=>({goto:async()=>{},waitForFunction:async()=>{},evaluate:async(f,a)=>f(a),close:async()=>{closed=true}})});
+'''
+        r=subprocess.run(['node','--input-type=module','-e',setup+script+'\nif(!closed)throw Error("leak");'],capture_output=True,text=True,timeout=5)
+        self.assertEqual(r.returncode,0,r.stderr)
+        self.assertEqual(json.loads(r.stdout.split('RESEARCH_LOGIN_JSON:')[-1])[0]['status'],'unknown')

@@ -12,7 +12,7 @@ MARKERS = {
     'tieba': 'a[href*="/home/main?id="]',
     'jd': 'a[href*="logout"]', 'taobao': '.site-nav-user', 'tmall': '.site-nav-user',
     'weibo': 'a[href*="logout"]', 'xianyu': '[class*="user-name"]',
-    'zhihu': '.AppHeader-profile', 'xiaohongshu': 'a[href*="/user/profile/"]',
+    'zhihu': '.AppHeader-profile', 'xiaohongshu': 'li.user a[href*="/user/profile/"]',
     'douyin': '[data-e2e="user-avatar"]', 'boss': '.nav-figure-con',
     'liepin': '.user-info', 'x': '[data-testid="SideNav_AccountSwitcher_Button"]',
 }

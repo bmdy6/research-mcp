@@ -14,7 +14,8 @@ for (const entry of input.platforms) {
       if (/安全验证|请完成验证|访问受限|访问过于频繁/.test(text)) return 'blocked';
       if (/passport\.|login\./.test(location.hostname) || /\/login(?:[/?]|$)/.test(location.pathname)) return 'expired';
       // A public search result is NOT proof of a signed-in account.
-      if (yes && document.querySelector(yes)) return 'logged_in';
+      const marker = yes && document.querySelector(yes);
+      if (marker && marker.getBoundingClientRect().width > 0 && marker.getBoundingClientRect().height > 0) return 'logged_in';
       if (/请先登录|登录后查看|扫码登录|扫描二维码登录/.test(text)) return 'expired';
       return 'unknown';
     }, {yes:entry.yes});
