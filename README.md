@@ -144,7 +144,7 @@ flowchart LR
 
 ## 免费渠道目录与选源
 
-现有目录登记 23 个可选渠道，含 11 个官方 API 渠道及 CSDN；没有 key、没有登录也能启动；HN、网页渠道等各自工作，失败不会中断其他渠道。
+目录覆盖免费网页、官方 API 与本机浏览器渠道（最新增量见下表）；没有 key、没有登录也能启动；HN、网页渠道等各自工作，失败不会中断其他渠道。
 
 | 渠道 ID | 内容 / 适合语言 | 条件与费用 |
 |---|---|---|
@@ -162,7 +162,7 @@ flowchart LR
 | `arxiv` | 英文论文 | 免 key；默认全部论文，`ARXIV_REQUIRE_GITHUB=1` 可限定 GitHub 链接 |
 | `tavily`、`openalex` | 通用网页 / 学术 | `free_recurring`，免费 key + 对应 `*_FREE_ONLY=1`；请求前核验配额 |
 
-目录包含 `cost_class`、`requires_key`、`requires_login`、`languages`、`content_type`、`quota_remaining`、`status`、`last_checked_at`、`license`、`upstream_terms`、`actual_backend`。`unchecked` 仅表示可尝试；`quota_remaining: null` 是未知；状态只记当前服务进程的查询尝试（可能因限流熔断而不发请求），不主动探测、不返回凭据。本机浏览器目前仅注册已读到商品列表的京东；其余购物、社区及自托管渠道未接入。
+目录包含 `cost_class`、`requires_key`、`requires_login`、`languages`、`content_type`、`quota_remaining`、`status`、`last_checked_at`、`license`、`upstream_terms`、`actual_backend`。`unchecked` 仅表示可尝试；`quota_remaining: null` 是未知；状态只记当前服务进程的查询尝试（可能因限流熔断而不发请求），不主动探测、不返回凭据。本机浏览器需显式启用；接入范围与限制见下方本机渠道和增量验收。
 
 让调用方 agent 按问题选择，每题先用 1–2 个互补源，必要时换源或改词；服务不调用另一个收费模型来做决策，共享搜索即使收到旧参数 `rerank=True` 也强制关闭模型重排；显式启用的旧内部 Python 重排函数与此免费入口分开：
 
@@ -202,7 +202,7 @@ research-mcp search "检索增强生成" --providers baidu,duckduckgo --limit 5
 | 维度 | research-mcp | Agent Reach |
 |---|---|---|
 | 操作入口 | 本包 CLI + 目录/搜索两个 stdio MCP 工具。 | README 展示 `agent-reach <渠道> <动作>`、`read` 和自然语言安装管理。 |
-| 平台范围 | 23 个可选搜索渠道；先列目录，按题选源；网页、GitHub、B站读取。 | README 默认列 B站、V2EX、GitHub、YouTube、web；另有可选和实验渠道。 |
+| 平台范围 | 可选免费搜索渠道；先列目录，按题选源；网页、GitHub、B站读取。 | README 默认列 B站、V2EX、GitHub、YouTube、web；另有可选和实验渠道。 |
 | 登录与配置 | 免费搜索不读取付费 key；GitHub 使用已有 gh 身份；转写独立配置。 | README 说明部分平台复制已有浏览器登录，并提供专用浏览器与会话管理。 |
 | 失败与覆盖 | v1 JSON 的 partial、错误码、截断和 GitHub coverage。 | README 说明每个平台按有序工具列表尝试首选和备选。 |
 
@@ -297,3 +297,30 @@ Ego Lite 本地网络策略需在 `chrome://policy`（会显示为 `ego://policy
 | linux.do | 注册需要邀请码，用户确认不接；保持不支持，未尝试注册或绕过邀请限制 |
 
 以上是本次浏览器登录态与访问环境的结论，不代表平台永久不可用。13 个平台均有接入或不支持结论；逐平台双语结果、耗时和字段见 [本机浏览器验收记录](docs/acceptance-local-browser-2026-11-23.md)。登录后闲鱼/微博的补充验收及拼多多排查见 [补充记录](docs/acceptance-logged-in-browser-2026-11-23.md)。这些限制不影响其他免费渠道启动与查询。
+
+
+### 免费渠道增量（2026-11-23）
+
+新增渠道均需显式 `--providers`，不改变默认组。API 使用同一有界 HTTPS 传输，不安装包、拉取镜像或打开 App。
+
+| 渠道 ID | 用途 | 免费条件 / 双语实测 |
+|---|---|---|
+| `npm` | JavaScript 包搜索 | 官方 Registry API，免 key；中文、英文各 2 条 |
+| `crates_io` | Rust crate 搜索 | 官方 API，免 key；中文、英文各 2 条 |
+| `docker_hub` | 容器仓库搜索 | 官方公共搜索，免 key；中文明确空结果、英文 2 条 |
+| `mdn` | Web 文档搜索 | MDN 自有搜索 API，免 key；固定 en-US 文档库，中文、英文各 2 条；中文相关性有限 |
+| `itunes_apps` | App Store 应用列表 | 官方 iTunes Search API，免 key；CN 区，中文、英文各 2 条；应用本身可能收费 |
+| `google_news_rss` | 新闻标题和原站跳转线索 | **仅本地个人使用、默认关闭**；设置 `RESEARCH_GOOGLE_NEWS_RSS=1` 后仍需指定 provider；双语适配器冷却后各返回 2 条；期间遇到 429，限流会报 `quota_exhausted` |
+
+Google News 不进入匿名公开适配器白名单；只读取 RSS，保留 Google 链接，不解码跳转、不绕登录。它不是有稳定配额保证的 API。官方接口依据：[npm](https://api-docs.npmjs.com/)、[crates.io](https://crates.io/data-access)、[Docker Hub](https://docs.docker.com/reference/api/hub/latest/)、[MDN Yari](https://github.com/mdn/yari)、[Apple](https://performance-partners.apple.com/search-api)。实测边界见[增量验收记录](docs/acceptance-more-free-2026-11-23.md)。
+
+按问题选渠道：
+
+```bash
+# 开发：先查包与规范，再核对维护情况；不下载或执行包。
+research-mcp search "websocket" --providers npm,crates_io,mdn --limit 5 --format json
+# 生活：找记账 App 与社区使用体验；应用价格回商店确认。
+research-mcp search "记账" --providers itunes_apps,smzdm --limit 5 --format json
+# 求职：当前可用的公开讨论线索。BOSS/猎聘需等职位列表验收，不能用推荐页冒充搜索。
+research-mcp search "Python 招聘 苏州" --providers bing,baidu --limit 5 --format json
+```
