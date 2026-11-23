@@ -144,7 +144,7 @@ flowchart LR
 
 ## 免费渠道目录与选源
 
-现有目录登记 22 个可选渠道，含 11 个官方 API 渠道及 CSDN；没有 key、没有登录也能启动；HN、网页渠道等各自工作，失败不会中断其他渠道。
+现有目录登记 23 个可选渠道，含 11 个官方 API 渠道及 CSDN；没有 key、没有登录也能启动；HN、网页渠道等各自工作，失败不会中断其他渠道。
 
 | 渠道 ID | 内容 / 适合语言 | 条件与费用 |
 |---|---|---|
@@ -155,10 +155,11 @@ flowchart LR
 | `hacker_news` | 英文技术讨论 | 免 key；Algolia 公开 API |
 | `juejin` | 中文工程文章 | 免 key；公开搜索接口 |
 | `bilibili` | 课程、演示、评测 | 免 key 搜索；API 不通时可尝试已有 bili CLI |
+| `jd` | 京东商品，中文 | `local_browser`，仅本机 Ego Lite、已有登录态、显式启用；成功查询验收待权限恢复 |
 | `arxiv` | 英文论文 | 免 key；默认全部论文，`ARXIV_REQUIRE_GITHUB=1` 可限定 GitHub 链接 |
 | `tavily`、`openalex` | 通用网页 / 学术 | `free_recurring`，免费 key + 对应 `*_FREE_ONLY=1`；请求前核验配额 |
 
-目录包含 `cost_class`、`requires_key`、`requires_login`、`languages`、`content_type`、`quota_remaining`、`status`、`last_checked_at`、`license`、`upstream_terms`、`actual_backend`。`unchecked` 仅表示可尝试；`quota_remaining: null` 是未知；状态只记当前服务进程的查询尝试（可能因限流熔断而不发请求），不主动探测、不返回凭据。购物、社区、本机浏览器和自托管渠道本轮尚未注册为可执行渠道。
+目录包含 `cost_class`、`requires_key`、`requires_login`、`languages`、`content_type`、`quota_remaining`、`status`、`last_checked_at`、`license`、`upstream_terms`、`actual_backend`。`unchecked` 仅表示可尝试；`quota_remaining: null` 是未知；状态只记当前服务进程的查询尝试（可能因限流熔断而不发请求），不主动探测、不返回凭据。本机浏览器目前仅注册已读到商品列表的京东；其余购物、社区及自托管渠道未接入。
 
 让调用方 agent 按问题选择，每题先用 1–2 个互补源，必要时换源或改词；服务不调用另一个收费模型来做决策，共享搜索即使收到旧参数 `rerank=True` 也强制关闭模型重排；显式启用的旧内部 Python 重排函数与此免费入口分开：
 
@@ -166,7 +167,7 @@ flowchart LR
 - 英文概念 / 官网 → `duckduckgo`，补 `exa` 或 `bing`；不要把共享索引当成独立佐证。
 - 报错 / 实现 → `github_search` + `stackexchange` + `juejin` + `csdn`，官方文档可加网页 `site:` 查询。
 - 论文 → `arxiv` + `openalex` + `crossref`；arXiv 的 GitHub 链接过滤默认关闭。
-- 买东西 → 本轮用 `bilibili` + `baidu` 找评测；京东/淘宝/什么值得买本机浏览器渠道还未实现，不能指定后声称搜过。
+- 买东西 → 优先用京东/淘宝/什么值得买查商品与标价，再用 B站看评测。目前只接入京东 `jd`（需本机启用，成功查询验收待完成）和 `bilibili`；淘宝/什么值得买未接入，用网页 `site:` 只算线索。
 
 ```json
 {"query":"Docker compose depends_on healthcheck","providers":["duckduckgo"],"limit":5}
@@ -198,7 +199,7 @@ research-mcp search "检索增强生成" --providers baidu,duckduckgo --limit 5
 | 维度 | research-mcp | Agent Reach |
 |---|---|---|
 | 操作入口 | 本包 CLI + 目录/搜索两个 stdio MCP 工具。 | README 展示 `agent-reach <渠道> <动作>`、`read` 和自然语言安装管理。 |
-| 平台范围 | 22 个可选搜索渠道；先列目录，按题选源；网页、GitHub、B站读取。 | README 默认列 B站、V2EX、GitHub、YouTube、web；另有可选和实验渠道。 |
+| 平台范围 | 23 个可选搜索渠道；先列目录，按题选源；网页、GitHub、B站读取。 | README 默认列 B站、V2EX、GitHub、YouTube、web；另有可选和实验渠道。 |
 | 登录与配置 | 免费搜索不读取付费 key；GitHub 使用已有 gh 身份；转写独立配置。 | README 说明部分平台复制已有浏览器登录，并提供专用浏览器与会话管理。 |
 | 失败与覆盖 | v1 JSON 的 partial、错误码、截断和 GitHub coverage。 | README 说明每个平台按有序工具列表尝试首选和备选。 |
 
@@ -249,7 +250,13 @@ research-mcp search "检索增强生成" --providers baidu,duckduckgo --limit 5
 
 例如：查报错 → `github_search,stackexchange,juejin,csdn`；查论文 → `openalex,crossref,arxiv`；查生物医学 → `pubmed,europe_pmc`；查图书或播客 → `openlibrary,itunes_podcasts`；了解概念 → `wikipedia,wikidata`；找开源模型 → `huggingface,github_search`。
 
-购物问题理想组合为 **京东/淘宝/什么值得买 + B站**：先以商品平台确定价格和规格，再用 B站评测补使用体验。站内渠道只有本机 Ego Lite 实测可读后才启用；目录没有的平台不能假称已经支持。当前可以先用 `bing,baidu,bilibili`，用 `site:jd.com` / `site:taobao.com` / `site:smzdm.com` 搜公开线索，结果价格需回到商品页核对。
+购物问题组合为 **京东/淘宝/什么值得买 + B站**：先查商品标价和规格，再用评测补体验。目前可指定 `jd,bilibili`；淘宝和什么值得买尚未完成实测，不能作为已实现 provider 指定。可用 `bing` / `baidu` 的 `site:taobao.com`、`site:smzdm.com` 补公开线索，价格回商品页核对。
+
+```bash
+research-mcp search "轻薄本 14英寸" --providers jd,bilibili --limit 5 --format json
+```
+
+其中 `jd` 需要以下本机设置；浏览器提示未处理时会作为失败渠道返回，B站仍独立执行。
 
 #### 免费 key 的运行时注入
 
@@ -257,6 +264,29 @@ research-mcp search "检索增强生成" --providers baidu,duckduckgo --limit 5
 
 当 Tavily 配额响应的 `paygo_limit=null` 时，还需显式设置 `TAVILY_PAYG_DISABLED=1`，表示已经在账号页面核对 PAYG Disabled；不能仅从 null 推断关闭。字段缺失、正数付费上限或已有付费使用量都会拒绝。Tavily 固定 basic，不使用自动搜索深度、收费回答或原文选项；调用前核对 Researcher/free、PAYG 为零及免费额度。OpenAlex 调用前核对每日预算不超过 $1、预付余额为零、剩余额度覆盖本次检索；预算字段异常即停止。免费账户与关闭付费是前提；检查无法对别的客户端并发消耗做原子预留。402/429 停止并短期熔断，无自动重试或付费回退。
 
-#### 本机浏览器尚未支持的平台
+#### 本机 Ego Lite 渠道（可选）
 
-京东、淘宝、天猫、拼多多、什么值得买、闲鱼、知乎、小红书、抖音、微博、搜狗微信、V2EX、linux.do：本轮恢复原任务空间后，首个平台再次触发 Ego Lite 浏览器权限提示，自动交还用户。尚未完成逐平台实测，不能据此说平台本身不可读，也没有把未经验证的浏览器适配挂进目录。需要用户处理提示并确认后在原空间继续；不导出 cookie、不绕验证码、不用付费替代。
+目前仅 `jd` 已接入，`cost_class=local_browser`、`requires_login=true`；需安装 ego-browser 并保持本机已有登录态。只用于本地 CLI / stdio MCP，不提供远程浏览器代理，不进入匿名公开搜索白名单，默认渠道不包含它。支持具备 POSIX 文件锁的 macOS/Linux 本机；缺依赖或不支持的平台返回 `startup_failed`。
+
+1. 在 Ego Lite 中准备一个本任务专用的现有任务空间与页面，并交给 agent 控制。渠道会导航该页面；不要指定正在操作的其他任务页面。
+2. 在启动本机 research-mcp 的进程环境显式设置：
+
+```bash
+export RESEARCH_LOCAL_BROWSER=1
+export RESEARCH_BROWSER_SPACE_ID=123 # 替换为现有任务空间数字 ID
+export RESEARCH_BROWSER_PAGE=p1 # 替换为该空间已有页面标签
+```
+
+上述 123/p1 是示例，请替换成实际值；本包不会自动创建实例、任务空间、页面或接管用户。未启用、无空间或控制权在用户时返回 `auth_required`；缺 CLI 返回 `startup_failed`。权限提示和登录/验证码由本人处理，渠道不重试、不绕过、不导出 cookie。
+
+通过 `ego-browser nodejs -e` 仅导航搜索页和读 DOM，不滚动翻页、不访问私有接口。跨线程/CLI 进程用本机文件锁串行执行，每次完成后至少间隔 5 秒；子进程超时 45 秒，每页最多 40 条。结果 `price` 为人民币字符串，`price_note` 固定为“页面标价，未含券/国补”；灰色未补贴标价可辨认时才返回该商品，不计算结算优惠。页面改版会返回 `parse_error`，有明确无结果提示才返回 `empty`。
+
+#### 本机浏览器未支持清单与原因
+
+| 平台 | 原因 |
+|---|---|
+| 淘宝 | 本轮导航再次触发 Ego Lite 本地网络权限提示，整个任务空间交还用户，未能读取页面；未据此判断淘宝自身不可读 |
+| 天猫、拼多多、什么值得买、闲鱼 | 被同一任务空间的权限提示阻塞，尚未逐平台实测，未接入 |
+| 知乎、小红书、抖音、微博、微信公众号（搜狗微信）、V2EX、linux.do | 同上，未确认搜索结果或登录/验证码要求，未接入 |
+
+京东已读到真实商品列表，但接入后的完整成功查询也被任务空间控制权阻塞；当前真实 CLI 验证到 `auth_required`。逐平台结果、耗时和字段见 [本机浏览器验收记录](docs/acceptance-local-browser-2026-11-23.md)。这些限制不影响其他免费渠道启动与查询。

@@ -57,6 +57,12 @@ CATALOG += tuple(_entry(name, ["zh", "en"], [kind], BACKENDS[name],
         ("itunes_podcasts", "podcast", "https://performance-partners.apple.com/search-api", "Apple Search API terms"),
     ))
 
+from research_mcp.channels.local_browser import PLATFORMS
+CATALOG += tuple(_entry(name, ["zh"], [definition["kind"]], "ego-browser/local_browser",
+                       cost="local_browser", login=definition["login"],
+                       terms="https://www.jd.com")
+                 for name, definition in PLATFORMS.items())
+
 _lock = Lock()
 _observed: dict[str, dict] = {}
 
@@ -77,6 +83,7 @@ def reset_observations() -> None:
 
 
 def list_channels() -> list[dict]:
+    import shutil
     from research_mcp.channels.open_websearch import installation_ready, ENGINES
     with _lock:
         observed = {name: dict(value) for name, value in _observed.items()}
@@ -85,7 +92,8 @@ def list_channels() -> list[dict]:
         row = dict(definition)
         row["languages"] = list(definition["languages"])
         row["content_type"] = list(definition["content_type"])
-        if row["id"] in ENGINES and not installation_ready():
+        if ((row["id"] in ENGINES and not installation_ready())
+                or (row["cost_class"] == "local_browser" and not shutil.which("ego-browser"))):
             row["status"] = "startup_failed"
             row["message"] = MESSAGES["startup_failed"]
         else:
