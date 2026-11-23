@@ -1,0 +1,1003 @@
+{
+  "date": "2026-11-23",
+  "scope": "Live attempts, not all sources successful; first Tavily preflight failed closed before nullable-disabled account handling was fixed. No paid calls.",
+  "queries": [
+    {
+      "provider": "openalex",
+      "language": "zh",
+      "query": "人工智能",
+      "elapsed_s": 2.325,
+      "status": "ok",
+      "total": 1,
+      "candidates": [
+        {
+          "source": "openalex",
+          "title": "人工智能",
+          "url": "https://doi.org/10.18356/9789213585092c003",
+          "published_at": "2023-12-29",
+          "rank": 3,
+          "actual_backend": "OpenAlex official works API (free-only)"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "openalex",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:56:42.718124+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "openalex",
+      "language": "en",
+      "query": "artificial intelligence",
+      "elapsed_s": 1.913,
+      "status": "ok",
+      "total": 1,
+      "candidates": [
+        {
+          "source": "openalex",
+          "title": "A Brief History of Artificial Intelligence: On the Past, Present, and Future of Artificial Intelligence",
+          "url": "https://doi.org/10.1177/0008125619864925",
+          "published_at": "2019-07-17",
+          "summary": "This introduction to this special issue discusses artificial intelligence (AI), commonly defined as “a system’s ability to interpret external data correctly, to learn from such data, and to use those learnings to achieve specific goals and tasks through flexible adaptation.” It summarizes seven articles published in this special issue that present a wide variety of perspectives on AI, authored by several of the world’s leading experts and specialists in AI. It concludes by offering a comprehensi",
+          "rank": 3,
+          "actual_backend": "OpenAlex official works API (free-only)"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "openalex",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:56:46.634015+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "wikipedia",
+      "language": "zh",
+      "query": "人工智能",
+      "elapsed_s": 1.008,
+      "status": "ok",
+      "total": 3,
+      "candidates": [
+        {
+          "source": "wikipedia",
+          "title": "人工智能",
+          "url": "https://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD",
+          "summary": "人工 神经网络等技术，也常借力统计学、运筹学和经济学的方法。此外， 人工智能 还借鉴心理学、语言学、哲学、神经科学等学科的方法。 有些公司，比如OpenAI、Google DeepMind和Meta，正在尝试打造 人工 通用 智能 （AGI）——通常指能跨廣泛任務與領域學習、推理和運用知識的 人工智能 ，但目前對其精確定義及判定標準尚無普遍共識。",
+          "rank": 1,
+          "actual_backend": "Wikipedia official MediaWiki REST API"
+        },
+        {
+          "source": "wikipedia",
+          "title": "深度求索",
+          "url": "https://zh.wikipedia.org/wiki/%E6%B7%B1%E5%BA%A6%E6%B1%82%E7%B4%A2",
+          "summary": "人工智能 、打响了全球 人工智能 领域竞赛的第一枪、引领 人工智能 下边缘政策新纪元。 DeepSeek开源，其生成式 人工智能 算法、模型和训练细节，允许其代码可被免费地使用、修改、浏览和构建使用文档。 DeepSeek基于V3模型分别为安卓和iOS系统开发 智能 助手。据报，该助手在美国 人工智能",
+          "rank": 2,
+          "actual_backend": "Wikipedia official MediaWiki REST API"
+        },
+        {
+          "source": "wikipedia",
+          "title": "通用人工智能的生存风险",
+          "url": "https://zh.wikipedia.org/wiki/%E9%80%9A%E7%94%A8%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%9A%84%E7%94%9F%E5%AD%98%E9%A3%8E%E9%99%A9",
+          "summary": "法控制。正如山地大猩猩的命运取决于人类的善意，人类的命运也可能取决于未来机器超级 智能 的行为。 通用 人工智能 图灵测试 生成对抗网络 Transformer模型 聊天机器人 LaMDA(對話語言模型) 深度学习 暫停 人工 智慧運動 生存风险（英语：Existential",
+          "rank": 3,
+          "actual_backend": "Wikipedia official MediaWiki REST API"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "wikipedia",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:56:49.646320+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "wikipedia",
+      "language": "en",
+      "query": "artificial intelligence",
+      "elapsed_s": 1.983,
+      "status": "ok",
+      "total": 3,
+      "candidates": [
+        {
+          "source": "wikipedia",
+          "title": "Artificial intelligence",
+          "url": "https://en.wikipedia.org/wiki/Artificial_intelligence",
+          "summary": "Artificial intelligence (AI) is the capability of computational systems to perform tasks typically associated with human intelligence , such as learning",
+          "rank": 1,
+          "actual_backend": "Wikipedia official MediaWiki REST API"
+        },
+        {
+          "source": "wikipedia",
+          "title": "Artificial general intelligence",
+          "url": "https://en.wikipedia.org/wiki/Artificial_general_intelligence",
+          "summary": "Artificial general intelligence (AGI) is a hypothetical type of artificial intelligence that matches or surpasses human capabilities across most or all",
+          "rank": 2,
+          "actual_backend": "Wikipedia official MediaWiki REST API"
+        },
+        {
+          "source": "wikipedia",
+          "title": "A.I. Artificial Intelligence",
+          "url": "https://en.wikipedia.org/wiki/A.I._Artificial_Intelligence",
+          "summary": "A.I. Artificial Intelligence (or simply A.I.) is a 2001 American science fiction drama film written and directed by Steven Spielberg. The screenplay by",
+          "rank": 3,
+          "actual_backend": "Wikipedia official MediaWiki REST API"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "wikipedia",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:56:53.633026+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "wikidata",
+      "language": "zh",
+      "query": "人工智能",
+      "elapsed_s": 2.044,
+      "status": "ok",
+      "total": 3,
+      "candidates": [
+        {
+          "source": "wikidata",
+          "title": "artificial intelligence",
+          "url": "https://www.wikidata.org/wiki/Q11660",
+          "summary": "field that develops and studies software enabling machines to exhibit intelligent behavior",
+          "rank": 1,
+          "actual_backend": "Wikidata official wbsearchentities API"
+        },
+        {
+          "source": "wikidata",
+          "title": "A.I. Artificial Intelligence",
+          "url": "https://www.wikidata.org/wiki/Q221113",
+          "summary": "2001 film directed by Steven Spielberg",
+          "rank": 2,
+          "actual_backend": "Wikidata official wbsearchentities API"
+        },
+        {
+          "source": "wikidata",
+          "title": "Kill Switch",
+          "url": "https://www.wikidata.org/wiki/Q13512234",
+          "summary": "episode of The X-Files (S5 E11)",
+          "rank": 3,
+          "actual_backend": "Wikidata official wbsearchentities API"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "wikidata",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:56:57.681974+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "wikidata",
+      "language": "en",
+      "query": "artificial intelligence",
+      "elapsed_s": 1.425,
+      "status": "ok",
+      "total": 3,
+      "candidates": [
+        {
+          "source": "wikidata",
+          "title": "artificial intelligence",
+          "url": "https://www.wikidata.org/wiki/Q11660",
+          "summary": "field that develops and studies software enabling machines to exhibit intelligent behavior",
+          "rank": 1,
+          "actual_backend": "Wikidata official wbsearchentities API"
+        },
+        {
+          "source": "wikidata",
+          "title": "Artificial Intelligence",
+          "url": "https://www.wikidata.org/wiki/Q4801030",
+          "summary": "journal published by Elsevier",
+          "rank": 2,
+          "actual_backend": "Wikidata official wbsearchentities API"
+        },
+        {
+          "source": "wikidata",
+          "title": "Artificial Intelligence",
+          "url": "https://www.wikidata.org/wiki/Q128447",
+          "summary": "1985 studio album by John Cale",
+          "rank": 3,
+          "actual_backend": "Wikidata official wbsearchentities API"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "wikidata",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:57:01.111462+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "crossref",
+      "language": "zh",
+      "query": "人工智能",
+      "elapsed_s": 1.758,
+      "status": "ok",
+      "total": 3,
+      "candidates": [
+        {
+          "source": "crossref",
+          "title": "全球人工智能治理差距",
+          "url": "https://doi.org/10.18356/9789211068863c005",
+          "published_at": "2024-12-12",
+          "rank": 1,
+          "actual_backend": "Crossref official REST API"
+        },
+        {
+          "source": "crossref",
+          "title": "人工智能时代智能化陆战模式研究",
+          "url": "https://doi.org/10.61654/rgznyj2026.06.001",
+          "published_at": "2026-06-01",
+          "summary": "人工智能技术的深度军事应用,推动陆战形态完成从机械化、信息化向智能化的跨越式迭代,催生了以智能指挥决策、无人集群作战、有人无人协同、全域体系融合为核心的新型陆战范式。本文系统梳理智能化陆战的核心作战特征,凝练无人集群自主作战、有人 - 无人协同作战、全域多域融合作战、智能火力战四类典型作战模式,构建智能化陆战关键技术支撑体系,深入剖析智能化变革对战争形态、作战节奏、战场制胜逻辑的全方位影响,最后预判智能化陆战未来发展趋势。研究成果可为智能化陆战理论体系创新、陆军智能化装备建设与实战化战法运用提供理论参考与实践支撑。",
+          "rank": 2,
+          "actual_backend": "Crossref official REST API"
+        },
+        {
+          "source": "crossref",
+          "title": "关于人工智能高级别咨询机构",
+          "url": "https://doi.org/10.18356/9789211068863c001",
+          "published_at": "2024-12-12",
+          "rank": 3,
+          "actual_backend": "Crossref official REST API"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "crossref",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:57:04.873544+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "crossref",
+      "language": "en",
+      "query": "artificial intelligence",
+      "elapsed_s": 1.071,
+      "status": "error",
+      "total": 0,
+      "candidates": [],
+      "failed_channels": [
+        {
+          "channel": "crossref",
+          "error": "免费额度或频率限制已触发；停止请求",
+          "status": "quota_exhausted"
+        }
+      ],
+      "channel_statuses": [
+        {
+          "channel": "crossref",
+          "status": "quota_exhausted",
+          "last_checked_at": "2026-11-23T07:57:07.949451+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "stackexchange",
+      "language": "zh",
+      "query": "Python 列表",
+      "elapsed_s": 3.328,
+      "status": "ok",
+      "total": 2,
+      "candidates": [
+        {
+          "source": "stackexchange",
+          "title": "Why is Selenium unable to find elements on some sites?",
+          "url": "https://stackoverflow.com/questions/65434360/why-is-selenium-unable-to-find-elements-on-some-sites",
+          "published_at": "2020-12-24T05:30:27+00:00",
+          "summary": "I am using a python version of Selenium to capture comments on a Chinese website. The website is https://v.douyu.com/show/kDe0W2q5bB2MA4Bz I want to find this span element. In Chinese, this is called \"弹幕列表\". I tried the absolute path like: driver.find_elements_by_xpath('/body/demand-video-app/main/div[2]/demand-video-helper//div/div[1]/a[3]/span') But it returns NoSuchElementException. I just thought that maybe this site has a protection mechanism. However, I don't know much about Selenium and w",
+          "rank": 1,
+          "actual_backend": "Stack Exchange official API (Stack Overflow)"
+        },
+        {
+          "source": "stackexchange",
+          "title": "Why MS-Word build-in styles not work while using python-docx?",
+          "url": "https://stackoverflow.com/questions/52792501/why-ms-word-build-in-styles-not-work-while-using-python-docx",
+          "published_at": "2018-10-13T11:35:46+00:00",
+          "summary": "I want to apply styles to my paragraph(List, List Number, List Number 2...etc.) using package python-docx . I create my own MS-Word template which has some specific styles I make. Also I sometimes need to apply MS-Word build-in style. Here's my code: elif to_U_sc: to_write = to_U_sc.group(2) paragraph = self.template.add_paragraph(to_write, style='List') elif to_O_sc2: to_write = to_O_sc2.group(2) paragraph = self.template.add_paragraph(to_write, style='ListNumber') Here, self.template is Docume",
+          "rank": 3,
+          "actual_backend": "Stack Exchange official API (Stack Overflow)"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "stackexchange",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:57:13.281784+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "stackexchange",
+      "language": "en",
+      "query": "Python list comprehension",
+      "elapsed_s": 1.319,
+      "status": "empty",
+      "total": 0,
+      "candidates": [],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "stackexchange",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:57:16.606711+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "huggingface",
+      "language": "zh",
+      "query": "人工智能",
+      "elapsed_s": 0.841,
+      "status": "empty",
+      "total": 0,
+      "candidates": [],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "huggingface",
+          "status": "empty",
+          "last_checked_at": "2026-11-23T07:57:19.450605+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "huggingface",
+      "language": "en",
+      "query": "artificial intelligence",
+      "elapsed_s": 0.728,
+      "status": "ok",
+      "total": 3,
+      "candidates": [
+        {
+          "source": "huggingface",
+          "title": "MennaAllahreda25/ArtificialIntelligenceModels",
+          "url": "https://huggingface.co/MennaAllahreda25/ArtificialIntelligenceModels",
+          "summary": "license:unknown, region:us",
+          "rank": 1,
+          "actual_backend": "Hugging Face official public model API"
+        },
+        {
+          "source": "huggingface",
+          "title": "tiwarishwet/artificial-intelligence-interior-assistant",
+          "url": "https://huggingface.co/tiwarishwet/artificial-intelligence-interior-assistant",
+          "summary": "NxtWave-GenAI-Webinar, text-to-image, stable-diffusion, license:creativeml-openrail-m, region:us",
+          "rank": 2,
+          "actual_backend": "Hugging Face official public model API"
+        },
+        {
+          "source": "huggingface",
+          "title": "DSDSDSDSDSAAAAAA/Consumer-behavior-analysis-with-artificial-intelligence",
+          "url": "https://huggingface.co/DSDSDSDSDSAAAAAA/Consumer-behavior-analysis-with-artificial-intelligence",
+          "summary": "license:mit, region:us",
+          "rank": 3,
+          "actual_backend": "Hugging Face official public model API"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "huggingface",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:57:22.182680+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "europe_pmc",
+      "language": "zh",
+      "query": "人工智能",
+      "elapsed_s": 20.03,
+      "status": "error",
+      "total": 0,
+      "candidates": [],
+      "failed_channels": [
+        {
+          "channel": "europe_pmc",
+          "error": "上游超时",
+          "status": "timeout"
+        }
+      ],
+      "channel_statuses": [
+        {
+          "channel": "europe_pmc",
+          "status": "timeout",
+          "last_checked_at": "2026-11-23T07:57:44.217426+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "europe_pmc",
+      "language": "en",
+      "query": "artificial intelligence",
+      "elapsed_s": 20.024,
+      "status": "error",
+      "total": 0,
+      "candidates": [],
+      "failed_channels": [
+        {
+          "channel": "europe_pmc",
+          "error": "上游超时",
+          "status": "timeout"
+        }
+      ],
+      "channel_statuses": [
+        {
+          "channel": "europe_pmc",
+          "status": "timeout",
+          "last_checked_at": "2026-11-23T07:58:06.246424+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "pubmed",
+      "language": "zh",
+      "query": "人工智能",
+      "elapsed_s": 0.914,
+      "status": "empty",
+      "total": 0,
+      "candidates": [],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "pubmed",
+          "status": "empty",
+          "last_checked_at": "2026-11-23T07:58:09.165986+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "pubmed",
+      "language": "en",
+      "query": "artificial intelligence",
+      "elapsed_s": 1.116,
+      "status": "ok",
+      "total": 3,
+      "candidates": [
+        {
+          "source": "pubmed",
+          "title": "AI-Driven Discovery of Nodakenin as a Novel Molecular Glue Targeting the TRIM28-NR4A1-LCN2 Axis to Induce Ferroptosis in Melanoma.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/43068980/",
+          "published_at": "2026 Nov 22",
+          "summary": "Advanced science (Weinheim, Baden-Wurttemberg, Germany)",
+          "rank": 1,
+          "actual_backend": "NCBI PubMed official E-utilities"
+        },
+        {
+          "source": "pubmed",
+          "title": "Generative AI Models for Exploring Diffusion Dynamics from Multi-Frame Particle Tracking.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/43068976/",
+          "published_at": "2026 Nov 22",
+          "summary": "Advanced science (Weinheim, Baden-Wurttemberg, Germany)",
+          "rank": 2,
+          "actual_backend": "NCBI PubMed official E-utilities"
+        },
+        {
+          "source": "pubmed",
+          "title": "AI-based histopathologic grading for predicting biochemical recurrence in prostate cancer.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/43068960/",
+          "published_at": "2026 Nov 22",
+          "summary": "BJU international",
+          "rank": 3,
+          "actual_backend": "NCBI PubMed official E-utilities"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "pubmed",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:58:14.287742+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "openlibrary",
+      "language": "zh",
+      "query": "人工智能",
+      "elapsed_s": 1.622,
+      "status": "ok",
+      "total": 3,
+      "candidates": [
+        {
+          "source": "openlibrary",
+          "title": "机器背后的思想",
+          "url": "https://openlibrary.org/works/OL44873593W",
+          "published_at": "2026",
+          "summary": "人工智能",
+          "rank": 1,
+          "actual_backend": "Open Library official Search API"
+        },
+        {
+          "source": "openlibrary",
+          "title": "智能时代：人工智能、超级计算与网络安全",
+          "url": "https://openlibrary.org/works/OL38927736W",
+          "rank": 2,
+          "actual_backend": "Open Library official Search API"
+        },
+        {
+          "source": "openlibrary",
+          "title": "pytorch深度学和图神经网络(卷1) 基础知识 人工智能 李金洪",
+          "url": "https://openlibrary.org/works/OL45262952W",
+          "published_at": "2021",
+          "rank": 3,
+          "actual_backend": "Open Library official Search API"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "openlibrary",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:58:19.915868+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "openlibrary",
+      "language": "en",
+      "query": "artificial intelligence",
+      "elapsed_s": 1.164,
+      "status": "ok",
+      "total": 3,
+      "candidates": [
+        {
+          "source": "openlibrary",
+          "title": "Artificial Intelligence",
+          "url": "https://openlibrary.org/works/OL2896994W",
+          "published_at": "1994",
+          "summary": "Stuart J. Russell, Peter Norvig",
+          "rank": 1,
+          "actual_backend": "Open Library official Search API"
+        },
+        {
+          "source": "openlibrary",
+          "title": "Artificial intelligence",
+          "url": "https://openlibrary.org/works/OL2024373W",
+          "published_at": "1977",
+          "summary": "Patrick Henry Winston",
+          "rank": 2,
+          "actual_backend": "Open Library official Search API"
+        },
+        {
+          "source": "openlibrary",
+          "title": "Artificial intelligence",
+          "url": "https://openlibrary.org/works/OL4453349W",
+          "published_at": "1983",
+          "summary": "Elaine A. Rich",
+          "rank": 3,
+          "actual_backend": "Open Library official Search API"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "openlibrary",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:58:23.085237+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "itunes_podcasts",
+      "language": "zh",
+      "query": "人工智能",
+      "elapsed_s": 0.738,
+      "status": "ok",
+      "total": 3,
+      "candidates": [
+        {
+          "source": "itunes_podcasts",
+          "title": "李松人工智能世界三人行",
+          "url": "https://podcasts.apple.com/us/podcast/%E6%9D%8E%E6%9D%BE%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B8%96%E7%95%8C%E4%B8%89%E4%BA%BA%E8%A1%8C/id1605039999?uo=4",
+          "published_at": "2023-02-11T10:51:00Z",
+          "summary": "李松博士",
+          "rank": 1,
+          "actual_backend": "Apple iTunes official podcast Search API"
+        },
+        {
+          "source": "itunes_podcasts",
+          "title": "全民AI | 必备的人工智能知识",
+          "url": "https://podcasts.apple.com/us/podcast/%E5%85%A8%E6%B0%91ai-%E5%BF%85%E5%A4%87%E7%9A%84%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%9F%A5%E8%AF%86/id1479379887?uo=4",
+          "published_at": "2020-07-09T16:35:00Z",
+          "summary": "文武宇轩",
+          "rank": 2,
+          "actual_backend": "Apple iTunes official podcast Search API"
+        },
+        {
+          "source": "itunes_podcasts",
+          "title": "PodcastGPT 人工智能访谈录",
+          "url": "https://podcasts.apple.com/us/podcast/podcastgpt-%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E8%AE%BF%E8%B0%88%E5%BD%95/id1658932966?uo=4",
+          "published_at": "2022-12-09T23:00:00Z",
+          "summary": "Cali Castle",
+          "rank": 3,
+          "actual_backend": "Apple iTunes official podcast Search API"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "itunes_podcasts",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:58:25.828908+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "itunes_podcasts",
+      "language": "en",
+      "query": "artificial intelligence",
+      "elapsed_s": 0.507,
+      "status": "ok",
+      "total": 3,
+      "candidates": [
+        {
+          "source": "itunes_podcasts",
+          "title": "AI LITERACY - A Podcast about Artificial Intelligence",
+          "url": "https://podcasts.apple.com/us/podcast/ai-literacy-a-podcast-about-artificial-intelligence/id1553736450?uo=4",
+          "published_at": "2022-01-31T14:00:00Z",
+          "summary": "AI LITERACY",
+          "rank": 1,
+          "actual_backend": "Apple iTunes official podcast Search API"
+        },
+        {
+          "source": "itunes_podcasts",
+          "title": "Artificial Intelligence Podcast: ChatGPT, Claude, Midjourney and all other AI Tools",
+          "url": "https://podcasts.apple.com/us/podcast/artificial-intelligence-podcast-chatgpt-claude-midjourney/id1139479669?uo=4",
+          "published_at": "2026-11-18T14:00:00Z",
+          "summary": "Jonathan Green : Artificial Intelligence Expert and Author of ChatGPT Profits",
+          "rank": 2,
+          "actual_backend": "Apple iTunes official podcast Search API"
+        },
+        {
+          "source": "itunes_podcasts",
+          "title": "Artificial Intelligence 101",
+          "url": "https://podcasts.apple.com/us/podcast/artificial-intelligence-101/id1595568010?uo=4",
+          "published_at": "2023-01-30T08:46:00Z",
+          "summary": "Luca Marchesotti",
+          "rank": 3,
+          "actual_backend": "Apple iTunes official podcast Search API"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "itunes_podcasts",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:58:28.340337+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "csdn",
+      "language": "zh",
+      "query": "人工智能",
+      "elapsed_s": 1.979,
+      "status": "ok",
+      "total": 3,
+      "candidates": [
+        {
+          "source": "csdn",
+          "title": "AI人工智能PPT模板",
+          "url": "https://download.csdn.net/download/qq_40210050/14003688?ops_request_misc=elastic_search_misc&request_id=d6795d4a003441bb855c37df14f05d78&biz_id=1&utm_medium=distribute.pc_search_result.none-task-download-2~all~ElasticCommercialInsert~search_v2-1-14003688-null-null.142^v102^pc_search_result_base6&utm_term=%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD",
+          "summary": "【AI人工智能PPT模板】是科技领域常用的演示文稿设计，旨在帮助演讲者或报告者专业地呈现关于人工智能的主题。该模板富含科技元素，能够增强观众对于AI概念和技术的科技感体验。",
+          "rank": 1,
+          "actual_backend": "open-webSearch/csdn"
+        },
+        {
+          "source": "csdn",
+          "title": "人工智能和AI到底是什么？？浅谈人工智能和AI",
+          "url": "https://blog.csdn.net/u013946061/article/details/106948771?ops_request_misc=elastic_search_misc&request_id=d6795d4a003441bb855c37df14f05d78&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~ElasticSearch~search_v2-2-106948771-null-null.142^v102^pc_search_result_base6&utm_term=%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD",
+          "summary": "本文介绍了人工智能的定义、研究领域和目标，阐述其在衣食住行等生活场景的应用，如魔镜系统、智能导购等。还探讨了AI对广告、媒体、教育、艺术创作、物流和工业等传统行业的冲击，指出AI能提高效率、节省成本，未来将带来更多机遇和价值。",
+          "rank": 2,
+          "actual_backend": "open-webSearch/csdn"
+        },
+        {
+          "source": "csdn",
+          "title": "探索AI人工智能与嵌入式AI的融合发展模式",
+          "url": "https://blog.csdn.net/2502_91865303/article/details/148882532?ops_request_misc=elastic_search_misc&request_id=d6795d4a003441bb855c37df14f05d78&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~ElasticCommercialInsert~search_v2-3-148882532-null-null.142^v102^pc_search_result_base6&utm_term=%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD",
+          "summary": "本文深入探讨AI与嵌入式AI的融合发展，介绍了人工智能、嵌入式AI和边缘计算等核心概念及其关系。阐述了模型量化、剪枝等算法原理，以智能家居人脸识别系统为例展示开发流程。还分析了应用场景、未来趋势与挑战，总结了开发要点。",
+          "rank": 3,
+          "actual_backend": "open-webSearch/csdn"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "csdn",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:58:32.322742+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "csdn",
+      "language": "en",
+      "query": "artificial intelligence",
+      "elapsed_s": 1.028,
+      "status": "ok",
+      "total": 3,
+      "candidates": [
+        {
+          "source": "csdn",
+          "title": "Artificial Intelligence",
+          "url": "https://blog.csdn.net/m0_62554628/article/details/144690603?ops_request_misc=elastic_search_misc&request_id=453d2256d1484bb98d211f00e6e9a1b3&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~ElasticCommercialInsert~search_v2-1-144690603-null-null.142^v102^pc_search_result_base6&utm_term=artificial%20intelligence",
+          "summary": "本文围绕人工智能展开，介绍了机器学习、深度学习、自然语言处理和计算机视觉等核心概念。详细阐述了监督、无监督和强化学习算法的原理、步骤、优缺点及应用领域，构建了线性和逻辑回归数学模型。还给出Python项目实践，展示了AI在医疗、金融等领域的应用及未来展望。",
+          "rank": 1,
+          "actual_backend": "open-webSearch/csdn"
+        },
+        {
+          "source": "csdn",
+          "title": "人工智能（Artificial Intelligence）浅谈，填补你的人工智能空白",
+          "url": "https://blog.csdn.net/weixin_45092215/article/details/105806827?ops_request_misc=elastic_search_misc&request_id=453d2256d1484bb98d211f00e6e9a1b3&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-2-105806827-null-null.142^v102^pc_search_result_base6&utm_term=artificial%20intelligence",
+          "rank": 2,
+          "actual_backend": "open-webSearch/csdn"
+        },
+        {
+          "source": "csdn",
+          "title": "【2021年新书推荐】Artificial Intelligence for IoT Cookbook",
+          "url": "https://blog.csdn.net/tushufenxiang/article/details/118030887?ops_request_misc=elastic_search_misc&request_id=453d2256d1484bb98d211f00e6e9a1b3&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~ElasticCommercialInsert~search_v2-3-118030887-null-null.142^v102^pc_search_result_base6&utm_term=artificial%20intelligence",
+          "summary": "此账号为程序员分享技术类图书信息，今日推荐2021年3月Packt出版社出版的《Artificial Intelligence for IoT Cookbook》。本书采用配方方法，涵盖数据收集等基本过程，介绍多种AI技术，助读者构建智能IoT解决方案，适合物联网从业者、数据科学家等。",
+          "rank": 3,
+          "actual_backend": "open-webSearch/csdn"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "csdn",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:58:35.356454+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "arxiv",
+      "language": "zh",
+      "query": "人工智能",
+      "elapsed_s": 1.174,
+      "status": "empty",
+      "total": 0,
+      "candidates": [],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "arxiv",
+          "status": "empty",
+          "last_checked_at": "2026-11-23T07:58:38.534882+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "arxiv",
+      "language": "en",
+      "query": "artificial intelligence",
+      "elapsed_s": 1.386,
+      "status": "ok",
+      "total": 20,
+      "candidates": [
+        {
+          "source": "arxiv",
+          "title": "Optimal Linear Regression Without a Variance",
+          "url": "http://arxiv.org/abs/2611.27983v1",
+          "published_at": "2026-11-20T18:58:45Z",
+          "summary": "We study high-probability linear regression in the infinite variance regime, wherecthe regression noise has only a finite conditional $α$-moment $ν$ for some unknown $α\\in(1,2)$, and the covariates may only have finite moments up to a given order (e.g., 4th moment). We give a black-box reduction that converts finite-variance regression procedures into weak-moment procedures. The reduction is based on empirical residual pruning and is agnostic to the moment exponent, the noise scale, the covariance, and the design moment. Under a finite fourth-moment condition on the covariates, any finite-variance subroutine attaining the sub-Gaussian rate yields the following when the number of samples $n$ is above a suitably defined threshold: Without knowing $α$ or $ν$, we have with probability at least $1-δ$ that $ \\|\\widehatθ-θ^*\\|_Σ \\lesssim_α ν^{1/α} \\big(\\frac{d+\\log(1/δ)}{n}\\big)^{\\frac{α-1}α}, $ where $d$ is the dimension, $Σ$ is the covariate covariance matrix, and $\\|v\\|_Σ:=(v^\\topΣv)^{1/2}$. We further prove a matching minimax lower bound that holds under the same conditions. The reduction is computationally efficient whenever the finite-variance subroutine is. We also obtain a distribution-free prediction guarantee under a bounded raw $α$-moment assumption on the response, and give an analogous $α$-agnostic reduction for mean estimation."
+        },
+        {
+          "source": "arxiv",
+          "title": "Non-penetrating World Models",
+          "url": "http://arxiv.org/abs/2611.27963v1",
+          "published_at": "2026-11-20T18:44:57Z",
+          "summary": "We study a new problem of preventing object penetration in interactive video world models. To understand how existing models handle this, we introduce NoPeBench, a benchmark that evaluates how world models respond to physical obstacles. Our evaluation reveals that none of the open-source models can reliably prevent such failures. Surprisingly, however, these models already encode the information needed to predict such violations. We find that the hidden states of diffusion transformers (DiTs) can predict whether a candidate action will penetrate an obstacle. Building on this, we introduce NoPeWorld, a lightweight framework that detects and prevents penetration. Specifically, we train a small prediction head on top of a frozen DiT's hidden states to read out if a candidate action is safe or not. Unsafe actions are then replaced with safe ones that best preserve the original intent. Despite its simplicity, NoPeWorld substantially reduces the physical violation rate, averaged over six video world models, from 74% to 16%. Remarkably, our method shows zero-shot generalization to open-domain imagery, third-person viewpoints, and moving obstacles. We publicly release our code, the NoPeBench benchmark, and model weights. Project Page: https://nopeworld.github.io ."
+        },
+        {
+          "source": "arxiv",
+          "title": "Model Carving: Training Transformers That Optimize Their Own Topology",
+          "url": "http://arxiv.org/abs/2611.27962v1",
+          "published_at": "2026-11-20T18:41:39Z",
+          "summary": "Machine learning has largely kept separate the choice of architecture and the process of training. A classic Transformer, for instance, trains a fixed set of attention and MLP sublayers at every layer, in the same order, and optimizes the weights within. This uniformity is a convention rather than a principled design choice, and it is likely suboptimal: the best architecture for a given task may be smaller, more efficient, and far from uniform. We believe that, ideally, training itself should shape the model's topology. To this end, we introduce Model Carving, which learns both a Transformer's weights and its architecture in a single run. By applying learnable, scalar gates to each sublayer, we allow the training loss to remove the model's own components during training -- freeing a smaller heterogeneous network inside. We evaluate Model Carving by pre-training standard Transformers from 140M to 2.7B parameters and looped Transformers from 140M to 1.3B. At equal training compute, carved models reach a lower validation loss than dense models trained with up to 1.7 times more compute. Furthermore, carved models also outperform size-matched models produced by pruning or distillation, suggesting that the best way to obtain small models for edge devices is to carve them during training, not to compress a large one afterwards. This advantage both grows with scale and carries over to downstream tasks such as few-shot evaluation and generation. Because the removed sublayers no longer run, carved models also cost up to 34% fewer FLOPs per token and decode up to 1.6 times faster without cost in quality. Our results show that architecture, like weights, should be learned and not fixed in advance, and that inside every large transformer is a smaller, faster, stronger one waiting to be carved out."
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "arxiv",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:58:43.925612+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "bilibili",
+      "language": "zh",
+      "query": "Python 教程",
+      "elapsed_s": 0.482,
+      "status": "ok",
+      "total": 17,
+      "candidates": [
+        {
+          "source": "bilibili",
+          "title": "【全748集】目前B站最全最细的Python零基础全套教程，2026最新版，包含所有干货！七天就能从小白到大神！少走99%的弯路！存下吧！很难找全的！",
+          "url": "https://www.bilibili.com/video/BV1rpWjevEip",
+          "author": "Python官方课程",
+          "play": 21980890,
+          "published_at": "2024-08-22T14:59:18+00:00",
+          "summary": "【视频配套籽料、开发环境搭建安装包教程、电子书+问题解答请看 ”置顶平论” 自取哦】 本套教程从零开始讲解，手把手教学，包含基础语法、进阶语法、爬虫、自动化办公、数据分析 无论是新手小白，还是有一定编码经验的选手，皆可学习 如果视频对你有用的话请 一键三连【长按点赞】支持一下UP哦，拜托，这对我真的很重要！"
+        },
+        {
+          "source": "bilibili",
+          "title": "3小时超快速入门Python | 动画教学【2026新版】【自学Python教程】【零基础Python】【计算机二级Python】【Python期末速成】",
+          "url": "https://www.bilibili.com/video/BV1Jgf6YvE8e",
+          "author": "林粒粒呀",
+          "play": 8951380,
+          "published_at": "2025-02-01T09:20:00+00:00",
+          "summary": "把Python教程做成动画片了，教学通俗易懂，2026最新版，学完入门编程！ 全部配套课程源码+学习资料，领取方式：关注【林粒粒呀】公综号"
+        },
+        {
+          "source": "bilibili",
+          "title": "【全748集】2026年度B站最全Python全套教程（包含爬虫+数据分析），从入门到精通Python，年终学完即可就业！看完这一套Python教程就够了！！！",
+          "url": "https://www.bilibili.com/video/BV1r1yGzKEXX",
+          "author": "Python官方教程视频",
+          "play": 1264,
+          "published_at": "2026-11-22T10:28:20+00:00",
+          "summary": "【视频配套籽料、开发环境搭建安装包教程、电子书+问题解答请看 ”置顶平论” 自取哦】 本套课程为Python全套教程，清华大佬从零开始讲解，旨在帮助零基础的同学更轻松的学会Python，走少弯路！ 教程包含了语法基础、语法进阶、巩固练习题、网络爬虫、数据分析、自动化办公等，全程通俗易懂。 无论你是零基础小白，还是有一定的编码能力，皆可学习！ 视频制作不易，如果视频对你有用的话请一键三连【长按点赞】"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "bilibili",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:58:48.409018+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "bilibili",
+      "language": "en",
+      "query": "Python tutorial",
+      "elapsed_s": 0.376,
+      "status": "ok",
+      "total": 17,
+      "candidates": [
+        {
+          "source": "bilibili",
+          "title": "Python NumPy Tutorial for Beginners",
+          "url": "https://www.bilibili.com/video/BV1vY411b7fP",
+          "author": "今天三星失火了吗",
+          "play": 321,
+          "published_at": "2022-01-18T13:34:30+00:00",
+          "summary": "https://www.youtube.com/watch?v=QUT1VHiLmmI&amp;ab_channel=freeCodeCamp.org"
+        },
+        {
+          "source": "bilibili",
+          "title": "Python之os模块讲解",
+          "url": "https://www.bilibili.com/video/BV1sg411K7m8",
+          "author": "三斤不看鬼畜",
+          "play": 31669,
+          "published_at": "2021-11-10T15:25:41+00:00",
+          "summary": "Python之os模块讲解 看完，自己动手实践吧！！！"
+        },
+        {
+          "source": "bilibili",
+          "title": "【全套Python常见报错处理教程】疑难杂症 快速解决 | 保姆级",
+          "url": "https://www.bilibili.com/video/BV1vD4y1K7iD",
+          "author": "编程八点档",
+          "play": 119761,
+          "published_at": "2023-02-03T00:00:23+00:00",
+          "summary": "【全套Python常见报错处理教程】疑难杂症 快速解决 | 保姆级"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "bilibili",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:58:50.787682+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "tavily",
+      "language": "zh",
+      "query": "人工智能",
+      "elapsed_s": 3.37,
+      "status": "ok",
+      "total": 3,
+      "candidates": [
+        {
+          "source": "tavily",
+          "title": "人工智能 - 维基百科，自由的百科全书",
+          "url": "https://zh.wikipedia.org/zh-hans/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD",
+          "summary": "一般教材把人工智能定义为“智慧主体的研究与设计”，智慧主体指能观察周遭环境并采取行动以达成目标的系统。约翰·麦卡锡1955年将其定义为“制造智能机器的科学与工程”。安德烈亚斯·卡普兰和迈克尔·海恩莱因则把人工智能说成是“系统正确解释外部数据、从中学习，并利用这些知识通过灵活适应，以实现特定目标和任务的能力”。人工智能也可定义为模仿人类认知功能（如学习和解决问题）的机器或计算机。它是计算机科学的一个分支：系统感知环境并采取行动，以最大限度地提高成功机会，部分人工智能系统亦能从过去的经验中学习、做出合理决策并快速回应。 人工智能研究人员的科学目标之一，是透过构建能进行符号推理的计算机程式来理解智慧。 人工智能的主要基础组成部分是： 学习（包括机器学习、深度学习、强化学习等子领域） 知识表示、推理与决策 问题解决——包括使用泛型或特设的方法,以有序的方式,寻找问题解决方案 感知（例如计算机视觉） 自然语言处理（NLP） 生成能力：生成模型与生成式人工智能 [...] | “人工智能”的各地常用名称 | | 中国大陆 | 人工智能 | | 台湾 | 人工智慧 、超级智慧 | | 港澳 | 人工",
+          "rank": 1,
+          "actual_backend": "Tavily official basic Search API (free-only)"
+        },
+        {
+          "source": "tavily",
+          "title": "什么是人工智能 (AI)？ | Google Cloud",
+          "url": "https://cloud.google.com/learn/what-is-artificial-intelligence?hl=zh-CN",
+          "summary": "定义：AI 是计算机科学的一个领域，旨在创建智能机器来执行通常需要人类智能才能完成的任务，例如学习、推理和解决问题。 工作原理：AI 系统从大量数据中学习，发现规律，从而做出预测或决策，而无需针对每一个场景进行明确编程。这就好比通过向计算机展示一百万个样本来教会它，而不是编写一百万条规则。 AI 的应用场景：您每天都在使用 AI，例如 Google 地图等导航应用、购物网站上的个性化推荐、邮箱中的垃圾邮件过滤器，以及 Gemini Live 等虚拟助理。 AI 的重要性：AI 帮助我们解决了一些世界上最棘手的难题，例如加速医学研究、打造更高效的供应链和应对气候变化。 ## 什么是人工智能 (AI)？ 人工智能 (AI) 是一组技术，使计算机能够学习、推理并执行各种高级任务，而这些任务以前需要人类智能才能完成，例如理解语言、分析数据，甚至提供有用的建议。这是一项变革性技术，可以为人类、社会乃至整个世界带来有意义的积极变化。 AI 涵盖许多不同的学科，包括计算机科学、数据分析和统计、硬件和软件工程、语言学、神经学，甚至哲学和心理学。 [...] 机器学习 (ML)：这类 AI 系统通过数据",
+          "rank": 2,
+          "actual_backend": "Tavily official basic Search API (free-only)"
+        },
+        {
+          "source": "tavily",
+          "title": "什么是人工智能（AI）？_云计算主题库-阿里云",
+          "url": "https://www.aliyun.com/getting-started/what-is/what-is-ai",
+          "summary": "前面提到，人工智能旨在让计算机模仿人类的决策能力、像人类一样思考和行动。要实现这个目标，需要计算能力、数据、人工智能算法这三个关键要素。 人工智能的工作原理概括地说，是通过模拟人类的学习过程，让机器能够从数据中识别规律和特征，用这些学习到的知识来完成各种复杂的任务。详细的工作原理如下： 1. 数据收集与处理：人工智能基于人类输入的信息或从互联网上其他渠道获取的大量数据，对数据进行处理，包括对数据进行清洗（如去除噪声和不相关的数据等）、标准化（即将数据转化为一致的格式）、特征提取（识别与解决目标问题有关的数据属性）等。 2. 机器学习：学习是人工智能的核心过程，人工智能通过学习，从数据中提取规律和特征，并不断优化自己的算法和模型。 3. 推理、预测或执行操作：人工智能会根据已学习到的知识和已有的规则，基于已有的模型和算法，对新的数据进行识别、分析、预测和推理。例如，在文字识别任务中，人工智能可用于识别图片、个人证照等文件中包含的文字。 ## 人工智能有哪些实际应用？ 人工智能在不同领域的应用如下： [...] - 处理海量数据 人工智能可以快速分析和处理超出人类能力范围的海量数据。 - ",
+          "rank": 3,
+          "actual_backend": "Tavily official basic Search API (free-only)"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "tavily",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:58:48.341814+00:00"
+        }
+      ]
+    },
+    {
+      "provider": "tavily",
+      "language": "en",
+      "query": "artificial intelligence",
+      "elapsed_s": 4.399,
+      "status": "ok",
+      "total": 3,
+      "candidates": [
+        {
+          "source": "tavily",
+          "title": "What is Artificial intelligence (AI)?",
+          "url": "https://www.mtu.edu/data-science/undergraduate/ai/what-is",
+          "summary": "Artificial intelligence (AI) encompasses the fields of computer and data science focused on building machines with human intelligence to perform tasks like learning, reasoning, problem-solving, perception, and language understanding. Instead of relying on explicit instructions from a programmer, AI systems learn from data that enables them to handle complex problems and simple repetitive tasks, improving how they respond over time.",
+          "rank": 1,
+          "actual_backend": "Tavily official basic Search API (free-only)"
+        },
+        {
+          "source": "tavily",
+          "title": "What Is Artificial Intelligence? Definition, Uses, and Types",
+          "url": "https://www.bing.com/aclick?ld=e8p3gvPqafjsokvBUXT4UWjzVUCUyYH7p3aHQLaNpcXsHk6I9Hpk8Sx08GkzQ1g1LStmpuQPkVbadjVL3bknRyG1cULXNpFkis6VHLk9XStc30J8gp4_MY7zRZ3H_AW6OWPAQFpb3UWgYmJp1TDOVs2HoEU0f0z9fVSua0BuRlpyKiavDX1bMEI_PDnWVyj2_y4WEkYix4YZxjjWBdPkwjCLUZZHc&u=aHR0cHMlM2ElMmYlMmZ3d3cuY291cnNlcmEub3JnJTJmYXJ0aWNsZXMlMmZ3aGF0LWlzLWFydGlmaWNpYWwtaW50ZWxsaWdlbmNlJTNmdXRtX21lZGl1bSUzZHNlbSUyNnV0bV9zb3VyY2UlM2RiZyUyNnV0bV9jYW1wYWlnbiUzZGIyY19uYW1lcl94X2NvdXJzZXJhX2Z0Y29mX3hfY3hfZHJfYmF1X2JnX3NlbV9iZF91cy1jYV9lbl9tX3hfMTctMDNfeCUyNmNhbXBhaWduaWQlM2QyNzgxNzIwNzElMjZhZGdyb3VwaWQlM2QxMjA5NDYzMjUzMDU2MjkwJTI2ZGV2aWNlJTNkYyUyNmtleXdvcmQlM2RodHRwcyUyNTNBJTI1MkYlMjUyRnd3dy5jb3Vyc2VyYS5vcmclMjUyRiUyNm1hdGNodHlwZSUzZGIlMjZuZXR3b3JrJTNkbyUyNmRldmljZW1vZGVsJTNkJTI2YWRwb3NpdGlvbiUzZCUyNmNyZWF0aXZlaWQlM2Q3NTU5MTU3NjAzMTQyMCUyNmFkZ3JvdXAlM2QwMSUyNTIwLSUyNTIwQnJhbmRlZCUyNTIwU2VhcmNoJTI1MjAtJTI1MjBVUyUyNTIwLSUyNTIwZHluYW1pYyUyNTIwYWQlMjUyMGdyb3VwJTI2cXVlcnlzdHJpbmclM2RBSSUyNTIwYXJ0aWZpY2lhbCUyNTIwaW50ZWxsaWdlbmNlJTI2dGFyZ2V0aWQlM2RkYXQtMjMyNzM5MTIzODIwMDgyMCUzYWxvYy0xOTAlMjZiaWRtYXRjaHR5cGUlM2RiYiUyNmV4dGVuc2lvbmlkJTNkJTI2bXNjbGtpZCUzZGRmYzg1N2I2MjFiMDE4MWE1OTlkM2U5YWQzOGIwMzc1JTI2dXRtX3Rlcm0lM2RodHRwcyUyNTNBJTI1MkYlMjUyRnd3dy5jb3Vyc2VyYS5vcmclMjUyRiUyNnV0bV9jb250ZW50JTNkMDElMjUyMC0lMjUyMEJyYW5kZWQlMjUyMFNlYXJjaCUyNTIwLSUyNTIwVVMlMjUyMC0lMjUyMGR5bmFtaWMlMjUyMGFkJTI1MjBncm91cA&rlid=dfc857b621b0181a599d3e9ad38b0375",
+          "summary": "What is artificial intelligence? Artificial intelligence (AI) is the theory and development of computer systems capable of performing tasks that historically required human intelligence, such as recognizing speech, making decisions, and identifying patterns. AI is an umbrella term that encompasses a wide variety of technologies, including machine learning, deep learning, and natural language processing (NLP). [...] AI stands for \"artificial intelligence.\" Artificial intelligence is the simulatio",
+          "rank": 2,
+          "actual_backend": "Tavily official basic Search API (free-only)"
+        },
+        {
+          "source": "tavily",
+          "title": "What Is Artificial Intelligence? Definition, Uses, and Types | Coursera",
+          "url": "https://www.coursera.org/articles/what-is-artificial-intelligence",
+          "summary": "Artificial intelligence (AI) is the theory and development of computer systems capable of performing tasks that historically required human intelligence, such as recognizing speech, making decisions, and identifying patterns. AI is an umbrella term that encompasses a wide variety of technologies, including machine learning, deep learning, and natural language processing (NLP). [...] Despite the many philosophical disagreements over whether “true” intelligent machines actually exist, when most pe",
+          "rank": 3,
+          "actual_backend": "Tavily official basic Search API (free-only)"
+        }
+      ],
+      "failed_channels": [],
+      "channel_statuses": [
+        {
+          "channel": "tavily",
+          "status": "ok",
+          "last_checked_at": "2026-11-23T07:58:54.743238+00:00"
+        }
+      ]
+    }
+  ]
+}

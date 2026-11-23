@@ -130,7 +130,7 @@ Requires Python >=3.10; Quick start installs directly from main without cloning,
 | `EXA_API_KEY` | Ignored by search; fixed keyless endpoint. | Quota errors stop immediately; five-minute process-local cooldown. |
 | `AI_GATEWAY_API_KEY` | Ignored by CLI/MCP/shared service search; no model reranking. | `rerank_downgraded: disabled_by_transport_policy`. |
 | `OPEN_WEBSEARCH_ROOT` | Optional pinned source installation directory. | Use the fixed revision in the user cache; missing installation is `startup_failed`. |
-| `TAVILY_API_KEY` / `OPENALEX_API_KEY` | Reserved for a later API integration. | Catalog marks these providers `not_implemented`; not read this round. |
+| `TAVILY_API_KEY` / `OPENALEX_API_KEY` | Official free-only APIs; require matching `*_FREE_ONLY=1`. | Environment only; never put keys in argv, tools or repository. |
 | `RESEARCH_MCP_ALLOW_FAKE_IP` | Exactly `1` permits `198.18.0.0/15`. | Block that range and explain proxy fake-IP mode. |
 
 ### External commands
@@ -153,8 +153,8 @@ The catalog exposes cost class, key/login requirements, languages, content types
 | `github_search` | Repositories | Free gh CLI with existing login |
 | `hacker_news` | English discussions | Keyless Algolia API |
 | `juejin`, `bilibili` | Chinese articles / videos | Existing public search adapters |
-| `arxiv` | Papers | Still limited to abstracts linking to GitHub in this increment |
-| `tavily`, `openalex` | Web / papers | Recurring free key required; catalog-only, `implemented=false` until a later PR |
+| `arxiv` | Papers | All papers by default; opt into GitHub-only with ARXIV_REQUIRE_GITHUB=1 |
+| `tavily`, `openalex` | Web / papers | Recurring free key + explicit `*_FREE_ONLY=1`; quota preflight, no paid fallback |
 
 The calling agent chooses 1–2 complementary providers: domestic facts → Baidu/Sogou; English official docs → DDG + keyless Exa; implementation → GitHub + Juejin; papers → arXiv + Exa. Shopping can currently use Bilibili/Baidu reviews; JD/Taobao and community browser adapters are not implemented. No separate routing model is called. Shared service searches force model reranking off even if a legacy caller supplies `rerank=True`; the old explicitly opted-in internal Python reranker remains separate.
 
@@ -184,7 +184,7 @@ Read on **2026-11-09**. This compares the statements and implementation at that 
 | Aspect | research-mcp | Agent Reach |
 |---|---|---|
 | Entry point | Packaged CLI and two-tool stdio MCP. | README demonstrates `agent-reach <channel> <action>`, `read` and natural-language installation/management. |
-| Platforms | Ten opt-in search channels; explicit providers; webpage, GitHub and Bilibili reads. | README lists Bilibili, V2EX, GitHub, YouTube and web as defaults, with optional and experimental channels. |
+| Platforms | 22 opt-in search channels; explicit providers; webpage, GitHub and Bilibili reads. | README lists Bilibili, V2EX, GitHub, YouTube and web as defaults, with optional and experimental channels. |
 | Identity/config | Free search ignores paid keys; GitHub reuses gh identity; transcription configured separately. | README describes copying existing browser login for some platforms, dedicated browsers and session management. |
 | Failure/coverage | v1 JSON partial status, error codes, truncation and GitHub coverage. | README describes ordered preferred/backup tool lists per platform. |
 
@@ -213,3 +213,14 @@ Include your Python version, command and redacted error codes in an issue; CI ru
 If this helps, leave a ⭐. Have a channel in mind? Open an issue.
 
 </div>
+
+
+### Additional free APIs
+
+Optional providers: `tavily` (basic only), `openalex`, `wikipedia`, `wikidata`, `crossref`, `stackexchange` (Stack Overflow), `huggingface` (public models), `europe_pmc`, `pubmed`, `openlibrary`, `itunes_podcasts`, and pinned open-webSearch `csdn`. arXiv includes papers without code by default; opt into the old filter with `ARXIV_REQUIRE_GITHUB=1`. Bilibili preserves upstream `totalrank` order rather than sorting again by date.
+
+Inject `TAVILY_API_KEY` / `OPENALEX_API_KEY` through environment variables only, with the respective `TAVILY_FREE_ONLY=1` / `OPENALEX_FREE_ONLY=1`. The server never opens vault files. From a source checkout, `python3 scripts/run_free_search.py --verified-free-accounts --tavily-payg-disabled -- search "AI" --providers tavily,openalex --limit 3 --format json` injects only those two keys from the local vault into the CLI subprocess; use those explicit account assertions only after checking the free plan and disabled PAYG. Missing key/flag yields auth_required. For the observed nullable Tavily `paygo_limit`, also set `TAVILY_PAYG_DISABLED=1` only after verifying PAYG Disabled in the account UI; null alone never proves this. Missing fields, positive paid cap or paid usage fail closed. Tavily preflights a free/Researcher plan, disabled PAYG and remaining monthly credits; OpenAlex checks a <=$1 daily budget, zero prepaid balance and sufficient remaining free credit. Unknown fields fail closed. No paid fallback/retry; use a free-only account because preflight cannot atomically reserve usage across other clients.
+
+Examples: errors → github_search + stackexchange + juejin + csdn; papers → openalex + crossref + arxiv; biomedical literature → pubmed + europe_pmc; concepts → wikipedia + wikidata; books/podcasts → openlibrary + itunes_podcasts; public models → huggingface + github_search. Shopping ideally combines JD/Taobao/SMZDM + Bilibili, but browser sources are not enabled without successful local probes. For now use bing/baidu site filters plus bilibili as public leads.
+
+JD, Taobao, Tmall, Pinduoduo, SMZDM, Xianyu, Zhihu, Xiaohongshu, Douyin, Weibo, Sogou WeChat, V2EX and linux.do remain unverified: the original Ego Lite task space hit another browser-owned local-network permission prompt at the first platform and handed control to the user. This is an environment blocker, not evidence that each platform rejects access. No cookie export or CAPTCHA bypass. See [API acceptance](docs/acceptance-api-2026-11-23.md).

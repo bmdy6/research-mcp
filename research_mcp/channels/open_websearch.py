@@ -18,7 +18,7 @@ from research_mcp.channels.errors import ChannelError, failure_status
 
 REVISION = "2562c9233a945c18fa9d08b7e450ca218a8853b6"
 VERSION = "2.2.0"
-ENGINES = ("baidu", "sogou", "bing", "duckduckgo")
+ENGINES = ("baidu", "sogou", "bing", "duckduckgo", "csdn")
 MAX_BYTES = 2_000_000
 TIMEOUT = 35
 BRIDGE = Path(__file__).with_name("open_websearch_bridge.mjs")
