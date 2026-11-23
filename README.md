@@ -12,13 +12,14 @@
 
 </div>
 
-横幅里的终端是 2026-11-11 的真实运行：`search "mcp server" --limit 5`，5 个渠道全部返回，汇集 119 条候选，用时 3.4 秒；结果随网络变化。
+横幅记录旧版默认全源搜索（2026-11-11）：`search "mcp server" --limit 5`，5 个渠道全部返回，汇集 119 条候选，用时 3.4 秒；当前版本有小组免费默认渠道，建议先列目录、按题选渠道，见下文；旧图不代表当前默认行为。
 
 ## 快速开始
 
 ```sh
 uvx --from git+https://github.com/bmdy6/research-mcp research-mcp --help
-uvx --from git+https://github.com/bmdy6/research-mcp research-mcp search "mcp server" --limit 5
+uvx --from git+https://github.com/bmdy6/research-mcp research-mcp channels --format json
+uvx --from git+https://github.com/bmdy6/research-mcp research-mcp search "mcp server" --providers hacker_news --limit 5
 uvx --from git+https://github.com/bmdy6/research-mcp research-mcp fetch \
   https://github.com/cli/cli/pull/14976
 ```
@@ -55,10 +56,10 @@ AI agent 自带的搜索有时只给一页摘要：可能漏掉 PR 里的审查�
 
 | | 以前 | 用 research-mcp |
 |---|---|---|
-| 查一个话题 | GitHub、HN、B站、掘金各开一个标签页 | 一条命令，5 个渠道并发，结果带来源 |
+| 查一个话题 | GitHub、HN、B站、掘金各开一个标签页 | 由 agent 选渠道，一条命令并发搜索，结果带来源 |
 | 读一个 PR | 只拿到标题和描述 | 审查、行内评论、文件路径，`coverage` 写明读了几条 |
 | 来源失败 | 悄悄少一块，agent 照样下结论 | `partial`、失败渠道、截断原因都在结果里 |
-| 接入 agent | 每个平台装一个工具 | 1 个 MCP 工具，关键词和链接都收 |
+| 接入 agent | 每个平台装一个工具 | 2 个 MCP 工具：列目录，以及搜索/读原文 |
 
 ## ✨ 功能
 
@@ -91,8 +92,10 @@ AI agent 自带的搜索有时只给一页摘要：可能漏掉 PR 里的审查�
 
 ```mermaid
 flowchart LR
-  Q[关键词或链接] --> S{research_search}
-  S -->|关键词| C[5 个渠道并发<br>GitHub · HN · B站 · 掘金 · Exa]
+  L[research_list_channels] --> A0[agent 按问题选择 providers]
+  A0 --> Q[关键词或链接]
+  Q --> S{research_search}
+  S -->|关键词| C[仅指定渠道并发<br>免费网页 · 技术 · 视频]
   S -->|链接| F[读原文<br>网页 · PR · B站]
   C --> R[v1 JSON<br>status · errors · coverage]
   F --> R
@@ -100,15 +103,15 @@ flowchart LR
 ```
 
 
-1. 用关键词搜索；`--providers` 可选 `github_search,hacker_news,bilibili,exa,juejin,arxiv`。
-2. 把候选链接传给 `fetch`；MCP 的单工具 `research_search` 同时接受关键词或链接。
+1. 先调用 `research_list_channels`（CLI：`research-mcp channels`），再显式选择 `providers`；省略或传空数组时使用默认免费组 `bing,baidu,exa`，返回 `used_default_providers=true` 和说明；用环境变量 `RESEARCH_DEFAULT_PROVIDERS=hacker_news,baidu` 可覆盖，空值恢复内置默认。
+2. 把候选链接传给 `fetch`；MCP 的 `research_search` 同时接受关键词或链接。
 3. 检查 `status`、`errors`、`truncated` 和 `coverage`，再决定是否补搜或翻页。
 
 ## 🛡️ 靠得住的地方
 
-- **248 个测试用例。** CI 在 Ubuntu / macOS × Python 3.10 / 3.13 上跑离线测试，另单跑一次 MCP stdio。
+- **267 个测试用例。** CI 在 Ubuntu / macOS × Python 3.10 / 3.13 上跑离线测试，另验证 MCP SDK 1.x/2.x 的 stdio。
 - **默认只读公开 HTTPS。** 内网、回环和链路本地地址一律拦截，重定向逐跳复查。
-- **密钥只走环境变量。** 三个 key 全部可选；不设置就跳过对应能力，并在结果里说明。
+- **关键词搜索只走免费路径。** 不读取 Exa 付费 key，不调用路由或重排模型；缺依赖和限流按渠道说明。URL 读取中的可选转写保持原有独立配置。
 
 ## 选项
 
@@ -117,7 +120,7 @@ flowchart LR
 | 参数 | 作用 |
 |---|---|
 | `--limit` | CLI 搜索默认 10，范围 1–40；MCP 默认 12。 |
-| `--providers` | CLI 用逗号分隔，MCP 用字符串数组。 |
+| `--providers` | 搜索必传；CLI 用逗号分隔，MCP 用字符串数组。URL 读取忽略它。 |
 | `--format json` | 输出 v1 JSON；text 当前也输出可读 JSON。 |
 
 ### 环境变量
@@ -125,8 +128,10 @@ flowchart LR
 | 变量 | 用途 | 不设置时 |
 |---|---|---|
 | `GROQ_API_KEY` | B站音频转写。 | 不转写；尝试网页回退，提示设置 key。 |
-| `EXA_API_KEY` | 自备 Exa 搜索额度。 | 使用免费 MCP 端点，可能限流。 |
-| `AI_GATEWAY_API_KEY` | 可选相关性筛选。 | `rerank: skipped_no_key`，不调用付费筛选。 |
+| `EXA_API_KEY` | 搜索忽略此变量，固定免 key 端点。 | 限流立即停止，当前进程冷却 5 分钟。 |
+| `AI_GATEWAY_API_KEY` | CLI/MCP/共享 service 搜索均忽略，不执行模型重排。 | `rerank_downgraded: disabled_by_transport_policy`。 |
+| `OPEN_WEBSEARCH_ROOT` | 可选：指向下面固定版本的源码安装目录。 | 查找用户缓存中的固定 revision；未安装则 `startup_failed`。 |
+| `TAVILY_API_KEY` / `OPENALEX_API_KEY` | 官方 API 的免费 key；对应 `*_FREE_ONLY=1` 才启用。 | 只从环境变量读取；不要把 key 写入仓库或命令参数。 |
 | `RESEARCH_MCP_ALLOW_FAKE_IP` | 精确为 `1` 时放行 `198.18.0.0/15`。 | 拦截该网段并提示代理 fake-ip 原因。 |
 
 ### 外部命令
@@ -135,7 +140,56 @@ flowchart LR
 |---|---|---|
 | `gh` | GitHub 搜索、仓库/Issue/PR/文件读取不可用；其他渠道继续。登录身份的权限会影响可见内容。 | [GitHub CLI](https://cli.github.com)，安装后 `gh auth login`。 |
 | `bili` | B站 API 失败后的搜索备选及音频下载不可用；公开 API 搜索和网页回退仍可能成功。 | `uv tool install 'bilibili-cli[audio]'`。 |
-| `curl` | HN、掘金、B站 API 搜索与 Groq 转写受影响；Exa 直连和安全网页读取不依赖它。 | 用系统包管理器安装 curl。 |
+| `curl` | HN、掘金、B站 API、Exa 搜索与 Groq 转写受影响；安全网页读取不依赖它。 | 用系统包管理器安装 curl。 |
+
+## 免费渠道目录与选源
+
+现有目录登记 22 个可选渠道，含 11 个官方 API 渠道及 CSDN；没有 key、没有登录也能启动；HN、网页渠道等各自工作，失败不会中断其他渠道。
+
+| 渠道 ID | 内容 / 适合语言 | 条件与费用 |
+|---|---|---|
+| `baidu`、`sogou` | 中文网页、国内信息 | 免 key；可选 open-webSearch 请求子进程；反爬时 `blocked` |
+| `bing`、`duckduckgo` | 中英文网页 | 同上；本出口 Bing 英文长查询相关性较弱，优先试 DDG |
+| `exa` | 语义网页、站内线索 | 官方免 key MCP + curl；429/402 即停，不回退付费 |
+| `github_search` | 仓库、实现线索 | 免费；需 `gh` 和已有登录身份 |
+| `hacker_news` | 英文技术讨论 | 免 key；Algolia 公开 API |
+| `juejin` | 中文工程文章 | 免 key；公开搜索接口 |
+| `bilibili` | 课程、演示、评测 | 免 key 搜索；API 不通时可尝试已有 bili CLI |
+| `arxiv` | 英文论文 | 免 key；默认全部论文，`ARXIV_REQUIRE_GITHUB=1` 可限定 GitHub 链接 |
+| `tavily`、`openalex` | 通用网页 / 学术 | `free_recurring`，免费 key + 对应 `*_FREE_ONLY=1`；请求前核验配额 |
+
+目录包含 `cost_class`、`requires_key`、`requires_login`、`languages`、`content_type`、`quota_remaining`、`status`、`last_checked_at`、`license`、`upstream_terms`、`actual_backend`。`unchecked` 仅表示可尝试；`quota_remaining: null` 是未知；状态只记当前服务进程的查询尝试（可能因限流熔断而不发请求），不主动探测、不返回凭据。购物、社区、本机浏览器和自托管渠道本轮尚未注册为可执行渠道。
+
+让调用方 agent 按问题选择，每题先用 1–2 个互补源，必要时换源或改词；服务不调用另一个收费模型来做决策，共享搜索即使收到旧参数 `rerank=True` 也强制关闭模型重排；显式启用的旧内部 Python 重排函数与此免费入口分开：
+
+- 国内信息 → `baidu`，需要补充时 `sogou`；被拦就换公开来源。
+- 英文概念 / 官网 → `duckduckgo`，补 `exa` 或 `bing`；不要把共享索引当成独立佐证。
+- 报错 / 实现 → `github_search` + `stackexchange` + `juejin` + `csdn`，官方文档可加网页 `site:` 查询。
+- 论文 → `arxiv` + `openalex` + `crossref`；arXiv 的 GitHub 链接过滤默认关闭。
+- 买东西 → 本轮用 `bilibili` + `baidu` 找评测；京东/淘宝/什么值得买本机浏览器渠道还未实现，不能指定后声称搜过。
+
+```json
+{"query":"Docker compose depends_on healthcheck","providers":["duckduckgo"],"limit":5}
+```
+
+### 可选安装网页引擎与 CSDN
+
+基础 CLI 仍无必装 Python 运行依赖。网页引擎额外需要 Node.js >=20、npm、git，并显式安装上游；搜索和 MCP 启动不会自动下载：
+
+```sh
+git clone https://github.com/bmdy6/research-mcp.git
+cd research-mcp
+python3 scripts/install_open_websearch.py
+research-mcp search "检索增强生成" --providers baidu,duckduckgo --limit 5
+```
+
+若未安装本包，最后一行可用 `python3 -m research_mcp search ...`。安装器固定 open-webSearch **2.2.0** / commit `2562c9233a945c18fa9d08b7e450ca218a8853b6`，执行上游 lockfile 的 `npm ci --ignore-scripts` 和构建。安装目录在用户缓存，`OPEN_WEBSEARCH_ROOT` 仅可指向该 revision 的构建目录；每次搜索核验 commit。Python 通过小型 Node bridge 调用上游搜索服务，固定 `SEARCH_MODE=request`，一个子进程只指定一个引擎，不走上游 CLI 的自动 daemon 路由，也不启动浏览器。源码和依赖的许可见 [第三方说明](THIRD_PARTY_NOTICES.md)。
+
+### 逐渠道状态
+
+`channel_statuses` 区分 `ok`、`empty`、`blocked`、`auth_required`、`quota_exhausted`、`parse_error`、`startup_failed`、`timeout`、`connection_failed`、`unsupported`。失败的同名状态也写入 `failed_channels[].status`；上游报错只映射固定短消息，不回显 key、路径或原始异常。HTTP 200 + 上游 `partialFailures` 仍判失败，不能当空结果。结果保留发现渠道、实际后端和原始排名。
+
+[2026-11-23 真实验收与 20 题对比](docs/acceptance-2026-11-23.md)记录通过、限流、反爬和未完成的浏览器测试；这些是一次本机观察，不是上游可用性承诺。
 
 ## 与 Agent Reach 对比
 
@@ -143,9 +197,9 @@ flowchart LR
 
 | 维度 | research-mcp | Agent Reach |
 |---|---|---|
-| 操作入口 | 本包 CLI + 单工具 stdio MCP。 | README 展示 `agent-reach <渠道> <动作>`、`read` 和自然语言安装管理。 |
-| 平台范围 | 默认五个搜索渠道，显式 arXiv；网页、GitHub、B站读取。 | README 默认列 B站、V2EX、GitHub、YouTube、web；另有可选和实验渠道。 |
-| 登录与配置 | 三个可选 key 从环境变量读取；GitHub 使用已有 gh 身份。 | README 说明部分平台复制已有浏览器登录，并提供专用浏览器与会话管理。 |
+| 操作入口 | 本包 CLI + 目录/搜索两个 stdio MCP 工具。 | README 展示 `agent-reach <渠道> <动作>`、`read` 和自然语言安装管理。 |
+| 平台范围 | 22 个可选搜索渠道；先列目录，按题选源；网页、GitHub、B站读取。 | README 默认列 B站、V2EX、GitHub、YouTube、web；另有可选和实验渠道。 |
+| 登录与配置 | 免费搜索不读取付费 key；GitHub 使用已有 gh 身份；转写独立配置。 | README 说明部分平台复制已有浏览器登录，并提供专用浏览器与会话管理。 |
 | 失败与覆盖 | v1 JSON 的 partial、错误码、截断和 GitHub coverage。 | README 说明每个平台按有序工具列表尝试首选和备选。 |
 
 依据：[本包入口](research_mcp/cli.py)、[搜索与读取](research_mcp/research.py)、[结果契约](research_mcp/result_contract.py)，以及 [Agent Reach README 固定快照](https://github.com/Panniantong/Agent-Reach/blob/c70ae6da5d39bc90e09ad2ae0575ccc89f31e284/README.md)与[CLI 实现](https://github.com/Panniantong/Agent-Reach/blob/c70ae6da5d39bc90e09ad2ae0575ccc89f31e284/agent_reach/runtime/cli.py)。
@@ -173,3 +227,36 @@ flowchart LR
 觉得有用就点个 ⭐，下一个渠道加什么，欢迎提 Issue。
 
 </div>
+
+
+### API 渠道与按问题选源
+
+下表补充同一目录中的 API 类渠道。默认组仍是 bing、baidu、exa；新增渠道都由 agent 点名。中英文实测数据和限制见 [本轮 API 验收](docs/acceptance-api-2026-11-23.md)。
+
+| 渠道 ID | 内容 | 免费条件 |
+|---|---|---|
+| `tavily` | 全网网页，固定 basic | Researcher 免费账号，PAYG 关闭；环境变量 key + FREE_ONLY，调用前核对免费额度 |
+| `openalex` | 学术论文元数据与摘要 | Free Plan；环境变量 key + FREE_ONLY；每日免费预算、零预付余额核验 |
+| `wikipedia`, `wikidata` | 百科、实体 | 官方 API，免 key；中文输入用中文接口 |
+| `crossref`, `europe_pmc`, `pubmed` | DOI/学术、生物医学 | 官方 API，免 key；医学主题检索不等于医疗建议 |
+| `stackexchange` | Stack Overflow 技术问答 | 官方 API，免 key；遵守 backoff 和 quota_remaining |
+| `huggingface` | 公开模型 | Hub API 免 key，当前只搜模型名，不涵盖全部数据集和 Spaces |
+| `openlibrary` | 图书 | 官方 API 免 key |
+| `itunes_podcasts` | 播客节目 | Apple Search API 免 key |
+| `csdn` | 技术文章 | 同一固定版本 open-webSearch，request 模式 |
+| `arxiv` | 论文 | 默认保留没有 GitHub 链接的论文；`ARXIV_REQUIRE_GITHUB=1` 可开启原过滤 |
+| `bilibili` | 视频 | 综合相关排序 totalrank，保留上游顺序，避免重新按发布日期打乱英文相关结果 |
+
+例如：查报错 → `github_search,stackexchange,juejin,csdn`；查论文 → `openalex,crossref,arxiv`；查生物医学 → `pubmed,europe_pmc`；查图书或播客 → `openlibrary,itunes_podcasts`；了解概念 → `wikipedia,wikidata`；找开源模型 → `huggingface,github_search`。
+
+购物问题理想组合为 **京东/淘宝/什么值得买 + B站**：先以商品平台确定价格和规格，再用 B站评测补使用体验。站内渠道只有本机 Ego Lite 实测可读后才启用；目录没有的平台不能假称已经支持。当前可以先用 `bing,baidu,bilibili`，用 `site:jd.com` / `site:taobao.com` / `site:smzdm.com` 搜公开线索，结果价格需回到商品页核对。
+
+#### 免费 key 的运行时注入
+
+服务不自动读取 vault。在源码目录可用显式启动器 `python3 scripts/run_free_search.py --verified-free-accounts --tavily-payg-disabled -- search "人工智能" --providers tavily,openalex --limit 3 --format json`：从本机 vault 只取这两个 key 注入 CLI 子进程环境，不打印 key、不修改 vault；这两个确认参数仅在账号免费且已核对 PAYG Disabled 后使用。将本机已确认免费账号的值注入子进程环境：`TAVILY_API_KEY`、`TAVILY_FREE_ONLY=1`、`OPENALEX_API_KEY`、`OPENALEX_FREE_ONLY=1`。不要把 key 填进命令参数、README 或 MCP 工具入参。省略 key/确认开关时该渠道返回 auth_required，其他渠道继续。
+
+当 Tavily 配额响应的 `paygo_limit=null` 时，还需显式设置 `TAVILY_PAYG_DISABLED=1`，表示已经在账号页面核对 PAYG Disabled；不能仅从 null 推断关闭。字段缺失、正数付费上限或已有付费使用量都会拒绝。Tavily 固定 basic，不使用自动搜索深度、收费回答或原文选项；调用前核对 Researcher/free、PAYG 为零及免费额度。OpenAlex 调用前核对每日预算不超过 $1、预付余额为零、剩余额度覆盖本次检索；预算字段异常即停止。免费账户与关闭付费是前提；检查无法对别的客户端并发消耗做原子预留。402/429 停止并短期熔断，无自动重试或付费回退。
+
+#### 本机浏览器尚未支持的平台
+
+京东、淘宝、天猫、拼多多、什么值得买、闲鱼、知乎、小红书、抖音、微博、搜狗微信、V2EX、linux.do：本轮恢复原任务空间后，首个平台再次触发 Ego Lite 浏览器权限提示，自动交还用户。尚未完成逐平台实测，不能据此说平台本身不可读，也没有把未经验证的浏览器适配挂进目录。需要用户处理提示并确认后在原空间继续；不导出 cookie、不绕验证码、不用付费替代。

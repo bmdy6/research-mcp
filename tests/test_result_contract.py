@@ -198,14 +198,14 @@ class SharedServiceTest(unittest.TestCase):
         raw = payload([{"title": "合成条目", "url": "https://fixture.invalid/item"}])
         with patch.object(research, "search", return_value=raw) as search_core:
             result = service.search("  fixture  ", limit=3, providers=["a"], request_id="synthetic-request")
-        search_core.assert_called_once_with("fixture", limit=3, providers=["a"], rerank=True)
+        search_core.assert_called_once_with("fixture", limit=3, providers=["a"], rerank=False)
         self.assertEqual(result["request_id"], "synthetic-request")
         self.assertEqual(result["status"], "ok")
         self.assertEqual(result["candidates"][0]["title"], "合成条目")
 
     def test_shared_service_sanitizes_errors_and_selects_fetch_for_urls(self):
         with patch.object(research, "search", side_effect=RuntimeError("SECRET-synthetic")):
-            failed = service.search("fixture", request_id="error-request")
+            failed = service.search("fixture", providers=["a"], request_id="error-request")
         self.assertEqual(failed["errors"][0]["code"], "UPSTREAM_ERROR")
         self.assertNotIn("SECRET-synthetic", json.dumps(failed))
 
@@ -221,7 +221,7 @@ class SharedServiceTest(unittest.TestCase):
         raw = payload(failed=[{"channel": "b", "error": "SECRET token /private/example"}], succeeded=["a"])
         raw["rerank_downgraded"] = "rerank_error: SECRET token /private/example"
         with patch.object(research, "search", return_value=raw):
-            result = service.search("fixture")
+            result = service.search("fixture", providers=["a"])
         self.assertEqual(result["status"], "partial")
         self.assertEqual(result["failed_channels"][0]["error"], "上游请求失败")
         self.assertEqual(result["rerank_downgraded"], "rerank_error")
@@ -254,7 +254,7 @@ class MCPContractTest(unittest.TestCase):
         with patch.object(research, 'search', return_value=payload()) as search:
             value = asyncio.run(self.module.research_search('fixture', 100, ['a']))
         self.assertEqual(json.loads(value)['status'], 'empty')
-        search.assert_called_once_with('fixture', limit=40, providers=['a'], rerank=True)
+        search.assert_called_once_with('fixture', limit=40, providers=['a'], rerank=False)
         with patch.object(research, 'search') as search:
             invalid = json.loads(asyncio.run(self.module.research_search('fixture', 'not-an-integer')))
         self.assertEqual(invalid['errors'][0]['code'], 'INVALID_INPUT')

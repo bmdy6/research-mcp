@@ -8,6 +8,7 @@ version = "0.1.0"
 description = "Keyword search and source reading for agents"
 requires-python = ">=3.10"
 license = "MIT"
+license-files = ["LICENSE", "third_party/open-webSearch-LICENSE", "THIRD_PARTY_NOTICES.md"]
 dependencies = []
 
 [project.optional-dependencies]
@@ -18,3 +19,6 @@ research-mcp = "research_mcp.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["research_mcp*"]
+
+[tool.setuptools.package-data]
+"research_mcp.channels" = ["*.mjs"]

@@ -8,6 +8,7 @@ from unittest.mock import patch
 from research_mcp import commands, research, service
 from research_mcp import rerank
 from research_mcp.channels import exa
+from research_mcp.channels.errors import failure_status
 from research_mcp.tools import bili_transcript
 
 
@@ -16,12 +17,11 @@ class ExportTest(unittest.TestCase):
         item = {"title": "Synthetic", "source": "hacker_news", "url": "https://example.com/1"}
         with patch.dict(os.environ, {}, clear=True), patch.object(research, "_default_providers", return_value={"hacker_news": lambda _: [item]}), patch.object(rerank, "judge_candidates") as judge, patch.object(subprocess, "run", side_effect=AssertionError("no subprocess needed")):
             self.assertEqual(rerank.get_ai_gateway_key(), "")
-            self.assertEqual(exa.exa_api_key(), "")
+            self.assertEqual(exa.endpoint_selector(), exa.FREE_ENDPOINT)
             self.assertEqual(bili_transcript.groq_key(), "")
-            result = service.search("synthetic")
+            result = service.search("synthetic", providers=["hacker_news"])
         self.assertEqual(result["status"], "ok")
-        self.assertEqual(result["rerank"], "skipped_no_key")
-        self.assertNotIn("rerank_downgraded", result)
+        self.assertEqual(result["rerank_downgraded"], "disabled_by_transport_policy")
         self.assertNotIn("相关性重排已降级。", result["display_notes"])
         judge.assert_not_called()
 
@@ -31,14 +31,15 @@ class ExportTest(unittest.TestCase):
                 with self.assertRaisesRegex(RuntimeError, "安装") as caught:
                     commands.run([name])
                 self.assertEqual(service._safe_failure_reason(str(caught.exception)), hint)
+                self.assertEqual(failure_status(caught.exception), "startup_failed")
 
     def test_login_failure_is_unavailable_without_breaking_other_provider(self):
         def failed(_):
             commands.run(["gh"], capture_output=True, text=True)
         with patch.object(subprocess, "run", return_value=subprocess.CompletedProcess([], 1, "", "not logged in")), patch.object(research, "_default_providers", return_value={"github_search": failed, "hacker_news": lambda _: []}):
-            result = service.search("synthetic", rerank=False)
+            result = service.search("synthetic", providers=["github_search", "hacker_news"], rerank=False)
         self.assertEqual(result["status"], "partial")
-        self.assertIn("gh auth login", result["failed_channels"][0]["error"])
+        self.assertEqual(result["failed_channels"][0]["status"], "auth_required")
         self.assertEqual(result["succeeded_channels"], ["hacker_news"])
 
     def test_private_url_is_blocked_before_any_reader_or_transcription(self):
@@ -55,5 +56,5 @@ class ExportTest(unittest.TestCase):
 
     def test_arxiv_is_opt_in(self):
         with patch.object(research, "_default_providers", return_value={"arxiv": lambda _: [], "hacker_news": lambda _: []}):
-            self.assertEqual(research.search("q", rerank=False)["attempted_channels"], ["hacker_news"])
+            self.assertEqual(research.search("q", providers=["hacker_news"], rerank=False)["attempted_channels"], ["hacker_news"])
             self.assertEqual(research.search("q", providers=["arxiv"], rerank=False)["attempted_channels"], ["arxiv"])

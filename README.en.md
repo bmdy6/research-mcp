@@ -12,13 +12,14 @@
 
 </div>
 
-The terminal in the banner shows a real run on 2026-11-11: `search "mcp server" --limit 5` returned results from all 5 channels, pooled 119 candidates and took 3.4 seconds. Results vary with network conditions.
+The banner records the old all-channel default on 2026-11-11: `search "mcp server" --limit 5` returned results from all 5 channels, pooled 119 candidates and took 3.4 seconds. The current version requires explicit provider selection after listing channels.
 
 ## Quick start
 
 ```sh
 uvx --from git+https://github.com/bmdy6/research-mcp research-mcp --help
-uvx --from git+https://github.com/bmdy6/research-mcp research-mcp search "mcp server" --limit 5
+uvx --from git+https://github.com/bmdy6/research-mcp research-mcp channels --format json
+uvx --from git+https://github.com/bmdy6/research-mcp research-mcp search "mcp server" --providers hacker_news --limit 5
 uvx --from git+https://github.com/bmdy6/research-mcp research-mcp fetch \
   https://github.com/cli/cli/pull/14976
 ```
@@ -55,10 +56,10 @@ An AI agent's built-in search may only return a page of snippets: it can miss PR
 
 | | Before | With research-mcp |
 |---|---|---|
-| Research a topic | Open separate tabs for GitHub, HN, Bilibili and Juejin | One command searches 5 channels concurrently, with source links |
+| Research a topic | Open separate tabs for GitHub, HN, Bilibili and Juejin | The agent selects providers; one command searches them concurrently |
 | Read a PR | Get only the title and description | Get reviews, inline comments and file paths; `coverage` reports how many were read |
 | A source fails | Silently lose part of the evidence while the agent still draws conclusions | Results include `partial`, failed channels and truncation reasons |
-| Connect an agent | Install a separate tool for each platform | 1 MCP tool accepts both keywords and URLs |
+| Connect an agent | Install a separate tool for each platform | 2 MCP tools: list capabilities, then search/read |
 
 ## ✨ Features
 
@@ -92,22 +93,24 @@ The chart row is a local fixture run, not evidence of a successful online page r
 ```mermaid
 flowchart LR
   Q[Keywords or URL] --> S{research_search}
-  S -->|Keywords| C[5 concurrent channels<br>GitHub · HN · Bilibili · Juejin · Exa]
+  L[research_list_channels] --> A0[Agent selects providers]
+  A0 --> Q
+  S -->|Keywords| C[Selected free channels only]
   S -->|URL| F[Read sources<br>Webpages · PRs · Bilibili]
   C --> R[v1 JSON<br>status · errors · coverage]
   F --> R
   R --> A[Agent decides to search more or paginate]
 ```
 
-1. Search keywords; `--providers` accepts `github_search,hacker_news,bilibili,exa,juejin,arxiv`.
+1. Call `research_list_channels` (CLI: `research-mcp channels`), then explicitly select `providers`. Omitted/empty providers use `bing,baidu,exa`, with `used_default_providers=true` and a display note. Override with `RESEARCH_DEFAULT_PROVIDERS=hacker_news,baidu`; blank restores the built-in group.
 2. Pass a candidate URL to `fetch`; the single MCP tool `research_search` accepts keywords or URLs.
 3. Inspect `status`, `errors`, `truncated` and `coverage` before searching more or following pages.
 
 ## 🛡️ Reliability
 
-- **248 test cases.** CI runs offline tests on Ubuntu / macOS × Python 3.10 / 3.13, plus a separate MCP stdio job.
+- **267 test cases.** CI runs offline tests on Ubuntu / macOS × Python 3.10 / 3.13, plus a separate MCP stdio job.
 - **Public HTTPS reads by default.** Private, loopback and link-local addresses are blocked; redirects are checked at every hop.
-- **Keys come only from environment variables.** All three keys are optional; missing keys skip the corresponding capability and are explained in the result.
+- **Keyword search uses free paths only.** Paid Exa and reranking keys are ignored; quota and dependency failures are explicit. URL transcription retains its separate optional configuration.
 
 ## Options
 
@@ -124,8 +127,10 @@ Requires Python >=3.10; Quick start installs directly from main without cloning,
 | Variable | Purpose | When unset |
 |---|---|---|
 | `GROQ_API_KEY` | Bilibili audio transcription. | Skip transcription, attempt webpage fallback and suggest setting the key. |
-| `EXA_API_KEY` | Your own Exa search quota. | Use the free MCP endpoint, which may rate-limit requests. |
-| `AI_GATEWAY_API_KEY` | Optional relevance filtering. | Report `rerank: skipped_no_key` without paid filtering. |
+| `EXA_API_KEY` | Ignored by search; fixed keyless endpoint. | Quota errors stop immediately; five-minute process-local cooldown. |
+| `AI_GATEWAY_API_KEY` | Ignored by CLI/MCP/shared service search; no model reranking. | `rerank_downgraded: disabled_by_transport_policy`. |
+| `OPEN_WEBSEARCH_ROOT` | Optional pinned source installation directory. | Use the fixed revision in the user cache; missing installation is `startup_failed`. |
+| `TAVILY_API_KEY` / `OPENALEX_API_KEY` | Official free-only APIs; require matching `*_FREE_ONLY=1`. | Environment only; never put keys in argv, tools or repository. |
 | `RESEARCH_MCP_ALLOW_FAKE_IP` | Exactly `1` permits `198.18.0.0/15`. | Block that range and explain proxy fake-IP mode. |
 
 ### External commands
@@ -134,7 +139,43 @@ Requires Python >=3.10; Quick start installs directly from main without cloning,
 |---|---|---|
 | `gh` | GitHub search and repository/Issue/PR/file reading fail; other channels continue. The signed-in identity affects visibility. | [GitHub CLI](https://cli.github.com), then `gh auth login`. |
 | `bili` | No backup search after Bilibili API failure or audio download; public API search and webpage fallback may still work. | `uv tool install 'bilibili-cli[audio]'`. |
-| `curl` | Affects HN, Juejin, Bilibili API searches and Groq transcription; direct Exa and safe webpage reading do not require it. | Install curl with the system package manager. |
+| `curl` | Affects HN, Juejin, Bilibili, Exa searches and Groq transcription; safe webpage reading does not require it. | Install curl with the system package manager. |
+
+## Free channel catalog and selection
+
+The catalog exposes cost class, key/login requirements, languages, content types, unknown quota (`null`), status, last check, license, upstream terms and actual backend. Listing performs no network calls or key reads. `unchecked` is not a live health guarantee; observations last only for the current service process.
+
+| Provider IDs | Content | Requirements |
+|---|---|---|
+| `baidu`, `sogou` | Chinese web | Optional open-webSearch request subprocess, no key; anti-bot responses are `blocked` |
+| `bing`, `duckduckgo` | Web, Chinese/English | Same backend; this exit showed weak Bing relevance on long English queries, so try DDG first |
+| `exa` | Semantic web | Official keyless MCP via system curl; never reads a paid key |
+| `github_search` | Repositories | Free gh CLI with existing login |
+| `hacker_news` | English discussions | Keyless Algolia API |
+| `juejin`, `bilibili` | Chinese articles / videos | Existing public search adapters |
+| `arxiv` | Papers | All papers by default; opt into GitHub-only with ARXIV_REQUIRE_GITHUB=1 |
+| `tavily`, `openalex` | Web / papers | Recurring free key + explicit `*_FREE_ONLY=1`; quota preflight, no paid fallback |
+
+The calling agent chooses 1–2 complementary providers: domestic facts → Baidu/Sogou; English official docs → DDG + keyless Exa; implementation → GitHub + Juejin; papers → arXiv + Exa. Shopping can currently use Bilibili/Baidu reviews; JD/Taobao and community browser adapters are not implemented. No separate routing model is called. Shared service searches force model reranking off even if a legacy caller supplies `rerank=True`; the old explicitly opted-in internal Python reranker remains separate.
+
+```json
+{"query":"Docker compose depends_on healthcheck","providers":["duckduckgo"],"limit":5}
+```
+
+Optional web backend (Node.js >=20, npm, git):
+
+```sh
+git clone https://github.com/bmdy6/research-mcp.git
+cd research-mcp
+python3 scripts/install_open_websearch.py
+python3 -m research_mcp search "retrieval augmented generation" --providers duckduckgo --limit 5
+```
+
+The installer pins open-webSearch 2.2.0 at `2562c9233a945c18fa9d08b7e450ca218a8853b6`, runs upstream's locked `npm ci --ignore-scripts` and build, and installs into a user cache. Runtime validates the commit; searches never download dependencies. A packaged Node bridge directly invokes upstream's search service, one named engine per process with `SEARCH_MODE=request`, without daemon discovery or browser startup. See [third-party licenses](THIRD_PARTY_NOTICES.md).
+
+`channel_statuses` and `failed_channels[].status` distinguish `ok`, `empty`, `blocked`, `auth_required`, `quota_exhausted`, `parse_error`, `startup_failed`, `timeout`, `connection_failed`, `unsupported`. HTTP 200 with upstream `partialFailures` is a failure, not successful empty. New results retain source, backend and rank. Raw exceptions are not exposed.
+
+See [live acceptance and the 20-question comparison](docs/acceptance-2026-11-23.md) for outages and incomplete browser checks, not an availability guarantee.
 
 ## Comparison with Agent Reach
 
@@ -142,9 +183,9 @@ Read on **2026-11-09**. This compares the statements and implementation at that 
 
 | Aspect | research-mcp | Agent Reach |
 |---|---|---|
-| Entry point | Packaged CLI and single-tool stdio MCP. | README demonstrates `agent-reach <channel> <action>`, `read` and natural-language installation/management. |
-| Platforms | Five default search channels, explicit arXiv; webpage, GitHub and Bilibili reads. | README lists Bilibili, V2EX, GitHub, YouTube and web as defaults, with optional and experimental channels. |
-| Identity/config | Three optional keys from environment variables; GitHub reuses gh identity. | README describes copying existing browser login for some platforms, dedicated browsers and session management. |
+| Entry point | Packaged CLI and two-tool stdio MCP. | README demonstrates `agent-reach <channel> <action>`, `read` and natural-language installation/management. |
+| Platforms | 22 opt-in search channels; explicit providers; webpage, GitHub and Bilibili reads. | README lists Bilibili, V2EX, GitHub, YouTube and web as defaults, with optional and experimental channels. |
+| Identity/config | Free search ignores paid keys; GitHub reuses gh identity; transcription configured separately. | README describes copying existing browser login for some platforms, dedicated browsers and session management. |
 | Failure/coverage | v1 JSON partial status, error codes, truncation and GitHub coverage. | README describes ordered preferred/backup tool lists per platform. |
 
 Sources: [CLI](research_mcp/cli.py), [search/read core](research_mcp/research.py), [result contract](research_mcp/result_contract.py), [Agent Reach pinned README](https://github.com/Panniantong/Agent-Reach/blob/c70ae6da5d39bc90e09ad2ae0575ccc89f31e284/README.md) and [CLI implementation](https://github.com/Panniantong/Agent-Reach/blob/c70ae6da5d39bc90e09ad2ae0575ccc89f31e284/agent_reach/runtime/cli.py).
@@ -172,3 +213,14 @@ Include your Python version, command and redacted error codes in an issue; CI ru
 If this helps, leave a ⭐. Have a channel in mind? Open an issue.
 
 </div>
+
+
+### Additional free APIs
+
+Optional providers: `tavily` (basic only), `openalex`, `wikipedia`, `wikidata`, `crossref`, `stackexchange` (Stack Overflow), `huggingface` (public models), `europe_pmc`, `pubmed`, `openlibrary`, `itunes_podcasts`, and pinned open-webSearch `csdn`. arXiv includes papers without code by default; opt into the old filter with `ARXIV_REQUIRE_GITHUB=1`. Bilibili preserves upstream `totalrank` order rather than sorting again by date.
+
+Inject `TAVILY_API_KEY` / `OPENALEX_API_KEY` through environment variables only, with the respective `TAVILY_FREE_ONLY=1` / `OPENALEX_FREE_ONLY=1`. The server never opens vault files. From a source checkout, `python3 scripts/run_free_search.py --verified-free-accounts --tavily-payg-disabled -- search "AI" --providers tavily,openalex --limit 3 --format json` injects only those two keys from the local vault into the CLI subprocess; use those explicit account assertions only after checking the free plan and disabled PAYG. Missing key/flag yields auth_required. For the observed nullable Tavily `paygo_limit`, also set `TAVILY_PAYG_DISABLED=1` only after verifying PAYG Disabled in the account UI; null alone never proves this. Missing fields, positive paid cap or paid usage fail closed. Tavily preflights a free/Researcher plan, disabled PAYG and remaining monthly credits; OpenAlex checks a <=$1 daily budget, zero prepaid balance and sufficient remaining free credit. Unknown fields fail closed. No paid fallback/retry; use a free-only account because preflight cannot atomically reserve usage across other clients.
+
+Examples: errors → github_search + stackexchange + juejin + csdn; papers → openalex + crossref + arxiv; biomedical literature → pubmed + europe_pmc; concepts → wikipedia + wikidata; books/podcasts → openlibrary + itunes_podcasts; public models → huggingface + github_search. Shopping ideally combines JD/Taobao/SMZDM + Bilibili, but browser sources are not enabled without successful local probes. For now use bing/baidu site filters plus bilibili as public leads.
+
+JD, Taobao, Tmall, Pinduoduo, SMZDM, Xianyu, Zhihu, Xiaohongshu, Douyin, Weibo, Sogou WeChat, V2EX and linux.do remain unverified: the original Ego Lite task space hit another browser-owned local-network permission prompt at the first platform and handed control to the user. This is an environment blocker, not evidence that each platform rejects access. No cookie export or CAPTCHA bypass. See [API acceptance](docs/acceptance-api-2026-11-23.md).

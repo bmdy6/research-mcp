@@ -10,6 +10,7 @@ import re
 import uuid
 
 
+from research_mcp.channels.errors import MESSAGES
 from research_mcp.commands import HINTS
 from research_mcp import research as R  # noqa: E402
 from research_mcp.result_contract import error_result, fetch_result, search_result  # noqa: E402
@@ -63,7 +64,8 @@ def _sanitize(result: dict) -> dict:
     if result.get("operation") == "search":
         for failure in result.get("failed_channels", []):
             if isinstance(failure, dict):
-                failure["error"] = _safe_failure_reason(failure.get("error"))
+                status = failure.get("status")
+                failure["error"] = MESSAGES[status] if status in MESSAGES else _safe_failure_reason(failure.get("error"))
         downgraded = result.get("rerank_downgraded")
         if isinstance(downgraded, str) and downgraded.startswith("rerank_error:"):
             result["rerank_downgraded"] = "rerank_error"
@@ -90,9 +92,9 @@ def _identified(result: dict, request_id: str | None = None) -> dict:
     return result
 
 
-def search(query: object, *, limit: object = 12, providers: object = None, rerank: bool = True,
+def search(query: object, *, limit: object = 12, providers: object = None, rerank: bool = False,
            request_id: str | None = None, max_age_days: object = None) -> dict:
-    """Search using the existing research core and return its structured v1 envelope."""
+    """Free-only search; the legacy rerank flag is accepted but never enables a model."""
     if not isinstance(query, str) or not query.strip():
         return _identified(error_result("search", "INVALID_INPUT", "查询不能为空"), request_id)
     if type(limit) is not int or not 1 <= limit <= MAX_SEARCH_LIMIT:
@@ -108,12 +110,12 @@ def search(query: object, *, limit: object = 12, providers: object = None, reran
         return _identified(error_result("search", "INVALID_INPUT", "max_age_days 必须是 1 到 3650 的整数"), request_id)
     try:
         if max_age_days is None:
-            raw = R.search(query.strip(), limit=limit, providers=providers, rerank=rerank)
+            raw = R.search(query.strip(), limit=limit, providers=providers, rerank=False)
         else:
-            raw = R.search(query.strip(), limit=limit, providers=providers, rerank=rerank,
+            raw = R.search(query.strip(), limit=limit, providers=providers, rerank=False,
                            max_age_days=max_age_days)
         result = search_result(raw)
-        if not rerank and "rerank_downgraded" not in result:
+        if "rerank_downgraded" not in result:
             result["rerank_downgraded"] = "disabled_by_transport_policy"
     except Exception:
         result = error_result("search", "UPSTREAM_ERROR", "上游调用失败，未取得完整结果")
@@ -186,8 +188,16 @@ def fetch_public(url: object, *, fetcher: SafeFetcher | None = None,
 
 
 def query(query_text: object, *, limit: object = 12, providers: object = None,
-          request_id: str | None = None, rerank: bool = True) -> dict:
+          request_id: str | None = None, rerank: bool = False) -> dict:
     """MCP-compatible operation selector: URL input reads; other text searches."""
     if isinstance(query_text, str) and query_text.strip().startswith(("http://", "https://")):
         return fetch(query_text, request_id=request_id)
     return search(query_text, limit=limit, providers=providers, rerank=rerank, request_id=request_id)
+
+
+def list_channels(*, request_id: str | None = None) -> dict:
+    """List offline capabilities and process-local observations; never probe or read keys."""
+    from research_mcp.channel_catalog import list_channels as catalog
+    return _identified({"api_version": "1", "operation": "list_channels", "status": "ok",
+                        "ok": True, "channels": catalog(), "errors": [],
+                        "display_notes": ["unchecked 仅表示可尝试；quota_remaining=null 表示未知；检查状态仅在当前进程内保留。"]}, request_id)

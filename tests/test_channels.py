@@ -103,29 +103,15 @@ class ExaRateLimitTest(unittest.TestCase):
         self.assertTrue(exa._is_rate_limited("RESOURCE_EXHAUSTED"))
         self.assertFalse(exa._is_rate_limited("connection reset by peer"))
 
-    def test_retries_after_rate_limit_then_succeeds(self):
-        fake, calls = self._fake_rpc(failures_before_success=1)
-        with patch.object(exa, "_rpc", side_effect=fake), \
-                patch.object(exa.time, "sleep") as sleeper:
-            text = exa._call_direct("q", 5, 30)
-        self.assertIn("openai-agents-python", text)
-        self.assertEqual(calls["n"], 2)
-        self.assertEqual(sleeper.call_count, 1)
-
-    def test_gives_up_and_stops_calling_after_persistent_limit(self):
+    def test_quota_stops_immediately_and_subsequent_calls_skip(self):
         fake, calls = self._fake_rpc(failures_before_success=99)
-        with patch.object(exa, "_rpc", side_effect=fake), \
-                patch.object(exa.time, "sleep"):
-            with self.assertRaises(RuntimeError) as caught:
+        with patch.object(exa, "_rpc", side_effect=fake), patch.object(exa.time, "sleep") as sleep:
+            with self.assertRaises(RuntimeError):
                 exa._call_direct("q", 5, 30)
-        self.assertIn("限流", str(caught.exception))
-        self.assertEqual(calls["n"], exa.MAX_ATTEMPTS)
-        # 已记住限流状态：紧接着的调用不应再起子进程
-        with patch.object(exa, "_rpc", side_effect=fake):
-            with self.assertRaises(RuntimeError) as second:
+            with self.assertRaises(RuntimeError):
                 exa._call_direct("q", 5, 30)
-        self.assertIn("跳过", str(second.exception))
-        self.assertEqual(calls["n"], exa.MAX_ATTEMPTS)
+        self.assertEqual(calls["n"], 1)
+        sleep.assert_not_called()
 
     def test_non_rate_limit_failure_does_not_retry(self):
         with patch.object(exa, "_rpc", side_effect=RuntimeError("connection reset")) as rpc:
@@ -133,11 +119,10 @@ class ExaRateLimitTest(unittest.TestCase):
                 exa._call_direct("q", 5, 30)
         self.assertEqual(rpc.call_count, 1)
 
-    def test_api_key_switches_endpoint(self):
-        with patch.object(exa, "exa_api_key", return_value="abc123"):
-            self.assertEqual(exa.endpoint_selector(), f"{exa.FREE_ENDPOINT}?exaApiKey=abc123")
-        with patch.object(exa, "exa_api_key", return_value=""):
+    def test_paid_key_is_ignored(self):
+        with patch.dict("os.environ", {"EXA_API_KEY": "SECRET-paid"}):
             self.assertEqual(exa.endpoint_selector(), exa.FREE_ENDPOINT)
+
 
 
 
@@ -180,14 +165,62 @@ class ExaHTTPTest(unittest.TestCase):
     def test_rpc_json_and_sse_preserve_response_identity_and_session(self):
         for body, content_type in [('{"jsonrpc":"2.0","id":3,"result":{"content":[]}}', 'application/json'),
                                   ('event: message\ndata: {"jsonrpc":"2.0","id":3,"result":{"content":[]}}\n\n', 'text/event-stream')]:
-            with self.subTest(content_type=content_type), patch.object(exa.urllib.request, 'urlopen', return_value=self.response(body, content_type)):
+            with self.subTest(content_type=content_type), patch.object(exa, '_post', return_value=(200, {'content-type': content_type, 'mcp-session-id': 'synthetic-session'}, body)):
                 headers = {'User-Agent': 'research-mcp/0.1'}
                 self.assertEqual(exa._rpc('tools/call', {}, 3, headers, 20), {'content': []})
                 self.assertEqual(headers['Mcp-Session-Id'], 'synthetic-session')
 
     def test_rpc_errors_are_bounded_and_do_not_echo_credentials(self):
         for body in ['{"id":9,"result":{}}', '{"id":3,"error":{"message":"SECRET-synthetic"}}', '{invalid']:
-            with self.subTest(body=body), patch.object(exa.urllib.request, 'urlopen', return_value=self.response(body)):
+            with self.subTest(body=body), patch.object(exa, '_post', return_value=(200, {'content-type': 'application/json'}, body)):
                 with self.assertRaises(RuntimeError) as caught:
                     exa._rpc('tools/call', {}, 3, {}, 20)
                 self.assertNotIn('SECRET', str(caught.exception))
+
+
+class ExaCurlTransportTest(unittest.TestCase):
+    def test_curl_uses_system_tls_bounded_files_and_cleans_workspace(self):
+        from pathlib import Path
+        paths = []
+        def run(command, **kwargs):
+            self.assertEqual(command[:2], ["curl", "-q"])
+            self.assertNotIn("--insecure", command)
+            self.assertNotIn("-k", command)
+            self.assertEqual(command[-1], exa.FREE_ENDPOINT)
+            self.assertEqual(command[command.index("--max-filesize") + 1], "2000000")
+            self.assertNotIn("SECRET", str(command))
+            body = Path(command[command.index("--output") + 1])
+            headers = Path(command[command.index("--dump-header") + 1])
+            paths.extend([body, headers])
+            body.write_text('{"id":1,"result":{}}')
+            headers.write_text("HTTP/1.1 200 Connection established\r\n\r\nHTTP/2 200\r\nContent-Type: application/json\r\nMcp-Session-Id: session\r\n\r\n")
+            return subprocess.CompletedProcess(command, 0, "200", "")
+        with patch.object(exa, "run_command", side_effect=run), patch.dict("os.environ", {"EXA_API_KEY": "SECRET-paid"}):
+            status, headers, text = exa._post({"method": "initialize"}, {}, 10)
+        self.assertEqual(status, 200)
+        self.assertEqual(headers["mcp-session-id"], "session")
+        self.assertIn('"id":1', text)
+        self.assertTrue(all(not path.exists() for path in paths))
+
+    def test_curl_timeout_cleans_workspace_and_maps_state(self):
+        from pathlib import Path
+        paths = []
+        def fail(command, **kwargs):
+            paths.append(Path(command[command.index("--output") + 1]).parent)
+            raise subprocess.TimeoutExpired(command, 12)
+        with patch.object(exa, "run_command", side_effect=fail), self.assertRaises(exa.ChannelError) as error:
+            exa._post({}, {}, 10)
+        self.assertEqual(error.exception.status, "timeout")
+        self.assertFalse(paths[0].exists())
+
+    def test_http_status_and_invalid_formats_are_distinct(self):
+        for status, expected in [(401, "auth_required"), (402, "quota_exhausted"), (403, "blocked"), (429, "quota_exhausted"), (503, "connection_failed")]:
+            with self.subTest(status=status), patch.object(exa, "_post", return_value=(status, {}, "SECRET")), self.assertRaises(exa.ChannelError) as error:
+                exa._rpc("tools/call", {}, 3, {}, 10)
+            self.assertEqual(error.exception.status, expected)
+            self.assertNotIn("SECRET", str(error.exception))
+
+    def test_nonempty_unrecognized_search_text_is_parse_error(self):
+        with patch.object(exa, "_call_direct", return_value="Upstream changed its text format"), self.assertRaises(exa.ChannelError) as error:
+            exa.search({"exa_query": "q"})
+        self.assertEqual(error.exception.status, "parse_error")

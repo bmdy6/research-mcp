@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import base64
 import json
+import os
 import re
 import shlex
 import subprocess
@@ -15,6 +16,8 @@ from datetime import datetime, timedelta, timezone
 from typing import Callable
 
 
+from research_mcp.channel_catalog import record_observation
+from research_mcp.channels.errors import MESSAGES, failure_status
 from research_mcp.channels import CHANNELS  # noqa: E402  渠道层；键名即 search.json 里的 provider 名
 from research_mcp.result_contract import EXA_X_EMPTY_NOTE  # noqa: E402  与入口共用固定安全提示
 from research_mcp.safe_fetch import SafeFetchError, safe_error_code
@@ -446,11 +449,11 @@ def _arxiv_search(config: dict) -> list[dict]:
         summary = " ".join((entry.findtext("a:summary", "", ns) or "").split())
         link = entry.findtext("a:id", "", ns).strip()
         code = re.search(r"https?://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", summary)
-        if not code:
+        if config.get("arxiv_require_github", os.environ.get("ARXIV_REQUIRE_GITHUB") == "1") and not code:
             continue
         title = " ".join((entry.findtext("a:title", "", ns) or "").split())
         published = entry.findtext("a:published", "", ns)
-        items.append({"kind": "article", "title": title, "url": normalize_url(link), "published_at": published, "source": "arxiv", "summary": summary, "code_url": normalize_url(code.group(0))})
+        items.append({"kind": "article", "title": title, "url": normalize_url(link), "published_at": published, "source": "arxiv", "summary": summary, "code_url": normalize_url(code.group(0)) if code else None})
     return items
 
 
@@ -576,7 +579,7 @@ def _failed_fetch(kind: str, url: str, error: FetchError, **extra) -> dict:
 
 
 # 榜单/订阅型渠道：输出是「当前最新」而不是「命中查询词」，临时搜索里带上只会灌无关结果。
-# 新增关键词渠道默认会被 search 调用；只有这种与查询无关的渠道才需要登记到这里。
+# 关键词渠道可显式选择或使用小组默认；与查询无关的渠道即使点名也跳过。
 QUERY_AGNOSTIC_CHANNELS = frozenset({"github_trending", "rss"})
 
 
@@ -614,16 +617,22 @@ def _collect_channel(
             raise ValueError("渠道返回的候选格式无效")
         return name, items, None
     except Exception as error:
-        return name, [], str(error)[:120] or type(error).__name__
+        return name, [], failure_status(error)
 
 
-def search(query: str, *, limit: int = 10, providers: list[str] | None = None, rerank: bool = True,
+def default_search_providers() -> list[str]:
+    """Small free group, configurable per process; never defaults to all sources."""
+    configured = os.environ.get("RESEARCH_DEFAULT_PROVIDERS", "bing,baidu,exa")
+    return list(dict.fromkeys(n.strip() for n in configured.split(",") if n.strip())) or ["bing", "baidu", "exa"]
+
+
+def search(query: str, *, limit: int = 10, providers: list[str] | None = None, rerank: bool = False,
            max_age_days: int = 3650) -> dict:
     """按查询词打各个关键词渠道。
 
     providers 只传渠道名子集时只打这些渠道（例如只搜某个站就用 `["exa"]` 配
-    `site:` 查询词）；不传则打全部关键词渠道。渠道名不存在或不可用只跳过，不报错。
-    rerank 为 True 时，先用 Jev 判断哪些条目值得保留再返回；无 key 时正常跳过，调用失败时降级返回原始候选。
+    `site:` 查询词）；省略时使用可配置免费默认组。渠道名不存在或不可用只跳过，不报错。
+    rerank 显式为 True 时（仅供内部旧接口），先用 Jev 判断哪些条目值得保留再返回；无 key 时正常跳过，调用失败时降级返回原始候选。
 
     渠道之间互不依赖、也不共享状态，所以并发调（只读工具的天然红利）。串行时
     总耗时是各渠道之和（实测 6 个渠道 7.5 秒），并发后接近最慢那个（约 2.5 秒）。
@@ -631,27 +640,27 @@ def search(query: str, *, limit: int = 10, providers: list[str] | None = None, r
     返回值里的 `total` / `returned` / `truncated` 说明结果有没有被截：
     截断时调用方才能判断该不该补搜，而不是默认「看到的就是全部」。
     """
-    # 临时搜索用本次查询词；B站按播放量取（每日发现场景才按时间+门槛）
+    used_defaults = not providers
+    providers = providers or default_search_providers()
+    # 临时搜索使用综合相关排序，保留上游顺序，避免新视频或热门英文泛词冲掉相关结果
     if type(max_age_days) is not int or not 1 <= max_age_days <= 3650:
         raise ValueError("max_age_days must be an integer from 1 to 3650")
     config = {"github_query": query, "hn_query": query, "arxiv_query": query, "exa_query": query,
-              "juejin_queries": [query], "bilibili_queries": [query], "bilibili_order": "click",
-              "max_age_days": max_age_days}
+              "juejin_queries": [query], "bilibili_queries": [query], "bilibili_order": "totalrank",
+              "max_age_days": max_age_days, "web_query": query, "web_limit": limit}
     available = _default_providers()
-    wanted = providers if providers is not None else list(available)
+    wanted = providers
     rows = []
     failed: list[tuple[str, str]] = []
     runnable: list[tuple[str, Callable[[dict], list[dict]]]] = []
     attempted = []
     for name in dict.fromkeys(wanted):
-        if providers is None and name == "arxiv":
-            continue
         if name in QUERY_AGNOSTIC_CHANNELS:
             continue
         attempted.append(name)
         provider = available.get(name)
         if provider is None:
-            failed.append((name, "没有这个渠道"))
+            failed.append((name, "unsupported"))
             continue
         runnable.append((name, provider))
 
@@ -730,6 +739,7 @@ def search(query: str, *, limit: int = 10, providers: list[str] | None = None, r
 
     payload: dict = {
         "query": query,
+        "used_default_providers": used_defaults,
         "attempted_channels": attempted,
         "succeeded_channels": [name for name, _, error in collected if error is None],
         "candidates": result,
@@ -744,7 +754,10 @@ def search(query: str, *, limit: int = 10, providers: list[str] | None = None, r
     elif downgrade:
         payload["rerank_downgraded"] = downgrade
     if failed:
-        payload["failed_channels"] = [{"channel": name, "error": reason} for name, reason in failed]
+        payload["failed_channels"] = [{"channel": name, "status": reason, "error": MESSAGES[reason]} for name, reason in failed]
+    statuses = {name: error or ("ok" if items else "empty") for name, items, error in collected}
+    statuses.update({name: status for name, status in failed})
+    payload["channel_statuses"] = [record_observation(name, statuses[name]) for name in attempted]
     if filtered_by:
         payload["filtered_by"] = filtered_by
     if (_has_positive_x_site_filter(query)

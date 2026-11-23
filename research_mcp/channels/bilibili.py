@@ -4,7 +4,7 @@
 会被调研的时效过滤掉；按发布时间（order=pubdate）排拿到的是刚发布、播放量常只有几百的
 内容（2026-09-14 实测：pubdate 下 90 天内的候选播放量多在 200~4000）。每日发现默认用
 综合排序（order=totalrank），排序和播放量门槛都在 search.json 里可调
-（`bilibili_order` / `bilibili_min_play`）；按需搜索（research.py search）走 click。
+（`bilibili_order` / `bilibili_min_play`）；按需搜索（research.py search）也走 totalrank 并保留上游顺序。
 
 匿名请求先取 buvid3 访客标识再带上：不带时连续请求会命中风控返回 HTML 页
 （2026-09-14 实测 3 次挂 2 次，带上后连续 4 次全部正常）。
@@ -133,5 +133,4 @@ def search(config: dict) -> list[dict]:
             continue
         seen.add(item["url"])
         items.append(item)
-    items.sort(key=lambda x: x.get("published_at") or "", reverse=True)
     return items[:limit]

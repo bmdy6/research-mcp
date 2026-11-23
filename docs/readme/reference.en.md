@@ -6,7 +6,7 @@ Quick start installs from the GitHub default branch, main, without cloning. It r
 
 ## MCP
 
-Use the corresponding README configuration for Claude Code `.mcp.json`, Codex `.codex/config.toml`, or Cursor `.cursor/mcp.json`. Each runs `uvx --from git+https://github.com/bmdy6/research-mcp --with "mcp>=1.0,<3" research-mcp mcp`; `--with` installs the optional MCP SDK. The stdio server exposes one tool, `research_search`, accepting either keywords for search or an http(s) URL for reading.
+Use the corresponding README configuration for Claude Code `.mcp.json`, Codex `.codex/config.toml`, or Cursor `.cursor/mcp.json`. Each runs `uvx --from git+https://github.com/bmdy6/research-mcp --with "mcp>=1.0,<3" research-mcp mcp`; `--with` installs the optional MCP SDK. The stdio server exposes `research_list_channels` for capabilities and `research_search`, accepting keywords with explicit providers for search or an http(s) URL for reading.
 
 Each configuration's exact argv passed real SDK `list_tools` and a tool call independently. Local client configurations were not changed, and GUI operation in the three clients was not tested.
 
@@ -29,3 +29,6 @@ The README lists the impact of missing gh, bili and curl. Free Exa requests may 
 ## Configuration documentation
 
 [Claude Code MCP](https://code.claude.com/docs/en/mcp) · [Codex MCP](https://developers.openai.com/codex/mcp) · [Cursor MCP](https://cursor.com/docs/mcp) · [Python macOS certificates](https://docs.python.org/3/using/mac.html).
+
+
+List channels before selecting explicit providers; omission makes no requests. See README for the pinned optional open-webSearch install and failure states. Exa now uses system curl with normal TLS validation, independent of Python CA configuration. Shared searches ignore paid Exa and model reranking keys.
