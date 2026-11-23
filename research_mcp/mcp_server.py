@@ -61,7 +61,7 @@ async def research_search(query: str, limit: int = 12, providers: list[str] | No
             以及目录中的 tavily / openalex / wikipedia / wikidata / crossref / stackexchange /
             huggingface / europe_pmc / pubmed / openlibrary / itunes_podcasts。
             显式启用本机 Ego Lite 后还可用 jd / taobao / tmall / smzdm / zhihu /
-            xiaohongshu / douyin / sogou_wechat；需要已有受控任务空间，遇登录或验证停止。
+            xiaohongshu / douyin / sogou_wechat / xianyu / weibo；需要已有受控任务空间，遇登录或验证停止。
             未接入站点（如 linux.do）可用 ["exa"] 配 `site:域名 关键词` 补公开线索（传链接时忽略）。
     """
     try:
