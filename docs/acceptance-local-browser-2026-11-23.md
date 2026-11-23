@@ -36,6 +36,7 @@
 
 - 真实 Ego Lite 页面阅读：京东成功；淘宝导航被浏览器权限提示中断；其余未执行。
 - 完整真实 CLI：`search "轻薄本 14英寸" --providers jd --limit 2 --format json`，本机启用并指定原空间/页面后，返回 `failed_channels[].status=auth_required`。确认了交还用户后不会擅自导航，**尚未完成适配后的成功搜索验收**。
+- 真实购物组合 CLI：同一查询指定 `jd,bilibili`，返回 `partial`，`jd=auth_required`、`succeeded_channels=[bilibili]`，交付 3 条 B站结果；证明本机浏览器受阻不妨碍其他渠道返回，不能当京东查询成功。
 - 离线测试：mock ego-browser stdout/stderr、缺 CLI、未启用、提示/登录/验证码、超时、格式错误、价格字段经过 service 保留、公开适配器拒绝本机渠道、跨进程间隔。实际打包 JS 在无网络 DOM fixture 上验证读取未补贴价及验证码停止。
 - 默认免费渠道不变；未启用本机访问也可运行其他渠道；本机渠道不进入 public provider allowlist。
 - 原始页面可能包含账号和地址，仅留本地，不提交页面转储、登录态或截图。
