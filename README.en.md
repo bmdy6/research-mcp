@@ -156,7 +156,7 @@ The catalog exposes cost class, key/login requirements, languages, content types
 | `arxiv` | Papers | All papers by default; opt into GitHub-only with ARXIV_REQUIRE_GITHUB=1 |
 | `tavily`, `openalex` | Web / papers | Recurring free key + explicit `*_FREE_ONLY=1`; quota preflight, no paid fallback |
 
-The calling agent chooses 1–2 complementary providers: domestic facts → Baidu/Sogou; English official docs → DDG + keyless Exa; implementation → GitHub + Juejin; papers → arXiv + Exa. Shopping can currently use Bilibili/Baidu reviews; JD/Taobao and community browser adapters are not implemented. No separate routing model is called. Shared service searches force model reranking off even if a legacy caller supplies `rerank=True`; the old explicitly opted-in internal Python reranker remains separate.
+The calling agent chooses 1–2 complementary providers: domestic facts → Baidu/Sogou; English official docs → DDG + keyless Exa; implementation → GitHub + Juejin; papers → arXiv + Exa. Shopping can use the opt-in local browser providers documented below alongside Bilibili/Baidu reviews. No separate routing model is called. Shared service searches force model reranking off even if a legacy caller supplies `rerank=True`; the old explicitly opted-in internal Python reranker remains separate.
 
 ```json
 {"query":"Docker compose depends_on healthcheck","providers":["duckduckgo"],"limit":5}
@@ -224,3 +224,15 @@ Inject `TAVILY_API_KEY` / `OPENALEX_API_KEY` through environment variables only,
 Examples: errors → github_search + stackexchange + juejin + csdn; papers → openalex + crossref + arxiv; biomedical literature → pubmed + europe_pmc; concepts → wikipedia + wikidata; books/podcasts → openlibrary + itunes_podcasts; public models → huggingface + github_search. Shopping ideally combines JD/Taobao/SMZDM + Bilibili, but browser sources are not enabled without successful local probes. For now use bing/baidu site filters plus bilibili as public leads.
 
 JD, Taobao, Tmall, Pinduoduo, SMZDM, Xianyu, Zhihu, Xiaohongshu, Douyin, Weibo, Sogou WeChat, V2EX and linux.do remain unverified: the original Ego Lite task space hit another browser-owned local-network permission prompt at the first platform and handed control to the user. This is an environment blocker, not evidence that each platform rejects access. No cookie export or CAPTCHA bypass. See [API acceptance](docs/acceptance-api-2026-11-23.md).
+
+
+### Additional free discovery channels (2026-11-23)
+
+Explicit providers: `npm` (packages), `crates_io` (Rust crates), `docker_hub` (repositories), `mdn` (en-US documentation), `itunes_apps` (CN App Store). All use first-party keyless HTTPS endpoints. Both Chinese and English queries were tested; Docker Hub returned an explicit Chinese empty result. No packages, images or apps are installed.
+
+`google_news_rss` is local personal use only, disabled unless `RESEARCH_GOOGLE_NEWS_RSS=1`, and excluded from the public adapter. Initial bilingual RSS responses were HTTP 200; live adapter calls hit 429, then returned two items per query after a cooldown. Rate limits remain visible failures. Defaults remain unchanged.
+
+Examples: development `--providers npm,crates_io,mdn`; everyday app discovery `--providers itunes_apps,smzdm`; job research `--providers bing,baidu` until a native job-list search passes acceptance. See [acceptance and limitations](docs/acceptance-more-free-2026-11-23.md).
+
+
+The [43-platform matrix](docs/acceptance-more-free-2026-11-23.md#full-candidate-matrix-43-platforms) separates unsupported requests from unfinished browser acceptance. Confirmed user-login gates: NGA (also reputation > 0), Maimai, Dianping and Baidu Tieba. Challenges/rate limits are never bypassed. Browser work stopped when Ctrip triggered a location permission handoff; its English query remains untested. Task space 15 is preserved awaiting user confirmation; task space 14 was never accessed.

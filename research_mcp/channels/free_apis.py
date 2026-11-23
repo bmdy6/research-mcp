@@ -81,7 +81,7 @@ def _config_value(value: str) -> str:
 
 
 def _request(url: str, *, deadline: float, body: dict | None = None,
-             headers: dict | None = None) -> object:
+             headers: dict | None = None, raw_text: bool = False) -> object:
     """TLS verified curl; secrets only enter stdin, never argv or error text.
 
     No redirects, retry, curlrc, response logging, cookies, or output URL. Body
@@ -129,7 +129,7 @@ def _request(url: str, *, deadline: float, body: dict | None = None,
                 data = stream.read(MAX_BYTES + 1)
             if len(data) > MAX_BYTES:
                 raise ChannelError("parse_error")
-            return json.loads(data)
+            return data.decode("utf-8") if raw_text else json.loads(data)
     except ChannelError:
         raise
     except subprocess.TimeoutExpired:
