@@ -57,6 +57,11 @@ CATALOG += tuple(_entry(name, ["zh", "en"], [kind], BACKENDS[name],
         ("itunes_podcasts", "podcast", "https://performance-partners.apple.com/search-api", "Apple Search API terms"),
     ))
 
+from research_mcp.channels.discovery_apis import DEFINITIONS
+CATALOG += tuple(_entry(name, ["zh", "en"], [kind], backend, terms=terms,
+                       cost="local_personal" if name == "google_news_rss" else "keyless")
+                 for name, (backend, kind, terms) in DEFINITIONS.items())
+
 from research_mcp.channels.local_browser import PLATFORMS
 CATALOG += tuple(_entry(name, ["zh", "en"], [definition["kind"]], "ego-browser/local_browser",
                        cost="local_browser", login=definition["login"],
