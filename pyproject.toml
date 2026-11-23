@@ -21,4 +21,5 @@ research-mcp = "research_mcp.cli:main"
 include = ["research_mcp*"]
 
 [tool.setuptools.package-data]
+"research_mcp" = ["*.mjs"]
 "research_mcp.channels" = ["*.mjs"]

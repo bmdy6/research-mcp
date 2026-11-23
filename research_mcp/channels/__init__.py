@@ -21,8 +21,11 @@ from .discovery_apis import PROVIDERS as DISCOVERY_PROVIDERS
 
 from .local_browser import PROVIDERS as LOCAL_BROWSER_PROVIDERS
 
+from .http_search import PROVIDERS as HTTP_SEARCH_PROVIDERS
+
 CHANNELS = {
     **LOCAL_BROWSER_PROVIDERS,
+    **HTTP_SEARCH_PROVIDERS,
     **FREE_API_PROVIDERS,
     **DISCOVERY_PROVIDERS,
     "bilibili": bilibili_search,
