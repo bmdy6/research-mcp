@@ -324,3 +324,16 @@ research-mcp search "记账" --providers itunes_apps,smzdm --limit 5 --format js
 # 求职：当前可用的公开讨论线索。BOSS/猎聘需等职位列表验收，不能用推荐页冒充搜索。
 research-mcp search "Python 招聘 苏州" --providers bing,baidu --limit 5 --format json
 ```
+
+
+#### 本轮不支持、待验与需要登录
+
+已确认受阻：博客园（人机验证）、NGA（登录且威望大于 0）、拉勾（滑动验证）、脉脉/大众点评/贴吧（登录入口）、Reddit（匿名 JSON 403/网页挑战）、GDELT（429）、1688/天眼查/企查查（风控或脚本挑战）。不绕过这些门槛。
+
+当前入口不可用或尚不能验证有效结果：Gitee、酷安、IT之家、虎嗅、美团、得物、苏宁、马蜂窝。路由错误和本机网络失败不能证明平台永久不支持。
+
+**需要用户登录清单：NGA、脉脉、大众点评、百度贴吧。** 其余平台没有足够证据判定需登录；BOSS、猎聘、X 本次已有登录界面标识，但未完成结果卡片验收。
+
+SegmentFault、Medium、Product Hunt、虎扑、36氪初步可读列表；PyPI 英文、YouTube 英文可读；Lobsters、亚马逊公开 HTML 有结果。它们仍待本机浏览器解析器验收，不计作已接入。豆瓣、dev.to、少数派、唯品会、飞猪也待浏览器复核。携程触发**定位权限**提示后 SDK 交回控制权，英文查询未运行；这不是本地网络权限，未修改系统策略或强行接管。空间 15 保留待用户处理，空间 14 未访问。
+
+逐个双语查询状态、公开 HTTP 与浏览器的区别见[43 项候选矩阵](docs/acceptance-more-free-2026-11-23.md#full-candidate-matrix-43-platforms)。浏览器部分尚未完成，不能把本轮 API PR 视为全部候选已接入或已否决。
