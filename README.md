@@ -161,11 +161,11 @@ PubMed 显式按相关性排序；其他渠道沿用各自排序。指定日期�
 
 | 类别 | 渠道 ID |
 |---|---|
-| **不需要浏览器（35，全部 API / HTTP / 请求渠道）** | `github_search`, `hacker_news`, `arxiv`, `exa`, `juejin`, `bilibili`, `baidu`, `sogou`, `bing`, `duckduckgo`, `csdn`, `tavily`, `openalex`, `wikipedia`, `wikidata`, `crossref`, `stackexchange`, `huggingface`, `europe_pmc`, `pubmed`, `openlibrary`, `itunes_podcasts`, `mdn`, `google_news_rss`, `npm`, `crates_io`, `docker_hub`, `itunes_apps`, `sogou_wechat`, `hupu`, `douban`, `youtube`, `devto`, `segmentfault`, `suning` |
+| **不需要浏览器（36，全部 API / HTTP / 请求渠道）** | `github_search`, `hacker_news`, `arxiv`, `exa`, `juejin`, `bilibili`, `baidu`, `sogou`, `bing`, `duckduckgo`, `csdn`, `tavily`, `openalex`, `wikipedia`, `wikidata`, `crossref`, `stackexchange`, `huggingface`, `europe_pmc`, `pubmed`, `openlibrary`, `itunes_podcasts`, `mdn`, `google_news_rss`, `aihot`, `npm`, `crates_io`, `docker_hub`, `itunes_apps`, `sogou_wechat`, `hupu`, `douban`, `youtube`, `devto`, `segmentfault`, `suning` |
 | **需要浏览器，不要求登录（10）** | `smzdm`, `kr36`, `amazon`, `medium`, `pypi`, `gitee`, `mafengwo`, `sspai`, `huxiu`, `lobsters` |
 | **需要浏览器及已有登录态（14）** | `xianyu`, `weibo`, `jd`, `taobao`, `tmall`, `zhihu`, `xiaohongshu`, `douyin`, `boss`, `liepin`, `x`, `maimai`, `dianping`, `tieba` |
 
-无浏览器组中，`github_search` 需已有 `gh auth login` 身份；`tavily`、`openalex` 需免费 key 和免费模式开关；`google_news_rss` 需 `RESEARCH_GOOGLE_NEWS_RSS=1`，仅本地个人使用；`baidu/sogou/bing/duckduckgo/csdn` 需安装固定版本 open-webSearch 的 Node 请求后端，也不会打开浏览器。
+无浏览器组中，`github_search` 需已有 `gh auth login` 身份；`tavily`、`openalex` 需免费 key 和免费模式开关；`google_news_rss` 需 `RESEARCH_GOOGLE_NEWS_RSS=1`、`aihot` 需 `RESEARCH_AIHOT=1`，都仅本地个人使用；`baidu/sogou/bing/duckduckgo/csdn` 需安装固定版本 open-webSearch 的 Node 请求后端，也不会打开浏览器。
 
 浏览器组均需显式启用 Ego Lite；“不要求登录”仍可能遇到 JS 渲染、反爬和地区限制。“需登录”是当前适配器的保守使用要求，未逐站无痕复核，不能由 HTTP 拦截推断平台必须登录。唯品会、NGA 等未接入平台不计入这三类。
 
@@ -339,6 +339,7 @@ Ego Lite 本地网络策略需在 `chrome://policy`（会显示为 `ego://policy
 | `mdn` | Web 文档搜索 | MDN 自有搜索 API，免 key；固定 en-US 文档库，中文、英文各 2 条；中文相关性有限 |
 | `itunes_apps` | App Store 应用列表 | 官方 iTunes Search API，免 key；CN 区，中文、英文各 2 条；应用本身可能收费 |
 | `google_news_rss` | 新闻标题和原站跳转线索 | **仅本地个人使用、默认关闭**；设置 `RESEARCH_GOOGLE_NEWS_RSS=1` 后仍需指定 provider；双语适配器冷却后各返回 2 条；期间遇到 429，限流会报 `quota_exhausted` |
+| `aihot` | AIHOT 精选的最新 50 条 AI 动态（大量来自 X），中文摘要 + 原文链接 + 发布时间 | **仅本地个人使用、默认关闭**；设置 `RESEARCH_AIHOT=1`；关键词空格分隔按“任一命中”过滤，`*` 取全部；不做镜像或转发站点 |
 
 Google News 不进入匿名公开适配器白名单；只读取 RSS，保留 Google 链接，不解码跳转、不绕登录。它不是有稳定配额保证的 API。官方接口依据：[npm](https://api-docs.npmjs.com/)、[crates.io](https://crates.io/data-access)、[Docker Hub](https://docs.docker.com/reference/api/hub/latest/)、[MDN Yari](https://github.com/mdn/yari)、[Apple](https://performance-partners.apple.com/search-api)。实测边界见[增量验收记录](docs/acceptance-more-free-2026-11-23.md)。
 

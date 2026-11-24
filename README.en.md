@@ -171,7 +171,7 @@ These disjoint groups cover all 59 catalog channels. Browser-free does not mean 
 
 | Requirement | Channel IDs |
 |---|---|
-| **No browser (35; all API / HTTP / request backends)** | `github_search`, `hacker_news`, `arxiv`, `exa`, `juejin`, `bilibili`, `baidu`, `sogou`, `bing`, `duckduckgo`, `csdn`, `tavily`, `openalex`, `wikipedia`, `wikidata`, `crossref`, `stackexchange`, `huggingface`, `europe_pmc`, `pubmed`, `openlibrary`, `itunes_podcasts`, `mdn`, `google_news_rss`, `npm`, `crates_io`, `docker_hub`, `itunes_apps`, `sogou_wechat`, `hupu`, `douban`, `youtube`, `devto`, `segmentfault`, `suning` |
+| **No browser (36; all API / HTTP / request backends)** | `github_search`, `hacker_news`, `arxiv`, `exa`, `juejin`, `bilibili`, `baidu`, `sogou`, `bing`, `duckduckgo`, `csdn`, `tavily`, `openalex`, `wikipedia`, `wikidata`, `crossref`, `stackexchange`, `huggingface`, `europe_pmc`, `pubmed`, `openlibrary`, `itunes_podcasts`, `mdn`, `google_news_rss`, `aihot`, `npm`, `crates_io`, `docker_hub`, `itunes_apps`, `sogou_wechat`, `hupu`, `douban`, `youtube`, `devto`, `segmentfault`, `suning` |
 | **Browser, no login requirement (10)** | `smzdm`, `kr36`, `amazon`, `medium`, `pypi`, `gitee`, `mafengwo`, `sspai`, `huxiu`, `lobsters` |
 | **Browser with an existing login (14)** | `xianyu`, `weibo`, `jd`, `taobao`, `tmall`, `zhihu`, `xiaohongshu`, `douyin`, `boss`, `liepin`, `x`, `maimai`, `dianping`, `tieba` |
 
@@ -256,6 +256,8 @@ Local browser providers also include JD, Taobao, Tmall, SMZDM, Xianyu, Zhihu, Xi
 Explicit providers: `npm` (packages), `crates_io` (Rust crates), `docker_hub` (repositories), `mdn` (en-US documentation), `itunes_apps` (CN App Store). All use first-party keyless HTTPS endpoints. Both Chinese and English queries were tested; Docker Hub returned an explicit Chinese empty result. No packages, images or apps are installed.
 
 `google_news_rss` is local personal use only, disabled unless `RESEARCH_GOOGLE_NEWS_RSS=1`, and excluded from the public adapter. Initial bilingual RSS responses were HTTP 200; live adapter calls hit 429, then returned two items per query after a cooldown. Rate limits remain visible failures. Defaults remain unchanged.
+
+`aihot` reads the latest 50 curated AIHOT items (many from X) with Chinese summaries, original links and dates. It is local personal use only and disabled unless `RESEARCH_AIHOT=1`. Space-separated terms match with OR; `*` returns the whole feed.
 
 Examples: development `--providers npm,crates_io,mdn`; everyday app discovery `--providers itunes_apps,smzdm`; job research `--providers boss,liepin` with existing local browser sessions. See [acceptance and limitations](docs/acceptance-more-free-2026-11-23.md).
 

@@ -16,6 +16,6 @@ class ChannelDocsTests(unittest.TestCase):
         for filename in ('README.md', 'README.en.md'):
             with self.subTest(filename=filename):
                 text = (Path(__file__).resolve().parents[1] / filename).read_text()
-                rows = [line for line in text.splitlines() if line.startswith('| **') and re.search(r'\b(?:35|10|14)\b', line)]
+                rows = [line for line in text.splitlines() if line.startswith('| **') and re.search(r'\b(?:36|10|14)\b', line)]
                 self.assertEqual(len(rows), 3)
                 self.assertEqual([set(re.findall(r'`([^`]+)`', row)) for row in rows], expected)

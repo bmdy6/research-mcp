@@ -59,7 +59,7 @@ CATALOG += tuple(_entry(name, ["zh", "en"], [kind], BACKENDS[name],
 
 from research_mcp.channels.discovery_apis import DEFINITIONS
 CATALOG += tuple(_entry(name, ["zh", "en"], [kind], backend, terms=terms,
-                       cost="local_personal" if name == "google_news_rss" else "keyless")
+                       cost="local_personal" if name in ("google_news_rss", "aihot") else "keyless")
                  for name, (backend, kind, terms) in DEFINITIONS.items())
 
 from research_mcp.channels.local_browser import PLATFORMS
