@@ -11,6 +11,7 @@ import re
 from urllib.parse import urlencode
 from xml.etree import ElementTree as ET
 import time
+from datetime import datetime, timedelta, timezone
 from urllib.parse import quote
 
 from .free_apis import _request, _get, _dict, _list, _text, _row
@@ -19,12 +20,75 @@ from .errors import ChannelError
 DEFINITIONS = {
     'mdn': ('MDN first-party search API', 'documentation', 'https://github.com/mdn/yari'),
     'google_news_rss': ('Google News RSS (local personal opt-in)', 'news', 'https://news.google.com/'),
-    'aihot': ('AIHOT curated RSS (local personal opt-in)', 'news', 'https://aihot.news/agent'),
+    'aihot': ('AIHOT anonymous Agent API v1 (local personal opt-in)', 'news', 'https://aihot.news/agent'),
     'npm': ('npm official Registry Search API', 'package', 'https://api-docs.npmjs.com/'),
     'crates_io': ('crates.io official API', 'package', 'https://crates.io/data-access'),
     'docker_hub': ('Docker Hub public repository Search API', 'repository', 'https://docs.docker.com/reference/api/hub/latest/'),
     'itunes_apps': ('Apple iTunes official software Search API', 'application', 'https://performance-partners.apple.com/search-api'),
 }
+
+AIHOT_API = 'https://aihot.news/api/v1/agent/'
+AIHOT_CATEGORIES = {'ai-models', 'ai-products', 'industry', 'paper', 'tip', 'opinion'}
+_AIHOT_HEAD = re.compile(r'^(?:\d+\.|第 (\d+) 名：)\s*\[(.+)\]\((https://aihot\.news/items/[A-Za-z0-9]+)\)\s*$')
+_AIHOT_TIME = re.compile(r'(?:发布于|最新进展) (\d{2})-(\d{2}) (\d{2}):(\d{2})')
+_BEIJING = timezone(timedelta(hours=8))
+
+
+def _aihot_url(query: str, limit: int) -> str:
+    """Query forms: '*' 24h featured; 'all' or 'all:<category>' 24h all items; 'hot' ranking; else keyword search (7 days)."""
+    q = query.strip()
+    size = str(max(1, min(30, limit)))
+    if q == 'hot':
+        return AIHOT_API + 'hot'
+    if q == '*' or q == 'all' or q.startswith('all:'):
+        params = {'window': '24h', 'limit': size}
+        if q != '*':
+            params['mode'] = 'all'
+        category = q[4:] if q.startswith('all:') else ''
+        if category:
+            if category not in AIHOT_CATEGORIES:
+                raise ValueError
+            params['category'] = category
+        return AIHOT_API + 'latest?' + urlencode(params)
+    return AIHOT_API + 'search?' + urlencode({'q': q})
+
+
+def _aihot_time(month: str, day: str, hour: str, minute: str) -> str:
+    now = datetime.now(_BEIJING)
+    stamp = datetime(now.year, int(month), int(day), int(hour), int(minute), tzinfo=_BEIJING)
+    if stamp > now + timedelta(days=1):  # December items read in January
+        stamp = stamp.replace(year=now.year - 1)
+    return stamp.astimezone(timezone.utc).isoformat()
+
+
+def _aihot_items(text: str) -> list[dict]:
+    """Parse AIHOT's Markdown list. Original link preferred; hot rank and source count kept in summary."""
+    if '［AIHOT 不可信外部资料开始］' not in text:
+        raise ValueError
+    blocks, current = [], None
+    for line in text.splitlines():
+        head = _AIHOT_HEAD.match(line.strip())
+        if head:
+            current = {'rank': head.group(1), 'title': head.group(2), 'link': head.group(3), 'lines': []}
+            blocks.append(current)
+        elif current is not None and line.startswith('   '):
+            current['lines'].append(line.strip())
+    rows = []
+    for b in blocks:
+        meta = b['lines'][0] if b['lines'] else ''
+        fields = {k: v for k, _, v in (l.partition('：') for l in b['lines'][1:]) if v}
+        when = _AIHOT_TIME.search(meta)
+        category = meta.rsplit(' · ', 1)[-1] if ' · 发布于 ' in meta else ''
+        if b['rank']:
+            summary = f"[热点第 {b['rank']} 名] " + meta
+        else:
+            summary = (f'[{category}] ' if category else '') + fields.get('摘要', '')
+            if meta:
+                summary = meta.split(' · ', 1)[0] + '：' + summary
+        original = fields.get('原文', '')
+        rows.append(_row(b['title'], original if original.startswith('https://') else b['link'],
+                         summary, _aihot_time(*when.groups()) if when else None))
+    return rows
 
 
 def search(config: dict, *, provider: str) -> list[dict]:
@@ -54,28 +118,9 @@ def search(config: dict, *, provider: str) -> list[dict]:
         elif provider == 'aihot':
             if os.environ.get('RESEARCH_AIHOT') != '1':
                 raise ChannelError('auth_required')
-            # Latest 50 curated AI items (many from X). Personal read-only use; no mirroring.
-            text = _request('https://aihot.news/feed.xml', deadline=deadline,
-                            headers={'Accept': 'application/rss+xml'}, raw_text=True)
-            if '<!DOCTYPE' in text.upper() or '<!ENTITY' in text.upper():
-                raise ValueError
-            root = ET.fromstring(text)
-            if root.tag != 'rss' or root.find('channel') is None:
-                raise ValueError
-            # Space-separated terms match title/summary/category with OR; '*' returns the whole feed.
-            terms = [] if query.strip() == '*' else [t.lower() for t in query.split()]
-            items = []
-            for r in root.findall('./channel/item'):
-                title, body, category = r.findtext('title') or '', r.findtext('description') or '', r.findtext('category') or ''
-                haystack = f'{title} {body} {category}'.lower()
-                if terms and not any(t in haystack for t in terms):
-                    continue
-                original = re.search(r'href="(https://[^"]+)"[^>]*>\s*阅读原文', body)
-                summary = re.split(r'</p>', body, maxsplit=1)[0]
-                items.append(_row(title, original.group(1) if original else r.findtext('link'),
-                                  (f'[{category}] ' if category else '') + summary, r.findtext('pubDate')))
-                if len(items) >= limit:
-                    break
+            text = _request(_aihot_url(query, limit), deadline=deadline,
+                            headers={'Accept': 'text/markdown'}, raw_text=True)
+            items = _aihot_items(text)[:limit]
         elif provider == 'mdn':
             data = _dict(_get('https://developer.mozilla.org/api/v1/search', {'q': query, 'locale': 'en-US'}, deadline))
             items = []
