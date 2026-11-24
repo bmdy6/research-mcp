@@ -254,7 +254,7 @@ def _openalex(query: str, limit: int, deadline: float, key: str) -> list[dict]:
 def _pubmed(query: str, limit: int, deadline: float) -> list[dict]:
     root = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
     payload = _dict(_get(root + "esearch.fcgi", {"db": "pubmed", "term": query,
-                        "retmode": "json", "retmax": limit, "tool": "research-mcp"}, deadline))
+                        "retmode": "json", "retmax": limit, "sort": "relevance", "tool": "research-mcp"}, deadline))
     ids = _list(_dict(payload.get("esearchresult")).get("idlist"))
     if not ids:
         return []

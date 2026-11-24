@@ -323,8 +323,9 @@ class MCPStdioTest(unittest.IsolatedAsyncioTestCase):
                 tools = sorted(tools, key=lambda tool: tool["name"] != "research_search")
                 schema = tools[0]["inputSchema"]
                 self.assertEqual(schema["required"], ["query"])
-                self.assertEqual(set(schema["properties"]), {"query", "limit", "providers"})
+                self.assertEqual(set(schema["properties"]), {"query", "limit", "providers", "max_age_days"})
                 self.assertEqual(schema["properties"]["limit"]["default"], 12)
+                self.assertIsNone(schema["properties"]["max_age_days"]["default"])
                 annotations = tools[0].get("annotations") or {}
                 self.assertIs(annotations.get("readOnlyHint"), True)
                 self.assertIs(annotations.get("destructiveHint"), False)

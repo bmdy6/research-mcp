@@ -26,8 +26,8 @@ class ResearchTest(unittest.TestCase):
         self.assertEqual(result["filtered_by"], {"outside_time_range": 8})
         self.assertEqual(result["total"], 1)
 
-    def test_legacy_search_default_age_remains_3650_days(self):
-        old = datetime.now(timezone.utc) - research.timedelta(days=120)
+    def test_default_search_retains_classic_sources_without_age_limit(self):
+        old = datetime(2005, 7, 1, tzinfo=timezone.utc)
         row = {"title": "still within legacy default", "url": "https://fixture.invalid/legacy",
                "published_at": old.isoformat(), "source": "hacker_news"}
         observed = []
@@ -37,7 +37,26 @@ class ResearchTest(unittest.TestCase):
         with patch.object(research, "_default_providers", return_value={"hacker_news": provider}):
             result = research.search("synthetic query", providers=["hacker_news"], rerank=False)
         self.assertEqual(len(result["candidates"]), 1)
-        self.assertEqual(observed, [3650])
+        self.assertEqual(observed, [None])
+
+    def test_provider_default_does_not_add_hidden_age_window(self):
+        with patch.object(research, "_run_json", return_value=[]) as run:
+            research._github_search({"github_query": "classic"})
+            self.assertNotIn("--updated", run.call_args.args[0])
+            research._github_search({"github_query": "classic", "max_age_days": 90})
+            self.assertIn("--updated", run.call_args.args[0])
+        with patch.object(research, "_http_json", return_value={"hits": []}) as get:
+            research._hn_search({"hn_query": "classic"})
+            self.assertNotIn("numericFilters", get.call_args.args[0])
+            research._hn_search({"hn_query": "classic", "max_age_days": 90})
+            self.assertIn("numericFilters", get.call_args.args[0])
+
+    def test_explicit_age_filter_understands_pubmed_display_dates(self):
+        row = {"title": "Classic paper", "url": "https://pubmed.ncbi.nlm.nih.gov/16029679/",
+               "source": "pubmed", "published_at": "2005 Jul"}
+        with patch.object(research, "_default_providers", return_value={"pubmed": lambda _: [row]}):
+            self.assertEqual(research.search("classic", providers=["pubmed"], max_age_days=90)["returned"], 0)
+            self.assertEqual(research.search("classic", providers=["pubmed"])["returned"], 1)
 
     def test_exa_x_site_empty_has_conditional_note_without_failure(self):
         for query in ('site:x.com agents', 'agent site:twitter.com', 'SITE:WWW.X.COM agents',
@@ -561,6 +580,98 @@ ETH: 0x123456
             content, via = research._readable_content("https://example.com/b")
         self.assertEqual(via, "raw")
         self.assertIn("raw", content)
+
+    def test_raw_html_extracts_article_before_result_budget(self):
+        from research_mcp.result_contract import fetch_result, serialize_result
+
+        html = ("<!doctype html><html><head><title>Skin care guide</title>"
+                "<script>privateTracking()</script></head><body><header><nav>"
+                + "Navigation and sign in " * 1000
+                + "</nav></header><main><h2>Care for dry skin</h2>"
+                "<p>Use a gentle cleanser &amp; moisturizer.</p>"
+                '<p>Read <a href="/guide">the complete guide</a>.</p>'
+                "<script>moreTracking()</script></main>"
+                "<footer>Subscribe and shop</footer></body></html>")
+        with patch.object(research, "_safe_http_text", side_effect=[
+                research.FetchError("Reader unavailable"), html]):
+            content, via = research._readable_content("https://example.com/a")
+        delivered = json.loads(serialize_result(fetch_result({
+            "kind": "article", "url": "https://example.com/a", "content": content, "via": via})))
+        text = delivered["data"]["content"]
+        self.assertIn("Care for dry skin", text)
+        self.assertIn("gentle cleanser & moisturizer", text)
+        self.assertIn("[the complete guide](https://example.com/guide)", text)
+        for noise in ("Navigation", "privateTracking", "moreTracking", "Subscribe", "<html>"):
+            self.assertNotIn(noise, text)
+        self.assertFalse(delivered["output_truncation"]["truncated"])
+
+    def test_raw_html_without_readable_body_is_not_success(self):
+        for html in (
+            "<html><head><title>Guide</title></head><body><nav>Menus</nav></body></html>",
+            "<html><body><main>Loading...</main><script>renderApp()</script></body></html>",
+        ):
+            with self.subTest(html=html), patch.object(research, "_safe_http_text", side_effect=[
+                    research.FetchError("Reader unavailable"), html]):
+                with self.assertRaises(research.FetchError):
+                    research._readable_content("https://example.com/a")
+
+    def test_raw_article_and_plain_text_fallbacks_remain_readable(self):
+        for raw in (
+            '<article><h1>Guide</h1><p>A short, real article.</p></article>',
+            '# Guide\n\nA short, real article.',
+        ):
+            with self.subTest(raw=raw), patch.object(research, "_safe_http_text", side_effect=[
+                    research.FetchError("Reader unavailable"), raw]):
+                content, _ = research._readable_content("https://example.com/a")
+                self.assertIn("A short, real article.", content)
+
+    def test_raw_html_comment_prefix_still_extracts_before_budget(self):
+        raw = '\ufeff<!-- public page -->' + '<html><nav>' + 'Menus ' * 2000 + '</nav><main><p>Visible article.</p></main></html>'
+        with patch.object(research, "_safe_http_text", side_effect=[research.FetchError("unavailable"), raw]):
+            content, _ = research._readable_content("https://example.com/a")
+        self.assertIn("Visible article.", content)
+        self.assertNotIn("Menus", content)
+        self.assertNotIn("<html", content)
+
+    def test_raw_html_ignores_hidden_ancestors_and_empty_primary_regions(self):
+        for hidden in ('hidden', 'aria-hidden="true"', 'style="display: none"', 'style="visibility:hidden"'):
+            for raw in (
+                f'<html><body><div {hidden}><main>Hidden old guidance.</main></div><main>Visible current guidance.</main></body></html>',
+                f'<html><body><main {hidden}>Hidden old guidance.</main><main>Visible current guidance.</main></body></html>',
+                f'<html><body><main></main><article><p {hidden}>Hidden old guidance.</p><p>Visible current guidance.</p></article></body></html>',
+            ):
+                with self.subTest(hidden=hidden, raw=raw), patch.object(research, "_safe_http_text", side_effect=[research.FetchError("unavailable"), raw]):
+                    content, _ = research._readable_content("https://example.com/a")
+                    self.assertIn("Visible current guidance.", content)
+                    self.assertNotIn("Hidden old", content)
+
+    def test_raw_html_rejects_formatted_shells_and_access_challenges(self):
+        for inner in ('<h1>Loading...</h1>', '<h1>Just a moment...</h1><p>Verify you are human to continue.</p>',
+                      '<h1>Access denied</h1><p>Please enable JavaScript and cookies to continue.</p>'):
+            raw = '<html><body><main>' + inner + '</main></body></html>'
+            with self.subTest(inner=inner), patch.object(research, "_safe_http_text", side_effect=[research.FetchError("unavailable"), raw]):
+                with self.assertRaises(research.FetchError):
+                    research._readable_content("https://example.com/a")
+
+    def test_article_header_and_challenge_discussion_are_not_discarded(self):
+        raw = '<html><body><article><header><h1>Handling access denied errors</h1><p>Essential context.</p></header><p>This article explains how JavaScript challenges work. It is real source content.</p></article></body></html>'
+        with patch.object(research, "_safe_http_text", side_effect=[research.FetchError("unavailable"), raw]):
+            content, _ = research._readable_content("https://example.com/a")
+        self.assertIn("Handling access denied errors", content)
+        self.assertIn("Essential context", content)
+
+    def test_reader_challenge_falls_back_instead_of_claiming_article(self):
+        challenge = 'Title: Blocked\nMarkdown Content:\n# Just a moment...\n\nVerify you are human to continue.'
+        with patch.object(research, "_safe_http_text", side_effect=[challenge, '<article><p>Readable actual source.</p></article>']):
+            content, via = research._readable_content("https://example.com/a")
+        self.assertEqual(via, "raw")
+        self.assertIn("Readable actual source", content)
+
+    def test_malformed_link_does_not_discard_readable_article(self):
+        raw = '<article><p>Useful source <a href="https://[invalid">broken link</a> with readable content.</p></article>'
+        with patch.object(research, "_safe_http_text", side_effect=[research.FetchError("unavailable"), raw]):
+            content, _ = research._readable_content("https://example.com/a")
+        self.assertIn("Useful source broken link with readable content.", content)
 
     def test_readable_rejects_shell_page_instead_of_reporting_success(self):
         """JS 渲染页只剩 Loading 占位时，不能当成功返回（回归：prism.openai.com 曾返回 127 字节）。"""

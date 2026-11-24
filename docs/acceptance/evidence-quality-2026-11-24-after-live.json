@@ -1,0 +1,240 @@
+{
+  "evaluated_at": "2026-11-24T03:01:17.849079+00:00",
+  "mode": "live",
+  "scope": "Fixed retrieval rules; hits do not establish medical correctness. Offline sources are synthetic.",
+  "cases": [
+    {
+      "id": "search-dry-skin",
+      "operation": "search",
+      "query": "site:aad.org dry skin relief dermatologist moisturizer cream",
+      "status": "ok",
+      "elapsed_seconds": 3.086,
+      "rule_hits": {
+        "successful_source": true,
+        "expected_source_hit": true
+      },
+      "passed": true,
+      "sources": [
+        {
+          "url": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+          "title": "Dermatologists' top tips for relieving dry skin"
+        },
+        {
+          "url": "https://www.aad.org/public/diseases/a-z/dry-skin-overview",
+          "title": "Dry skin: Overview"
+        },
+        {
+          "url": "https://www.aad.org/public/diseases/a-z/dry-skin-treatment",
+          "title": "Dry skin: Diagnosis and treatment"
+        },
+        {
+          "url": "https://www.aad.org/news/cold-weather-and-your-skin",
+          "title": "Cold weather and your skin"
+        },
+        {
+          "url": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer?srch_tag=676ir6yq76zsqujocmocetzlr46r42tp",
+          "title": "How to pick the right moisturizer for your skin"
+        }
+      ]
+    },
+    {
+      "id": "search-pores",
+      "operation": "search",
+      "query": "site:aad.org What can treat large facial pores",
+      "status": "ok",
+      "elapsed_seconds": 2.369,
+      "rule_hits": {
+        "successful_source": true,
+        "expected_source_hit": true
+      },
+      "passed": true,
+      "sources": [
+        {
+          "url": "https://www.aad.org/public/everyday-care/skin-care-secrets/face/treat-large-pores?tracking1=email&tracking2=Broadcasts&tracking3=230925-0600-ACF",
+          "title": "What can treat large facial pores?"
+        },
+        {
+          "url": "https://licensedcontent.aad.org/video/what-s-new-in-cosmetic-dermatology-for-the-medical-dermatologist/160b9dc9-af5a-455c-bbe0-79a58d273833",
+          "title": "What's New in Cosmetic Dermatology for the Medical Dermatologist"
+        },
+        {
+          "url": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/oily-skin",
+          "title": "How to control oily skin"
+        },
+        {
+          "url": "https://licensedcontent.aad.org/video/cosmetic-and-laser-updates-glp-1-facial-changes-biostimulatory-fillers-microcoring-and-emerging-treatments/f7191759-e712-4849-8d03-88a8537b753e",
+          "title": "Cosmetic and Laser Updates: GLP-1 Facial Changes, Biostimulatory…"
+        },
+        {
+          "url": "https://www.aad.org/public/diseases/acne/derm-treat/treat?utm=",
+          "title": "Acne: Diagnosis and treatment"
+        }
+      ]
+    },
+    {
+      "id": "search-classic-2005",
+      "operation": "search",
+      "query": "EXT_ID:16029679 AND SRC:MED",
+      "status": "ok",
+      "elapsed_seconds": 13.611,
+      "rule_hits": {
+        "successful_source": true,
+        "expected_source_hit": true
+      },
+      "passed": true,
+      "sources": [
+        {
+          "url": "https://europepmc.org/article/MED/16029679",
+          "title": "Niacinamide: A B vitamin that improves aging facial skin appearance."
+        }
+      ]
+    },
+    {
+      "id": "search-pubmed-relevance",
+      "operation": "search",
+      "query": "niacinamide aging facial skin appearance",
+      "status": "ok",
+      "elapsed_seconds": 1.056,
+      "rule_hits": {
+        "successful_source": true,
+        "relevant_title_hit": true
+      },
+      "passed": true,
+      "sources": [
+        {
+          "url": "https://pubmed.ncbi.nlm.nih.gov/16029679/",
+          "title": "Niacinamide: A B vitamin that improves aging facial skin appearance."
+        },
+        {
+          "url": "https://pubmed.ncbi.nlm.nih.gov/18492135/",
+          "title": "Topical niacinamide reduces yellowing, wrinkling, red blotchiness, and hyperpigmented spots in aging facial skin."
+        },
+        {
+          "url": "https://pubmed.ncbi.nlm.nih.gov/19735523/",
+          "title": "Efficacy of anti-aging products for periorbital wrinkles as measured by 3-D imaging."
+        },
+        {
+          "url": "https://pubmed.ncbi.nlm.nih.gov/42206507/",
+          "title": "Design and evaluation of multi-target AGEs/ALEs inhibitors for potential application in skin anti-aging."
+        },
+        {
+          "url": "https://pubmed.ncbi.nlm.nih.gov/19958429/",
+          "title": "Reduction in the appearance of facial hyperpigmentation by topical N-undecyl-10-enoyl-L-phenylalanine and its combination with niacinamide."
+        }
+      ]
+    },
+    {
+      "id": "read-pores",
+      "operation": "fetch",
+      "query": "https://www.aad.org/public/everyday-care/skin-care-secrets/face/treat-large-pores",
+      "status": "ok",
+      "elapsed_seconds": 1.385,
+      "rule_hits": {
+        "successful_read": true,
+        "readable_not_raw_html": true,
+        "paragraph:salicylic acid": true,
+        "paragraph:irritat": true
+      },
+      "passed": true,
+      "sources": [],
+      "url": "https://www.aad.org/public/everyday-care/skin-care-secrets/face/treat-large-pores"
+    },
+    {
+      "id": "read-adult-acne",
+      "operation": "fetch",
+      "query": "https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment",
+      "status": "ok",
+      "elapsed_seconds": 0.887,
+      "rule_hits": {
+        "successful_read": true,
+        "readable_not_raw_html": true,
+        "paragraph:salicylic acid": true,
+        "paragraph:blackheads": true
+      },
+      "passed": true,
+      "sources": [],
+      "url": "https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment"
+    },
+    {
+      "id": "read-workout",
+      "operation": "fetch",
+      "query": "https://www.aad.org/public/diseases/acne/causes/workouts",
+      "status": "ok",
+      "elapsed_seconds": 1.133,
+      "rule_hits": {
+        "successful_read": true,
+        "readable_not_raw_html": true,
+        "paragraph:sweat": true,
+        "paragraph:wash": true
+      },
+      "passed": true,
+      "sources": [],
+      "url": "https://www.aad.org/public/diseases/acne/causes/workouts"
+    },
+    {
+      "id": "read-dry-skin",
+      "operation": "fetch",
+      "query": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "status": "ok",
+      "elapsed_seconds": 2.57,
+      "rule_hits": {
+        "successful_read": true,
+        "readable_not_raw_html": true,
+        "paragraph:cream": true,
+        "paragraph:fragrance": true
+      },
+      "passed": true,
+      "sources": [],
+      "url": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+    },
+    {
+      "id": "reject-private-target",
+      "operation": "fetch",
+      "query": "https://127.0.0.1/",
+      "status": "error",
+      "elapsed_seconds": 0.0,
+      "rule_hits": {
+        "explicit_failure": true,
+        "expected_error_code": true
+      },
+      "passed": true,
+      "sources": [],
+      "url": "https://127.0.0.1/"
+    },
+    {
+      "id": "reject-invalid-scheme",
+      "operation": "fetch",
+      "query": "file:///example-public-fixture",
+      "status": "error",
+      "elapsed_seconds": 0.0,
+      "rule_hits": {
+        "explicit_failure": true,
+        "expected_error_code": true
+      },
+      "passed": true,
+      "sources": [],
+      "url": "file:///example-public-fixture"
+    },
+    {
+      "id": "reject-js-shell",
+      "operation": "fetch",
+      "query": "https://example.com/evaluation-js-shell",
+      "status": "skipped",
+      "elapsed_seconds": 0,
+      "rule_hits": {}
+    },
+    {
+      "id": "reject-access-challenge",
+      "operation": "fetch",
+      "query": "https://example.com/evaluation-access-challenge",
+      "status": "skipped",
+      "elapsed_seconds": 0,
+      "rule_hits": {}
+    }
+  ],
+  "summary": {
+    "passed": 10,
+    "checked": 10,
+    "skipped": 2
+  }
+}

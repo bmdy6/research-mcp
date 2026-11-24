@@ -43,7 +43,8 @@ except TypeError:  # pragma: no cover  旧版 FastMCP.tool() 不接受 annotatio
 
 
 @_tool
-async def research_search(query: str, limit: int = 12, providers: list[str] | None = None) -> str:
+async def research_search(query: str, limit: int = 12, providers: list[str] | None = None,
+                          max_age_days: int | None = None) -> str:
     """一个入口两种用法。
 
     传关键词：在定向渠道里搜（GitHub 仓库、Hacker News、B站视频、掘金文章、全网网页 Exa），
@@ -56,6 +57,7 @@ async def research_search(query: str, limit: int = 12, providers: list[str] | No
     Args:
         query: 搜索关键词，或要读取的 http(s) 链接。
         limit: 搜索时最多返回条数，1~40，默认 12（传链接时忽略）。
+        max_age_days: 按已知日期筛选最近1~3650天，未知日期保留；默认不限年代（传链接时忽略）。
         providers: 省略时使用可配置的免费默认组；建议先用 research_list_channels 查看目录。可选 github_search / hacker_news /
             arxiv / exa / juejin / bilibili / baidu / sogou / bing / duckduckgo / csdn，
             以及目录中的 tavily / openalex / wikipedia / wikidata / crossref / stackexchange /
@@ -72,8 +74,9 @@ async def research_search(query: str, limit: int = 12, providers: list[str] | No
     # cancelled await discards the result; an already-running thread finishes
     # under the core's existing timeouts and retains its normal cleanup. The
     # event loop owns the shared executor and bounds its active worker count.
+    age = {} if max_age_days is None else {"max_age_days": max_age_days}
     result = await asyncio.to_thread(
-        S.query, query, limit=normalized_limit, providers=providers)
+        S.query, query, limit=normalized_limit, providers=providers, **age)
     return serialize_result(result, ResultBudget(max_chars=MAX_CHARS))
 
 
