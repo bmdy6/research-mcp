@@ -339,7 +339,7 @@ Ego Lite 本地网络策略需在 `chrome://policy`（会显示为 `ego://policy
 | `mdn` | Web 文档搜索 | MDN 自有搜索 API，免 key；固定 en-US 文档库，中文、英文各 2 条；中文相关性有限 |
 | `itunes_apps` | App Store 应用列表 | 官方 iTunes Search API，免 key；CN 区，中文、英文各 2 条；应用本身可能收费 |
 | `google_news_rss` | 新闻标题和原站跳转线索 | **仅本地个人使用、默认关闭**；设置 `RESEARCH_GOOGLE_NEWS_RSS=1` 后仍需指定 provider；双语适配器冷却后各返回 2 条；期间遇到 429，限流会报 `quota_exhausted` |
-| `aihot` | AIHOT 精选的最新 50 条 AI 动态（大量来自 X），中文摘要 + 原文链接 + 发布时间 | **仅本地个人使用、默认关闭**；设置 `RESEARCH_AIHOT=1`；关键词空格分隔按“任一命中”过滤，`*` 取全部；不做镜像或转发站点 |
+| `aihot` | AIHOT 中文 AI 资讯（大量来自 X）：精选、全部动态、分类、热点榜、关键词搜索；中文摘要 + 原文链接 + 发布时间 | **仅本地个人使用、默认关闭**；设置 `RESEARCH_AIHOT=1`。查询写法：`*` 过去 24 小时精选，`all` / `all:<分类>` 全部动态（分类：ai-models、ai-products、industry、paper、tip、opinion），`hot` 热点榜，其它按关键词搜最近 7 天；每次最多 30 条；走官方匿名 Agent API v1，不做镜像或转发站点 |
 
 Google News 不进入匿名公开适配器白名单；只读取 RSS，保留 Google 链接，不解码跳转、不绕登录。它不是有稳定配额保证的 API。官方接口依据：[npm](https://api-docs.npmjs.com/)、[crates.io](https://crates.io/data-access)、[Docker Hub](https://docs.docker.com/reference/api/hub/latest/)、[MDN Yari](https://github.com/mdn/yari)、[Apple](https://performance-partners.apple.com/search-api)。实测边界见[增量验收记录](docs/acceptance-more-free-2026-11-23.md)。
 

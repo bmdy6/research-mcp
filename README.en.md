@@ -257,7 +257,7 @@ Explicit providers: `npm` (packages), `crates_io` (Rust crates), `docker_hub` (r
 
 `google_news_rss` is local personal use only, disabled unless `RESEARCH_GOOGLE_NEWS_RSS=1`, and excluded from the public adapter. Initial bilingual RSS responses were HTTP 200; live adapter calls hit 429, then returned two items per query after a cooldown. Rate limits remain visible failures. Defaults remain unchanged.
 
-`aihot` reads the latest 50 curated AIHOT items (many from X) with Chinese summaries, original links and dates. It is local personal use only and disabled unless `RESEARCH_AIHOT=1`. Space-separated terms match with OR; `*` returns the whole feed.
+`aihot` reads the official anonymous AIHOT Agent API v1 (Chinese AI news, many items from X) with summaries, original links and dates. Local personal use only, disabled unless `RESEARCH_AIHOT=1`. Query forms: `*` 24h featured, `all` or `all:<category>` all items (ai-models, ai-products, industry, paper, tip, opinion), `hot` ranking, anything else is a 7-day keyword search; at most 30 items per call.
 
 Examples: development `--providers npm,crates_io,mdn`; everyday app discovery `--providers itunes_apps,smzdm`; job research `--providers boss,liepin` with existing local browser sessions. See [acceptance and limitations](docs/acceptance-more-free-2026-11-23.md).
 

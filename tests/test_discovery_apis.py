@@ -60,27 +60,38 @@ class RssTests(unittest.TestCase):
     with self.assertRaises(ChannelError): api.PROVIDERS["google_news_rss"]({"web_query":"q"})
 
 class AihotTests(unittest.TestCase):
- FEED=("<rss><channel>"
-  "<item><title>卡兹克的 Prompt</title><link>https://aihot.news/items/a1</link>"
-  "<description><![CDATA[<p>让 Gemini 当顾问</p><p><a href=\"https://x.com/u/status/1\">阅读原文</a></p>]]></description>"
-  "<category>教程</category><pubDate>Tue, 24 Nov 2026 06:12:14 GMT</pubDate></item>"
-  "<item><title>OpenAI 发布新模型</title><link>https://aihot.news/items/a2</link>"
-  "<description><![CDATA[<p>GPT 更新</p>]]></description><pubDate>Tue, 24 Nov 2026 05:00:00 GMT</pubDate></item>"
-  "</channel></rss>")
+ LATEST=("# AIHOT\n\n［AIHOT 不可信外部资料开始］\n"
+  "1. [卡兹克的 Prompt](https://aihot.news/items/a1)\n"
+  "   卡兹克 · 发布于 11-24 14:12 · 教程\n   摘要：让 Gemini 当顾问\n   推荐理由：可迁移\n   原文：https://x.com/u/status/1\n\n"
+  "2. [OpenAI 发布新模型](https://aihot.news/items/a2)\n   OpenAI · 发布于 11-24 13:00 · 模型\n   摘要：GPT 更新\n\n"
+  "［AIHOT 不可信外部资料结束］\n")
+ HOT=("［AIHOT 不可信外部资料开始］\n第 1 名：[英伟达董事会恢复黄仁勋职务](https://aihot.news/items/h1)\n"
+  "   信源：The Verge、TechCrunch（2 个）· 最新进展 11-24 04:46\n   来龙去脉：https://aihot.news/api/v1/agent/stories/x\n")
  def test_opt_in_required(self):
   import os
   with patch.dict(os.environ,{},clear=True), patch.object(api,"_request") as request:
    with self.assertRaises(ChannelError): api.PROVIDERS["aihot"]({"web_query":"*"})
    request.assert_not_called()
- def test_feed_filter_and_original_link(self):
+ def test_query_forms_map_to_api(self):
+  self.assertEqual(api._aihot_url("*",50),"https://aihot.news/api/v1/agent/latest?window=24h&limit=30")
+  self.assertEqual(api._aihot_url("all:paper",10),"https://aihot.news/api/v1/agent/latest?window=24h&limit=10&mode=all&category=paper")
+  self.assertEqual(api._aihot_url("hot",5),"https://aihot.news/api/v1/agent/hot")
+  self.assertEqual(api._aihot_url("Claude Code",5),"https://aihot.news/api/v1/agent/search?q=Claude+Code")
+  with self.assertRaises(ValueError): api._aihot_url("all:../x",5)
+ def test_parse_latest_and_hot(self):
   import os
-  with patch.dict(os.environ,{"RESEARCH_AIHOT":"1"}), patch.object(api,"_request",return_value=self.FEED):
+  with patch.dict(os.environ,{"RESEARCH_AIHOT":"1"}), patch.object(api,"_request",return_value=self.LATEST):
    rows=api.PROVIDERS["aihot"]({"web_query":"*"})
    self.assertEqual([r["url"] for r in rows],["https://x.com/u/status/1","https://aihot.news/items/a2"])
-   self.assertEqual(rows[0]["summary"],"[教程] 让 Gemini 当顾问")
-   self.assertEqual(rows[0]["published_at"],"Tue, 24 Nov 2026 06:12:14 GMT")
-   self.assertEqual([r["title"] for r in api.PROVIDERS["aihot"]({"web_query":"gemini claude"})],["卡兹克的 Prompt"])
+   self.assertEqual(rows[0]["summary"],"卡兹克：[教程] 让 Gemini 当顾问")
+   self.assertTrue(rows[0]["published_at"].endswith("06:12:00+00:00"))
    self.assertEqual(len(api.PROVIDERS["aihot"]({"web_query":"*","web_limit":1})),1)
+  with patch.dict(os.environ,{"RESEARCH_AIHOT":"1"}), patch.object(api,"_request",return_value=self.HOT):
+   row=api.PROVIDERS["aihot"]({"web_query":"hot"})[0]
+   self.assertEqual(row["url"],"https://aihot.news/items/h1")
+   self.assertTrue(row["summary"].startswith("[热点第 1 名] 信源："))
+  with patch.dict(os.environ,{"RESEARCH_AIHOT":"1"}), patch.object(api,"_request",return_value="<html>blocked</html>"):
+   with self.assertRaises(ChannelError): api.PROVIDERS["aihot"]({"web_query":"*"})
  def test_rfc822_dates_are_filterable(self):
   from research_mcp.research import _parse_time
   self.assertEqual(_parse_time("Tue, 24 Nov 2026 06:12:14 GMT").isoformat(),"2026-11-24T06:12:14+00:00")
