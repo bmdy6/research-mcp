@@ -28,6 +28,8 @@ SAFE_FETCH_MESSAGES = {
     "REDIRECT_LIMIT": "重定向循环或次数超过预算",
     "UPSTREAM_HTTP_ERROR": "上游未返回成功正文",
     "UNSUPPORTED_CONTENT": "上游内容类型或编码不受支持",
+    "ACCESS_CHALLENGE": "上游返回访问校验页，正文未读取",
+    "NO_READABLE_CONTENT": "页面正文是空壳，需要浏览器渲染或换来源",
 }
 FAKE_IP_MESSAGE = (
     "目标域名解析到 198.18.0.0/15，常见于代理软件的 fake-ip 模式；"

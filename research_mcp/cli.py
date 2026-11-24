@@ -14,6 +14,7 @@ def main() -> int:
     search.add_argument("query")
     search.add_argument("--limit", type=int, default=10)
     search.add_argument("--providers", help="渠道名，逗号分隔")
+    search.add_argument("--max-age-days", type=int, help="按已知日期筛选最近 1–3650 天；未知日期保留，默认不限制年代")
     fetch = sub.add_parser("fetch")
     fetch.add_argument("url")
     for command in (search, fetch):
@@ -34,7 +35,8 @@ def main() -> int:
         result = service.list_channels()
     elif args.command == "search":
         providers = [p.strip() for p in args.providers.split(",") if p.strip()] if args.providers else None
-        result = service.search(args.query, limit=args.limit, providers=providers)
+        age = {} if args.max_age_days is None else {"max_age_days": args.max_age_days}
+        result = service.search(args.query, limit=args.limit, providers=providers, **age)
     else:
         result = service.fetch(args.url)
     # Preserve the existing human-readable JSON text format.

@@ -21,6 +21,7 @@ from research_mcp.channels.errors import MESSAGES, failure_status
 from research_mcp.channels import CHANNELS  # noqa: E402  渠道层；键名即 search.json 里的 provider 名
 from research_mcp.result_contract import EXA_X_EMPTY_NOTE  # noqa: E402  与入口共用固定安全提示
 from research_mcp.safe_fetch import SafeFetchError, safe_error_code
+from research_mcp.html_content import readable_html_fallback
 from research_mcp.tools.ldjson import (  # noqa: E402  图表页的内嵌数据兑底
     extract_chart_datasets,
     looks_like_chart_page,
@@ -70,6 +71,12 @@ def _parse_time(value: str | None) -> datetime | None:
     try:
         return datetime.fromisoformat(value.replace("Z", "+00:00")).astimezone(timezone.utc)
     except ValueError:
+        # PubMed ESummary uses display dates such as "2005 Jul" rather than ISO.
+        for pattern in ("%Y %b %d", "%Y %b", "%Y"):
+            try:
+                return datetime.strptime(value, pattern).replace(tzinfo=timezone.utc)
+            except ValueError:
+                continue
         return None
 
 
@@ -312,11 +319,20 @@ def _is_placeholder_only(text: str) -> bool:
     # 带 Jina 标记却没有正文，就是空壳（别回落到 Jina 头文本上判）
     if body is not None:
         text = body
-    lines = [line.strip() for line in _after_jina_header(text).splitlines() if line.strip()]
+    lines = [re.sub(r"^(?:#{1,6}\s+|[-*]\s+)", "", line.strip())
+             for line in _after_jina_header(text).splitlines() if line.strip()]
     if not lines:
         return True
     # 整行占位词，或短行以登录/加载类词开头（“Sign in to continue”），都算占位
     return all(_SHELL_HINT.match(line) or (_SHELL_VERB.match(line) and len(line) < 60) for line in lines)
+
+
+def _is_access_challenge(text: str) -> bool:
+    lines = [re.sub(r"^#{1,6}\s+", "", line.strip()) for line in text.splitlines() if line.strip()]
+    if not lines or len(text) > 1500:
+        return False
+    return (bool(re.fullmatch(r"(?:just a moment[.!…\s]*|access denied[.!\s]*|attention required!?\s*(?:\|\s*cloudflare)?)", lines[0], re.I))
+            and (len(lines) == 1 or bool(re.search(r"verify (?:that )?you are human|enable javascript|cloudflare|security check|request (?:was )?blocked", text, re.I))))
 
 
 def _readable_content(url: str) -> tuple[str, str]:
@@ -324,7 +340,7 @@ def _readable_content(url: str) -> tuple[str, str]:
 
     直接用 curl 抓回来的是带样式和脚本的原始 HTML，模型读不了；先请 Jina Reader
     （https://r.jina.ai/<url>）转成 Markdown 正文，它自己失败时（目标站反爬、
-    返回 -403 占位内容）再回落原始抓取。
+    返回 -403 占位内容）再回落静态抓取并提取 HTML 正文。
 
     Jina 返回空壳时也算失败：
     “没查到”和“没查成”是两个结论，混在一起没法用。
@@ -341,9 +357,14 @@ def _readable_content(url: str) -> tuple[str, str]:
         if text.strip() and not _JINA_FAILED.search(text[:300]):
             if not _looks_like_shell(text):
                 cleaned = _clean_readable_markdown(text)
-                if not looks_like_chart_page(cleaned):
+                if _is_access_challenge(_after_jina_header(cleaned)):
+                    raise FetchError("上游返回访问校验页，正文未读取", code="ACCESS_CHALLENGE")
+                if _is_placeholder_only(cleaned):
+                    shell_only = True
+                elif not looks_like_chart_page(cleaned):
                     return cleaned, "jina"
-                jina_text = cleaned
+                else:
+                    jina_text = cleaned
             else:
                 shell_only = True
         jina_failed = "正文是空壳（页面靠 JS 渲染，服务端拿不到内容）"
@@ -380,15 +401,18 @@ def _readable_content(url: str) -> tuple[str, str]:
     # 只有拿到空壳（而非 Jina 报错）说明静态抓取拿不到内容；此时原始 HTML 也没用，
     # 因为 JS 根本没跑。直接说清需要浏览器，不拿空壳或埋在一堆标签里的原文充数。
     if shell_only:
-        raise FetchError(f"{jina_failed}；这条需要浏览器渲染或登录，换来源")
+        raise FetchError("页面正文是空壳，需要浏览器渲染或换来源", code="NO_READABLE_CONTENT")
     try:
         raw = _safe_http_text(url)
     except FetchError as error:
         raise FetchError(error.reason, code=error.code) from error
-    # Jina 报错时仍回落原始内容（via=raw 会标注来源），只有连它都只剩占位词才算失败
-    if _is_placeholder_only(raw):
-        raise FetchError(f"{jina_failed}；直接抓取也没拿到内容")
-    return _clean_readable_markdown(raw), "raw"
+    # 先从原始 HTML 提取正文，再交给下游预算裁剪；否则长导航会挤掉整个正文。
+    content = readable_html_fallback(raw, url)
+    if _is_access_challenge(content):
+        raise FetchError("上游返回访问校验页，正文未读取", code="ACCESS_CHALLENGE")
+    if _is_placeholder_only(content):
+        raise FetchError("页面正文是空壳，需要浏览器渲染或换来源", code="NO_READABLE_CONTENT")
+    return _clean_readable_markdown(content), "raw"
 
 
 def _run_json(command: list[str]) -> list[dict]:
@@ -407,11 +431,12 @@ def _run_text(command: list[str]) -> str:
 
 def _github_search(config: dict) -> list[dict]:
     queries = config.get("github_queries") or [config.get("github_query", "agentic-ai")]
-    cutoff = (datetime.now(timezone.utc) - timedelta(days=int(config.get("max_age_days", 90)))).date().isoformat()
+    age = config.get("max_age_days")
+    age_args = [] if age is None else ["--updated", ">" + (datetime.now(timezone.utc) - timedelta(days=int(age))).date().isoformat()]
     fields = "name,fullName,description,stargazersCount,forksCount,pushedAt,createdAt,updatedAt,license,homepage,isArchived,isFork,url,language"
     found = {}
     for query in queries:
-        rows = _run_json(["gh", "search", "repos", str(query), "--match", "readme", "--updated", f">{cutoff}", "--archived=false", "--include-forks=false", "--sort", "updated", "--order", "desc", "--limit", str(config.get("github_limit", 30)), "--json", fields])
+        rows = _run_json(["gh", "search", "repos", str(query), "--match", "readme", *age_args, "--archived=false", "--include-forks=false", "--sort", "updated", "--order", "desc", "--limit", str(config.get("github_limit", 30)), "--json", fields])
         for row in rows:
             full_name = (row.get("fullName") or "").lower()
             if full_name:
@@ -433,9 +458,10 @@ def _github_item(row: dict, source: str) -> dict:
 
 
 def _hn_search(config: dict) -> list[dict]:
-    cutoff = int((datetime.now(timezone.utc) - timedelta(days=int(config.get("max_age_days", 90)))).timestamp())
+    age = config.get("max_age_days")
+    age_filter = "" if age is None else "&numericFilters=created_at_i%3E" + str(int((datetime.now(timezone.utc) - timedelta(days=int(age))).timestamp()))
     query = urllib.parse.quote(config.get("hn_query", "AI agent"))
-    data = _http_json(f"https://hn.algolia.com/api/v1/search?query={query}&tags=story&numericFilters=created_at_i%3E{cutoff}&hitsPerPage={int(config.get('hn_limit', 30))}")
+    data = _http_json(f"https://hn.algolia.com/api/v1/search?query={query}&tags=story{age_filter}&hitsPerPage={int(config.get('hn_limit', 30))}")
     return [{"kind": "article", "title": h.get("title", ""), "url": normalize_url(h.get("url") or f"https://news.ycombinator.com/item?id={h.get('objectID', '')}"), "published_at": h.get("created_at"), "source": "hacker_news", "summary": h.get("_highlightResult", {}).get("title", {}).get("value", ""), "hn_score": h.get("points", 0)} for h in data.get("hits", []) if h.get("title")]
 
 
@@ -627,7 +653,7 @@ def default_search_providers() -> list[str]:
 
 
 def search(query: str, *, limit: int = 10, providers: list[str] | None = None, rerank: bool = False,
-           max_age_days: int = 3650) -> dict:
+           max_age_days: int | None = None) -> dict:
     """按查询词打各个关键词渠道。
 
     providers 只传渠道名子集时只打这些渠道（例如只搜某个站就用 `["exa"]` 配
@@ -643,8 +669,8 @@ def search(query: str, *, limit: int = 10, providers: list[str] | None = None, r
     used_defaults = not providers
     providers = providers or default_search_providers()
     # 临时搜索使用综合相关排序，保留上游顺序，避免新视频或热门英文泛词冲掉相关结果
-    if type(max_age_days) is not int or not 1 <= max_age_days <= 3650:
-        raise ValueError("max_age_days must be an integer from 1 to 3650")
+    if max_age_days is not None and (type(max_age_days) is not int or not 1 <= max_age_days <= 3650):
+        raise ValueError("max_age_days must be None or an integer from 1 to 3650")
     config = {"github_query": query, "hn_query": query, "arxiv_query": query, "exa_query": query,
               "juejin_queries": [query], "bilibili_queries": [query], "bilibili_order": "totalrank",
               "max_age_days": max_age_days, "web_query": query, "web_limit": limit}
@@ -680,13 +706,13 @@ def search(query: str, *, limit: int = 10, providers: list[str] | None = None, r
     # Filter the approved time window before interleaving/truncation so stale
     # high-ranked results cannot consume the candidate budget.
     now = datetime.now(timezone.utc)
-    cutoff = now - timedelta(days=max_age_days)
+    cutoff = None if max_age_days is None else now - timedelta(days=max_age_days)
     filtered_by = {}
     eligible_rows = []
     for item in rows:
         published_at = item.get("published_at")
         published = _parse_time(published_at) if isinstance(published_at, str) else None
-        if published is not None and not cutoff <= published <= now:
+        if published is not None and (published > now or (cutoff is not None and published < cutoff)):
             filtered_by["outside_time_range"] = filtered_by.get("outside_time_range", 0) + 1
         else:
             eligible_rows.append(item)

@@ -109,7 +109,7 @@ flowchart LR
 
 ## 🛡️ 靠得住的地方
 
-- **267 个测试用例。** CI 在 Ubuntu / macOS × Python 3.10 / 3.13 上跑离线测试，另验证 MCP SDK 1.x/2.x 的 stdio。
+- **离线回归测试。** `python3 -m unittest discover -s tests`；CI 在 Ubuntu / macOS × Python 3.10 / 3.13 上执行，另验证 MCP SDK 1.x/2.x 的 stdio。
 - **默认只读公开 HTTPS。** 内网、回环和链路本地地址一律拦截，重定向逐跳复查。
 - **关键词搜索只走免费路径。** 不读取 Exa 付费 key，不调用路由或重排模型；缺依赖和限流按渠道说明。URL 读取中的可选转写保持原有独立配置。
 
@@ -120,8 +120,17 @@ flowchart LR
 | 参数 | 作用 |
 |---|---|
 | `--limit` | CLI 搜索默认 10，范围 1–40；MCP 默认 12。 |
-| `--providers` | 搜索必传；CLI 用逗号分隔，MCP 用字符串数组。URL 读取忽略它。 |
+| `--providers` | 可选，省略使用默认免费组；CLI 用逗号分隔，MCP 用字符串数组。URL 读取忽略它。 |
+| `--max-age-days` | 可选 1–3650 天；默认不限制年代，保留经典论文。MCP 对应 `max_age_days`，读取 URL 时忽略。 |
 | `--format json` | 输出 v1 JSON；text 当前也输出可读 JSON。 |
+
+PubMed 显式按相关性排序；其他渠道沿用各自排序。指定日期窗口会在候选数量截断前过滤，日期缺失或不能解析的来源仍保留，不能把结果当成完整的日期筛选数据库。
+
+### 固定证据读取评测
+
+`python3 scripts/evaluate_evidence.py` 离线运行 12 个固定问题；加 `--live` 访问 Exa、Europe PMC、PubMed 和 AAD 原文，不调用模型或自动浏览器。可用 `--output report.json` 导出公开查询、来源标题/URL、状态、耗时及规则命中，不保存全文或凭据。离线用合成源测试解析和错误契约；在线跳过两条只适用于合成空壳/拦截页的题目，另外测试公网读取与明确拒绝。
+
+网页读取在 Jina 不可用时，先从静态 HTML 提取可见的 main/article，再裁剪输出；已识别的 JS 空壳和高置信拦截页会明确失败。此提取器不运行 JavaScript，也不计算外部 CSS。固定题的规则命中衡量检索与正文可达性，**不等于医学正确性、产品功效或通用检索准确率**。同题基线与修复后结果见 [2026-11-24 验收](docs/acceptance-evidence-quality-2026-11-24.md)。
 
 ### 环境变量
 

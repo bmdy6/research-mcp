@@ -188,11 +188,12 @@ def fetch_public(url: object, *, fetcher: SafeFetcher | None = None,
 
 
 def query(query_text: object, *, limit: object = 12, providers: object = None,
-          request_id: str | None = None, rerank: bool = False) -> dict:
+          request_id: str | None = None, rerank: bool = False, max_age_days: object = None) -> dict:
     """MCP-compatible operation selector: URL input reads; other text searches."""
     if isinstance(query_text, str) and query_text.strip().startswith(("http://", "https://")):
         return fetch(query_text, request_id=request_id)
-    return search(query_text, limit=limit, providers=providers, rerank=rerank, request_id=request_id)
+    age = {} if max_age_days is None else {"max_age_days": max_age_days}
+    return search(query_text, limit=limit, providers=providers, rerank=rerank, request_id=request_id, **age)
 
 
 def list_channels(*, request_id: str | None = None) -> dict:

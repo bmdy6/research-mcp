@@ -48,6 +48,11 @@ ENV = {"TAVILY_API_KEY": "secret-tavily", "TAVILY_FREE_ONLY": "1",
 
 
 class ProviderTests(unittest.TestCase):
+    def test_pubmed_explicitly_requests_relevance(self):
+        with patch.object(api, "_request", side_effect=FIXTURES["pubmed"]) as request:
+            api.PROVIDERS["pubmed"]({"web_query": "niacinamide"})
+        self.assertIn("sort=relevance", request.call_args_list[0].args[0])
+
     def setUp(self):
         api._reset_rate_limit_state()
         self.addCleanup(api._reset_rate_limit_state)

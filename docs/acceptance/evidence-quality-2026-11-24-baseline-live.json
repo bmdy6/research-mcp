@@ -1,0 +1,235 @@
+{
+  "evaluated_at": "2026-11-24T02:59:50.148351+00:00",
+  "mode": "live",
+  "scope": "Fixed retrieval rules; hits do not establish medical correctness. Offline sources are synthetic.",
+  "cases": [
+    {
+      "id": "search-dry-skin",
+      "operation": "search",
+      "query": "site:aad.org dry skin relief dermatologist moisturizer cream",
+      "status": "ok",
+      "elapsed_seconds": 3.932,
+      "rule_hits": {
+        "successful_source": true,
+        "expected_source_hit": true
+      },
+      "passed": true,
+      "sources": [
+        {
+          "url": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+          "title": "Dermatologists' top tips for relieving dry skin"
+        },
+        {
+          "url": "https://www.aad.org/public/diseases/a-z/dry-skin-overview",
+          "title": "Dry skin: Overview"
+        },
+        {
+          "url": "https://www.aad.org/public/diseases/a-z/dry-skin-treatment",
+          "title": "Dry skin: Diagnosis and treatment"
+        },
+        {
+          "url": "https://www.aad.org/news/cold-weather-and-your-skin",
+          "title": "Cold weather and your skin"
+        },
+        {
+          "url": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/pick-moisturizer?srch_tag=676ir6yq76zsqujocmocetzlr46r42tp",
+          "title": "How to pick the right moisturizer for your skin"
+        }
+      ]
+    },
+    {
+      "id": "search-pores",
+      "operation": "search",
+      "query": "site:aad.org What can treat large facial pores",
+      "status": "ok",
+      "elapsed_seconds": 2.15,
+      "rule_hits": {
+        "successful_source": true,
+        "expected_source_hit": true
+      },
+      "passed": true,
+      "sources": [
+        {
+          "url": "https://www.aad.org/public/everyday-care/skin-care-secrets/face/treat-large-pores?tracking1=email&tracking2=Broadcasts&tracking3=230925-0600-ACF",
+          "title": "What can treat large facial pores?"
+        },
+        {
+          "url": "https://licensedcontent.aad.org/video/what-s-new-in-cosmetic-dermatology-for-the-medical-dermatologist/160b9dc9-af5a-455c-bbe0-79a58d273833",
+          "title": "What's New in Cosmetic Dermatology for the Medical Dermatologist"
+        },
+        {
+          "url": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/oily-skin",
+          "title": "How to control oily skin"
+        },
+        {
+          "url": "https://licensedcontent.aad.org/video/cosmetic-and-laser-updates-glp-1-facial-changes-biostimulatory-fillers-microcoring-and-emerging-treatments/f7191759-e712-4849-8d03-88a8537b753e",
+          "title": "Cosmetic and Laser Updates: GLP-1 Facial Changes, Biostimulatory…"
+        },
+        {
+          "url": "https://www.aad.org/public/diseases/acne/derm-treat/treat?utm=",
+          "title": "Acne: Diagnosis and treatment"
+        }
+      ]
+    },
+    {
+      "id": "search-classic-2005",
+      "operation": "search",
+      "query": "EXT_ID:16029679 AND SRC:MED",
+      "status": "empty",
+      "elapsed_seconds": 1.663,
+      "rule_hits": {
+        "successful_source": false,
+        "expected_source_hit": false
+      },
+      "passed": false,
+      "sources": []
+    },
+    {
+      "id": "search-pubmed-relevance",
+      "operation": "search",
+      "query": "niacinamide aging facial skin appearance",
+      "status": "ok",
+      "elapsed_seconds": 1.402,
+      "rule_hits": {
+        "successful_source": true,
+        "relevant_title_hit": true
+      },
+      "passed": true,
+      "sources": [
+        {
+          "url": "https://pubmed.ncbi.nlm.nih.gov/42500768/",
+          "title": "Use of a Serum With the Infinite Glow® Device Improves Signs of Facial Aging: A Split-Face Case Report Using VISIA Analysis."
+        },
+        {
+          "url": "https://pubmed.ncbi.nlm.nih.gov/42206507/",
+          "title": "Design and evaluation of multi-target AGEs/ALEs inhibitors for potential application in skin anti-aging."
+        },
+        {
+          "url": "https://pubmed.ncbi.nlm.nih.gov/41647767/",
+          "title": "The Application of a Formulation Containing Hydroxypropyl Tetrahydropyrantriol and Niacinamide to Augment Anti-aging Benefits in a Double-blind, Randomized Nonablative Laser Treatment Study."
+        },
+        {
+          "url": "https://pubmed.ncbi.nlm.nih.gov/40579960/",
+          "title": "Pbserum Specific Acne Scars®: a cutting-edge approach utilizing triple enzymatic synergy combined with microneedling for post-acne scar repair."
+        },
+        {
+          "url": "https://pubmed.ncbi.nlm.nih.gov/39171587/",
+          "title": "Topical Formulation with Niacinamide Combined with 5 MHz Ultrasound for Improving Skin Ageing: A Double-blind, Randomised, Placebo-controlled Clinical Study."
+        }
+      ]
+    },
+    {
+      "id": "read-pores",
+      "operation": "fetch",
+      "query": "https://www.aad.org/public/everyday-care/skin-care-secrets/face/treat-large-pores",
+      "status": "ok",
+      "elapsed_seconds": 1.217,
+      "rule_hits": {
+        "successful_read": true,
+        "readable_not_raw_html": false,
+        "paragraph:salicylic acid": false,
+        "paragraph:irritat": false
+      },
+      "passed": false,
+      "sources": [],
+      "url": "https://www.aad.org/public/everyday-care/skin-care-secrets/face/treat-large-pores"
+    },
+    {
+      "id": "read-adult-acne",
+      "operation": "fetch",
+      "query": "https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment",
+      "status": "ok",
+      "elapsed_seconds": 1.439,
+      "rule_hits": {
+        "successful_read": true,
+        "readable_not_raw_html": false,
+        "paragraph:salicylic acid": false,
+        "paragraph:blackheads": false
+      },
+      "passed": false,
+      "sources": [],
+      "url": "https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment"
+    },
+    {
+      "id": "read-workout",
+      "operation": "fetch",
+      "query": "https://www.aad.org/public/diseases/acne/causes/workouts",
+      "status": "ok",
+      "elapsed_seconds": 1.148,
+      "rule_hits": {
+        "successful_read": true,
+        "readable_not_raw_html": false,
+        "paragraph:sweat": false,
+        "paragraph:wash": false
+      },
+      "passed": false,
+      "sources": [],
+      "url": "https://www.aad.org/public/diseases/acne/causes/workouts"
+    },
+    {
+      "id": "read-dry-skin",
+      "operation": "fetch",
+      "query": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "status": "ok",
+      "elapsed_seconds": 1.218,
+      "rule_hits": {
+        "successful_read": true,
+        "readable_not_raw_html": false,
+        "paragraph:cream": true,
+        "paragraph:fragrance": false
+      },
+      "passed": false,
+      "sources": [],
+      "url": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+    },
+    {
+      "id": "reject-private-target",
+      "operation": "fetch",
+      "query": "https://127.0.0.1/",
+      "status": "error",
+      "elapsed_seconds": 0.0,
+      "rule_hits": {
+        "explicit_failure": true,
+        "expected_error_code": true
+      },
+      "passed": true,
+      "sources": [],
+      "url": "https://127.0.0.1/"
+    },
+    {
+      "id": "reject-invalid-scheme",
+      "operation": "fetch",
+      "query": "file:///example-public-fixture",
+      "status": "error",
+      "elapsed_seconds": 0.0,
+      "rule_hits": {
+        "explicit_failure": true,
+        "expected_error_code": true
+      },
+      "passed": true,
+      "sources": [],
+      "url": "file:///example-public-fixture"
+    },
+    {
+      "id": "reject-js-shell",
+      "operation": "fetch",
+      "query": "https://example.com/evaluation-js-shell",
+      "status": "skipped",
+      "elapsed_seconds": 0,
+      "rule_hits": {}
+    },
+    {
+      "id": "reject-access-challenge",
+      "operation": "fetch",
+      "query": "https://example.com/evaluation-access-challenge",
+      "status": "skipped",
+      "elapsed_seconds": 0,
+      "rule_hits": {}
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "checked": 10,
+    "skipped": 2
+  }
+}

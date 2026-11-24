@@ -1,0 +1,199 @@
+{
+  "evaluated_at": "2026-11-24T02:59:10.145113+00:00",
+  "mode": "offline",
+  "scope": "Fixed retrieval rules; hits do not establish medical correctness. Offline sources are synthetic.",
+  "cases": [
+    {
+      "id": "search-dry-skin",
+      "operation": "search",
+      "query": "site:aad.org dry skin relief dermatologist moisturizer cream",
+      "status": "ok",
+      "elapsed_seconds": 0.001,
+      "rule_hits": {
+        "successful_source": true,
+        "expected_source_hit": true
+      },
+      "passed": true,
+      "sources": [
+        {
+          "url": "https://aad.org/public/",
+          "title": "Synthetic source for search-dry-skin"
+        }
+      ]
+    },
+    {
+      "id": "search-pores",
+      "operation": "search",
+      "query": "site:aad.org What can treat large facial pores",
+      "status": "ok",
+      "elapsed_seconds": 0.0,
+      "rule_hits": {
+        "successful_source": true,
+        "expected_source_hit": true
+      },
+      "passed": true,
+      "sources": [
+        {
+          "url": "https://aad.org/public/everyday-care/skin-care-secrets/face/treat-large-pores",
+          "title": "Synthetic source for search-pores"
+        }
+      ]
+    },
+    {
+      "id": "search-classic-2005",
+      "operation": "search",
+      "query": "EXT_ID:16029679 AND SRC:MED",
+      "status": "empty",
+      "elapsed_seconds": 0.0,
+      "rule_hits": {
+        "successful_source": false,
+        "expected_source_hit": false
+      },
+      "passed": false,
+      "sources": []
+    },
+    {
+      "id": "search-pubmed-relevance",
+      "operation": "search",
+      "query": "niacinamide aging facial skin appearance",
+      "status": "ok",
+      "elapsed_seconds": 0.0,
+      "rule_hits": {
+        "successful_source": true,
+        "relevant_title_hit": false
+      },
+      "passed": false,
+      "sources": [
+        {
+          "url": "https://pubmed.ncbi.nlm.nih.gov/99999999/",
+          "title": "Unrelated recent research record."
+        }
+      ]
+    },
+    {
+      "id": "read-pores",
+      "operation": "fetch",
+      "query": "https://www.aad.org/public/everyday-care/skin-care-secrets/face/treat-large-pores",
+      "status": "ok",
+      "elapsed_seconds": 0.0,
+      "rule_hits": {
+        "successful_read": true,
+        "readable_not_raw_html": false,
+        "paragraph:salicylic acid": false,
+        "paragraph:irritat": false
+      },
+      "passed": false,
+      "sources": [],
+      "url": "https://www.aad.org/public/everyday-care/skin-care-secrets/face/treat-large-pores"
+    },
+    {
+      "id": "read-adult-acne",
+      "operation": "fetch",
+      "query": "https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment",
+      "status": "ok",
+      "elapsed_seconds": 0.0,
+      "rule_hits": {
+        "successful_read": true,
+        "readable_not_raw_html": false,
+        "paragraph:salicylic acid": false,
+        "paragraph:blackheads": false
+      },
+      "passed": false,
+      "sources": [],
+      "url": "https://www.aad.org/public/diseases/acne/diy/adult-acne-treatment"
+    },
+    {
+      "id": "read-workout",
+      "operation": "fetch",
+      "query": "https://www.aad.org/public/diseases/acne/causes/workouts",
+      "status": "ok",
+      "elapsed_seconds": 0.0,
+      "rule_hits": {
+        "successful_read": true,
+        "readable_not_raw_html": false,
+        "paragraph:sweat": false,
+        "paragraph:wash": false
+      },
+      "passed": false,
+      "sources": [],
+      "url": "https://www.aad.org/public/diseases/acne/causes/workouts"
+    },
+    {
+      "id": "read-dry-skin",
+      "operation": "fetch",
+      "query": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+      "status": "ok",
+      "elapsed_seconds": 0.0,
+      "rule_hits": {
+        "successful_read": true,
+        "readable_not_raw_html": false,
+        "paragraph:cream": false,
+        "paragraph:fragrance": false
+      },
+      "passed": false,
+      "sources": [],
+      "url": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin"
+    },
+    {
+      "id": "reject-private-target",
+      "operation": "fetch",
+      "query": "https://127.0.0.1/",
+      "status": "error",
+      "elapsed_seconds": 0.0,
+      "rule_hits": {
+        "explicit_failure": true,
+        "expected_error_code": true
+      },
+      "passed": true,
+      "sources": [],
+      "url": "https://127.0.0.1/"
+    },
+    {
+      "id": "reject-invalid-scheme",
+      "operation": "fetch",
+      "query": "file:///example-public-fixture",
+      "status": "error",
+      "elapsed_seconds": 0.0,
+      "rule_hits": {
+        "explicit_failure": true,
+        "expected_error_code": true
+      },
+      "passed": true,
+      "sources": [],
+      "url": "file:///example-public-fixture"
+    },
+    {
+      "id": "reject-js-shell",
+      "operation": "fetch",
+      "query": "https://example.com/evaluation-js-shell",
+      "status": "ok",
+      "elapsed_seconds": 0.0,
+      "rule_hits": {
+        "explicit_failure": false,
+        "expected_error_code": false
+      },
+      "passed": false,
+      "sources": [],
+      "url": "https://example.com/evaluation-js-shell"
+    },
+    {
+      "id": "reject-access-challenge",
+      "operation": "fetch",
+      "query": "https://example.com/evaluation-access-challenge",
+      "status": "ok",
+      "elapsed_seconds": 0.0,
+      "rule_hits": {
+        "explicit_failure": false,
+        "expected_error_code": false
+      },
+      "passed": false,
+      "sources": [],
+      "url": "https://example.com/evaluation-access-challenge"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "checked": 12,
+    "skipped": 0
+  }
+}

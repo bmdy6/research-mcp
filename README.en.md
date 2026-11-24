@@ -108,7 +108,7 @@ flowchart LR
 
 ## 🛡️ Reliability
 
-- **267 test cases.** CI runs offline tests on Ubuntu / macOS × Python 3.10 / 3.13, plus a separate MCP stdio job.
+- **Offline regression tests.** Run `python3 -m unittest discover -s tests`; CI covers Ubuntu / macOS × Python 3.10 / 3.13, plus a separate MCP stdio job.
 - **Public HTTPS reads by default.** Private, loopback and link-local addresses are blocked; redirects are checked at every hop.
 - **Keyword search uses free paths only.** Paid Exa and reranking keys are ignored; quota and dependency failures are explicit. URL transcription retains its separate optional configuration.
 
@@ -120,7 +120,16 @@ Requires Python >=3.10; Quick start installs directly from main without cloning,
 |---|---|
 | `--limit` | CLI search defaults to 10, accepts 1–40; MCP defaults to 12. |
 | `--providers` | A comma-separated CLI value or an MCP string array. |
+| `--max-age-days` | Optional 1–3650-day window on parseable dates; unknown dates remain. Default: no age limit, including classic papers. MCP: `max_age_days`; ignored for URLs. |
 | `--format json` | Emit v1 JSON; text currently also emits readable JSON. |
+
+PubMed explicitly requests relevance ordering; other providers keep their existing ordering. Explicit age windows filter parseable dates before candidate truncation. Missing/unparseable dates remain, so this is not a complete date-filtered literature database.
+
+### Fixed evidence-retrieval evaluation
+
+Run `python3 scripts/evaluate_evidence.py` for 12 deterministic offline cases. Add `--live` for public Exa, Europe PMC, PubMed and AAD requests, without a model or automated browser. `--output report.json` exports public queries, source titles/URLs, status, timings and rule hits only, never full text or credentials. Offline adapters use synthetic sources; live mode skips the two synthetic shell/challenge cases and checks public retrieval plus explicit rejections.
+
+When Jina is unavailable, static HTML fallback extracts visible main/article text before output clipping. Empty JS shells and high-confidence access challenges fail explicitly. It does not execute JavaScript or compute external CSS. Rule hits measure retrieval and source accessibility, **not medical correctness, product efficacy or general search accuracy**. Same-case baseline and changed-code results are in the [2026-11-24 acceptance report](docs/acceptance-evidence-quality-2026-11-24.md).
 
 ### Environment variables
 

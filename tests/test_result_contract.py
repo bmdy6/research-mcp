@@ -260,6 +260,15 @@ class MCPContractTest(unittest.TestCase):
         self.assertEqual(invalid['errors'][0]['code'], 'INVALID_INPUT')
         search.assert_not_called()
 
+    def test_mcp_passes_explicit_age_without_imposing_a_default(self):
+        with patch.object(research, 'search', return_value=payload()) as search:
+            asyncio.run(self.module.research_search('fixture', providers=['a'], max_age_days=90))
+        search.assert_called_once_with('fixture', limit=12, providers=['a'], rerank=False, max_age_days=90)
+        with patch.object(research, 'search') as search:
+            value = json.loads(asyncio.run(self.module.research_search('fixture', max_age_days=0)))
+        self.assertEqual(value['errors'][0]['code'], 'INVALID_INPUT')
+        search.assert_not_called()
+
     def test_mcp_preserves_conditional_coverage_note_as_valid_json(self):
         with patch.object(research, '_default_providers', return_value={'exa': lambda _: []}), \
              patch('research_mcp.rerank.filter_candidates', return_value=([], 'synthetic-disabled')):
