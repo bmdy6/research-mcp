@@ -23,6 +23,21 @@ from .local_browser import PROVIDERS as LOCAL_BROWSER_PROVIDERS
 
 from .http_search import PROVIDERS as HTTP_SEARCH_PROVIDERS
 
+def x_search(config: dict) -> list[dict]:
+    """X 优先走本机 Ego Lite；本机没有 ego-browser 时退到 Exa 的 site:x.com 公开索引。"""
+    import shutil
+    if shutil.which("ego-browser"):
+        return LOCAL_BROWSER_PROVIDERS["x"](config)
+    query = config.get("exa_query") or config.get("web_query") or ""
+    if not query:
+        return []
+    items = exa_search({**config, "exa_query": f"site:x.com {query}", "exa_queries": None})
+    for item in items:
+        item["source"] = "x"
+        item["actual_backend"] = "Exa site:x.com（本机无 Ego Lite，公开索引，非实时）"
+    return items
+
+
 # Keep HTTP providers after local providers: these IDs never implicitly open
 # a browser. Legacy local_browser.PROVIDERS remain explicit diagnostic fallbacks.
 CHANNELS = {
@@ -34,4 +49,5 @@ CHANNELS = {
     "exa": exa_search,
     "juejin": juejin_search,
     **{engine: partial(web_search, engine=engine) for engine in ENGINES},
+    "x": x_search,
 }

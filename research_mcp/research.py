@@ -429,6 +429,18 @@ def _run_text(command: list[str]) -> str:
     return result.stdout
 
 
+_GITHUB_STOPWORDS = {"a", "an", "the", "for", "of", "to", "in", "on", "and", "or", "with", "across", "between", "via", "by", "from", "into", "any", "all", "your", "my", "using", "use", "how", "what", "best", "open", "source", "tool", "tools"}
+
+
+def _github_keywords(query: str, keep: int = 3) -> str:
+    """长句退化成前几个有信息量的词（GitHub 仓库搜索对每个词取交集）。"""
+    words = query.split()
+    if len(words) <= keep:
+        return query
+    picked = [w for w in words if w.lower() not in _GITHUB_STOPWORDS and not w.lower().startswith(("site:", "-"))]
+    return " ".join(picked[:keep]) or query
+
+
 def _github_search(config: dict) -> list[dict]:
     queries = config.get("github_queries") or [config.get("github_query", "agentic-ai")]
     age = config.get("max_age_days")
@@ -436,7 +448,13 @@ def _github_search(config: dict) -> list[dict]:
     fields = "name,fullName,description,stargazersCount,forksCount,pushedAt,createdAt,updatedAt,license,homepage,isArchived,isFork,url,language"
     found = {}
     for query in queries:
-        rows = _run_json(["gh", "search", "repos", str(query), "--match", "readme", *age_args, "--archived=false", "--include-forks=false", "--sort", "updated", "--order", "desc", "--limit", str(config.get("github_limit", 30)), "--json", fields])
+        command = ["gh", "search", "repos", str(query), "--match", "readme", *age_args, "--archived=false", "--include-forks=false", "--sort", "updated", "--order", "desc", "--limit", str(config.get("github_limit", 30)), "--json", fields]
+        rows = _run_json(command)
+        short = _github_keywords(str(query))
+        if not rows and short and short != str(query):
+            # GitHub 要求每个词都命中，自然语言长句常常一条都搜不到；退到核心关键词再搜一次
+            command[3] = short
+            rows = _run_json(command)
         for row in rows:
             full_name = (row.get("fullName") or "").lower()
             if full_name:

@@ -100,7 +100,7 @@ def list_channels() -> list[dict]:
         row["languages"] = list(definition["languages"])
         row["content_type"] = list(definition["content_type"])
         if ((row["id"] in ENGINES and not installation_ready())
-                or (row["cost_class"] == "local_browser" and not shutil.which("ego-browser"))):
+                or (row["cost_class"] == "local_browser" and row["id"] != "x" and not shutil.which("ego-browser"))):
             row["status"] = "startup_failed"
             row["message"] = MESSAGES["startup_failed"]
         else:
