@@ -14,7 +14,7 @@ FIXTURES = {
 EMPTY={"mdn":{"documents":[]},"npm":{"objects":[]},"crates_io":{"crates":[]},"docker_hub":{"results":[]},"itunes_apps":{"results":[]}}
 class DiscoveryTests(unittest.TestCase):
  def test_contract_encoding_limits_and_empty(self):
-  self.assertEqual(set(api.PROVIDERS) - {"google_news_rss"},set(FIXTURES))
+  self.assertEqual(set(api.PROVIDERS) - {"google_news_rss", "aihot"},set(FIXTURES))
   for name in FIXTURES:
    with self.subTest(name=name),patch.object(api,"_get",return_value=FIXTURES[name]) as get:
     rows=api.PROVIDERS[name]({"web_query":"人工智能 & python","web_limit":1})
@@ -58,6 +58,32 @@ class RssTests(unittest.TestCase):
   for xml in ('<html/>','<rss><channel><item/></channel></rss>','not xml'):
    with patch.dict(os.environ,{"RESEARCH_GOOGLE_NEWS_RSS":"1"}), patch.object(api,"_request",return_value=xml):
     with self.assertRaises(ChannelError): api.PROVIDERS["google_news_rss"]({"web_query":"q"})
+
+class AihotTests(unittest.TestCase):
+ FEED=("<rss><channel>"
+  "<item><title>卡兹克的 Prompt</title><link>https://aihot.news/items/a1</link>"
+  "<description><![CDATA[<p>让 Gemini 当顾问</p><p><a href=\"https://x.com/u/status/1\">阅读原文</a></p>]]></description>"
+  "<category>教程</category><pubDate>Tue, 24 Nov 2026 06:12:14 GMT</pubDate></item>"
+  "<item><title>OpenAI 发布新模型</title><link>https://aihot.news/items/a2</link>"
+  "<description><![CDATA[<p>GPT 更新</p>]]></description><pubDate>Tue, 24 Nov 2026 05:00:00 GMT</pubDate></item>"
+  "</channel></rss>")
+ def test_opt_in_required(self):
+  import os
+  with patch.dict(os.environ,{},clear=True), patch.object(api,"_request") as request:
+   with self.assertRaises(ChannelError): api.PROVIDERS["aihot"]({"web_query":"*"})
+   request.assert_not_called()
+ def test_feed_filter_and_original_link(self):
+  import os
+  with patch.dict(os.environ,{"RESEARCH_AIHOT":"1"}), patch.object(api,"_request",return_value=self.FEED):
+   rows=api.PROVIDERS["aihot"]({"web_query":"*"})
+   self.assertEqual([r["url"] for r in rows],["https://x.com/u/status/1","https://aihot.news/items/a2"])
+   self.assertEqual(rows[0]["summary"],"[教程] 让 Gemini 当顾问")
+   self.assertEqual(rows[0]["published_at"],"Tue, 24 Nov 2026 06:12:14 GMT")
+   self.assertEqual([r["title"] for r in api.PROVIDERS["aihot"]({"web_query":"gemini claude"})],["卡兹克的 Prompt"])
+   self.assertEqual(len(api.PROVIDERS["aihot"]({"web_query":"*","web_limit":1})),1)
+ def test_rfc822_dates_are_filterable(self):
+  from research_mcp.research import _parse_time
+  self.assertEqual(_parse_time("Tue, 24 Nov 2026 06:12:14 GMT").isoformat(),"2026-11-24T06:12:14+00:00")
 
 class SecurityTests(unittest.TestCase):
  def test_new_channels_cannot_enter_public_transport(self):

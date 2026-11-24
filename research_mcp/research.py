@@ -12,6 +12,7 @@ from research_mcp.commands import run as run_command
 import urllib.parse
 import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor
+from email.utils import parsedate_to_datetime
 from datetime import datetime, timedelta, timezone
 from typing import Callable
 
@@ -71,6 +72,11 @@ def _parse_time(value: str | None) -> datetime | None:
     try:
         return datetime.fromisoformat(value.replace("Z", "+00:00")).astimezone(timezone.utc)
     except ValueError:
+        # RSS feeds (Google News, AIHOT) use RFC 822 dates such as "Tue, 24 Nov 2026 06:12:14 GMT".
+        try:
+            return parsedate_to_datetime(value).astimezone(timezone.utc)
+        except (TypeError, ValueError, IndexError):
+            pass
         # PubMed ESummary uses display dates such as "2005 Jul" rather than ISO.
         for pattern in ("%Y %b %d", "%Y %b", "%Y"):
             try:

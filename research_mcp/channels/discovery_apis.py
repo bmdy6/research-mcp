@@ -19,6 +19,7 @@ from .errors import ChannelError
 DEFINITIONS = {
     'mdn': ('MDN first-party search API', 'documentation', 'https://github.com/mdn/yari'),
     'google_news_rss': ('Google News RSS (local personal opt-in)', 'news', 'https://news.google.com/'),
+    'aihot': ('AIHOT curated RSS (local personal opt-in)', 'news', 'https://aihot.news/agent'),
     'npm': ('npm official Registry Search API', 'package', 'https://api-docs.npmjs.com/'),
     'crates_io': ('crates.io official API', 'package', 'https://crates.io/data-access'),
     'docker_hub': ('Docker Hub public repository Search API', 'repository', 'https://docs.docker.com/reference/api/hub/latest/'),
@@ -50,6 +51,31 @@ def search(config: dict, *, provider: str) -> list[dict]:
                 raise ValueError
             items = [_row(r.findtext('title'), r.findtext('link'), r.findtext('description') or '', r.findtext('pubDate'))
                      for r in root.findall('./channel/item')[:limit]]
+        elif provider == 'aihot':
+            if os.environ.get('RESEARCH_AIHOT') != '1':
+                raise ChannelError('auth_required')
+            # Latest 50 curated AI items (many from X). Personal read-only use; no mirroring.
+            text = _request('https://aihot.news/feed.xml', deadline=deadline,
+                            headers={'Accept': 'application/rss+xml'}, raw_text=True)
+            if '<!DOCTYPE' in text.upper() or '<!ENTITY' in text.upper():
+                raise ValueError
+            root = ET.fromstring(text)
+            if root.tag != 'rss' or root.find('channel') is None:
+                raise ValueError
+            # Space-separated terms match title/summary/category with OR; '*' returns the whole feed.
+            terms = [] if query.strip() == '*' else [t.lower() for t in query.split()]
+            items = []
+            for r in root.findall('./channel/item'):
+                title, body, category = r.findtext('title') or '', r.findtext('description') or '', r.findtext('category') or ''
+                haystack = f'{title} {body} {category}'.lower()
+                if terms and not any(t in haystack for t in terms):
+                    continue
+                original = re.search(r'href="(https://[^"]+)"[^>]*>\s*阅读原文', body)
+                summary = re.split(r'</p>', body, maxsplit=1)[0]
+                items.append(_row(title, original.group(1) if original else r.findtext('link'),
+                                  (f'[{category}] ' if category else '') + summary, r.findtext('pubDate')))
+                if len(items) >= limit:
+                    break
         elif provider == 'mdn':
             data = _dict(_get('https://developer.mozilla.org/api/v1/search', {'q': query, 'locale': 'en-US'}, deadline))
             items = []
